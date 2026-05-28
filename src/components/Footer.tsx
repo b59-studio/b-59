@@ -37,6 +37,14 @@ export default function Footer() {
               contact@b-59.com
             </a>
             <span aria-hidden="true"> / </span>
+            <a href="https://github.com/b59-studio" className="footer-link">
+              GitHub
+            </a>
+            <span aria-hidden="true"> / </span>
+            <a href="https://www.linkedin.com/company/b59studio" className="footer-link">
+              LinkedIn
+            </a>
+            <span aria-hidden="true"> / </span>
             <span>Austin, TX USA</span>
           </div>
 
