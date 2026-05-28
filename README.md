@@ -2,7 +2,7 @@
 
 B-59 Studio — human-centered design and civic technology. This is our marketing site, built with Next.js.
 
-This repo is public for transparency and for others to learn from. You're welcome to use it as a reference or fork it for personal projects.
+This repo is public for transparency and for others to learn from. You're welcome to use it as a reference.
 
 [![License: MIT + Commons Clause](https://img.shields.io/badge/license-MIT%20%2B%20Commons%20Clause-blue)](LICENSE)
 
