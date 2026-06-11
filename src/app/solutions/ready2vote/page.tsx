@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "ready2vote",
@@ -18,17 +19,23 @@ export default function Ready2Vote() {
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
       <div className="space-y-12">
         <section>
-          <p className="text-secondary mb-2">Solutions</p>
+          <Image
+            src="/ready2vote-star.svg"
+            alt="ready2vote"
+            width={72}
+            height={72}
+            className="mb-6"
+            priority
+          />
           <h1 className="heading-xl mb-6">
             ready<span className="text-b59-blue">2</span>vote
           </h1>
           <div className="body-lg space-y-4">
             <p>
-              ready<span className="text-b59-blue">2</span>vote is a civic
-              product we design and run at B<span className="text-b59-blue">-</span>59.
-              It&apos;s the first online tool built to do one thing: help Texans
-              complete their voter registration application on the web and have
-              it mailed to their county for them.
+              ready<span className="text-b59-blue">2</span>vote is the first
+              online tool built to do one thing: help Texans complete their
+              voter registration application on the web and have it mailed to
+              their county for them.
             </p>
             <p>
               In Texas, there&apos;s no single &ldquo;click to register&rdquo;
@@ -76,7 +83,7 @@ export default function Ready2Vote() {
           </div>
           <a
             href="https://readyto.vote"
-            className="btn-secondary mt-2"
+            className="btn-secondary mt-8"
             target="_blank"
             rel="noopener noreferrer"
           >
