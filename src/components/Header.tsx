@@ -1,15 +1,44 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MobileMenu } from "./MobileMenu";
 import { useTheme } from "./ThemeProvider";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [solutionsOpen, setSolutionsOpen] = useState(false);
+  const solutionsRef = useRef<HTMLDivElement>(null);
   const { theme, toggleTheme } = useTheme();
 
   const closeMobileMenu = () => setMobileMenuOpen(false);
+
+  // Close the Solutions dropdown on outside click or Escape.
+  useEffect(() => {
+    if (!solutionsOpen) {
+      return;
+    }
+
+    const handlePointerDown = (event: MouseEvent) => {
+      if (solutionsRef.current && !solutionsRef.current.contains(event.target as Node)) {
+        setSolutionsOpen(false);
+      }
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setSolutionsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [solutionsOpen]);
 
   return (
     <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl">
@@ -21,6 +50,40 @@ export default function Header() {
             </Link>
 
             <div className="hidden md:flex items-center space-x-8">
+              <div className="nav-dropdown" ref={solutionsRef}>
+                <button
+                  type="button"
+                  className="nav-link nav-dropdown-trigger"
+                  aria-haspopup="true"
+                  aria-expanded={solutionsOpen}
+                  onClick={() => setSolutionsOpen((open) => !open)}
+                >
+                  Solutions
+                  <svg
+                    className={`nav-dropdown-chevron ${solutionsOpen ? "open" : ""}`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+
+                {solutionsOpen && (
+                  <div className="nav-dropdown-menu" role="menu">
+                    <Link
+                      href="/solutions/ready2vote"
+                      className="nav-dropdown-item"
+                      role="menuitem"
+                      onClick={() => setSolutionsOpen(false)}
+                    >
+                      ready<span className="text-b59-blue">2</span>vote
+                    </Link>
+                  </div>
+                )}
+              </div>
+
               <Link href="/about" className="nav-link">
                 About
               </Link>

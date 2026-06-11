@@ -15,6 +15,7 @@ export const metadata: Metadata = {
 
 const siteLinks = [
   { href: "/", label: "Home" },
+  { href: "/solutions/ready2vote", label: "Solutions: ready2vote" },
   { href: "/about", label: "About" },
   { href: "/about/privacy", label: "Privacy Policy" },
   { href: "/about/terms", label: "Terms of Use" },
