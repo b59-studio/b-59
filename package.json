@@ -4,9 +4,9 @@
   "private": true,
   "packageManager": "pnpm@9.15.4",
   "scripts": {
-    "dev": "next dev",
+    "dev": "doppler run -- next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "doppler run -- next start",
     "lint": "eslint",
     "test": "jest --passWithNoTests",
     "test:watch": "jest --watch"
