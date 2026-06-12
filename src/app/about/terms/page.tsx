@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Brand } from "@/components/Brand";
 
 export const metadata: Metadata = {
   title: "Terms of Use",
@@ -47,7 +48,7 @@ export default function Terms() {
             Intellectual Property
           </h2>
           <p className="body-md">
-            All content on this site, including text, graphics, logos, and software, is the property of B<span className="text-b59-blue">-</span>59 Studio LLC or its licensors and is protected by applicable laws. You may not reproduce or distribute content without permission.
+            All content on this site, including text, graphics, logos, and software, is the property of <Brand /> Studio LLC or its licensors and is protected by applicable laws. You may not reproduce or distribute content without permission.
             </p>
         </section>
 
@@ -65,7 +66,7 @@ export default function Terms() {
             Limitation of Liability
           </h2>
           <p className="body-md">
-            B<span className="text-b59-blue">-</span>59 Studio is not liable for any damages arising from use of or inability to use this website.
+            <Brand /> Studio is not liable for any damages arising from use of or inability to use this website.
           </p>
         </section>
 

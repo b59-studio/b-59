@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Brand } from "@/components/Brand";
 import { DonateForm } from "@/components/DonateForm";
 
 export const metadata: Metadata = {
@@ -20,7 +21,7 @@ export default function Donate() {
       <div className="space-y-10">
         <section>
           <h1 className="heading-xl mb-6">
-            Support B<span className="text-b59-blue">-</span>59
+            Support <Brand />
           </h1>
           <div className="body-lg space-y-4">
             <p>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Brand } from "@/components/Brand";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -30,7 +31,7 @@ export default function Privacy() {
         </p>
 
         <p className="body-lg">
-          B<span className="text-b59-blue">-</span>59 Studio LLC (&ldquo;B<span className="text-b59-blue">-</span>59,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) respects your privacy. This Privacy Policy explains how we collect, use, and protect information when you visit our website.
+          <Brand /> Studio LLC (&ldquo;<Brand />,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) respects your privacy. This Privacy Policy explains how we collect, use, and protect information when you visit our website.
         </p>
 
         <section className="space-y-4">

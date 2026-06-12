@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Brand } from "@/components/Brand";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -9,7 +10,7 @@ export default function Footer() {
         <div className="flex flex-col items-center text-center gap-2">
           <div className="flex flex-wrap justify-center items-baseline gap-x-2 gap-y-1">
             <span className="text-xl font-bold footer-heading">
-              B<span className="text-b59-blue">-</span>59 Studio
+              <Brand /> Studio
             </span>
             <span className="footer-text" aria-hidden="true">
               {" "}
@@ -51,7 +52,7 @@ export default function Footer() {
           <div className="footer-text text-sm">
             © {year}{" "}
             <span className="font-bold">
-              B<span className="text-b59-blue">-</span>59 Studio LLC
+              <Brand /> Studio LLC
             </span>
             . All rights reserved.
           </div>

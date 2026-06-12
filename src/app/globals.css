@@ -666,9 +666,26 @@ select.form-input {
   color: var(--color-b59-light);
 }
 
+/* The "B-59" wordmark must never break across lines. */
+.brand {
+  white-space: nowrap;
+}
+
 /* ============================================
    BUTTON STYLES
    ============================================ */
+
+/* Default breathing room after any button. Override with a utility (e.g.
+   mb-0) where buttons sit in a horizontal row and the gap is unwanted. */
+button {
+  margin-bottom: 0.5rem;
+}
+
+/* The nav bar centers its icon/nav buttons in a fixed-height row, so the
+   default bottom margin would knock them off-center — reset it there. */
+.header-nav button {
+  margin-bottom: 0;
+}
 
 /* Primary: outline style (theme border & text, blue on hover) */
 .btn-primary {
@@ -730,7 +747,7 @@ select.form-input {
 
 .donate-form fieldset {
   border: none;
-  margin: 0;
+  margin: 0 0 0.5rem;
   padding: 0;
 }
 

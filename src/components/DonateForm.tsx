@@ -4,13 +4,13 @@ import { useState } from "react";
 
 type Frequency = "once" | "monthly";
 
-const PRESET_AMOUNTS = [25, 50, 100, 250] as const;
+const PRESET_AMOUNTS = [10, 25, 100, 500] as const;
 const MIN_DOLLARS = 1;
 const MAX_DOLLARS = 50_000;
 
 export function DonateForm() {
   const [frequency, setFrequency] = useState<Frequency>("once");
-  const [selectedPreset, setSelectedPreset] = useState<number | null>(50);
+  const [selectedPreset, setSelectedPreset] = useState<number | null>(25);
   const [customAmount, setCustomAmount] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
