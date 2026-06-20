@@ -6,8 +6,7 @@
   --color-b59-gray: #4A5568;
   --color-b59-light: #FFFFFF;
   --color-b59-blue: #0066FF;
-  --color-b59-red: #C14C3C;
-  --color-b59-alert: #FF6B35;
+  --color-b59-alert: #FF3333;
 }
 
 /* Global styles */
@@ -182,30 +181,30 @@ body {
 
 /* Red - Important/Critical */
 .callout-red {
-  background-color: rgba(193, 76, 60, 0.06);
-  border: 1px solid rgba(193, 76, 60, 0.25);
+  background-color: rgba(255, 51, 51, 0.06);
+  border: 1px solid rgba(255, 51, 51, 0.25);
   padding: 1.25rem 1.5rem;
   border-radius: 0.75rem;
   margin: 1.5rem 0;
 }
 
 .dark .callout-red {
-  background-color: rgba(193, 76, 60, 0.14);
-  border-color: rgba(193, 76, 60, 0.35);
+  background-color: rgba(255, 51, 51, 0.14);
+  border-color: rgba(255, 51, 51, 0.35);
 }
 
 /* Alert - Warnings */
 .callout-alert {
-  background-color: rgba(255, 107, 53, 0.06);
-  border: 1px solid rgba(255, 107, 53, 0.28);
+  background-color: rgba(255, 51, 51, 0.06);
+  border: 1px solid rgba(255, 51, 51, 0.28);
   padding: 1.25rem 1.5rem;
   border-radius: 0.75rem;
   margin: 1.5rem 0;
 }
 
 .dark .callout-alert {
-  background-color: rgba(255, 107, 53, 0.14);
-  border-color: rgba(255, 107, 53, 0.38);
+  background-color: rgba(255, 51, 51, 0.14);
+  border-color: rgba(255, 51, 51, 0.38);
 }
 
 /* ============================================
@@ -589,6 +588,53 @@ body {
   font-size: 0.875rem;
 }
 
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.footer-col-heading {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-b59-dark);
+}
+
+.dark .footer-col-heading {
+  color: var(--color-b59-light);
+}
+
+.footer-col-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(74, 85, 104, 0.2);
+}
+
+@media (min-width: 640px) {
+  .footer-bottom {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
 /* ============================================
    FORM INPUT STYLES
    ============================================ */
@@ -881,7 +927,7 @@ button {
 }
 
 .donate-error {
-  color: var(--color-b59-red);
+  color: var(--color-b59-alert);
   font-weight: 600;
   font-size: 0.95rem;
 }
