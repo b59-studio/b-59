@@ -12,6 +12,8 @@
  * browser build.
  */
 
+import { randomUUID } from "node:crypto";
+
 const STRIPE_API = "https://api.stripe.com/v1/checkout/sessions";
 
 /** Smallest accepted contribution, in cents. Stripe's floor is $0.50. */
@@ -129,6 +131,9 @@ export async function createCheckoutSession({
     headers: {
       Authorization: `Bearer ${secretKey}`,
       "Content-Type": "application/x-www-form-urlencoded",
+      // Fresh per call so a network-level retry of this exact request is safe:
+      // Stripe returns the original session instead of creating a duplicate.
+      "Idempotency-Key": randomUUID(),
     },
     body: params.toString(),
   });
