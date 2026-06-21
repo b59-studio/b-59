@@ -3,6 +3,7 @@ import {
   createCheckoutSession,
   normalizeAmountCents,
   normalizeFrequency,
+  resolveRedirectBaseUrl,
 } from "@/lib/stripe";
 
 // Stripe calls need the Node.js runtime (not edge) and must never be cached.
@@ -37,15 +38,16 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid frequency." }, { status: 400 });
   }
 
-  // Prefer the request's own origin so localhost/preview deploys redirect back
-  // to themselves; fall back to the configured site URL.
-  const origin = request.headers.get("origin") ?? siteUrl;
+  // Trust the request's Origin only when it's an allowed host; otherwise fall
+  // back to the configured site URL so a forged Origin can't redirect donors
+  // off-site after checkout.
+  const baseUrl = resolveRedirectBaseUrl(request.headers.get("origin"), siteUrl);
 
   try {
     const url = await createCheckoutSession({
       amountCents: amount,
       frequency: freq,
-      baseUrl: origin,
+      baseUrl,
     });
     return NextResponse.json({ url });
   } catch (error) {

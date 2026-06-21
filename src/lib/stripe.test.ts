@@ -4,6 +4,7 @@ import {
   MIN_AMOUNT_CENTS,
   normalizeAmountCents,
   normalizeFrequency,
+  resolveRedirectBaseUrl,
 } from "./stripe";
 
 describe("normalizeAmountCents", () => {
@@ -59,5 +60,51 @@ describe("normalizeFrequency", () => {
     expect(normalizeFrequency(undefined)).toBeNull();
     expect(normalizeFrequency(null)).toBeNull();
     expect(normalizeFrequency(42)).toBeNull();
+  });
+});
+
+describe("resolveRedirectBaseUrl", () => {
+  const siteUrl = "https://b-59.com";
+
+  it("accepts an origin on the configured site host", () => {
+    expect(resolveRedirectBaseUrl("https://b-59.com", siteUrl)).toBe(
+      "https://b-59.com",
+    );
+  });
+
+  it("accepts localhost dev origins", () => {
+    expect(resolveRedirectBaseUrl("http://localhost:3000", siteUrl)).toBe(
+      "http://localhost:3000",
+    );
+    expect(resolveRedirectBaseUrl("http://127.0.0.1:3000", siteUrl)).toBe(
+      "http://127.0.0.1:3000",
+    );
+  });
+
+  it("falls back to the site URL for a foreign origin", () => {
+    expect(resolveRedirectBaseUrl("https://evil.example.com", siteUrl)).toBe(
+      siteUrl,
+    );
+  });
+
+  it("falls back for a look-alike host that only suffixes the site host", () => {
+    expect(
+      resolveRedirectBaseUrl("https://b-59.com.evil.example", siteUrl),
+    ).toBe(siteUrl);
+  });
+
+  it("falls back for a non-http(s) scheme", () => {
+    expect(resolveRedirectBaseUrl("javascript:alert(1)", siteUrl)).toBe(siteUrl);
+  });
+
+  it("falls back when the Origin header is missing or malformed", () => {
+    expect(resolveRedirectBaseUrl(null, siteUrl)).toBe(siteUrl);
+    expect(resolveRedirectBaseUrl("not a url", siteUrl)).toBe(siteUrl);
+  });
+
+  it("strips any path or trailing slash from the returned origin", () => {
+    expect(resolveRedirectBaseUrl("https://b-59.com/", siteUrl)).toBe(
+      "https://b-59.com",
+    );
   });
 });

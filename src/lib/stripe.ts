@@ -48,6 +48,46 @@ export function normalizeFrequency(value: unknown): Frequency | null {
 }
 
 /**
+ * Decide which base URL Stripe should redirect back to after checkout.
+ *
+ * The request's own Origin is convenient — localhost and the live host then
+ * redirect to themselves — but it is attacker-controlled, so trust it only
+ * when it matches the configured site host or a localhost dev host. Anything
+ * else falls back to siteUrl, so a forged Origin can't turn the success/cancel
+ * links into an open redirect. Returns an absolute origin (scheme + host +
+ * port), never with a trailing slash.
+ */
+export function resolveRedirectBaseUrl(origin: string | null, siteUrl: string): string {
+  if (!origin) {
+    return siteUrl;
+  }
+
+  let candidate: URL;
+  try {
+    candidate = new URL(origin);
+  } catch {
+    return siteUrl;
+  }
+
+  if (candidate.protocol !== "http:" && candidate.protocol !== "https:") {
+    return siteUrl;
+  }
+
+  let allowedHost: string;
+  try {
+    allowedHost = new URL(siteUrl).hostname;
+  } catch {
+    return siteUrl;
+  }
+
+  const host = candidate.hostname;
+  const isAllowed =
+    host === allowedHost || host === "localhost" || host === "127.0.0.1";
+
+  return isAllowed ? candidate.origin : siteUrl;
+}
+
+/**
  * Create a Stripe Checkout Session and return the URL to redirect the donor to.
  * Throws if the secret key is missing or Stripe rejects the request.
  */
