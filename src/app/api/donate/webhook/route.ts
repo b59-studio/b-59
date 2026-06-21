@@ -31,12 +31,12 @@ export async function POST(request: Request) {
     case "checkout.session.completed":
     case "checkout.session.async_payment_succeeded": {
       const session = event.data.object;
+      // Donor email is intentionally omitted — keep PII out of application logs.
       console.log("Donation completed:", {
         id: session.id,
         amountTotal: session.amount_total,
         currency: session.currency,
         mode: session.mode,
-        email: (session.customer_details as { email?: string } | undefined)?.email,
       });
       break;
     }
