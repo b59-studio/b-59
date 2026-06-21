@@ -1,6 +1,5 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { Brand } from "@/components/Brand";
 
 function FooterColumn({
   heading,
@@ -26,7 +25,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           <div className="footer-brand">
             <span className="text-xl font-bold footer-heading">
-              <Brand /> Studio
+              B<span className="text-b59-blue">-</span>59 Studio
             </span>
             <p className="footer-text text-sm">
               <i>
@@ -108,7 +107,7 @@ export default function Footer() {
           <p className="footer-text text-sm">
             © {year}{" "}
             <span className="font-bold footer-heading">
-              <Brand /> Studio LLC
+              B<span className="text-b59-blue">-</span>59 Studio LLC
             </span>
             . All rights reserved.
           </p>
