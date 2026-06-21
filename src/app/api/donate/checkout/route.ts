@@ -5,12 +5,13 @@ import {
   normalizeFrequency,
   resolveRedirectBaseUrl,
 } from "@/lib/stripe";
+import { resolveSiteUrl } from "@/lib/site-url";
 
 // Stripe calls need the Node.js runtime (not edge) and must never be cached.
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://b-59.com";
+const siteUrl = resolveSiteUrl();
 
 export async function POST(request: Request) {
   let body: unknown;
