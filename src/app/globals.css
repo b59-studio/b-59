@@ -6,8 +6,7 @@
   --color-b59-gray: #4A5568;
   --color-b59-light: #FFFFFF;
   --color-b59-blue: #0066FF;
-  --color-b59-red: #C14C3C;
-  --color-b59-alert: #FF6B35;
+  --color-b59-alert: #FF3333;
 }
 
 /* Global styles */
@@ -182,30 +181,30 @@ body {
 
 /* Red - Important/Critical */
 .callout-red {
-  background-color: rgba(193, 76, 60, 0.06);
-  border: 1px solid rgba(193, 76, 60, 0.25);
+  background-color: rgba(255, 51, 51, 0.06);
+  border: 1px solid rgba(255, 51, 51, 0.25);
   padding: 1.25rem 1.5rem;
   border-radius: 0.75rem;
   margin: 1.5rem 0;
 }
 
 .dark .callout-red {
-  background-color: rgba(193, 76, 60, 0.14);
-  border-color: rgba(193, 76, 60, 0.35);
+  background-color: rgba(255, 51, 51, 0.14);
+  border-color: rgba(255, 51, 51, 0.35);
 }
 
 /* Alert - Warnings */
 .callout-alert {
-  background-color: rgba(255, 107, 53, 0.06);
-  border: 1px solid rgba(255, 107, 53, 0.28);
+  background-color: rgba(255, 51, 51, 0.06);
+  border: 1px solid rgba(255, 51, 51, 0.28);
   padding: 1.25rem 1.5rem;
   border-radius: 0.75rem;
   margin: 1.5rem 0;
 }
 
 .dark .callout-alert {
-  background-color: rgba(255, 107, 53, 0.14);
-  border-color: rgba(255, 107, 53, 0.38);
+  background-color: rgba(255, 51, 51, 0.14);
+  border-color: rgba(255, 51, 51, 0.38);
 }
 
 /* ============================================
@@ -713,9 +712,26 @@ select.form-input {
   color: var(--color-b59-light);
 }
 
+/* The "B-59" wordmark must never break across lines. */
+.brand {
+  white-space: nowrap;
+}
+
 /* ============================================
    BUTTON STYLES
    ============================================ */
+
+/* Default breathing room after any button. Override with a utility (e.g.
+   mb-0) where buttons sit in a horizontal row and the gap is unwanted. */
+button {
+  margin-bottom: 0.5rem;
+}
+
+/* The nav bar centers its icon/nav buttons in a fixed-height row, so the
+   default bottom margin would knock them off-center — reset it there. */
+.header-nav button {
+  margin-bottom: 0;
+}
 
 /* Primary: outline style (theme border & text, blue on hover) */
 .btn-primary {
@@ -764,4 +780,174 @@ select.form-input {
   color: var(--color-b59-light);
   outline: 2px solid var(--color-b59-blue);
   outline-offset: 2px;
+}
+
+.btn-secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ============================================
+   DONATE FORM STYLES
+   ============================================ */
+
+.donate-form fieldset {
+  border: none;
+  margin: 0 0 0.5rem;
+  padding: 0;
+}
+
+.donate-legend {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-b59-dark);
+}
+
+.dark .donate-legend {
+  color: var(--color-b59-light);
+}
+
+/* Frequency toggle: two segmented buttons */
+.donate-toggle {
+  display: inline-flex;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.donate-toggle-btn {
+  flex: 1;
+  padding: 0.625rem 1rem;
+  border: 1px solid var(--color-b59-gray);
+  border-radius: 0.5rem;
+  background-color: transparent;
+  color: var(--color-b59-dark);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.dark .donate-toggle-btn {
+  color: var(--color-b59-light);
+  border-color: rgba(156, 163, 175, 0.3);
+}
+
+.donate-toggle-btn[aria-pressed="true"] {
+  border-color: var(--color-b59-blue);
+  background-color: var(--color-b59-blue);
+  color: var(--color-b59-light);
+}
+
+.donate-toggle-btn:focus-visible {
+  outline: 2px solid var(--color-b59-blue);
+  outline-offset: 2px;
+}
+
+/* Preset amount grid */
+.donate-amounts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.donate-amount-btn {
+  padding: 0.75rem 0.5rem;
+  border: 1px solid var(--color-b59-gray);
+  border-radius: 0.5rem;
+  background-color: transparent;
+  color: var(--color-b59-dark);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.dark .donate-amount-btn {
+  color: var(--color-b59-light);
+  border-color: rgba(156, 163, 175, 0.3);
+}
+
+.donate-amount-btn[aria-pressed="true"] {
+  border-color: var(--color-b59-blue);
+  background-color: rgba(0, 102, 255, 0.08);
+  color: var(--color-b59-blue);
+}
+
+.donate-amount-btn:focus-visible {
+  outline: 2px solid var(--color-b59-blue);
+  outline-offset: 2px;
+}
+
+.donate-custom-label {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--color-b59-gray);
+  margin-bottom: 0.5rem;
+}
+
+.dark .donate-custom-label {
+  color: #9ca3af;
+}
+
+.donate-custom-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.donate-custom-prefix {
+  position: absolute;
+  left: 1rem;
+  color: var(--color-b59-gray);
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.donate-custom-input {
+  width: 100%;
+  padding: 0.5rem 1rem 0.5rem 1.75rem;
+  border: 1px solid var(--color-b59-gray);
+  border-radius: 0.5rem;
+  background-color: var(--color-b59-light);
+  color: var(--color-b59-dark);
+  transition: all 0.2s;
+  font-size: 1rem;
+}
+
+.dark .donate-custom-input {
+  background-color: rgba(10, 10, 10, 0.6);
+  color: var(--color-b59-light);
+  border-color: rgba(156, 163, 175, 0.3);
+}
+
+.donate-custom-input:focus {
+  outline: none;
+  border-color: var(--color-b59-blue);
+  box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
+}
+
+.donate-error {
+  color: var(--color-b59-alert);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.donate-secure-note {
+  text-align: center;
+  font-size: 0.8125rem;
+  color: var(--color-b59-gray);
+}
+
+.dark .donate-secure-note {
+  color: #9ca3af;
+}
+
+.donate-disclosure {
+  border-top: 1px solid rgba(74, 85, 104, 0.2);
+  padding-top: 1.5rem;
+  color: var(--color-b59-gray);
+}
+
+.dark .donate-disclosure {
+  color: #9ca3af;
 }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Brand } from "@/components/Brand";
 
 export const metadata: Metadata = {
   title: "About",
@@ -20,7 +21,7 @@ export default function About() {
 
         <section>
           <h1 className="heading-xl mb-6">
-            About B<span className="text-b59-blue">-</span>59
+            About <Brand />
           </h1>
           <div className="body-lg space-y-4">
             <p>
@@ -38,7 +39,7 @@ export default function About() {
           </h2>
           <div className="body-lg space-y-4">
             <p>
-              B<span className="text-b59-blue">-</span>59 exists to modernize civic infrastructure thoughtfully. We&apos;re not here to advocate a political ideology, &quot;disrupt&quot; democracy for its own sake, or build flashy consumer apps. We&apos;re here to make the systems that underpin democratic life <span className="text-b59-blue">—</span> voting, justice, administration, transparency <span className="text-b59-blue">—</span> more trustworthy and usable.
+              <Brand /> exists to modernize civic infrastructure thoughtfully. We&apos;re not here to advocate a political ideology, &quot;disrupt&quot; democracy for its own sake, or build flashy consumer apps. We&apos;re here to make the systems that underpin democratic life <span className="text-b59-blue">—</span> voting, justice, administration, transparency <span className="text-b59-blue">—</span> more trustworthy and usable.
             </p>
           </div>
         </section>
@@ -62,11 +63,11 @@ export default function About() {
 
         <section>
           <h2 className="heading-lg mb-6">
-            Why B<span className="text-b59-blue">-</span>59?
+            Why <Brand />?
           </h2>
           <div className="body-lg space-y-4">
             <p>
-              In 1962, <a href="https://en.wikipedia.org/wiki/Soviet_submarine_B-59" className="text-link font-semibold">Soviet submarine B<span className="text-b59-blue">-</span>59</a> was pursued off the coast of Cuba by the US Navy. Cut off from communication and operating on faulty assumptions, the crew came close to launching a nuclear weapon. <a href="https://en.wikipedia.org/wiki/Vasily_Arkhipov" className="text-link font-semibold">Vice Admiral Vasili Arkhipov</a> chose restraint.
+              In 1962, <a href="https://en.wikipedia.org/wiki/Soviet_submarine_B-59" className="text-link font-semibold">Soviet submarine <Brand /></a> was pursued off the coast of Cuba by the US Navy. Cut off from communication and operating on faulty assumptions, the crew came close to launching a nuclear weapon. <a href="https://en.wikipedia.org/wiki/Vasily_Arkhipov" className="text-link font-semibold">Vice Admiral Vasili Arkhipov</a> chose restraint.
             </p>
             <p>
               That single act of judgment changed the world. We took the name to honor him and to remind ourselves: systems fail, information is incomplete, and the most important decisions often happen under stress.

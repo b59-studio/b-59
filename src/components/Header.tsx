@@ -93,6 +93,10 @@ export default function Header() {
               </Link>
               */}
 
+              <Link href="/donate" className="btn-secondary !py-2 !px-5">
+                Donate
+              </Link>
+
               <button
                 onClick={toggleTheme}
                 className="theme-toggle-btn"

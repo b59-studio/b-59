@@ -27,6 +27,10 @@ export function MobileMenu({ open, onNavigate }: MobileMenuProps) {
         Work
       </Link>
       */}
+
+      <Link href="/donate" className="nav-mobile-link" onClick={onNavigate}>
+        Donate
+      </Link>
     </div>
   );
 }

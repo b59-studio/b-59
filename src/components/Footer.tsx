@@ -47,6 +47,11 @@ export default function Footer() {
                 ready<span className="text-b59-blue">2</span>vote
               </Link>
             </li>
+            <li>
+              <Link href="/donate" className="footer-link">
+                Donate
+              </Link>
+            </li>
           </FooterColumn>
 
           <FooterColumn heading="Connect">
