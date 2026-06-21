@@ -2,7 +2,7 @@
 
 /* Define your custom colors as CSS variables */
 @theme {
-  --color-b59-dark: #2C3439;
+  --color-b59-dark: #0A0A0A;
   --color-b59-gray: #4A5568;
   --color-b59-light: #FFFFFF;
   --color-b59-blue: #0066FF;
@@ -380,7 +380,7 @@ body {
 }
 
 .dark .header-nav {
-  background-color: rgba(44, 52, 57, 0.8);
+  background-color: rgba(10, 10, 10, 0.8);
 }
 
 .nav-link {
@@ -475,7 +475,7 @@ body {
 }
 
 .dark .nav-dropdown-menu {
-  background-color: rgba(44, 52, 57, 0.9);
+  background-color: rgba(10, 10, 10, 0.9);
 }
 
 .nav-dropdown-item {
@@ -651,7 +651,7 @@ body {
 }
 
 .dark .form-input {
-  background-color: rgba(44, 52, 57, 0.6);
+  background-color: rgba(10, 10, 10, 0.6);
   color: var(--color-b59-light);
   border-color: rgba(156, 163, 175, 0.3);
 }
