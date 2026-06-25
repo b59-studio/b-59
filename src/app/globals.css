@@ -348,21 +348,18 @@ body {
    LOGO STYLES
    ============================================ */
 
-/* Logo SVGs use viewBox 0 0 1024 1024 with art offset ~84px right, so we pull the
-   image left so the visible logo aligns with the container edge (not the SVG canvas). */
+/* Logo SVGs are cropped tight to the wordmark (viewBox 452 721 1016 478), so the
+   art aligns with the container edge without any offset compensation. */
 .logo-container {
-  height: 120px;
-  width: auto;
-  background-image: url('/b59logoblue.svg');
+  height: 40px;
+  background-image: url('/v2-yeah.svg');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: left center;
-  /* Offset to compensate for transparent left margin in SVG (~8% of 1024px) */
-  background-position-x: -15px;
 }
 
 .dark .logo-container {
-  background-image: url('/b59logolight.svg');
+  background-image: url('/v2-yeah-light.svg');
 }
 
 /* ============================================
