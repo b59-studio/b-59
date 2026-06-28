@@ -58,7 +58,7 @@ export default function Header() {
                   aria-expanded={solutionsOpen}
                   onClick={() => setSolutionsOpen((open) => !open)}
                 >
-                  Solutions
+                  Studio
                   <svg
                     className={`nav-dropdown-chevron ${solutionsOpen ? "open" : ""}`}
                     fill="none"
@@ -71,15 +71,30 @@ export default function Header() {
                 </button>
 
                 {solutionsOpen && (
-                  <div className="nav-dropdown-menu" role="menu">
-                    <Link
-                      href="/solutions/ready2vote"
-                      className="nav-dropdown-item"
-                      role="menuitem"
-                      onClick={() => setSolutionsOpen(false)}
-                    >
-                      ready<span className="text-b59-blue">2</span>vote
-                    </Link>
+                  <div className="nav-mega-menu" role="menu">
+                    <div className="nav-mega-col">
+                      <p className="nav-mega-heading">Brand Design</p>
+                      <Link
+                        href="/solutions/brand-design/philosophy"
+                        className="nav-dropdown-item"
+                        role="menuitem"
+                        onClick={() => setSolutionsOpen(false)}
+                      >
+                        Philosophy
+                      </Link>
+                      {/* Portfolio is built but unlinked until it's ready to go public. */}
+                    </div>
+                    <div className="nav-mega-col">
+                      <p className="nav-mega-heading">Development</p>
+                      <Link
+                        href="/solutions/ready2vote"
+                        className="nav-dropdown-item"
+                        role="menuitem"
+                        onClick={() => setSolutionsOpen(false)}
+                      >
+                        ready<span className="text-b59-blue">2</span>vote
+                      </Link>
+                    </div>
                   </div>
                 )}
               </div>
@@ -87,11 +102,6 @@ export default function Header() {
               <Link href="/about" className="nav-link">
                 About
               </Link>
-              {/**
-              <Link href="/work" className="nav-link">
-                Work
-              </Link>
-              */}
 
               <Link href="/donate" className="btn-secondary !py-2 !px-5">
                 Donate

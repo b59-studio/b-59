@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Home",
+  title: { absolute: "B-59 Studio" },
   description:
     "Deliberate design for imperfect systems. B-59 is a design and strategy studio building civic platforms, advising on complex decisions, and making things that matter. Human-centered. Public-first.",
   alternates: { canonical: "/" },

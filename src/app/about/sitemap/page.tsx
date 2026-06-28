@@ -15,7 +15,8 @@ export const metadata: Metadata = {
 
 const siteLinks = [
   { href: "/", label: "Home" },
-  { href: "/solutions/ready2vote", label: "Solutions: ready2vote" },
+  { href: "/solutions/brand-design/philosophy", label: "Brand Design: Philosophy" },
+  { href: "/solutions/ready2vote", label: "Development: ready2vote" },
   { href: "/about", label: "About" },
   { href: "/about/privacy", label: "Privacy Policy" },
   { href: "/about/terms", label: "Terms of Use" },
@@ -41,13 +42,6 @@ export default function SiteMap() {
           </li>
         ))}
       </ul>
-      <p className="body-md text-secondary mt-8">
-        <span className="text-secondary">Not linked in navigation:</span>{" "}
-        <Link href="/work" className="text-b59-blue underline">
-          Work
-        </Link>{" "}
-        (placeholder, in progress).
-      </p>
     </div>
   );
 }

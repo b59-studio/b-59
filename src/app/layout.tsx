@@ -11,8 +11,8 @@ const siteUrl = resolveSiteUrl();
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "B-59",
-    template: "%s | B-59",
+    default: "B-59 Studio",
+    template: "B-59 | %s",
   },
   description:
     "Human-centered design and strategy. We build civic technology, advise on complex decisions, and make things that matter. Public-first.",

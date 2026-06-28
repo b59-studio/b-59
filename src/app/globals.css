@@ -455,12 +455,14 @@ body {
   transform: rotate(180deg);
 }
 
-.nav-dropdown-menu {
+.nav-mega-menu {
   position: absolute;
   top: calc(100% + 0.75rem);
   left: 0;
-  min-width: 12rem;
-  padding: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(11rem, 1fr));
+  gap: 0.25rem 1.5rem;
+  padding: 1rem;
   background-color: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -470,8 +472,27 @@ body {
   z-index: 50;
 }
 
-.dark .nav-dropdown-menu {
+.dark .nav-mega-menu {
   background-color: rgba(10, 10, 10, 0.9);
+}
+
+.nav-mega-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.nav-mega-heading {
+  padding: 0 0.75rem 0.375rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-b59-gray);
+}
+
+.dark .nav-mega-heading {
+  color: #9ca3af;
 }
 
 .nav-dropdown-item {
@@ -488,6 +509,51 @@ body {
 
 .nav-dropdown-item:hover {
   background-color: rgba(0, 102, 255, 0.1);
+}
+
+/* ============================================
+   PORTFOLIO GRID (Brand Design — Selected Work)
+   ============================================ */
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.portfolio-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  background-color: rgba(74, 85, 104, 0.05);
+  border: 1px solid rgba(74, 85, 104, 0.2);
+  border-radius: 0.75rem;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.dark .portfolio-card {
+  background-color: rgba(156, 163, 175, 0.08);
+  border-color: rgba(156, 163, 175, 0.2);
+}
+
+.portfolio-card:hover {
+  border-color: rgba(0, 102, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.portfolio-card-tag {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-b59-blue);
 }
 
 .theme-toggle-btn {
