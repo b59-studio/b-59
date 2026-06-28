@@ -30,6 +30,15 @@
 # Local scaffolding copied in by tooling — not part of the site
 /templates/
 
+# Internal / client-sensitive material that must NEVER land in this public repo.
+# Migrated to the private repos (studio-portal: portal/contract docs + the seam
+# receiving side; the-department: the boundary/projection/seam-plan docs). These
+# ignore rules are kept as a guard so the material can never reappear here via an
+# accidental `git add -A`.
+/files.zip
+/seam-implementation-plan.md
+/src/lib/captures/
+
 # debug
 npm-debug.log*
 yarn-debug.log*
