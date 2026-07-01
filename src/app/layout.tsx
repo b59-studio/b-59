@@ -26,14 +26,14 @@ export const metadata: Metadata = {
     title: "B-59 — Human-Centered",
     description:
       "Human-centered design and strategy. We build civic technology, advise on complex decisions, and make things that matter.",
-    images: [{ url: "/b59logoblue.png", width: 1200, height: 630, alt: "B-59" }],
+    images: [{ url: "/v2-yeah.png", width: 1920, height: 1920, alt: "B-59" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "B-59 — Human-Centered",
     description:
       "Human-centered design and strategy. We build civic technology, advise on complex decisions, and make things that matter.",
-    images: ["/b59logoblue.png"],
+    images: ["/v2-yeah.png"],
   },
   icons: {
     icon: "/favicon.ico",
@@ -56,7 +56,7 @@ export default function RootLayout({
     url: siteUrl,
     description:
       "Human-centered design and strategy. We build civic technology, advise on complex decisions, and make things that matter. Public-first.",
-    logo: `${siteUrl}/b59logoblue.png`,
+    logo: `${siteUrl}/v2-yeah.png`,
   };
 
   return (
