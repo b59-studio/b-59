@@ -63,15 +63,20 @@ export default function TravisCountyVdr() {
         </section>
 
         <section>
-          <h2 className="heading-md mb-4">How it relates to ready2vote</h2>
+          <h2 className="heading-md mb-4">Why we built this</h2>
           <div className="body-lg space-y-4">
             <p>
-              The two projects serve different people. <strong>ready2vote</strong>{" "}
-              helps an individual voter complete their own registration
-              application. The <strong>VDR Toolkit</strong> serves the volunteers
-              who register <em>other</em> people — training, programs, and field
-              resources. Together they cover both sides of getting Texans
-              registered.
+              Travis County approached us to redesign the Toolkit and turn it
+              into a mobile-first experience <span className="text-b59-blue">—</span>{" "}
+              something VDRs could actually use in the field, on a phone, while
+              they&apos;re registering voters. The original site worked at a desk
+              but not on the ground, which is where most of the work happens.
+            </p>
+            <p>
+              So we rebuilt it mobile-first and installable, and restructured the
+              content so the training, programs, and materials a VDR needs are a
+              tap away wherever they are <span className="text-b59-blue">—</span>{" "}
+              and so the office can keep it current without touching code.
             </p>
           </div>
           <a

@@ -15,9 +15,13 @@ export const metadata: Metadata = {
 
 const siteLinks = [
   { href: "/", label: "Home" },
-  { href: "/solutions/brand-design/philosophy", label: "Brand Design: Philosophy" },
-  { href: "/solutions/ready2vote", label: "Development: ready2vote" },
-  { href: "/about", label: "About" },
+  { href: "/studio", label: "Our Work" },
+  { href: "/solutions/ready2vote", label: "ready2vote" },
+  { href: "/solutions/hotline", label: "Hotline" },
+  { href: "/solutions/travis-county-vdr", label: "Travis County VDR Toolkit" },
+  { href: "/about", label: "Our Story" },
+  { href: "/solutions/brand-design/philosophy", label: "Brand Design" },
+  { href: "/donate", label: "Donate" },
   { href: "/about/privacy", label: "Privacy Policy" },
   { href: "/about/terms", label: "Terms of Use" },
 ] as const;

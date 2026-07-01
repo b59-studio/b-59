@@ -143,7 +143,7 @@ export default function BrandPortfolio() {
             <p className="body-md">
               Curious how we&apos;d approach your brand? Read the{" "}
               <a href="/solutions/brand-design/philosophy" className="text-link font-semibold">
-                philosophy
+                thinking
               </a>{" "}
               behind the work, or get in touch.
             </p>
