@@ -26,14 +26,14 @@ export const metadata: Metadata = {
     title: "B-59 — Human-Centered",
     description:
       "Human-centered design and strategy. We build civic technology, advise on complex decisions, and make things that matter.",
-    images: [{ url: "/v2-yeah.png", width: 1920, height: 1920, alt: "B-59" }],
+    // Share image is provided by the file-convention card at app/opengraph-image.tsx.
   },
   twitter: {
     card: "summary_large_image",
     title: "B-59 — Human-Centered",
     description:
       "Human-centered design and strategy. We build civic technology, advise on complex decisions, and make things that matter.",
-    images: ["/v2-yeah.png"],
+    // Twitter image is derived from the same opengraph-image.tsx card.
   },
   icons: {
     icon: "/favicon.ico",
