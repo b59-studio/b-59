@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/solutions/brand-design/philosophy", priority: 0.8, changeFrequency: "yearly" as const },
     // /solutions/brand-design/portfolio is intentionally omitted — built but not public yet.
     { path: "/solutions/ready2vote", priority: 0.9, changeFrequency: "monthly" as const },
+    { path: "/solutions/travis-county-vdr", priority: 0.9, changeFrequency: "monthly" as const },
     { path: "/donate", priority: 0.8, changeFrequency: "monthly" as const },
     { path: "/about", priority: 0.9, changeFrequency: "monthly" as const },
     { path: "/about/sitemap", priority: 0.5, changeFrequency: "yearly" as const },

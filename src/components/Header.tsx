@@ -85,7 +85,7 @@ export default function Header() {
                       {/* Portfolio is built but unlinked until it's ready to go public. */}
                     </div>
                     <div className="nav-mega-col">
-                      <p className="nav-mega-heading">Development</p>
+                      <p className="nav-mega-heading">Voting</p>
                       <Link
                         href="/solutions/ready2vote"
                         className="nav-dropdown-item"
@@ -93,6 +93,14 @@ export default function Header() {
                         onClick={() => setSolutionsOpen(false)}
                       >
                         ready<span className="text-b59-blue">2</span>vote
+                      </Link>
+                      <Link
+                        href="/solutions/travis-county-vdr"
+                        className="nav-dropdown-item"
+                        role="menuitem"
+                        onClick={() => setSolutionsOpen(false)}
+                      >
+                        Travis County VDR Toolkit
                       </Link>
                     </div>
                   </div>

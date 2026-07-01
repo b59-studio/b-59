@@ -24,9 +24,16 @@ export function MobileMenu({ open, onNavigate }: MobileMenuProps) {
       </Link>
       {/* Portfolio is built but unlinked until it's ready to go public. */}
 
-      <span className="nav-mobile-heading">Development</span>
+      <span className="nav-mobile-heading">Voting</span>
       <Link href="/solutions/ready2vote" className="nav-mobile-link nav-mobile-sublink" onClick={onNavigate}>
         ready<span className="text-b59-blue">2</span>vote
+      </Link>
+      <Link
+        href="/solutions/travis-county-vdr"
+        className="nav-mobile-link nav-mobile-sublink"
+        onClick={onNavigate}
+      >
+        Travis County VDR Toolkit
       </Link>
 
       <Link href="/about" className="nav-mobile-link" onClick={onNavigate}>
