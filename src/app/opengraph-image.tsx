@@ -35,7 +35,6 @@ export default async function OpengraphImage() {
           backgroundColor: DARK,
         }}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={logoSrc} width={LOGO_WIDTH} height={LOGO_HEIGHT} alt="B-59" />
         <div
           style={{
