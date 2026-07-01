@@ -39,12 +39,12 @@ export default function Footer() {
           <FooterColumn heading="Studio">
             <li>
               <Link href="/about" className="footer-link">
-                About
+                Our Story
               </Link>
             </li>
             <li>
-              <Link href="/solutions/ready2vote" className="footer-link">
-                ready<span className="text-b59-blue">2</span>vote
+              <Link href="/studio" className="footer-link">
+                Our Work
               </Link>
             </li>
             <li>

@@ -8,26 +8,33 @@ import { useTheme } from "./ThemeProvider";
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [solutionsOpen, setSolutionsOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
   const solutionsRef = useRef<HTMLDivElement>(null);
+  const aboutRef = useRef<HTMLDivElement>(null);
   const { theme, toggleTheme } = useTheme();
 
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
-  // Close the Solutions dropdown on outside click or Escape.
+  // Close whichever nav dropdown is open on outside click or Escape.
   useEffect(() => {
-    if (!solutionsOpen) {
+    if (!solutionsOpen && !aboutOpen) {
       return;
     }
 
     const handlePointerDown = (event: MouseEvent) => {
-      if (solutionsRef.current && !solutionsRef.current.contains(event.target as Node)) {
+      const target = event.target as Node;
+      if (solutionsRef.current && !solutionsRef.current.contains(target)) {
         setSolutionsOpen(false);
+      }
+      if (aboutRef.current && !aboutRef.current.contains(target)) {
+        setAboutOpen(false);
       }
     };
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setSolutionsOpen(false);
+        setAboutOpen(false);
       }
     };
 
@@ -38,7 +45,7 @@ export default function Header() {
       document.removeEventListener("mousedown", handlePointerDown);
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [solutionsOpen]);
+  }, [solutionsOpen, aboutOpen]);
 
   return (
     <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl">
@@ -56,7 +63,10 @@ export default function Header() {
                   className="nav-link nav-dropdown-trigger"
                   aria-haspopup="true"
                   aria-expanded={solutionsOpen}
-                  onClick={() => setSolutionsOpen((open) => !open)}
+                  onClick={() => {
+                    setSolutionsOpen((open) => !open);
+                    setAboutOpen(false);
+                  }}
                 >
                   Studio
                   <svg
@@ -72,20 +82,22 @@ export default function Header() {
 
                 {solutionsOpen && (
                   <div className="nav-mega-menu" role="menu">
+                    <Link
+                      href="/studio"
+                      className="nav-mega-featured"
+                      role="menuitem"
+                      onClick={() => setSolutionsOpen(false)}
+                    >
+                      <span>
+                        Our Work <span aria-hidden="true">→</span>
+                      </span>
+                      <span className="nav-mega-featured-sub">
+                        Case studies and solutions, all in one place
+                      </span>
+                    </Link>
                     <div className="nav-mega-col">
-                      <p className="nav-mega-heading">Brand Design</p>
-                      <Link
-                        href="/solutions/brand-design/philosophy"
-                        className="nav-dropdown-item"
-                        role="menuitem"
-                        onClick={() => setSolutionsOpen(false)}
-                      >
-                        Philosophy
-                      </Link>
-                      {/* Portfolio is built but unlinked until it's ready to go public. */}
-                    </div>
-                    <div className="nav-mega-col">
-                      <p className="nav-mega-heading">Voting</p>
+                      <p className="nav-mega-heading">Solutions</p>
+                      <p className="nav-mega-desc">Civic products we build and run</p>
                       <Link
                         href="/solutions/ready2vote"
                         className="nav-dropdown-item"
@@ -94,6 +106,18 @@ export default function Header() {
                       >
                         ready<span className="text-b59-blue">2</span>vote
                       </Link>
+                      <Link
+                        href="/solutions/hotline"
+                        className="nav-dropdown-item"
+                        role="menuitem"
+                        onClick={() => setSolutionsOpen(false)}
+                      >
+                        Hotline
+                      </Link>
+                    </div>
+                    <div className="nav-mega-col">
+                      <p className="nav-mega-heading">Case Studies</p>
+                      <p className="nav-mega-desc">Selected client work</p>
                       <Link
                         href="/solutions/travis-county-vdr"
                         className="nav-dropdown-item"
@@ -107,9 +131,58 @@ export default function Header() {
                 )}
               </div>
 
-              <Link href="/about" className="nav-link">
-                About
-              </Link>
+              <div className="nav-dropdown" ref={aboutRef}>
+                <button
+                  type="button"
+                  className="nav-link nav-dropdown-trigger"
+                  aria-haspopup="true"
+                  aria-expanded={aboutOpen}
+                  onClick={() => {
+                    setAboutOpen((open) => !open);
+                    setSolutionsOpen(false);
+                  }}
+                >
+                  About
+                  <svg
+                    className={`nav-dropdown-chevron ${aboutOpen ? "open" : ""}`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+
+                {aboutOpen && (
+                  <div className="nav-mega-menu" role="menu">
+                    <div className="nav-mega-col">
+                      <p className="nav-mega-heading">About</p>
+                      <p className="nav-mega-desc">Who we are</p>
+                      <Link
+                        href="/about"
+                        className="nav-dropdown-item"
+                        role="menuitem"
+                        onClick={() => setAboutOpen(false)}
+                      >
+                        Our Story
+                      </Link>
+                    </div>
+                    <div className="nav-mega-col">
+                      <p className="nav-mega-heading">Notes</p>
+                      <p className="nav-mega-desc">Ideas and observations</p>
+                      <Link
+                        href="/solutions/brand-design/philosophy"
+                        className="nav-dropdown-item"
+                        role="menuitem"
+                        onClick={() => setAboutOpen(false)}
+                      >
+                        Brand Design
+                      </Link>
+                    </div>
+                  </div>
+                )}
+              </div>
 
               <Link href="/donate" className="btn-secondary !py-2 !px-5">
                 Donate
