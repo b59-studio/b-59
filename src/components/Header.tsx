@@ -95,38 +95,44 @@ export default function Header() {
                         Case studies and solutions, all in one place
                       </span>
                     </Link>
-                    <div className="nav-mega-col">
-                      <p className="nav-mega-heading">Solutions</p>
-                      <p className="nav-mega-desc">Civic products we build and run</p>
-                      <Link
-                        href="/solutions/ready2vote"
-                        className="nav-dropdown-item"
-                        role="menuitem"
-                        onClick={() => setSolutionsOpen(false)}
-                      >
+                    <p className="nav-mega-heading">Solutions</p>
+                    <Link
+                      href="/solutions/ready2vote"
+                      className="nav-mega-item"
+                      role="menuitem"
+                      onClick={() => setSolutionsOpen(false)}
+                    >
+                      <span className="nav-mega-item-name">
                         ready<span className="text-b59-blue">2</span>vote
-                      </Link>
-                      <Link
-                        href="/solutions/hotline"
-                        className="nav-dropdown-item"
-                        role="menuitem"
-                        onClick={() => setSolutionsOpen(false)}
-                      >
-                        Hotline
-                      </Link>
-                    </div>
-                    <div className="nav-mega-col">
-                      <p className="nav-mega-heading">Case Studies</p>
-                      <p className="nav-mega-desc">Selected client work</p>
-                      <Link
-                        href="/solutions/travis-county-vdr"
-                        className="nav-dropdown-item"
-                        role="menuitem"
-                        onClick={() => setSolutionsOpen(false)}
-                      >
-                        Travis County VDR Toolkit
-                      </Link>
-                    </div>
+                      </span>
+                      <span className="nav-mega-item-sub">
+                        Helps Texans complete and mail their voter registration application.
+                      </span>
+                    </Link>
+                    <Link
+                      href="/solutions/hotline"
+                      className="nav-mega-item"
+                      role="menuitem"
+                      onClick={() => setSolutionsOpen(false)}
+                    >
+                      <span className="nav-mega-item-name">Hotline</span>
+                      <span className="nav-mega-item-sub">
+                        Scheduling that shares a few times, not your whole calendar.
+                      </span>
+                    </Link>
+
+                    <p className="nav-mega-heading nav-mega-heading-mt">Case Studies</p>
+                    <Link
+                      href="/solutions/travis-county-vdr"
+                      className="nav-mega-item"
+                      role="menuitem"
+                      onClick={() => setSolutionsOpen(false)}
+                    >
+                      <span className="nav-mega-item-name">Travis County VDR Toolkit</span>
+                      <span className="nav-mega-item-sub">
+                        A mobile-first rebuild of the county&apos;s Voter Registration Toolkit.
+                      </span>
+                    </Link>
                   </div>
                 )}
               </div>
@@ -155,31 +161,23 @@ export default function Header() {
                 </button>
 
                 {aboutOpen && (
-                  <div className="nav-mega-menu" role="menu">
-                    <div className="nav-mega-col">
-                      <p className="nav-mega-heading">About</p>
-                      <p className="nav-mega-desc">Who we are</p>
-                      <Link
-                        href="/about"
-                        className="nav-dropdown-item"
-                        role="menuitem"
-                        onClick={() => setAboutOpen(false)}
-                      >
-                        Our Story
-                      </Link>
-                    </div>
-                    <div className="nav-mega-col">
-                      <p className="nav-mega-heading">Notes</p>
-                      <p className="nav-mega-desc">Ideas and observations</p>
-                      <Link
-                        href="/solutions/brand-design/philosophy"
-                        className="nav-dropdown-item"
-                        role="menuitem"
-                        onClick={() => setAboutOpen(false)}
-                      >
-                        Brand Design
-                      </Link>
-                    </div>
+                  <div className="nav-mega-menu nav-mega-menu-narrow" role="menu">
+                    <Link
+                      href="/about"
+                      className="nav-dropdown-item"
+                      role="menuitem"
+                      onClick={() => setAboutOpen(false)}
+                    >
+                      Our Story
+                    </Link>
+                    <Link
+                      href="/solutions/brand-design/philosophy"
+                      className="nav-dropdown-item"
+                      role="menuitem"
+                      onClick={() => setAboutOpen(false)}
+                    >
+                      Brand Design Philosophy
+                    </Link>
                   </div>
                 )}
               </div>

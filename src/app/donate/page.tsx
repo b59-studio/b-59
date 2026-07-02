@@ -43,7 +43,7 @@ export default function Donate() {
             copy and point STRIPE_SECRET_KEY at the nonprofit's Stripe account.
           */}
           <p>
-            Contributions are processed through B-59 LLC and are{" "}
+            Contributions are processed through <Brand /> LLC and are{" "}
             <strong>not tax-deductible</strong> at this time. A tax-deductible
             giving option through our nonprofit is coming soon.
           </p>

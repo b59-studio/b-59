@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Brand Design",
+  title: "Brand Design Philosophy",
   description:
     "How B-59 approaches brand design. A brand is a set of decisions about how an organization shows up — clarity before polish, restraint as strategy, systems built to be used, and neutrality by default. For campaigns, committees, firms, and institutions where trust is the whole game.",
   alternates: { canonical: "/solutions/brand-design/philosophy" },
   openGraph: {
-    title: "Brand Design | B-59",
+    title: "Brand Design Philosophy | B-59",
     description:
       "A brand is not a logo. It's a set of decisions about how an organization shows up. How B-59 designs brands for campaigns, committees, firms, and institutions where trust is the whole game.",
     url: "/solutions/brand-design/philosophy",
@@ -19,7 +19,7 @@ export default function BrandPhilosophy() {
       <div className="space-y-16">
         <section>
           <h1 className="heading-xl mb-6">
-            Brand Design
+            Brand Design Philosophy
           </h1>
           <div className="body-lg space-y-4">
             <p>

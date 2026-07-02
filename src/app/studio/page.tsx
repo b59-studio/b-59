@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { Brand } from "@/components/Brand";
 
 export const metadata: Metadata = {
   title: "Our Work",
@@ -55,10 +56,10 @@ const caseStudies: WorkItem[] = [
 
 function WorkGrid({ items }: { items: WorkItem[] }) {
   return (
-    <ul className="portfolio-grid">
+    <ul className="space-y-4">
       {items.map((item) => (
         <li key={item.href}>
-          <Link href={item.href} className="portfolio-card h-full">
+          <Link href={item.href} className="portfolio-card">
             <span className="portfolio-card-tag">{item.tag}</span>
             <h3 className="heading-sm">{item.title}</h3>
             <p className="body-md">{item.blurb}</p>
@@ -76,23 +77,19 @@ export default function Studio() {
         <section>
           <h1 className="heading-xl mb-6">Our Work</h1>
           <p className="body-lg max-w-2xl">
-            Everything B-59 Studio makes, in one place{" "}
+            Everything <Brand /> Studio makes, in one place{" "}
             <span className="text-b59-blue">—</span> the civic products we build
             and run, and selected client work.
           </p>
         </section>
 
         <section>
-          <h2 className="heading-md mb-1">Solutions</h2>
-          <p className="body-md text-b59-gray mb-6">
-            Civic products we build and run.
-          </p>
+          <h2 className="heading-md mb-4">Solutions</h2>
           <WorkGrid items={solutions} />
         </section>
 
         <section>
-          <h2 className="heading-md mb-1">Case Studies</h2>
-          <p className="body-md text-b59-gray mb-6">Selected client work.</p>
+          <h2 className="heading-md mb-4">Case Studies</h2>
           <WorkGrid items={caseStudies} />
         </section>
       </div>

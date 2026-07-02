@@ -49,6 +49,16 @@ Defined at `@theme` scope (Tailwind v4) in `globals.css` — reference the token
 Default background is **white** (`--color-b59-light`); dark mode inverts to `--color-b59-dark`. Dark mode
 is system-following with an explicit toggle (per `standards/25`), unless a product overrides.
 
+## Wordmark
+
+The **B-59** name is a wordmark, not plain text. In any **visible copy**, always render it with the
+`<Brand />` component (`src/components/Brand.tsx`) — it sets the hyphen in `--color-b59-blue` and keeps the
+name from wrapping across a line break. Never hand-type "B-59" with a plain hyphen in rendered copy; the
+blue hyphen is a fixed brand rule everywhere the name is shown (headings, body, footer, legal text).
+
+Scope: **rendered text only.** Metadata (`title`/`description`), `alt` text, structured data (JSON-LD), and
+other string-only fields stay plain `"B-59"` — they can't carry markup and aren't the visual wordmark.
+
 ## Components
 
 - **Callouts** — boxed panels: a soft tint of the callout color as fill, a full 1px border in the same
