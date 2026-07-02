@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Brand } from "@/components/Brand";
 
 export const metadata: Metadata = {
   title: "Travis County VDR Toolkit",
@@ -28,7 +29,7 @@ export default function TravisCountyVdr() {
               programs, events, and materials a VDR needs in one place.
             </p>
             <p>
-              The program had outgrown its original website. B-59 rebuilt it from
+              The program had outgrown its original website. <Brand /> rebuilt it from
               the ground up: we migrated every page of the legacy site into a
               fast, accessible, installable web app, and organized the content so
               the office can keep it current without touching code.

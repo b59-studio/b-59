@@ -20,7 +20,7 @@ const siteLinks = [
   { href: "/solutions/hotline", label: "Hotline" },
   { href: "/solutions/travis-county-vdr", label: "Travis County VDR Toolkit" },
   { href: "/about", label: "Our Story" },
-  { href: "/solutions/brand-design/philosophy", label: "Brand Design" },
+  { href: "/solutions/brand-design/philosophy", label: "Brand Design Philosophy" },
   { href: "/donate", label: "Donate" },
   { href: "/about/privacy", label: "Privacy Policy" },
   { href: "/about/terms", label: "Terms of Use" },

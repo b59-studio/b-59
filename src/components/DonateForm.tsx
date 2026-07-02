@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Brand } from "@/components/Brand";
 
 type Frequency = "once" | "monthly";
 
@@ -146,7 +147,7 @@ export function DonateForm() {
       </button>
 
       <p className="donate-secure-note">
-        Payments are processed securely by Stripe. B-59 never sees your card details.
+        Payments are processed securely by Stripe. <Brand /> never sees your card details.
       </p>
     </form>
   );

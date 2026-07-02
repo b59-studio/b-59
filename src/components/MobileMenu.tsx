@@ -19,16 +19,20 @@ export function MobileMenu({ open, onNavigate }: MobileMenuProps) {
       </Link>
 
       <span className="nav-mobile-heading">Solutions</span>
-      <span className="nav-mobile-desc">Civic products we build and run</span>
       <Link href="/solutions/ready2vote" className="nav-mobile-link nav-mobile-sublink" onClick={onNavigate}>
         ready<span className="text-b59-blue">2</span>vote
       </Link>
+      <span className="nav-mobile-sub">
+        Helps Texans complete and mail their voter registration application.
+      </span>
       <Link href="/solutions/hotline" className="nav-mobile-link nav-mobile-sublink" onClick={onNavigate}>
         Hotline
       </Link>
+      <span className="nav-mobile-sub">
+        Scheduling that shares a few times, not your whole calendar.
+      </span>
 
       <span className="nav-mobile-heading">Case Studies</span>
-      <span className="nav-mobile-desc">Selected client work</span>
       <Link
         href="/solutions/travis-county-vdr"
         className="nav-mobile-link nav-mobile-sublink"
@@ -36,21 +40,15 @@ export function MobileMenu({ open, onNavigate }: MobileMenuProps) {
       >
         Travis County VDR Toolkit
       </Link>
+      <span className="nav-mobile-sub">
+        A mobile-first rebuild of the county&apos;s Voter Registration Toolkit.
+      </span>
 
-      <span className="nav-mobile-heading">About</span>
-      <span className="nav-mobile-desc">Who we are</span>
-      <Link href="/about" className="nav-mobile-link nav-mobile-sublink" onClick={onNavigate}>
+      <Link href="/about" className="nav-mobile-link" onClick={onNavigate}>
         Our Story
       </Link>
-
-      <span className="nav-mobile-heading">Notes</span>
-      <span className="nav-mobile-desc">Ideas and observations</span>
-      <Link
-        href="/solutions/brand-design/philosophy"
-        className="nav-mobile-link nav-mobile-sublink"
-        onClick={onNavigate}
-      >
-        Brand Design
+      <Link href="/solutions/brand-design/philosophy" className="nav-mobile-link" onClick={onNavigate}>
+        Brand Design Philosophy
       </Link>
       {/* Portfolio is built but unlinked until it's ready to go public. */}
 

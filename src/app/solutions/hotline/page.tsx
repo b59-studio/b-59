@@ -8,12 +8,12 @@ const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], weight: "700" });
 export const metadata: Metadata = {
   title: "Hotline",
   description:
-    "Hotline is a scheduling product by B-59. Get booked without sharing your whole calendar: hand-pick a few times, share one link, and the recipient confirms in a single tap — no account, mobile-first. Built for civic and public-interest teams. Visit hotlinecal.com.",
+    "Hotline is a scheduling product by B-59 for civic and public-interest teams, whose calendars are sensitive. Instead of exposing your whole calendar, hand-pick a few times and share one link — the other person taps one. Works with iCloud or Outlook, no Google required. Visit hotlinecal.com.",
   alternates: { canonical: "/solutions/hotline" },
   openGraph: {
     title: "Hotline | B-59",
     description:
-      "Built by B-59. Scheduling for civic and public-interest teams — hand-pick a few times, share one link, confirm in a single tap. Visit hotlinecal.com.",
+      "Built by B-59. Scheduling for civic and public-interest teams: share a few times, not your whole calendar. Works with iCloud or Outlook, no Google required. Visit hotlinecal.com.",
     url: "/solutions/hotline",
   },
 };
@@ -40,16 +40,20 @@ export default function Hotline() {
           <p className="body-md text-b59-gray mb-6">Pick a time that works.</p>
           <div className="body-lg space-y-4">
             <p>
-              Get booked without sharing your whole calendar. Hand-pick a few
-              times, share one link <span className="text-b59-blue">—</span> they
-              tap one, you&apos;re set. Hotline is scheduling for civic and
-              public-interest teams.
+              Civic and public-interest teams keep sensitive things on their
+              calendars. You shouldn&apos;t have to hand over the whole thing
+              just to get a meeting on the books{" "}
+              <span className="text-b59-blue">—</span> so with Hotline you
+              hand-pick a few times, share one link, and the other person taps
+              one. Scheduling built for civic and public-interest teams.
             </p>
             <p>
-              A host hand-picks two to five specific slots for a single meeting
-              and shares one link; the recipient confirms in a single tap{" "}
-              <span className="text-b59-blue">—</span> no account, mobile-first.
-              It&apos;s built on the Cal.com scheduling engine, with the propose
+              A host picks two to five specific slots for a single meeting and
+              shares one link; the other person confirms in a tap from their
+              phone. It works with the calendar you already keep{" "}
+              <span className="text-b59-blue">—</span> iCloud or Outlook, no
+              Google required <span className="text-b59-blue">—</span> and
+              it&apos;s built on the Cal.com scheduling engine, with the propose
               experience and branded booking page as a thin layer on top.
             </p>
           </div>
@@ -59,22 +63,22 @@ export default function Hotline() {
           <h2 className="heading-md mb-4">What makes it different</h2>
           <ul className="body-md space-y-3 list-disc pl-5">
             <li>
-              <strong>Propose a few times, not your whole calendar.</strong> The
-              host offers a short list of slots instead of exposing full
-              availability.
+              <strong>Your whole calendar stays private.</strong> The host offers
+              a short list of times instead of exposing full availability. That
+              is the whole point for teams whose calendars are sensitive.
             </li>
             <li>
-              <strong>One link, one tap.</strong> The recipient confirms without
-              creating an account or installing anything.
+              <strong>Works with the calendar you keep.</strong> Connects to
+              iCloud or Outlook, with no Google account required.
             </li>
             <li>
-              <strong>Mobile-first and branded.</strong> The booking page is
-              designed for a phone and carries the host&apos;s identity, not a
-              generic scheduler&apos;s.
+              <strong>One link, one tap.</strong> The other person picks a time
+              from their phone in a single tap, on a page built for mobile.
             </li>
             <li>
               <strong>Built on Cal.com.</strong> A trusted open-source scheduling
-              engine underneath, with the proposal workflow layered on top.
+              engine underneath, with the proposal workflow and branded booking
+              page layered on top.
             </li>
           </ul>
         </section>
@@ -83,18 +87,19 @@ export default function Hotline() {
           <h2 className="heading-md mb-4">Why we built this</h2>
           <div className="body-lg space-y-4">
             <p>
-              Civic and public-interest teams schedule with people who
-              won&apos;t make an account <span className="text-b59-blue">—</span>{" "}
-              volunteers, constituents, partners <span className="text-b59-blue">—</span>{" "}
-              and most tools ask them to. Those tools also expose a host&apos;s
-              whole calendar and carry a corporate feel that&apos;s out of place
-              in public work.
+              Civic and public-interest teams&apos; calendars are sensitive{" "}
+              <span className="text-b59-blue">—</span> they hold meetings, plans,
+              and people that aren&apos;t anyone else&apos;s business. Most
+              scheduling tools work by exposing your availability wholesale,
+              which is exactly the wrong default for this kind of work.
             </p>
             <p>
-              We wanted scheduling that respects both sides: the host offers a
-              few deliberate times, and the other person confirms in a single
-              tap from their phone. Hotline is that <span className="text-b59-blue">—</span>{" "}
-              the proposal workflow layered on the trusted Cal.com engine, so the
+              We wanted the opposite: give people a few good options instead of
+              your whole calendar. A host proposes a handful of times, shares one
+              link, and the other person picks one from their phone{" "}
+              <span className="text-b59-blue">—</span> connected to iCloud or
+              Outlook, with no Google account in the middle. It&apos;s the
+              proposal workflow layered on the trusted Cal.com engine, so the
               scheduling stays solid and the experience stays simple.
             </p>
           </div>

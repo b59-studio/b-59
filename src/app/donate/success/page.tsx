@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Brand } from "@/components/Brand";
 
 export const metadata: Metadata = {
   title: "Thank you",
@@ -18,7 +19,7 @@ export default function DonateSuccess() {
         <div className="body-lg space-y-4">
           <p>
             Your contribution went through. A receipt is on its way to your email
-            from Stripe. We&apos;re grateful for your support of B-59&apos;s work.
+            from Stripe. We&apos;re grateful for your support of <Brand />&apos;s work.
           </p>
         </div>
         <div>
