@@ -149,10 +149,6 @@ export default function Header() {
                     </div>
                   )}
                 </div>
-
-                <Link href="/donate" className="btn-secondary !py-2 !px-5">
-                  {t("donate")}
-                </Link>
               </div>
 
               <div className="flex items-center gap-2">
@@ -184,6 +180,10 @@ export default function Header() {
                     </svg>
                   )}
                 </button>
+
+                <Link href="/donate" className="btn-secondary !py-2 !px-5">
+                  {t("donate")}
+                </Link>
               </div>
             </div>
 
