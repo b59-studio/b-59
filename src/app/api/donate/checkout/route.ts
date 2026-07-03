@@ -6,6 +6,7 @@ import {
   resolveRedirectBaseUrl,
 } from "@/lib/stripe";
 import { resolveSiteUrl } from "@/lib/site-url";
+import { defaultLocale, isLocale } from "@/i18n/config";
 
 // Stripe calls need the Node.js runtime (not edge) and must never be cached.
 export const runtime = "nodejs";
@@ -21,13 +22,18 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
   }
 
-  const { amountCents, frequency } =
+  const { amountCents, frequency, locale } =
     typeof body === "object" && body !== null
-      ? (body as { amountCents?: unknown; frequency?: unknown })
+      ? (body as { amountCents?: unknown; frequency?: unknown; locale?: unknown })
       : {};
 
   const amount = normalizeAmountCents(amountCents);
   const freq = normalizeFrequency(frequency);
+  // Untrusted input — fall back to the default locale rather than trusting a
+  // caller-supplied path segment (standard 33's locale-is-untrusted rule).
+  const resolvedLocale = isLocale(locale) ? locale : defaultLocale;
+  // Default locale is unprefixed under `localePrefix: 'as-needed'`.
+  const localePrefix = resolvedLocale === defaultLocale ? "" : `/${resolvedLocale}`;
 
   if (amount === null) {
     return NextResponse.json(
@@ -49,6 +55,7 @@ export async function POST(request: Request) {
       amountCents: amount,
       frequency: freq,
       baseUrl,
+      localePrefix,
     });
     return NextResponse.json({ url });
   } catch (error) {

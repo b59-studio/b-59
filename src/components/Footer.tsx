@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import type { ReactNode } from "react";
 
 function FooterColumn({
@@ -16,7 +17,9 @@ function FooterColumn({
   );
 }
 
-export default function Footer() {
+export default async function Footer() {
+  const t = await getTranslations("footer");
+  const tNav = await getTranslations("nav");
   const year = new Date().getFullYear();
 
   return (
@@ -28,33 +31,29 @@ export default function Footer() {
               B<span className="text-b59-blue">-</span>59 Studio
             </span>
             <p className="footer-text text-sm">
-              <i>
-                Deliberate design <span className="text-b59-blue">for</span>{" "}
-                imperfect systems
-              </i>
-              .
+              <i>{t.rich("tagline", { blue: (chunks) => <span className="text-b59-blue">{chunks}</span> })}</i>
             </p>
           </div>
 
-          <FooterColumn heading="Studio">
+          <FooterColumn heading={t("studioHeading")}>
             <li>
               <Link href="/about" className="footer-link">
-                Our Story
+                {tNav("ourStory")}
               </Link>
             </li>
             <li>
               <Link href="/studio" className="footer-link">
-                Our Work
+                {tNav("ourWork")}
               </Link>
             </li>
             <li>
               <Link href="/donate" className="footer-link">
-                Donate
+                {tNav("donate")}
               </Link>
             </li>
           </FooterColumn>
 
-          <FooterColumn heading="Connect">
+          <FooterColumn heading={t("connectHeading")}>
             <li>
               <a href="mailto:contact@b-59.com" className="footer-link">
                 contact@b-59.com
@@ -68,7 +67,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
               >
                 GitHub
-                <span className="sr-only"> (opens in new window)</span>
+                <span className="sr-only">{t("opensNewWindow")}</span>
               </a>
             </li>
             <li>
@@ -79,25 +78,25 @@ export default function Footer() {
                 rel="noopener noreferrer"
               >
                 LinkedIn
-                <span className="sr-only"> (opens in new window)</span>
+                <span className="sr-only">{t("opensNewWindow")}</span>
               </a>
             </li>
           </FooterColumn>
 
-          <FooterColumn heading="Legal">
+          <FooterColumn heading={t("legalHeading")}>
             <li>
               <Link href="/about/privacy" className="footer-link">
-                Privacy Policy
+                {t("privacyPolicy")}
               </Link>
             </li>
             <li>
               <Link href="/about/terms" className="footer-link">
-                Terms
+                {t("terms")}
               </Link>
             </li>
             <li>
               <Link href="/about/sitemap" className="footer-link">
-                Sitemap
+                {t("sitemap")}
               </Link>
             </li>
           </FooterColumn>
@@ -109,9 +108,9 @@ export default function Footer() {
             <span className="font-bold footer-heading">
               B<span className="text-b59-blue">-</span>59 Studio LLC
             </span>
-            . All rights reserved.
+            . {t("rightsReserved")}
           </p>
-          <p className="footer-text text-sm">Austin, TX USA</p>
+          <p className="footer-text text-sm">{t("location")}</p>
         </div>
       </div>
     </footer>

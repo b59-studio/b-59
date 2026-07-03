@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
-import { Analytics } from "@vercel/analytics/react";
-import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import { ThemeProvider } from "@/components/ThemeProvider";
 import { resolveSiteUrl } from "@/lib/site-url";
 
 const siteUrl = resolveSiteUrl();
 
+// With i18n routing, the <html>/<body> shell lives in app/[locale]/layout.tsx;
+// this root layout only carries global metadata and passes children through.
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
@@ -42,39 +39,8 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-}
+};
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "B-59",
-    url: siteUrl,
-    description:
-      "Human-centered design and strategy. We build civic technology, advise on complex decisions, and make things that matter. Public-first.",
-    logo: `${siteUrl}/v2-yeah.png`,
-  };
-
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="min-h-screen flex flex-col transition-colors">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-        <ThemeProvider>
-          <Header />
-          <main className="flex min-h-0 flex-1 flex-col pt-24 pb-8">
-            {children}
-          </main>
-          <Footer />
-        </ThemeProvider>
-        <Analytics />
-      </body>
-    </html>
-  );
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return children;
 }

@@ -28,6 +28,8 @@ export type CheckoutInput = {
   amountCents: number;
   frequency: Frequency;
   baseUrl: string;
+  /** Locale path prefix to redirect back to, e.g. "" for the default locale or "/es". */
+  localePrefix: string;
 };
 
 /**
@@ -97,6 +99,7 @@ export async function createCheckoutSession({
   amountCents,
   frequency,
   baseUrl,
+  localePrefix,
 }: CheckoutInput): Promise<string> {
   const secretKey = process.env.STRIPE_SECRET_KEY;
   if (!secretKey) {
@@ -107,8 +110,11 @@ export async function createCheckoutSession({
   const params = new URLSearchParams();
 
   params.set("mode", isMonthly ? "subscription" : "payment");
-  params.set("success_url", `${baseUrl}/donate/success?session_id={CHECKOUT_SESSION_ID}`);
-  params.set("cancel_url", `${baseUrl}/donate?status=cancelled`);
+  params.set(
+    "success_url",
+    `${baseUrl}${localePrefix}/donate/success?session_id={CHECKOUT_SESSION_ID}`,
+  );
+  params.set("cancel_url", `${baseUrl}${localePrefix}/donate?status=cancelled`);
 
   // Single line item priced on the fly, so no pre-created Stripe Price needed.
   params.set("line_items[0][quantity]", "1");

@@ -1,7 +1,13 @@
 import type { MetadataRoute } from "next";
 import { resolveSiteUrl } from "@/lib/site-url";
+import { locales, defaultLocale, type Locale } from "@/i18n/config";
 
 const siteUrl = resolveSiteUrl();
+
+// Default locale is unprefixed under `localePrefix: 'as-needed'`.
+function localizedPath(locale: Locale, path: string): string {
+  return locale === defaultLocale ? path : `/${locale}${path}`;
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
@@ -19,9 +25,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   return routes.map(({ path, priority, changeFrequency }) => ({
-    url: `${siteUrl}${path}`,
+    url: `${siteUrl}${localizedPath(defaultLocale, path)}`,
     lastModified: new Date(),
     changeFrequency,
     priority,
+    alternates: {
+      languages: Object.fromEntries([
+        ...locales.map((locale) => [locale, `${siteUrl}${localizedPath(locale, path)}`]),
+        ["x-default", `${siteUrl}${path}`],
+      ]),
+    },
   }));
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
 import { Brand } from "@/components/Brand";
 
 type Frequency = "once" | "monthly";
@@ -10,6 +11,8 @@ const MIN_DOLLARS = 1;
 const MAX_DOLLARS = 50_000;
 
 export function DonateForm() {
+  const t = useTranslations("donateForm");
+  const locale = useLocale();
   const [frequency, setFrequency] = useState<Frequency>("once");
   const [selectedPreset, setSelectedPreset] = useState<number | null>(25);
   const [customAmount, setCustomAmount] = useState("");
@@ -50,13 +53,14 @@ export function DonateForm() {
         body: JSON.stringify({
           amountCents: Math.round(activeDollars * 100),
           frequency,
+          locale,
         }),
       });
 
       const data = (await response.json()) as { url?: string; error?: string };
 
       if (!response.ok || !data.url) {
-        setError(data.error ?? "Something went wrong. Please try again.");
+        setError(data.error ?? t("genericError"));
         setSubmitting(false);
         return;
       }
@@ -64,7 +68,7 @@ export function DonateForm() {
       // Hand off to Stripe's hosted checkout page.
       window.location.assign(data.url);
     } catch {
-      setError("Network error. Please check your connection and try again.");
+      setError(t("networkError"));
       setSubmitting(false);
     }
   };
@@ -72,8 +76,8 @@ export function DonateForm() {
   return (
     <form onSubmit={handleSubmit} className="donate-form space-y-8" noValidate>
       <fieldset>
-        <legend className="donate-legend">Frequency</legend>
-        <div className="donate-toggle" role="group" aria-label="Donation frequency">
+        <legend className="donate-legend">{t("frequencyLegend")}</legend>
+        <div className="donate-toggle" role="group" aria-label={t("frequencyGroupLabel")}>
           {(["once", "monthly"] as const).map((option) => (
             <button
               key={option}
@@ -82,14 +86,14 @@ export function DonateForm() {
               aria-pressed={frequency === option}
               onClick={() => setFrequency(option)}
             >
-              {option === "once" ? "One-time" : "Monthly"}
+              {option === "once" ? t("once") : t("monthly")}
             </button>
           ))}
         </div>
       </fieldset>
 
       <fieldset>
-        <legend className="donate-legend">Amount</legend>
+        <legend className="donate-legend">{t("amountLegend")}</legend>
         <div className="donate-amounts">
           {PRESET_AMOUNTS.map((amount) => (
             <button
@@ -105,7 +109,7 @@ export function DonateForm() {
         </div>
 
         <label htmlFor="custom-amount" className="donate-custom-label">
-          Or enter a custom amount
+          {t("customAmountLabel")}
         </label>
         <div className="donate-custom-wrap">
           <span className="donate-custom-prefix" aria-hidden="true">
@@ -119,7 +123,7 @@ export function DonateForm() {
             min={MIN_DOLLARS}
             max={MAX_DOLLARS}
             step="1"
-            placeholder="Other amount"
+            placeholder={t("customAmountPlaceholder")}
             className="donate-custom-input"
             value={customAmount}
             onChange={(event) => changeCustom(event.target.value)}
@@ -140,14 +144,14 @@ export function DonateForm() {
         aria-busy={submitting}
       >
         {submitting
-          ? "Redirecting to secure checkout…"
+          ? t("redirecting")
           : frequency === "monthly"
-            ? `Donate $${amountIsValid ? activeDollars : ""} monthly`
-            : `Donate $${amountIsValid ? activeDollars : ""}`}
+            ? t("donateMonthly", { amount: amountIsValid ? activeDollars : "" })
+            : t("donateOnce", { amount: amountIsValid ? activeDollars : "" })}
       </button>
 
       <p className="donate-secure-note">
-        Payments are processed securely by Stripe. <Brand /> never sees your card details.
+        {t.rich("secureNote", { brand: () => <Brand /> })}
       </p>
     </form>
   );

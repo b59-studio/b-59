@@ -379,6 +379,16 @@ body {
   background-color: rgba(10, 10, 10, 0.8);
 }
 
+/* The mobile nav panel is fully opaque (unlike the translucent header bar
+   above it) so page content scrolling underneath doesn't bleed through. */
+.nav-mobile-panel {
+  background-color: var(--color-b59-light);
+}
+
+.dark .nav-mobile-panel {
+  background-color: var(--color-b59-dark);
+}
+
 .nav-link {
   color: var(--color-b59-dark);
   transition: color 0.2s;
@@ -471,15 +481,13 @@ body {
 .nav-mega-menu {
   position: absolute;
   top: calc(100% + 0.75rem);
-  right: 0;
+  left: 0;
   display: flex;
   flex-direction: column;
   min-width: 18rem;
   max-width: 22rem;
   padding: 0.75rem;
-  background-color: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background-color: var(--color-b59-light);
   border-radius: 0.75rem;
   border: 1px solid rgba(74, 85, 104, 0.2);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
@@ -492,7 +500,7 @@ body {
 }
 
 .dark .nav-mega-menu {
-  background-color: rgba(10, 10, 10, 0.9);
+  background-color: var(--color-b59-dark);
 }
 
 .nav-mega-heading {
@@ -658,6 +666,84 @@ body {
 
 .dark .theme-toggle-icon {
   color: var(--color-b59-light);
+}
+
+/* Language switcher — sized to match its sibling nav-link / theme-toggle
+   controls so it reads as native chrome, not a bolted-on widget. */
+.lang-switcher-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  color: var(--color-b59-dark);
+  font-size: 1rem;
+  line-height: 1.5rem;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.dark .lang-switcher-trigger {
+  color: var(--color-b59-light);
+}
+
+.lang-switcher-trigger:hover {
+  background-color: rgba(0, 102, 255, 0.1);
+  color: var(--color-b59-blue);
+}
+
+.lang-switcher-trigger:focus-visible {
+  outline: 3px solid var(--color-b59-blue);
+  outline-offset: 2px;
+}
+
+.lang-switcher-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}
+
+.lang-switcher-chevron {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+
+.lang-switcher-chevron.is-open {
+  transform: rotate(180deg);
+}
+
+.lang-switcher-check {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  color: var(--color-b59-blue);
+}
+
+.lang-switcher-menu {
+  position: absolute;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 10rem;
+  padding: 0.5rem;
+  background-color: var(--color-b59-light);
+  border-radius: 0.75rem;
+  border: 1px solid rgba(74, 85, 104, 0.2);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+}
+
+.dark .lang-switcher-menu {
+  background-color: var(--color-b59-dark);
+}
+
+.lang-switcher-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  text-align: left;
 }
 
 .mobile-menu-btn {
