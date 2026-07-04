@@ -10,7 +10,7 @@
  * Returns an absolute origin (scheme + host + port) with no trailing slash, so
  * callers can safely template `${siteUrl}/path` or pass it to `new URL(...)`.
  */
-export const DEFAULT_SITE_URL = "https://b-59.com";
+export const DEFAULT_SITE_URL = "https://www.b-59.com";
 
 export function resolveSiteUrl(
   raw: string | undefined = process.env.NEXT_PUBLIC_SITE_URL,
