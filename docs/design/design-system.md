@@ -51,10 +51,12 @@ is system-following with an explicit toggle (per `standards/25`), unless a produ
 
 ## Wordmark
 
-The **B-59** name is a wordmark, not plain text. In any **visible copy**, always render it with the
-`<Brand />` component (`src/components/Brand.tsx`) — it sets the hyphen in `--color-b59-blue` and keeps the
-name from wrapping across a line break. Never hand-type "B-59" with a plain hyphen in rendered copy; the
-blue hyphen is a fixed brand rule everywhere the name is shown (headings, body, footer, legal text).
+The **B-59** name is a wordmark, not plain text. In any **visible copy**, render it through the repo's
+wordmark component — a small `<Brand />`-style span that sets the hyphen in `--color-b59-blue` and keeps
+the name from wrapping across a line break. Never hand-type "B-59" with a plain hyphen in rendered copy;
+the blue hyphen is a fixed brand rule everywhere the name is shown (headings, body, footer, legal text).
+Canonical implementation: `b-59/src/components/Brand.tsx`. A product wordmark follows the same pattern —
+one character in the brand blue, no wrap (ready2vote's `<Ready2Vote />` sets the numeral 2 in blue).
 
 Scope: **rendered text only.** Metadata (`title`/`description`), `alt` text, structured data (JSON-LD), and
 other string-only fields stay plain `"B-59"` — they can't carry markup and aren't the visual wordmark.
