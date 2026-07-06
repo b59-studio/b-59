@@ -1,8 +1,8 @@
 # B-59 — civic design system (base)
 
-> **Shared civic base design language** for B-59's civic / public-interest products. Source of truth
-> lives in the-department at `design-systems/b59/`; it syncs into each member repo's
-> `docs/design/design-system.md` (see `design-systems/README.md` and the group's `targets.conf`).
+> **Shared civic base design language** for B-59's civic / public-interest products. This file is
+> synced from a shared upstream source of truth into each member repo's
+> `docs/design/design-system.md` — treat the synced copy as read-only and make changes upstream.
 > Canonical implementation: `b-59/src/app/globals.css`.
 >
 > **Default + override model.** A civic B-59 app uses this base **unless it specifies its own**. An app
