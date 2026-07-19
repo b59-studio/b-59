@@ -71,6 +71,15 @@ other string-only fields stay plain `"B-59"` — they can't carry markup and are
   (blue fill, white text). Every interactive element keeps a visible `:focus-visible` outline.
 - **Forms** — `.form-input` with a gray border, blue focus ring; `.form-label` bold; errors via
   `aria-invalid` + a `.form-error`/alert message, never color alone.
+- **Header utility icons** — an icon-only utility control in the header chrome is set in
+  `--color-b59-blue`, the same color in both themes. The principle: when the icon **is** the
+  control, it carries the accent (in b-59 today: the language-switcher globe, the light/dark
+  theme toggle, the mobile menu/close glyph — examples of the system, not an exhaustive list).
+  Text controls (nav links, the language name beside the globe) and glyphs that merely decorate a
+  text control (dropdown chevrons) stay in the theme ink. This lives **inside** the "blue is
+  rationed" rule, not outside it — a handful of small utility glyphs, never a tinted chrome.
+  Canonical implementation: `.theme-toggle-icon` / `.lang-switcher-icon` / `.mobile-menu-btn` in
+  `b-59/src/app/globals.css`.
 
 ## Do / Don't
 
@@ -84,6 +93,8 @@ as decoration; use `--color-b59-alert` for anything but errors.
 - Ink (`#0A0A0A`) on white passes AA comfortably; `--color-b59-gray` on white is secondary-text only.
 - Blue `#0066FF` as **link/small text on white is ~3.7:1 — below AA**; for small blue text use a darker
   blue or pair with an underline + non-color cue. Verify button contrast (white-on-blue is borderline).
+- Blue **icons** are fine in both themes: non-text contrast (WCAG 1.4.11) needs 3:1, and `#0066FF` is
+  ~3.7:1 on white and ~4.1:1 on the dark ink. Icon-only controls still need an accessible name.
 - Full WCAG 2.2 AA review is the `a11y-reviewer`'s job — this section captures the brand-level decisions.
 
 ## References

@@ -658,14 +658,13 @@ body {
   background-color: rgba(0, 102, 255, 0.1);
 }
 
+/* Icon-only utility controls in the header chrome (globe, theme toggle,
+   menu/close glyph, …) carry the accent in both themes; text controls stay
+   in the theme ink. */
 .theme-toggle-icon {
   width: 1.25rem;
   height: 1.25rem;
-  color: var(--color-b59-dark);
-}
-
-.dark .theme-toggle-icon {
-  color: var(--color-b59-light);
+  color: var(--color-b59-blue);
 }
 
 /* Language switcher — sized to match its sibling nav-link / theme-toggle
@@ -700,6 +699,7 @@ body {
   width: 1.25rem;
   height: 1.25rem;
   flex-shrink: 0;
+  color: var(--color-b59-blue);
 }
 
 .lang-switcher-chevron {
@@ -747,16 +747,13 @@ body {
 }
 
 .mobile-menu-btn {
-  color: var(--color-b59-dark);
-  transition: color 0.2s;
-}
-
-.dark .mobile-menu-btn {
-  color: var(--color-b59-light);
+  color: var(--color-b59-blue);
+  border-radius: 0.5rem;
+  transition: background-color 0.2s;
 }
 
 .mobile-menu-btn:hover {
-  color: var(--color-b59-blue);
+  background-color: rgba(0, 102, 255, 0.1);
 }
 
 /* ============================================
