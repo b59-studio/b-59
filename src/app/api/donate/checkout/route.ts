@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/nextjs";
 import { NextResponse } from "next/server";
 import {
   createCheckoutSession,
@@ -59,7 +60,13 @@ export async function POST(request: Request) {
     });
     return NextResponse.json({ url });
   } catch (error) {
-    // Log server-side for debugging; return a generic message to the client.
+    // Report server-side only; return a generic message to the client. The
+    // captured context is deliberately non-personal: amount and frequency,
+    // never donor details (card data stays on Stripe's hosted page).
+    Sentry.captureException(error, {
+      tags: { route: "donate/checkout" },
+      contexts: { donation: { amount_cents: amount, frequency: freq } },
+    });
     console.error("Donation checkout failed:", error);
     return NextResponse.json(
       { error: "We couldn't start the checkout. Please try again." },

@@ -2,9 +2,9 @@
 
 ## Status
 
-Proposed — merging this ADR accepts the decision. Edit before merging to
-change it. (Per `standards/21-observability.md` § The telemetry decision,
-this record is the launch gate; wiring is a separate, later change.)
+Accepted — merged 2026-08-10. The wiring (Sentry, the Plausible script,
+the privacy-policy processor list) is in the codebase; events flow once
+the vendor accounts exist and their keys land in Doppler.
 
 Date: 2026-08-10
 
@@ -109,7 +109,7 @@ pageview counts, and that is the whole analytics ambition here.
 
 | Concern | Surface | Where |
 | --- | --- | --- |
-| Traffic / pageviews | Plausible site for www.b-59.com | Plausible dashboard (link on wiring) |
-| Errors (server + client) | Sentry project for b-59 | Sentry dashboard (link on wiring) |
+| Traffic / pageviews | Plausible site for www.b-59.com | <https://plausible.io/www.b-59.com> (live once the site is created and `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` is set) |
+| Errors (server + client) | Sentry project for b-59 | Sentry dashboard (link lands when the project is provisioned) |
 | Donations — conversions and payment failures | Stripe | Stripe dashboard |
 | Deploy and runtime logs | Vercel project | Vercel dashboard |

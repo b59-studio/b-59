@@ -152,7 +152,7 @@
     "useItem3": "Mantener la seguridad e integridad de nuestros sistemas",
     "noSell": "No vendemos información personal.",
     "cookiesHeading": "Cookies y Analítica",
-    "cookiesBody": "Podemos usar cookies o tecnologías similares para entender el uso del sitio y mejorar el rendimiento. Puedes controlar las cookies a través de la configuración de tu navegador.",
+    "cookiesBody": "La única cookie que establece este sitio recuerda tu elección de idioma. El tráfico se mide con Plausible, un servicio de analítica sin cookies que registra páginas vistas agregadas sin recopilar información personal. Cuatro proveedores procesan datos en nuestro nombre: Vercel (alojamiento), Stripe (pagos de donaciones), Sentry (informes de errores) y Plausible (analítica). Cada uno recibe solo lo necesario para su función.",
     "sharingHeading": "Compartir Datos",
     "sharingBody": "No compartimos información personal con terceros, salvo que lo exija la ley o para operar el sitio web (por ejemplo, proveedores de alojamiento o analítica).",
     "securityHeading": "Seguridad de los Datos",
