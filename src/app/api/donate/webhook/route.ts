@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/nextjs";
 import { NextResponse } from "next/server";
 import { constructStripeEvent } from "@/lib/stripe-webhook";
 
@@ -9,6 +10,10 @@ export const dynamic = "force-dynamic";
 export async function POST(request: Request) {
   const secret = process.env.STRIPE_WEBHOOK_SECRET;
   if (!secret) {
+    Sentry.captureException(
+      new Error("Stripe webhook received but STRIPE_WEBHOOK_SECRET is not configured."),
+      { tags: { route: "donate/webhook" } },
+    );
     console.error("Stripe webhook received but STRIPE_WEBHOOK_SECRET is not configured.");
     return NextResponse.json({ error: "Webhook not configured." }, { status: 500 });
   }
@@ -21,42 +26,55 @@ export async function POST(request: Request) {
   try {
     event = constructStripeEvent(rawBody, signature, secret);
   } catch (error) {
+    // No payload details in the report: the body is unverified at this point.
+    Sentry.captureException(error, { tags: { route: "donate/webhook" } });
     console.error("Stripe webhook verification failed:", error);
     return NextResponse.json({ error: "Invalid signature." }, { status: 400 });
   }
 
   // Acknowledge known events. Persistence/notifications can hang off these
   // cases later; for now we log so completed donations are traceable.
-  switch (event.type) {
-    case "checkout.session.completed":
-    case "checkout.session.async_payment_succeeded": {
-      const session = event.data.object;
-      // Donor email is intentionally omitted — keep PII out of application logs.
-      console.log("Donation completed:", {
-        id: session.id,
-        amountTotal: session.amount_total,
-        currency: session.currency,
-        mode: session.mode,
-      });
-      break;
+  try {
+    switch (event.type) {
+      case "checkout.session.completed":
+      case "checkout.session.async_payment_succeeded": {
+        const session = event.data.object;
+        // Donor email is intentionally omitted — keep PII out of application logs.
+        console.log("Donation completed:", {
+          id: session.id,
+          amountTotal: session.amount_total,
+          currency: session.currency,
+          mode: session.mode,
+        });
+        break;
+      }
+      case "invoice.paid": {
+        // Fires on each successful recurring (monthly) charge.
+        const invoice = event.data.object;
+        console.log("Recurring donation charged:", {
+          id: invoice.id,
+          amountPaid: invoice.amount_paid,
+          currency: invoice.currency,
+        });
+        break;
+      }
+      case "checkout.session.async_payment_failed": {
+        console.warn("Donation payment failed:", { id: event.data.object.id });
+        break;
+      }
+      default:
+        // Unhandled event types are fine to ignore; Stripe just needs a 2xx.
+        break;
     }
-    case "invoice.paid": {
-      // Fires on each successful recurring (monthly) charge.
-      const invoice = event.data.object;
-      console.log("Recurring donation charged:", {
-        id: invoice.id,
-        amountPaid: invoice.amount_paid,
-        currency: invoice.currency,
-      });
-      break;
-    }
-    case "checkout.session.async_payment_failed": {
-      console.warn("Donation payment failed:", { id: event.data.object.id });
-      break;
-    }
-    default:
-      // Unhandled event types are fine to ignore; Stripe just needs a 2xx.
-      break;
+  } catch (error) {
+    // The event id is safe to report (an opaque Stripe reference, no donor
+    // data); a 500 makes Stripe retry the delivery once handling is fixed.
+    Sentry.captureException(error, {
+      tags: { route: "donate/webhook" },
+      contexts: { stripe: { event_id: event.id, event_type: event.type } },
+    });
+    console.error("Stripe webhook handling failed:", error);
+    return NextResponse.json({ error: "Webhook handling failed." }, { status: 500 });
   }
 
   return NextResponse.json({ received: true });

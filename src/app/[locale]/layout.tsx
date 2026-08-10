@@ -1,5 +1,5 @@
-import { Analytics } from "@vercel/analytics/react";
 import "../globals.css";
+import Script from "next/script";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
@@ -10,6 +10,9 @@ import { resolveSiteUrl } from "@/lib/site-url";
 import { routing } from "@/i18n/routing";
 
 const siteUrl = resolveSiteUrl();
+// Cookieless pageview analytics (docs/adr/0001-telemetry-decision.md): the
+// script loads only when the Plausible site domain is configured.
+const plausibleDomain = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN;
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -55,7 +58,13 @@ export default async function LocaleLayout({ children, params }: Props) {
             <Footer />
           </ThemeProvider>
         </NextIntlClientProvider>
-        <Analytics />
+        {plausibleDomain ? (
+          <Script
+            defer
+            data-domain={plausibleDomain}
+            src="https://plausible.io/js/script.js"
+          />
+        ) : null}
       </body>
     </html>
   );
