@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { getTranslations } from "next-intl/server";
+import { ProjectMark } from "@/components/ProjectMark";
 
 export const metadata: Metadata = {
   title: "ready2vote",
@@ -29,14 +29,7 @@ export default async function Ready2Vote() {
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
       <div className="space-y-12">
         <section>
-          <Image
-            src="/ready2vote-star.svg"
-            alt="ready2vote"
-            width={72}
-            height={72}
-            className="mb-6"
-            priority
-          />
+          <ProjectMark project="ready2vote" size={72} className="project-mark-hero" />
           <h1 className="heading-xl mb-6">
             ready<span className="text-b59-blue">2</span>vote
           </h1>

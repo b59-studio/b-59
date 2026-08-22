@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Brand } from "@/components/Brand";
+import { ProjectMark } from "@/components/ProjectMark";
 
 export const metadata: Metadata = {
   title: "Travis County VDR Toolkit",
@@ -28,6 +29,7 @@ export default async function TravisCountyVdr() {
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
       <div className="space-y-12">
         <section>
+          <ProjectMark project="travis-county-vdr" size={72} className="project-mark-hero" />
           <h1 className="heading-xl mb-6">{t("heading")}</h1>
           <div className="body-lg space-y-4">
             <p>{t.rich("intro1", { strong: strong1 })}</p>
