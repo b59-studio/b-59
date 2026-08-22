@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import type { ReactNode } from "react";
 import { Brand } from "@/components/Brand";
+import { ProjectMark, type ProjectKey } from "@/components/ProjectMark";
 
 export const metadata: Metadata = {
   title: "Our Work",
@@ -19,6 +20,7 @@ export const metadata: Metadata = {
 
 type WorkItem = {
   tag: string;
+  project: ProjectKey;
   title: ReactNode;
   href: string;
   blurb: string;
@@ -29,10 +31,13 @@ function WorkGrid({ items }: { items: WorkItem[] }) {
     <ul className="space-y-4">
       {items.map((item) => (
         <li key={item.href}>
-          <Link href={item.href} className="portfolio-card">
-            <span className="portfolio-card-tag">{item.tag}</span>
-            <h3 className="heading-sm">{item.title}</h3>
-            <p className="body-md">{item.blurb}</p>
+          <Link href={item.href} className="portfolio-card portfolio-card--marked">
+            <ProjectMark project={item.project} size={32} className="portfolio-card-mark" />
+            <span className="portfolio-card-body">
+              <span className="portfolio-card-tag">{item.tag}</span>
+              <h3 className="heading-sm">{item.title}</h3>
+              <p className="body-md">{item.blurb}</p>
+            </span>
           </Link>
         </li>
       ))}
@@ -48,6 +53,7 @@ export default async function Studio() {
   const solutions: WorkItem[] = [
     {
       tag: t("tagVoting"),
+      project: "ready2vote",
       title: (
         <>
           ready<span className="text-b59-blue">2</span>vote
@@ -58,6 +64,7 @@ export default async function Studio() {
     },
     {
       tag: t("tagAdministrative"),
+      project: "hotline",
       title: "Hotline",
       href: "/solutions/hotline",
       blurb: t("hotlineBlurb"),
@@ -67,6 +74,7 @@ export default async function Studio() {
   const caseStudies: WorkItem[] = [
     {
       tag: t("tagClientWork"),
+      project: "travis-county-vdr",
       title: "Travis County VDR Toolkit",
       href: "/solutions/travis-county-vdr",
       blurb: t("travisCountyVdrBlurb"),

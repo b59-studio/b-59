@@ -7,6 +7,7 @@ import { MobileMenu } from "./MobileMenu";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { useTheme } from "./ThemeProvider";
 import { useDropdownClose } from "@/lib/use-dropdown-close";
+import { ProjectMark } from "./ProjectMark";
 
 export default function Header() {
   const t = useTranslations("nav");
@@ -76,10 +77,13 @@ export default function Header() {
                         role="menuitem"
                         onClick={() => setSolutionsOpen(false)}
                       >
-                        <span className="nav-mega-item-name">
-                          ready<span className="text-b59-blue">2</span>vote
+                        <ProjectMark project="ready2vote" size={22} />
+                        <span className="nav-mega-item-text">
+                          <span className="nav-mega-item-name">
+                            ready<span className="text-b59-blue">2</span>vote
+                          </span>
+                          <span className="nav-mega-item-sub">{t("ready2voteSub")}</span>
                         </span>
-                        <span className="nav-mega-item-sub">{t("ready2voteSub")}</span>
                       </Link>
                       <Link
                         href="/solutions/hotline"
@@ -87,8 +91,11 @@ export default function Header() {
                         role="menuitem"
                         onClick={() => setSolutionsOpen(false)}
                       >
-                        <span className="nav-mega-item-name">Hotline</span>
-                        <span className="nav-mega-item-sub">{t("hotlineSub")}</span>
+                        <ProjectMark project="hotline" size={22} />
+                        <span className="nav-mega-item-text">
+                          <span className="nav-mega-item-name">Hotline</span>
+                          <span className="nav-mega-item-sub">{t("hotlineSub")}</span>
+                        </span>
                       </Link>
 
                       <p className="nav-mega-heading nav-mega-heading-mt">{t("caseStudies")}</p>
@@ -98,8 +105,11 @@ export default function Header() {
                         role="menuitem"
                         onClick={() => setSolutionsOpen(false)}
                       >
-                        <span className="nav-mega-item-name">Travis County VDR Toolkit</span>
-                        <span className="nav-mega-item-sub">{t("travisCountyVdrSub")}</span>
+                        <ProjectMark project="travis-county-vdr" size={22} />
+                        <span className="nav-mega-item-text">
+                          <span className="nav-mega-item-name">Travis County VDR Toolkit</span>
+                          <span className="nav-mega-item-sub">{t("travisCountyVdrSub")}</span>
+                        </span>
                       </Link>
                     </div>
                   )}

@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { ProjectMark } from "./ProjectMark";
 
 type MobileMenuProps = {
   open: boolean;
@@ -23,13 +24,17 @@ export function MobileMenu({ open, onNavigate }: MobileMenuProps) {
 
       <span className="nav-mobile-heading">{t("solutions")}</span>
       <Link href="/solutions/ready2vote" className="nav-mobile-link nav-mobile-sublink" onClick={onNavigate}>
-        ready<span className="text-b59-blue">2</span>vote
+        <ProjectMark project="ready2vote" size={20} />
+        <span>
+          ready<span className="text-b59-blue">2</span>vote
+        </span>
       </Link>
-      <span className="nav-mobile-sub">{t("ready2voteSub")}</span>
+      <span className="nav-mobile-sub nav-mobile-sub-marked">{t("ready2voteSub")}</span>
       <Link href="/solutions/hotline" className="nav-mobile-link nav-mobile-sublink" onClick={onNavigate}>
-        Hotline
+        <ProjectMark project="hotline" size={20} />
+        <span>Hotline</span>
       </Link>
-      <span className="nav-mobile-sub">{t("hotlineSub")}</span>
+      <span className="nav-mobile-sub nav-mobile-sub-marked">{t("hotlineSub")}</span>
 
       <span className="nav-mobile-heading">{t("caseStudies")}</span>
       <Link
@@ -37,9 +42,10 @@ export function MobileMenu({ open, onNavigate }: MobileMenuProps) {
         className="nav-mobile-link nav-mobile-sublink"
         onClick={onNavigate}
       >
-        Travis County VDR Toolkit
+        <ProjectMark project="travis-county-vdr" size={20} />
+        <span>Travis County VDR Toolkit</span>
       </Link>
-      <span className="nav-mobile-sub">{t("travisCountyVdrSub")}</span>
+      <span className="nav-mobile-sub nav-mobile-sub-marked">{t("travisCountyVdrSub")}</span>
 
       <Link href="/about" className="nav-mobile-link" onClick={onNavigate}>
         {t("ourStory")}
