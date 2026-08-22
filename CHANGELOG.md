@@ -1,0 +1,166 @@
+# Changelog
+
+Notable, **user-visible** changes to the B-59 site. Internal-only work — CI
+fixes, refactors, dependency bumps, standards syncs — is left to the git
+history, which is where it belongs.
+
+Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), with
+one deliberate departure: **there are no version numbers.** The site is
+continuously deployed — merging to `main` puts the change in front of the
+public — so a semver release would be a ceremony nothing here actually
+performs. Sections are dated by the day the change went live instead.
+
+**Working convention.** While a branch is open, add your entry under
+`## [Unreleased]`. When the pull request merges, move it under a heading for
+that day's date. If a branch stays open across a deploy, check that your entry
+is still sitting under the right heading before you merge — an entry can end up
+filed under a date that shipped without it, and git will not flag it, because
+the addition is clean and only the heading above it changed.
+
+Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
+**Security**.
+
+> Entries before 2026-08-22 were reconstructed from the commit history rather
+> than written at the time, so they record *what* shipped and when, and are
+> thinner on *why* than entries written alongside the work.
+
+---
+
+## [Unreleased]
+
+_Nothing yet._
+
+## 2026-08-22
+
+### Added
+
+- Every project now carries its mark beside its name — in the header menus, the
+  mobile menu, the Our Work cards, and at the head of its own page. The Travis
+  County case study, which has no logo of its own, gets a drawn one.
+- Hotline's signal dot beats on the Hotline page: two beats then rest, stilled
+  for anyone who has asked their system to reduce motion.
+- The Hotline page gained a section on running an organization's rota — shifts,
+  coverage, and hours becoming cost and an invoice.
+
+### Changed
+
+- The Hotline page now describes the product that ships. It had been selling a
+  Cal.com-backed booking link; Hotline owns its calendar layer directly, and
+  the page now names Google, Outlook, Apple iCloud and ICS feeds, and prices
+  per organization rather than per seat.
+
+### Fixed
+
+- The Hotline page claimed "no Google required", written when Google was not a
+  supported calendar. It is now a first-class one.
+
+## 2026-08-10
+
+### Added
+
+- Error monitoring (Sentry) and pageview analytics (Plausible). Both are
+  cookieless with no consent gate: no PII in error events, no cookie banner.
+  Both appear in the privacy policy's processor list.
+
+## 2026-07-19
+
+### Changed
+
+- Icon-only controls in the header — the language globe, the light/dark toggle,
+  the mobile menu glyph — carry the brand blue in both themes.
+
+## 2026-07-03
+
+### Added
+
+- Spanish and Mandarin translations of the whole site, alongside English.
+- Sitemap routes are derived from the filesystem, so a new page can no longer
+  ship missing from the sitemap.
+
+### Changed
+
+- Donate moved to the far right of the header, ahead of the language and theme
+  controls.
+
+### Fixed
+
+- `www.b-59.com` is the canonical URL.
+- Header submenu opacity.
+
+## 2026-07-01
+
+### Added
+
+- Hotline, as a solution page.
+- Our Work — a single page collecting the civic products and the client case
+  studies.
+
+### Changed
+
+- Studio and About navigation restructured.
+- The B-59 wordmark renders consistently everywhere the name appears, with the
+  hyphen in brand blue and no line break through it.
+
+### Fixed
+
+- The social share card renders the real header wordmark.
+
+## 2026-06-30
+
+### Added
+
+- A proper 1200×630 social share card.
+- The Travis County VDR Toolkit case study, under a Voting section.
+
+### Changed
+
+- The v2 wordmark replaces the old logo in share metadata.
+
+## 2026-06-27
+
+### Added
+
+- A brand-design section, and the Studio mega-menu in the header.
+
+## 2026-06-25
+
+### Changed
+
+- Refreshed site icon, and the v2 wordmark cropped for the header.
+
+## 2026-06-21
+
+### Added
+
+- Donations, via Stripe hosted Checkout.
+
+### Changed
+
+- The dark theme's surface moved from charcoal to near-black.
+
+### Fixed
+
+- A malformed site URL in configuration no longer fails the build.
+
+## 2026-06-20
+
+### Changed
+
+- The footer is grouped into columns.
+
+## 2026-06-11
+
+### Added
+
+- ready2vote, as a solution page, and a Solutions dropdown in the navigation.
+
+### Changed
+
+- Callouts lost the left accent bar in favour of a tinted panel.
+
+## 2026-05-28
+
+### Added
+
+- GitHub and LinkedIn links in the footer.
+- Initial public release.
