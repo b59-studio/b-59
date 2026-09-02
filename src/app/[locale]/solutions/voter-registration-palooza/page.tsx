@@ -1,0 +1,70 @@
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+import { Brand } from "@/components/Brand";
+import { ProjectMark } from "@/components/ProjectMark";
+
+export const metadata: Metadata = {
+  title: "Voter Registration Palooza",
+  description:
+    "A client project by B-59. The campaign site for Voter Registration Palooza 2026 — thousands of volunteer-run registration events across Texas before the October 5 deadline. Four bilingual pages and two counts the organizers keep in a spreadsheet.",
+  alternates: { canonical: "/solutions/voter-registration-palooza" },
+  openGraph: {
+    title: "Voter Registration Palooza | B-59",
+    description:
+      "Built by B-59. The campaign site for a statewide push to register Texans before the deadline — four pages in English and Spanish, and counts that update from a spreadsheet.",
+    url: "/solutions/voter-registration-palooza",
+  },
+};
+
+const brand = () => <Brand />;
+const blue = (chunks: React.ReactNode) => <span className="text-b59-blue">{chunks}</span>;
+
+export default async function VoterRegistrationPalooza() {
+  const t = await getTranslations("solutionsVoterRegistrationPalooza");
+  const strong1 = () => <strong>{t("intro1Strong")}</strong>;
+  const strong2 = () => <strong>{t("item2Strong")}</strong>;
+  const strong4 = () => <strong>{t("item4Strong")}</strong>;
+
+  return (
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div className="space-y-12">
+        <section>
+          <ProjectMark project="voter-registration-palooza" size={72} className="project-mark-hero" />
+          <h1 className="heading-xl mb-6">{t("heading")}</h1>
+          <div className="body-lg space-y-4">
+            <p>{t.rich("intro1", { strong: strong1 })}</p>
+            <p>{t.rich("intro2", { brand })}</p>
+          </div>
+        </section>
+
+        <section>
+          <h2 className="heading-md mb-4">{t("whatWeDidHeading")}</h2>
+          <ul className="body-md space-y-3 list-disc pl-5">
+            <li>{t("item1")}</li>
+            <li>{t.rich("item2", { strong: strong2 })}</li>
+            <li>{t("item3")}</li>
+            <li>{t.rich("item4", { strong: strong4 })}</li>
+            <li>{t("item5")}</li>
+            <li>{t("item6")}</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 className="heading-md mb-4">{t("whyHeading")}</h2>
+          <div className="body-lg space-y-4">
+            <p>{t.rich("why1", { blue })}</p>
+            <p>{t.rich("why2", { blue })}</p>
+          </div>
+          <a
+            href="https://www.voterregistrationpalooza.com"
+            className="btn-secondary mt-8"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t("cta")}
+          </a>
+        </section>
+      </div>
+    </div>
+  );
+}

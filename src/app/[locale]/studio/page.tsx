@@ -8,7 +8,7 @@ import { ProjectMark, type ProjectKey } from "@/components/ProjectMark";
 export const metadata: Metadata = {
   title: "Our Work",
   description:
-    "The work of B-59 Studio in one place — the civic products we build and run, and selected client case studies. ready2vote, Hotline, and the Travis County VDR Toolkit.",
+    "The work of B-59 Studio in one place — the civic products we build and run, and selected client case studies. ready2vote, Hotline, the Travis County VDR Toolkit, and Voter Registration Palooza.",
   alternates: { canonical: "/studio" },
   openGraph: {
     title: "Our Work | B-59",
@@ -78,6 +78,13 @@ export default async function Studio() {
       title: "Travis County VDR Toolkit",
       href: "/solutions/travis-county-vdr",
       blurb: t("travisCountyVdrBlurb"),
+    },
+    {
+      tag: t("tagClientWork"),
+      project: "voter-registration-palooza",
+      title: "Voter Registration Palooza",
+      href: "/solutions/voter-registration-palooza",
+      blurb: t("voterRegistrationPaloozaBlurb"),
     },
   ];
 

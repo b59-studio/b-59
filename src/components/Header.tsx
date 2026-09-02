@@ -111,6 +111,18 @@ export default function Header() {
                           <span className="nav-mega-item-sub">{t("travisCountyVdrSub")}</span>
                         </span>
                       </Link>
+                      <Link
+                        href="/solutions/voter-registration-palooza"
+                        className="nav-mega-item"
+                        role="menuitem"
+                        onClick={() => setSolutionsOpen(false)}
+                      >
+                        <ProjectMark project="voter-registration-palooza" size={22} />
+                        <span className="nav-mega-item-text">
+                          <span className="nav-mega-item-name">Voter Registration Palooza</span>
+                          <span className="nav-mega-item-sub">{t("voterRegistrationPaloozaSub")}</span>
+                        </span>
+                      </Link>
                     </div>
                   )}
                 </div>

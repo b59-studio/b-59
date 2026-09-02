@@ -30,6 +30,7 @@ const overrides: Record<string, RouteOverride> = {
   "/solutions/hotline": { priority: 0.9 },
   "/solutions/ready2vote": { priority: 0.9 },
   "/solutions/travis-county-vdr": { priority: 0.9 },
+  "/solutions/voter-registration-palooza": { priority: 0.9 },
   "/donate": { priority: 0.8 },
   "/donate/success": { exclude: true }, // post-transaction confirmation, not for search engines
   "/about": { priority: 0.9 },

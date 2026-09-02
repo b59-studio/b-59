@@ -7,8 +7,8 @@ import type { CSSProperties } from "react";
  *
  * The rule this component encodes: **a project shows its own logo where it has
  * one, and a B-59 blue glyph where it doesn't.** ready2vote has a star and
- * Hotline has its signal dot; the Travis County case study has no mark of its
- * own, so it gets one drawn in the house accent rather than no mark at all —
+ * Hotline has its signal dot; the two case studies have no mark of their own,
+ * so each gets one drawn in the house accent rather than no mark at all —
  * a row of names where only some carry art reads as an oversight.
  *
  * Marks are decorative: every place one appears, the project's name is right
@@ -17,7 +17,11 @@ import type { CSSProperties } from "react";
  *
  * No hooks or state — this renders from both server and client components.
  */
-export type ProjectKey = "ready2vote" | "hotline" | "travis-county-vdr";
+export type ProjectKey =
+  | "ready2vote"
+  | "hotline"
+  | "travis-county-vdr"
+  | "voter-registration-palooza";
 
 export interface ProjectMarkProps {
   project: ProjectKey;
@@ -94,6 +98,35 @@ function VdrToolkitMark({ size, className, style }: Omit<ProjectMarkProps, "proj
   );
 }
 
+function PaloozaMark({ size, className, style }: Omit<ProjectMarkProps, "project" | "beat">) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 72 72"
+      aria-hidden={true}
+      focusable="false"
+      className={className}
+      style={{ flexShrink: 0, ...style }}
+    >
+      {/* The Palooza's own mark is the blue dot that ends its wordmark — a
+          period, not a logo, and a period alone would be Hotline's signal dot
+          in a different color. So the dot keeps its place and a house glyph is
+          drawn around it: a map pin, because the campaign is not one event but
+          thousands of them, scattered across Texas against a single deadline. */}
+      <path
+        d="M36 65C36 65 55 45.5 55 29A19 19 0 1 0 17 29C17 45.5 36 65 36 65Z"
+        fill="none"
+        stroke="var(--color-b59-blue)"
+        strokeWidth="6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="36" cy="29" r="6" fill="var(--color-b59-blue)" />
+    </svg>
+  );
+}
+
 export function ProjectMark({ project, size = 24, beat, className, style }: ProjectMarkProps) {
   if (project === "hotline") {
     return <HotlineMark size={size} beat={beat} className={className} style={style} />;
@@ -101,6 +134,10 @@ export function ProjectMark({ project, size = 24, beat, className, style }: Proj
 
   if (project === "travis-county-vdr") {
     return <VdrToolkitMark size={size} className={className} style={style} />;
+  }
+
+  if (project === "voter-registration-palooza") {
+    return <PaloozaMark size={size} className={className} style={style} />;
   }
 
   return (
