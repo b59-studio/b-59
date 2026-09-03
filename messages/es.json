@@ -11,6 +11,7 @@
     "hotlineSub": "Citas, turnos y horas para equipos cívicos.",
     "caseStudies": "Casos de Estudio",
     "travisCountyVdrSub": "Una reconstrucción centrada en móviles del kit de herramientas de registro de votantes del condado.",
+    "voterRegistrationPaloozaSub": "Un esfuerzo estatal para registrar a los tejanos antes de la fecha límite.",
     "about": "Nosotros",
     "ourStory": "Nuestra Historia",
     "brandDesignPhilosophy": "Filosofía de Diseño de Marca",
@@ -49,7 +50,7 @@
   },
   "studio": {
     "metaTitle": "Nuestro Trabajo",
-    "metaDescription": "El trabajo de B-59 Studio en un solo lugar: los productos cívicos que construimos y operamos, y casos de estudio selectos de clientes. ready2vote, Hotline y el kit de herramientas VDR del condado de Travis.",
+    "metaDescription": "El trabajo de B-59 Studio en un solo lugar: los productos cívicos que construimos y operamos, y casos de estudio selectos de clientes. ready2vote, Hotline, el kit de herramientas VDR del condado de Travis y Voter Registration Palooza.",
     "ogTitle": "Nuestro Trabajo | B-59",
     "ogDescription": "Productos cívicos que construimos y operamos, además de trabajo selecto de clientes, todo en un solo lugar.",
     "heading": "Nuestro Trabajo",
@@ -61,7 +62,8 @@
     "tagClientWork": "Trabajo de cliente",
     "ready2voteBlurb": "La primera herramienta en línea que ayuda a los tejanos a completar su solicitud de registro de votante y enviarla por correo a su condado.",
     "hotlineBlurb": "Programación y gestión de personal para equipos cívicos y de interés público: reuniones, turnos, cobertura y horas en un solo lugar.",
-    "travisCountyVdrBlurb": "Una reconstrucción instalable y centrada en móviles del kit de herramientas de registro de votantes del condado de Travis para registradores adjuntos voluntarios."
+    "travisCountyVdrBlurb": "Una reconstrucción instalable y centrada en móviles del kit de herramientas de registro de votantes del condado de Travis para registradores adjuntos voluntarios.",
+    "voterRegistrationPaloozaBlurb": "El sitio de campaña de un esfuerzo estatal para celebrar miles de eventos de registro organizados por voluntarios en todo Texas antes de la fecha límite del 5 de octubre."
   },
   "about": {
     "metaTitle": "Nosotros",
@@ -97,6 +99,7 @@
     "linkReady2vote": "ready2vote",
     "linkHotline": "Hotline",
     "linkTravisCountyVdr": "Kit de Herramientas VDR del Condado de Travis",
+    "linkVoterRegistrationPalooza": "Voter Registration Palooza",
     "linkOurStory": "Nuestra Historia",
     "linkBrandDesignPhilosophy": "Filosofía de Diseño de Marca",
     "linkDonate": "Donar",
@@ -253,6 +256,29 @@
     "why1": "El condado de Travis se acercó a nosotros para rediseñar el kit de herramientas y convertirlo en una experiencia centrada en móviles <blue>—</blue> algo que los VDR pudieran usar realmente en el campo, en un teléfono, mientras registran votantes. El sitio original funcionaba bien en un escritorio, pero no sobre el terreno, que es donde ocurre la mayor parte del trabajo.",
     "why2": "Así que lo reconstruimos centrado en móviles e instalable, y reorganizamos el contenido para que la capacitación, los programas y los materiales que un VDR necesita estén a un toque de distancia dondequiera que estén <blue>—</blue> y para que la oficina pueda mantenerlo actualizado sin tocar el código.",
     "cta": "Ver el sitio en vivo"
+  },
+  "solutionsVoterRegistrationPalooza": {
+    "metaTitle": "Voter Registration Palooza",
+    "metaDescription": "Un proyecto de cliente de B-59. El sitio de campaña de Voter Registration Palooza 2026: miles de eventos de registro organizados por voluntarios en todo Texas antes de la fecha límite del 5 de octubre. Cuatro páginas bilingües y dos recuentos que los organizadores llevan en una hoja de cálculo.",
+    "ogTitle": "Voter Registration Palooza | B-59",
+    "ogDescription": "Creado por B-59. El sitio de campaña de un esfuerzo estatal para registrar a los tejanos antes de la fecha límite: cuatro páginas en inglés y español, y recuentos que se actualizan desde una hoja de cálculo.",
+    "heading": "Voter Registration Palooza",
+    "intro1Strong": "Make Government Work PAC",
+    "intro1": "Voter Registration Palooza 2026 es el esfuerzo de <strong></strong> por celebrar miles de eventos de registro organizados por voluntarios en todo Texas en los últimos días antes de la fecha límite del 5 de octubre. Un evento es lo que un voluntario certificado pueda cargar: una mesa en una esquina, un portapapeles afuera de un teatro, una silla en el jardín de su casa.",
+    "intro2": "<brand></brand> construyó el sitio sobre el que funciona la campaña. Cuatro páginas en inglés y español, dos recuentos que los organizadores llevan en una hoja de cálculo y la lista de quiénes más apoyan — en línea a la semana del encargo, y editado desde entonces sin un solo despliegue.",
+    "whatWeDidHeading": "Qué hicimos",
+    "item1": "Le dimos a cada página una sola pregunta que responder: qué es la Palooza, cómo certificarse como registrador adjunto voluntario, qué permite la ley en una mesa y quiénes más se han sumado. Nadie navega un sitio de campaña en la semana previa a una fecha límite.",
+    "item2Strong": "sin CMS ni despliegue",
+    "item2": "Conectamos los recuentos y la lista de quienes apoyan a las propias hojas de cálculo de la campaña: <strong></strong> para cambiar un número o agregar un nombre. La lista lee su hoja mediante la API de Sheets, así que una edición aparece en unos diez segundos.",
+    "item3": "Diseñamos el fallo para que un visitante nunca lo encuentre. Una hoja que falte, que no esté compartida o que esté mal formada muestra ceros y un estado vacío redactado, en lugar de un error. El sitio no le explica su plomería a un voluntario.",
+    "item4Strong": "inglés y español",
+    "item4": "Lo construimos en <strong></strong> desde el primer commit, con una prueba que hace fallar la compilación cuando los dos catálogos se separan. Las fechas se guardan una sola vez y se formatean en el idioma de quien lee, así que mover una fecha límite es una línea y queda correcta en los dos idiomas.",
+    "item5": "Reprodujimos textualmente el aviso de publicidad política de Texas y lo dejamos sin traducir: es lenguaje prescrito, no redacción nuestra. Las páginas que tratan la ley de elegibilidad dicen en español que el inglés es la versión autorizada, y la enlazan.",
+    "item6": "Fijamos el contraste de la paleta con una prueba que lee los tokens de color desde la hoja de estilos, y revisamos el sitio donde están los voluntarios: 375 px de ancho, objetivos táctiles de 44 px, sin desplazamiento lateral.",
+    "whyHeading": "Por qué lo construimos",
+    "why1": "Una fecha límite de registro es un borde duro <blue>—</blue> el trabajo no vale nada el 6 de octubre. Todo lo que el sitio tenía que hacer, tenía que hacerlo para alguien que lee en un teléfono, de pie, con una semana por delante: encontrar la capacitación, saber qué es legal en la mesa e inscribirse. Por eso son cuatro páginas, y por eso los números se mueven sin que nadie tenga que esperarnos.",
+    "why2": "Es el sitio de un PAC y es partidista a propósito. Ese es el mensaje del cliente, y nuestro trabajo es que llegue, no añadir el nuestro <blue>—</blue> lo que aportamos es la parte que es igual en cada proyecto cívico que aceptamos. La ley expuesta con exactitud. El español tratado como un idioma y no como un interruptor. Y todo legible en el teléfono en el que realmente se va a leer.",
+    "cta": "Visitar la Palooza"
   },
   "brandPhilosophy": {
     "metaTitle": "Filosofía de Diseño de Marca",

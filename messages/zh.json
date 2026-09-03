@@ -11,6 +11,7 @@
     "hotlineSub": "为公民团队提供的日程安排、排班与工时。",
     "caseStudies": "案例研究",
     "travisCountyVdrSub": "以移动优先方式重建的县选民登记工具包。",
+    "voterRegistrationPaloozaSub": "在截止日期前推动全州范围的得州选民登记。",
     "about": "关于",
     "ourStory": "我们的故事",
     "brandDesignPhilosophy": "品牌设计理念",
@@ -49,7 +50,7 @@
   },
   "studio": {
     "metaTitle": "我们的作品",
-    "metaDescription": "B-59 Studio 的所有作品尽在一处——我们构建和运营的公民产品，以及精选的客户案例研究。ready2vote、Hotline，以及 Travis 县 VDR 工具包。",
+    "metaDescription": "B-59 Studio 的所有作品尽在一处——我们构建和运营的公民产品，以及精选的客户案例研究。ready2vote、Hotline、Travis 县 VDR 工具包，以及 Voter Registration Palooza。",
     "ogTitle": "我们的作品 | B-59",
     "ogDescription": "我们构建和运营的公民产品，加上精选的客户作品——尽在一处。",
     "heading": "我们的作品",
@@ -61,7 +62,8 @@
     "tagClientWork": "客户项目",
     "ready2voteBlurb": "第一个帮助得克萨斯州居民完成选民登记申请并邮寄到所在县的在线工具。",
     "hotlineBlurb": "面向公民和公共利益团队的日程安排与人力管理——会议、排班、人手覆盖与工时，都在同一处。",
-    "travisCountyVdrBlurb": "为志愿副登记官重建的、可安装的、移动优先的 Travis 县选民登记工具包。"
+    "travisCountyVdrBlurb": "为志愿副登记官重建的、可安装的、移动优先的 Travis 县选民登记工具包。",
+    "voterRegistrationPaloozaBlurb": "一场全州范围行动的竞选官网——在 10 月 5 日截止日期前，在得克萨斯州各地举办数千场由志愿者主办的选民登记活动。"
   },
   "about": {
     "metaTitle": "关于",
@@ -97,6 +99,7 @@
     "linkReady2vote": "ready2vote",
     "linkHotline": "Hotline",
     "linkTravisCountyVdr": "Travis 县 VDR 工具包",
+    "linkVoterRegistrationPalooza": "Voter Registration Palooza",
     "linkOurStory": "我们的故事",
     "linkBrandDesignPhilosophy": "品牌设计理念",
     "linkDonate": "捐赠",
@@ -253,6 +256,29 @@
     "why1": "Travis 县联系我们，希望重新设计该工具包，使其成为一种移动优先的体验<blue>——</blue>让 VDR 在实地登记选民时，真正能够用手机使用。原来的网站在办公桌前可以正常使用，但在实地工作现场却不行，而实地正是大部分工作发生的地方。",
     "why2": "因此我们以移动优先且可安装的方式对其进行了重建，并重新组织了内容，使 VDR 所需的培训、项目和材料无论身处何处都触手可及<blue>——</blue>并让办公室无需接触代码即可保持内容更新。",
     "cta": "查看在线站点"
+  },
+  "solutionsVoterRegistrationPalooza": {
+    "metaTitle": "Voter Registration Palooza",
+    "metaDescription": "B-59 的客户项目。Voter Registration Palooza 2026 的竞选官网——在 10 月 5 日截止日期前，在得克萨斯州各地举办数千场由志愿者主办的选民登记活动。四个双语页面，以及两项由组织者在电子表格中维护的计数。",
+    "ogTitle": "Voter Registration Palooza | B-59",
+    "ogDescription": "由 B-59 打造。一场全州范围行动的竞选官网，在截止日期前帮助得州人完成登记——英语和西班牙语共四个页面，计数直接来自电子表格。",
+    "heading": "Voter Registration Palooza",
+    "intro1Strong": "Make Government Work PAC",
+    "intro1": "Voter Registration Palooza 2026 是 <strong></strong> 发起的行动：在 10 月 5 日登记截止日期前的最后几天，在得克萨斯州各地举办数千场由志愿者主办的选民登记活动。所谓一场活动，就是一位持证志愿者拎得动的东西——街角的一张桌子、剧院外的一块写字板、自家前院的一把椅子。",
+    "intro2": "<brand></brand> 打造了这场竞选运行所依赖的网站。四个英西双语页面、两项由组织者在电子表格中维护的计数，以及一份还有谁参与的名单——接到委托一周内上线，此后每次修改都无需重新部署。",
+    "whatWeDidHeading": "我们做了什么",
+    "item1": "每个页面只回答一个问题：Palooza 是什么、如何取得志愿副登记官资格、在登记桌前法律允许做什么，以及还有谁加入了。截止日期前的最后一周，没有人会闲逛式地浏览一个竞选网站。",
+    "item2Strong": "无需 CMS，也无需部署",
+    "item2": "把实时计数和支持者名单接到了竞选团队自己的电子表格上：改一个数字或加一个名字，<strong></strong>。支持者名单通过 Sheets API 读取表格，一次修改大约十秒后就会显示出来。",
+    "item3": "我们把故障也设计过，让访客永远不会遇到它。表格缺失、未共享或格式错误时，页面显示零和一段写好的空状态，而不是一个错误。网站不会把我们这边的技术问题摆到志愿者面前。",
+    "item4Strong": "英语和西班牙语",
+    "item4": "从第一次提交起就用<strong></strong>两种语言构建，并有一项测试会在两份词条目录出现偏差时让构建失败。日期只存一次，在渲染时按读者的语言格式化，所以调整截止日期只需改一行，而且两种语言都正确。",
+    "item5": "得克萨斯州的政治广告声明逐字照录，且不做翻译——那是法定用语，不是我们的文案。涉及资格法律的页面会用西班牙语说明以英文版本为准，并附上链接。",
+    "item6": "用一项直接从样式表读取颜色令牌的测试锁定了配色的对比度，并在志愿者实际所处的条件下检查了网站：375 像素宽、44 像素触控目标、没有横向滚动。",
+    "whyHeading": "我们为何打造它",
+    "why1": "登记截止日期是一道硬边界<blue>——</blue>到了 10 月 6 日，这些工作就一文不值。网站要做的每一件事，都得为这样一个人做到：站着、用手机、只剩一周时间——找到培训、弄清登记桌前什么是合法的、然后报名。所以它只有四个页面，而且那些数字不必等我们就能变。",
+    "why2": "这是一个 PAC 的网站，它有意带有党派立场。那是客户的主张，我们的工作是让它传达出去，而不是加上我们自己的<blue>——</blue>我们带来的，是我们接下的每一个公民项目里都相同的那部分。法律陈述准确。西班牙语被当作一门语言，而不是一个开关。整个网站在人们真正会用来阅读它的那部手机上清晰可读。",
+    "cta": "访问 Palooza"
   },
   "brandPhilosophy": {
     "metaTitle": "品牌设计理念",

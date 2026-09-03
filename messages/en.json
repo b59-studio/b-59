@@ -11,6 +11,7 @@
     "hotlineSub": "Scheduling, shifts and hours for civic teams.",
     "caseStudies": "Case Studies",
     "travisCountyVdrSub": "A mobile-first rebuild of the county's Voter Registration Toolkit.",
+    "voterRegistrationPaloozaSub": "A statewide push to register Texans before the deadline.",
     "about": "About",
     "ourStory": "Our Story",
     "brandDesignPhilosophy": "Brand Design Philosophy",
@@ -49,7 +50,7 @@
   },
   "studio": {
     "metaTitle": "Our Work",
-    "metaDescription": "The work of B-59 Studio in one place — the civic products we build and run, and selected client case studies. ready2vote, Hotline, and the Travis County VDR Toolkit.",
+    "metaDescription": "The work of B-59 Studio in one place — the civic products we build and run, and selected client case studies. ready2vote, Hotline, the Travis County VDR Toolkit, and Voter Registration Palooza.",
     "ogTitle": "Our Work | B-59",
     "ogDescription": "Civic products we build and run, plus selected client work — all in one place.",
     "heading": "Our Work",
@@ -61,7 +62,8 @@
     "tagClientWork": "Client work",
     "ready2voteBlurb": "The first online tool that helps Texans complete their voter registration application and have it mailed to their county.",
     "hotlineBlurb": "Scheduling and workforce management for civic and public-interest teams — meetings, shifts, coverage and hours in one place.",
-    "travisCountyVdrBlurb": "A mobile-first, installable rebuild of the Travis County Voter Registration Toolkit for Volunteer Deputy Registrars."
+    "travisCountyVdrBlurb": "A mobile-first, installable rebuild of the Travis County Voter Registration Toolkit for Volunteer Deputy Registrars.",
+    "voterRegistrationPaloozaBlurb": "The campaign site for a statewide push to hold thousands of volunteer-run registration events across Texas before the October 5 deadline."
   },
   "about": {
     "metaTitle": "About",
@@ -97,6 +99,7 @@
     "linkReady2vote": "ready2vote",
     "linkHotline": "Hotline",
     "linkTravisCountyVdr": "Travis County VDR Toolkit",
+    "linkVoterRegistrationPalooza": "Voter Registration Palooza",
     "linkOurStory": "Our Story",
     "linkBrandDesignPhilosophy": "Brand Design Philosophy",
     "linkDonate": "Donate",
@@ -253,6 +256,29 @@
     "why1": "Travis County approached us to redesign the Toolkit and turn it into a mobile-first experience <blue>—</blue> something VDRs could actually use in the field, on a phone, while they're registering voters. The original site worked at a desk but not on the ground, which is where most of the work happens.",
     "why2": "So we rebuilt it mobile-first and installable, and restructured the content so the training, programs, and materials a VDR needs are a tap away wherever they are <blue>—</blue> and so the office can keep it current without touching code.",
     "cta": "View the live site"
+  },
+  "solutionsVoterRegistrationPalooza": {
+    "metaTitle": "Voter Registration Palooza",
+    "metaDescription": "A client project by B-59. The campaign site for Voter Registration Palooza 2026 — thousands of volunteer-run registration events across Texas before the October 5 deadline. Four bilingual pages and two counts the organizers keep in a spreadsheet.",
+    "ogTitle": "Voter Registration Palooza | B-59",
+    "ogDescription": "Built by B-59. The campaign site for a statewide push to register Texans before the deadline — four pages in English and Spanish, and counts that update from a spreadsheet.",
+    "heading": "Voter Registration Palooza",
+    "intro1Strong": "Make Government Work PAC",
+    "intro1": "Voter Registration Palooza 2026 is <strong></strong>'s push to hold thousands of volunteer-run registration events across Texas in the last days before the October 5 deadline. An event is whatever a deputized volunteer can carry: a table on a street corner, a clipboard outside a theater, a chair in a front yard.",
+    "intro2": "<brand></brand> built the site the campaign runs on. Four pages in English and Spanish, two counts the organizers keep in a spreadsheet, and a list of who else is in — live within a week of the brief, and edited since without a deploy.",
+    "whatWeDidHeading": "What we did",
+    "item1": "Gave each page one question to answer: what the Palooza is, how to get certified as a Deputy Voter Registrar, what the law allows at a table, and who else has signed on. Nobody browses a campaign site in the week before a deadline.",
+    "item2Strong": "no CMS and no deploy",
+    "item2": "Wired the running counts and the endorser list to the campaign's own spreadsheets — <strong></strong> to change a number or add a name. The endorser list reads its sheet through the Sheets API, so an edit shows up in about ten seconds.",
+    "item3": "Designed the failure so a visitor never meets it. A sheet that is missing, unshared, or malformed renders zeros and a written empty state instead of an error. The site does not explain our plumbing to a volunteer.",
+    "item4Strong": "English and Spanish",
+    "item4": "Built it in <strong></strong> from the first commit, with a test that fails the build when the two catalogs drift apart. Dates are stored once and formatted in the reader's language, so moving a deadline is one line and it is right in both.",
+    "item5": "Reproduced the Texas political advertising disclosure verbatim and left it untranslated — it is prescribed language, not copy. The pages carrying eligibility law say in Spanish that the English is authoritative, and link it.",
+    "item6": "Pinned the palette's contrast with a test that reads the color tokens out of the stylesheet, and checked the site where the volunteers are: 375px wide, 44px targets, no sideways scroll.",
+    "whyHeading": "Why we built this",
+    "why1": "A registration deadline is a hard edge <blue>—</blue> the work is worth nothing on October 6. Everything the site had to do, it had to do for someone reading on a phone, standing up, with a week left: find the training, learn what is legal at the table, and sign up. So it is four pages, and the numbers move without anyone waiting on us.",
+    "why2": "It is a PAC's site and it is partisan on purpose. That is the client's message, and our job is to make it land rather than to add ours <blue>—</blue> what we bring is the part that is the same on every civic project we take. The law stated accurately. Spanish treated as a language rather than a switch. The whole thing legible on the phone it will actually be read on.",
+    "cta": "Visit the Palooza"
   },
   "brandPhilosophy": {
     "metaTitle": "Brand Design Philosophy",

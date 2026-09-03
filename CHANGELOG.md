@@ -28,7 +28,14 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
-_Nothing yet._
+### Added
+
+- A case study for **Voter Registration Palooza**, the campaign site we built for
+  Make Government Work PAC's statewide push to register Texans before the
+  October 5 deadline. It sits beside the Travis County Toolkit under Case
+  Studies — in both header menus, on Our Work, and in the sitemap — and carries a
+  mark of its own: a map pin drawn around the blue dot that ends the campaign's
+  wordmark, because the campaign is thousands of scattered events rather than one.
 
 ## 2026-08-22
 

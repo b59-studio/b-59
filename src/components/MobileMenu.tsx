@@ -46,6 +46,17 @@ export function MobileMenu({ open, onNavigate }: MobileMenuProps) {
         <span>Travis County VDR Toolkit</span>
       </Link>
       <span className="nav-mobile-sub nav-mobile-sub-marked">{t("travisCountyVdrSub")}</span>
+      <Link
+        href="/solutions/voter-registration-palooza"
+        className="nav-mobile-link nav-mobile-sublink"
+        onClick={onNavigate}
+      >
+        <ProjectMark project="voter-registration-palooza" size={20} />
+        <span>Voter Registration Palooza</span>
+      </Link>
+      <span className="nav-mobile-sub nav-mobile-sub-marked">
+        {t("voterRegistrationPaloozaSub")}
+      </span>
 
       <Link href="/about" className="nav-mobile-link" onClick={onNavigate}>
         {t("ourStory")}
