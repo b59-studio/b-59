@@ -86,6 +86,13 @@ export default async function Studio() {
       href: "/solutions/voter-registration-palooza",
       blurb: t("voterRegistrationPaloozaBlurb"),
     },
+    {
+      tag: t("tagBrandDesign"),
+      project: "merch",
+      title: t("merchTitle"),
+      href: "/solutions/brand-design/merch",
+      blurb: t("merchBlurb"),
+    },
   ];
 
   return (

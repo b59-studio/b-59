@@ -21,7 +21,8 @@ export type ProjectKey =
   | "ready2vote"
   | "hotline"
   | "travis-county-vdr"
-  | "voter-registration-palooza";
+  | "voter-registration-palooza"
+  | "merch";
 
 export interface ProjectMarkProps {
   project: ProjectKey;
@@ -127,6 +128,33 @@ function PaloozaMark({ size, className, style }: Omit<ProjectMarkProps, "project
   );
 }
 
+function MerchMark({ size, className, style }: Omit<ProjectMarkProps, "project" | "beat">) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 72 72"
+      aria-hidden={true}
+      focusable="false"
+      className={className}
+      style={{ flexShrink: 0, ...style }}
+    >
+      {/* Merch is a shelf of other people's marks, so it cannot borrow any one
+          of them. The house glyph is a hang tag — the thing every piece on the
+          page arrived wearing — with the eyelet drawn solid so it reads at
+          20px. */}
+      <path
+        d="M12 12h23.5a4 4 0 0 1 2.83 1.17l24.5 24.5a4 4 0 0 1 0 5.66L45.33 60.83a4 4 0 0 1-5.66 0l-24.5-24.5A4 4 0 0 1 14 33.5V14a2 2 0 0 1 2-2Z"
+        fill="none"
+        stroke="var(--color-b59-blue)"
+        strokeWidth="6"
+        strokeLinejoin="round"
+      />
+      <circle cx="25" cy="25" r="4.5" fill="var(--color-b59-blue)" />
+    </svg>
+  );
+}
+
 export function ProjectMark({ project, size = 24, beat, className, style }: ProjectMarkProps) {
   if (project === "hotline") {
     return <HotlineMark size={size} beat={beat} className={className} style={style} />;
@@ -138,6 +166,10 @@ export function ProjectMark({ project, size = 24, beat, className, style }: Proj
 
   if (project === "voter-registration-palooza") {
     return <PaloozaMark size={size} className={className} style={style} />;
+  }
+
+  if (project === "merch") {
+    return <MerchMark size={size} className={className} style={style} />;
   }
 
   return (
