@@ -1,3 +1,5 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import type { NextConfig } from "next";
 import { withSentryConfig } from "@sentry/nextjs";
 import createNextIntlPlugin from "next-intl/plugin";
@@ -8,7 +10,9 @@ const nextConfig: NextConfig = {
   // Pin the workspace root to this checkout. Next otherwise infers it from the
   // nearest lockfile, which in a linked worktree under .claude/worktrees/ is the
   // primary checkout — the dev server then watches and caches the wrong tree.
-  turbopack: { root: process.cwd() },
+  // Derived from this file's location, not the working directory, so it holds
+  // wherever the command is launched from.
+  turbopack: { root: path.dirname(fileURLToPath(import.meta.url)) },
 };
 
 // Source-map upload runs only when SENTRY_AUTH_TOKEN is present (CI); local
