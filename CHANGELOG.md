@@ -28,6 +28,8 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+## 2026-09-07
+
 ### Added
 
 - **Hebrew and Hindi** in the language selector, alongside English, Spanish and
@@ -37,11 +39,6 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   the page now declares its writing direction and the layout mirrors with it:
   menus, the quote rule, list indents and the donation amount prefix all sit on
   the reading side rather than the left.
-
-## 2026-09-07
-
-### Added
-
 - **Our Inspirations** (`/about/inspirations`): the two examples the studio
   takes its bearings from. Audrey Tang, who went from g0v civic hacker and
   Sunflower Movement protester to Taiwan's first digital minister by building
