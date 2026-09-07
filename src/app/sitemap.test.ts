@@ -45,7 +45,7 @@ describe("sitemap", () => {
     const entries = sitemap();
     for (const entry of entries) {
       expect(entry.alternates?.languages).toEqual(
-        expect.objectContaining({ en: expect.any(String), es: expect.any(String), zh: expect.any(String), "x-default": expect.any(String) }),
+        expect.objectContaining({ en: expect.any(String), es: expect.any(String), zh: expect.any(String), he: expect.any(String), hi: expect.any(String), "x-default": expect.any(String) }),
       );
     }
   });

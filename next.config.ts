@@ -5,7 +5,10 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Pin the workspace root to this checkout. Next otherwise infers it from the
+  // nearest lockfile, which in a linked worktree under .claude/worktrees/ is the
+  // primary checkout — the dev server then watches and caches the wrong tree.
+  turbopack: { root: process.cwd() },
 };
 
 // Source-map upload runs only when SENTRY_AUTH_TOKEN is present (CI); local

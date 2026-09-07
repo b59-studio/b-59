@@ -3,7 +3,7 @@
  * server-only imports — so this is safe to import anywhere (incl. tests).
  */
 
-export const locales = ["en", "es", "zh"] as const;
+export const locales = ["en", "es", "zh", "he", "hi"] as const;
 
 export type Locale = (typeof locales)[number];
 
@@ -14,7 +14,18 @@ export const localeNames: Record<Locale, string> = {
   en: "English",
   es: "Español",
   zh: "中文",
+  he: "עברית",
+  hi: "हिन्दी",
 };
+
+export type TextDirection = "ltr" | "rtl";
+
+const rtlLocales: ReadonlySet<Locale> = new Set<Locale>(["he"]);
+
+/** Writing direction for `<html dir>`. Hebrew runs right-to-left; everything else left-to-right. */
+export function textDirection(locale: Locale): TextDirection {
+  return rtlLocales.has(locale) ? "rtl" : "ltr";
+}
 
 /** Cookie that persists the visitor's explicit language choice. */
 export const LOCALE_COOKIE = "NEXT_LOCALE";

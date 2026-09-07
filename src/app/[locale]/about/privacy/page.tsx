@@ -46,7 +46,7 @@ export default async function Privacy() {
         <section className="space-y-4">
           <h2 className="heading-lg">{t("useHeading")}</h2>
           <p className="body-md">{t("useIntro")}</p>
-          <ul className="list-disc pl-6 space-y-2 body-md">
+          <ul className="list-disc ps-6 space-y-2 body-md">
             <li>{t("useItem1")}</li>
             <li>{t("useItem2")}</li>
             <li>{t("useItem3")}</li>
@@ -84,7 +84,7 @@ export default async function Privacy() {
           <p className="body-md mb-8">
             {t.rich("contactBody", {
               email: (chunks) => (
-                <a href="mailto:contact@b-59.com" className="text-link">
+                <a href="mailto:contact@b-59.com" className="text-link" dir="ltr">
                   {chunks}
                 </a>
               ),

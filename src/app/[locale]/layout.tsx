@@ -9,6 +9,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { resolveSiteUrl } from "@/lib/site-url";
 import { routing } from "@/i18n/routing";
 import { noFlashScript } from "@/lib/theme";
+import { textDirection } from "@/i18n/config";
 
 const siteUrl = resolveSiteUrl();
 // Cookieless pageview analytics (docs/adr/0001-telemetry-decision.md): the
@@ -44,7 +45,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   };
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang={locale} dir={textDirection(locale)} suppressHydrationWarning>
       <head>
         {/* Resolve the mode before first paint. Without this a reader whose
             device is dark is shown a white page until React hydrates

@@ -5,7 +5,7 @@
  */
 export function Brand() {
   return (
-    <span className="brand">
+    <span className="brand" dir="ltr">
       B<span className="text-b59-blue">-</span>59
     </span>
   );

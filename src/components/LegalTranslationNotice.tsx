@@ -14,7 +14,7 @@ export async function LegalTranslationNotice({ enHref }: { enHref: string }) {
   const t = await getTranslations("legal");
 
   return (
-    <div role="note" className="callout-blue text-left mb-10">
+    <div role="note" className="callout-blue text-start mb-10">
       <p className="body-sm mb-2">{t("notice.body")}</p>
       <Link href={enHref} locale={defaultLocale} className="text-link font-semibold body-sm">
         {t("notice.viewEnglish")}
