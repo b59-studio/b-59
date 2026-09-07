@@ -29,7 +29,7 @@ export default function Header() {
               <div className="logo-container" style={{ width: "90px" }} />
             </Link>
 
-            <div className="hidden md:flex items-center justify-between flex-1 ml-8">
+            <div className="hidden md:flex items-center justify-between flex-1 ms-8">
               <div className="flex items-center gap-8">
                 <div className="nav-dropdown" ref={solutionsRef}>
                   <button
@@ -63,7 +63,7 @@ export default function Header() {
                         onClick={() => setSolutionsOpen(false)}
                       >
                         <span>
-                          {t("ourWork")} <span aria-hidden="true">→</span>
+                          {t("ourWork")} <span aria-hidden="true" className="nav-forward-arrow" />
                         </span>
                         <span className="nav-mega-featured-sub">{t("ourWorkSub")}</span>
                       </Link>

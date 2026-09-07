@@ -39,7 +39,7 @@ export default async function VoterRegistrationPalooza() {
 
         <section>
           <h2 className="heading-md mb-4">{t("whatWeDidHeading")}</h2>
-          <ul className="body-md space-y-3 list-disc pl-5">
+          <ul className="body-md space-y-3 list-disc ps-5">
             <li>{t("item1")}</li>
             <li>{t.rich("item2", { strong: strong2 })}</li>
             <li>{t("item3")}</li>

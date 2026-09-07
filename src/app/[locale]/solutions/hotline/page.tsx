@@ -43,7 +43,7 @@ export default async function Hotline() {
 
         <section>
           <h2 className="heading-md mb-4">{t("differentHeading")}</h2>
-          <ul className="body-md space-y-3 list-disc pl-5">
+          <ul className="body-md space-y-3 list-disc ps-5">
             <li>
               <strong>{t("diff1Strong")}</strong>
               {t("diff1Body")}
@@ -66,7 +66,7 @@ export default async function Hotline() {
         <section>
           <h2 className="heading-md mb-4">{t("orgHeading")}</h2>
           <p className="body-lg mb-4">{t.rich("orgIntro", { blue })}</p>
-          <ul className="body-md space-y-3 list-disc pl-5">
+          <ul className="body-md space-y-3 list-disc ps-5">
             <li>
               <strong>{t("org1Strong")}</strong>
               {t("org1Body")}

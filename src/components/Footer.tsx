@@ -73,7 +73,7 @@ export default async function Footer() {
 
           <FooterColumn heading={t("connectHeading")}>
             <li>
-              <a href="mailto:contact@b-59.com" className="footer-link">
+              <a href="mailto:contact@b-59.com" className="footer-link" dir="ltr">
                 contact@b-59.com
               </a>
             </li>

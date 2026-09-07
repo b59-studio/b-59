@@ -40,7 +40,7 @@ export default async function SiteMap() {
       <p className="body-lg text-secondary mb-8 max-w-2xl">
         {t.rich("intro", {
           email: (chunks) => (
-            <a href="mailto:contact@b-59.com" className="text-b59-blue underline">
+            <a href="mailto:contact@b-59.com" className="text-b59-blue underline" dir="ltr">
               {chunks}
             </a>
           ),

@@ -28,6 +28,16 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Added
+
+- **Hebrew and Hindi** in the language selector, alongside English, Spanish and
+  Chinese. Every page, the donation form and both legal pages are translated;
+  the legal pages carry the same notice as Spanish and Chinese that the English
+  text is the binding one. Hebrew is the site's first right-to-left language, so
+  the page now declares its writing direction and the layout mirrors with it:
+  menus, the quote rule, list indents and the donation amount prefix all sit on
+  the reading side rather than the left.
+
 ## 2026-09-07
 
 ### Added

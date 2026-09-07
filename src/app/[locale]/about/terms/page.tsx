@@ -77,7 +77,7 @@ export default async function Terms() {
           <p className="body-md mb-8">
             {t.rich("contactBody", {
               email: (chunks) => (
-                <a href="mailto:contact@b-59.com" className="text-link">
+                <a href="mailto:contact@b-59.com" className="text-link" dir="ltr">
                   {chunks}
                 </a>
               ),
