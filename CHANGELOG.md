@@ -28,6 +28,8 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+## 2026-09-07
+
 ### Added
 
 - **Our Inspirations** (`/about/inspirations`): the two examples the studio
