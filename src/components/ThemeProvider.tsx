@@ -7,14 +7,12 @@ import {
   useLayoutEffect,
   useSyncExternalStore,
 } from 'react';
-
-type Theme = 'light' | 'dark';
+import { DARK_QUERY, resolveTheme, THEME_KEY, type Theme } from '@/lib/theme';
 
 const THEME_CHANGE = 'b59-theme-change';
 
 function getThemeSnapshot(): Theme {
-  const saved = localStorage.getItem('theme');
-  return saved === 'dark' ? 'dark' : 'light';
+  return resolveTheme();
 }
 
 function getServerThemeSnapshot(): Theme {
@@ -23,11 +21,16 @@ function getServerThemeSnapshot(): Theme {
 
 function subscribe(onStoreChange: () => void) {
   const handler = () => onStoreChange();
+  const query = window.matchMedia(DARK_QUERY);
   window.addEventListener(THEME_CHANGE, handler);
   window.addEventListener('storage', handler);
+  // A reader who has not chosen is following their device, so follow it when
+  // it switches — at sunset, on a schedule, or by hand — not only at load.
+  query.addEventListener('change', handler);
   return () => {
     window.removeEventListener(THEME_CHANGE, handler);
     window.removeEventListener('storage', handler);
+    query.removeEventListener('change', handler);
   };
 }
 
@@ -47,8 +50,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   }, [theme]);
 
   const toggleTheme = useCallback(() => {
-    const next: Theme = getThemeSnapshot() === 'light' ? 'dark' : 'light';
-    localStorage.setItem('theme', next);
+    const next: Theme = resolveTheme() === 'light' ? 'dark' : 'light';
+    localStorage.setItem(THEME_KEY, next);
     window.dispatchEvent(new Event(THEME_CHANGE));
   }, []);
 

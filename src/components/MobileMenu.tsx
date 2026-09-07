@@ -3,6 +3,8 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ProjectMark } from "./ProjectMark";
+import { LanguageSwitcher } from "./LanguageSwitcher";
+import { ThemeToggle } from "./ThemeToggle";
 
 type MobileMenuProps = {
   open: boolean;
@@ -57,9 +59,20 @@ export function MobileMenu({ open, onNavigate }: MobileMenuProps) {
       <span className="nav-mobile-sub nav-mobile-sub-marked">
         {t("voterRegistrationPaloozaSub")}
       </span>
+      <Link href="/solutions/brand-design/merch" className="nav-mobile-link nav-mobile-sublink" onClick={onNavigate}>
+        <ProjectMark project="merch" size={20} />
+        <span>{t("merch")}</span>
+      </Link>
+      <span className="nav-mobile-sub nav-mobile-sub-marked">{t("merchSub")}</span>
 
       <Link href="/about" className="nav-mobile-link" onClick={onNavigate}>
         {t("ourStory")}
+      </Link>
+      <Link href="/about/inspirations" className="nav-mobile-link" onClick={onNavigate}>
+        {t("inspirations")}
+      </Link>
+      <Link href="/about/team" className="nav-mobile-link" onClick={onNavigate}>
+        {t("team")}
       </Link>
       <Link href="/solutions/brand-design/philosophy" className="nav-mobile-link" onClick={onNavigate}>
         {t("brandDesignPhilosophy")}
@@ -69,6 +82,15 @@ export function MobileMenu({ open, onNavigate }: MobileMenuProps) {
       <Link href="/donate" className="nav-mobile-link" onClick={onNavigate}>
         {t("donate")}
       </Link>
+
+      {/* Last in the panel, under the links: the page already opens in the
+          reader's language and their device's mode, so these are the override
+          rather than the way in (standards/33). The footer carries the same
+          pair. */}
+      <div className="flex items-center gap-2 border-t border-b59-gray/20 pt-3 mt-3">
+        <LanguageSwitcher />
+        <ThemeToggle />
+      </div>
     </div>
   );
 }

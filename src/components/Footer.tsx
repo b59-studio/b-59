@@ -1,6 +1,8 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import type { ReactNode } from "react";
+import { LanguageSwitcher } from "./LanguageSwitcher";
+import { ThemeToggle } from "./ThemeToggle";
 
 function FooterColumn({
   heading,
@@ -33,12 +35,28 @@ export default async function Footer() {
             <p className="footer-text text-sm">
               <i>{t.rich("tagline", { blue: (chunks) => <span className="text-b59-blue">{chunks}</span> })}</i>
             </p>
+            {/* One of the two homes for these; the other is the foot of the
+                mobile menu. Neither belongs on the header bar. */}
+            <div className="mt-6 flex items-center gap-2">
+              <LanguageSwitcher placement="top" />
+              <ThemeToggle />
+            </div>
           </div>
 
           <FooterColumn heading={t("studioHeading")}>
             <li>
               <Link href="/about" className="footer-link">
                 {tNav("ourStory")}
+              </Link>
+            </li>
+            <li>
+              <Link href="/about/inspirations" className="footer-link">
+                {tNav("inspirations")}
+              </Link>
+            </li>
+            <li>
+              <Link href="/about/team" className="footer-link">
+                {tNav("team")}
               </Link>
             </li>
             <li>

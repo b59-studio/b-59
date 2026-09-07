@@ -14,12 +14,16 @@
     "voterRegistrationPaloozaSub": "A statewide push to register Texans before the deadline.",
     "about": "About",
     "ourStory": "Our Story",
+    "inspirations": "Our Inspirations",
     "brandDesignPhilosophy": "Brand Design Philosophy",
     "donate": "Donate",
     "toggleTheme": "Toggle theme",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
-    "skipToContent": "Skip to main content"
+    "skipToContent": "Skip to main content",
+    "team": "Team",
+    "merch": "Merch",
+    "merchSub": "Stickers, shirts and print for the groups we work with."
   },
   "footer": {
     "tagline": "Deliberate design <blue>for</blue> imperfect systems.",
@@ -63,7 +67,10 @@
     "ready2voteBlurb": "The first online tool that helps Texans complete their voter registration application and have it mailed to their county.",
     "hotlineBlurb": "Scheduling and workforce management for civic and public-interest teams — meetings, shifts, coverage and hours in one place.",
     "travisCountyVdrBlurb": "A mobile-first, installable rebuild of the Travis County Voter Registration Toolkit for Volunteer Deputy Registrars.",
-    "voterRegistrationPaloozaBlurb": "The campaign site for a statewide push to hold thousands of volunteer-run registration events across Texas before the October 5 deadline."
+    "voterRegistrationPaloozaBlurb": "The campaign site for a statewide push to hold thousands of volunteer-run registration events across Texas before the October 5 deadline.",
+    "tagBrandDesign": "Brand design",
+    "merchTitle": "Merch",
+    "merchBlurb": "Stickers, shirts and print designed for the groups we work with — the brand at the size of a laptop lid."
   },
   "about": {
     "metaTitle": "About",
@@ -87,6 +94,39 @@
     "believeHeading": "What we believe",
     "believeBody": "Being human-centered isn't a design aesthetic. It's a commitment. We build for the people and institutions who depend on these systems, and we do it so the work holds up when it matters."
   },
+  "inspirations": {
+    "metaTitle": "Our Inspirations",
+    "metaDescription": "What B-59 aspires to. Audrey Tang went from civic hacker and protester to Taiwan's first digital minister by building better government websites, and met COVID with open data. 18F made US agencies more usable by putting a design perspective in the room, and its shutdown in 2025 did not take its methods with it.",
+    "ogTitle": "Our Inspirations | B-59",
+    "ogDescription": "Audrey Tang, g0v and Taiwan's open-data COVID response; 18F and the work that outlived its shutdown. The two examples B-59 takes its bearings from.",
+    "heading": "Our Inspirations",
+    "tangHeading": "Audrey Tang",
+    "tang1": "In 2012, civic hackers in Taiwan started g0v by taking government websites and building better ones <blue>—</blue> the same data at the same address with one letter changed, and actually usable. Audrey Tang was one of them. In 2014, when the Sunflower Movement occupied the legislature, Tang helped keep the occupation's communications running.",
+    "tang2": "Two years later, Taiwan made Tang its first digital minister. A protester became an institution builder, and the qualification was, in the end, having made a better website. When COVID arrived in 2020, the answer was not an app the public was asked to trust. The government put its numbers and its supply data on the web in the open, and civic hackers had the trackers people actually used running within days.",
+    "tang3": "That is what we aspire to: government applying what consumer technology learned about speed, transparency and trusting the user, for public good <blue>—</blue> and the door into the institution opening because the work was good.",
+    "eighteenFHeading": "18F",
+    "eighteenF1": "18F was a team inside the US General Services Administration that, from 2014, sat down with federal agencies and did the unglamorous work: user research, plain language, a shared design system, open source by default. Agencies got more usable not through a grand modernization but because someone with a design perspective was in the room when the decisions got made.",
+    "eighteenF2": "On March 1, 2025, it was shut down overnight. The staff were locked out of their computers at midnight.",
+    "eighteenF3": "Almost none of what made 18F work went with them. The methods were published. The design system is open source. The guides are on the web. The team was shut down; the work did not have to stop <blue>—</blue> it needed people willing to keep doing it, at whatever scale they could.",
+    "takeHeading": "What we take from both",
+    "take1": "Take what consumer software has learned about clarity, speed and respect for the person on the other side of the screen, and spend it on the systems people cannot opt out of: registering to vote, showing up for a shift, finding out what the rules are.",
+    "take2": "Taiwan's trackers were built by a handful of people in a few days. 18F's best work was usually one designer in one meeting. Scale was never the point. Being in the room was.",
+    "cta": "Meet the team"
+  },
+  "team": {
+    "metaTitle": "Team",
+    "metaDescription": "The people behind B-59 Studio. Jon Reise, founder — civic technology from Austin, Texas.",
+    "ogTitle": "Team | B-59",
+    "ogDescription": "Who you'll be working with at B-59 Studio.",
+    "heading": "Team",
+    "intro": "<brand></brand> Studio is, for now, one person.",
+    "jonName": "Jon Reise",
+    "jonRole": "Founder",
+    "jonBio1": "Jon designs and builds everything <brand></brand> ships <blue>—</blue> the products under Solutions, the client work under Case Studies, and the merch. He works from Austin, Texas, and studied at Northwestern University.",
+    "jonBio2": "What the studio is aiming at is on <link>Our Inspirations</link>.",
+    "jonLinkedIn": "Jon on LinkedIn",
+    "opensNewWindow": " (opens in new window)"
+  },
   "aboutSitemap": {
     "metaTitle": "Sitemap",
     "metaDescription": "Navigate B-59's website. Links to our home page, about us, privacy policy, and terms of use. Human-centered design and civic technology.",
@@ -101,10 +141,13 @@
     "linkTravisCountyVdr": "Travis County VDR Toolkit",
     "linkVoterRegistrationPalooza": "Voter Registration Palooza",
     "linkOurStory": "Our Story",
+    "linkInspirations": "Our Inspirations",
     "linkBrandDesignPhilosophy": "Brand Design Philosophy",
     "linkDonate": "Donate",
     "linkPrivacyPolicy": "Privacy Policy",
-    "linkTermsOfUse": "Terms of Use"
+    "linkTermsOfUse": "Terms of Use",
+    "linkTeam": "Team",
+    "linkMerch": "Merch"
   },
   "donate": {
     "metaTitle": "Donate",
@@ -336,5 +379,21 @@
     "attribution1": "Campaign manager, statewide race",
     "quote2": "Restraint was the point. The brand made us look like we knew exactly what we were doing, because by then we did.",
     "attribution2": "Managing partner, litigation firm"
+  },
+  "merch": {
+    "metaTitle": "Merch",
+    "metaDescription": "Stickers, shirts and print B-59 designs for the groups it works with. Starting with a die-cut sticker for the Pflugerville Area Democrats.",
+    "ogTitle": "Merch | B-59",
+    "ogDescription": "Stickers, shirts and print designed for the groups we work with — the brand at the size of a laptop lid.",
+    "heading": "Merch",
+    "intro": "Stickers, shirts and print we design for the groups we work with. A brand has to survive being stuck to a laptop or worn to a meeting <blue>—</blue> this is where it gets tested.",
+    "stickerClient": "Pflugerville Area Democrats",
+    "stickerTitle": "“I'm a Tala-Pfreakin' Texan!” sticker",
+    "stickerBlurb": "A die-cut sticker for the club's members. Pflugerville's silent Pf, set in rodeo-poster lettering with a lone star above and below, weathered like it has been on the truck a while. Union printed.",
+    "stickerAlt": "A die-cut sticker reading “I'm a Tala-Pfreakin' Texan!” in cream, red and navy, with a star above and below the lettering.",
+    "more": "More as clients clear them for the page.",
+    "closingBody": "The thinking behind it is on <link></link>.",
+    "closingLinkText": "Brand Design Philosophy",
+    "cta": "Talk to us about merch"
   }
 }

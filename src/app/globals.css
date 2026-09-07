@@ -1306,3 +1306,48 @@ button {
   flex-direction: column;
   gap: 0.5rem;
 }
+
+/* A merch card leads with a photograph of the printed piece. The image keeps
+   the card's own corner radius, sits on the card's inset, and takes the
+   card's width whatever the photo's aspect. */
+.portfolio-card-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* ============================================
+   TEAM
+   ============================================ */
+
+/* One member: portrait beside the text on a wide screen, above it on a phone.
+   With no portrait yet the body simply starts at the left edge. */
+.team-member {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .team-member {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+}
+
+.team-member-photo {
+  display: block;
+  width: 200px;
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  flex-shrink: 0;
+}
+
+.team-member-body {
+  flex: 1;
+  min-width: 0;
+}

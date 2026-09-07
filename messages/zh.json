@@ -14,12 +14,16 @@
     "voterRegistrationPaloozaSub": "在截止日期前推动全州范围的得州选民登记。",
     "about": "关于",
     "ourStory": "我们的故事",
+    "inspirations": "我们的灵感",
     "brandDesignPhilosophy": "品牌设计理念",
     "donate": "捐赠",
     "toggleTheme": "切换主题",
     "openMenu": "打开菜单",
     "closeMenu": "关闭菜单",
-    "skipToContent": "跳转到主要内容"
+    "skipToContent": "跳转到主要内容",
+    "team": "团队",
+    "merch": "周边",
+    "merchSub": "为我们合作的团体设计的贴纸、T恤和印刷品。"
   },
   "footer": {
     "tagline": "为不完美的系统，<blue>进行</blue>深思熟虑的设计。",
@@ -63,7 +67,10 @@
     "ready2voteBlurb": "第一个帮助得克萨斯州居民完成选民登记申请并邮寄到所在县的在线工具。",
     "hotlineBlurb": "面向公民和公共利益团队的日程安排与人力管理——会议、排班、人手覆盖与工时，都在同一处。",
     "travisCountyVdrBlurb": "为志愿副登记官重建的、可安装的、移动优先的 Travis 县选民登记工具包。",
-    "voterRegistrationPaloozaBlurb": "一场全州范围行动的竞选官网——在 10 月 5 日截止日期前，在得克萨斯州各地举办数千场由志愿者主办的选民登记活动。"
+    "voterRegistrationPaloozaBlurb": "一场全州范围行动的竞选官网——在 10 月 5 日截止日期前，在得克萨斯州各地举办数千场由志愿者主办的选民登记活动。",
+    "tagBrandDesign": "品牌设计",
+    "merchTitle": "周边",
+    "merchBlurb": "为我们合作的团体设计的贴纸、T恤和印刷品——缩小到笔记本电脑盖大小的品牌。"
   },
   "about": {
     "metaTitle": "关于",
@@ -87,6 +94,39 @@
     "believeHeading": "我们的信念",
     "believeBody": "以人为本不是一种设计美学，而是一种承诺。我们为依赖这些系统的人和机构而构建，并确保这项工作在关键时刻真正经得起考验。"
   },
+  "inspirations": {
+    "metaTitle": "我们的灵感",
+    "metaDescription": "B-59 的志向所在。唐凤靠做出更好的政府网站，从公民黑客和抗议者成为台湾首任数字部长，并以开放数据应对新冠疫情。18F 把设计视角带进房间，让美国政府机构更好用；2025 年被关停，方法却留了下来。",
+    "ogTitle": "我们的灵感 | B-59",
+    "ogDescription": "唐凤、g0v 与台湾以开放数据应对新冠；18F 与在关停之后仍然延续的工作。B-59 据以定向的两个例子。",
+    "heading": "我们的灵感",
+    "tangHeading": "唐凤",
+    "tang1": "2012 年，台湾的公民黑客发起 g0v：把政府网站拿来，做出更好的版本 <blue>—</blue> 同样的数据，同样的网址只改一个字母，而且真的好用。唐凤是其中一员。2014 年太阳花运动占领立法院时，唐凤帮助维持了占领现场的通讯。",
+    "tang2": "两年后，台湾任命唐凤为首任数字部长。一位抗议者成了制度的建设者，而资格说到底，是做出了一个更好的网站。2020 年新冠疫情来临时，答案不是一个要求公众去信任的应用。政府把数字和物资数据公开放到网上，几天之内，公民黑客就把人们真正在用的追踪工具做了出来。",
+    "tang3": "这就是我们的志向：政府把消费级科技在速度、透明和信任用户上学到的东西用于公共利益 <blue>—</blue> 而通往制度的那扇门，因为工作做得好而打开。",
+    "eighteenFHeading": "18F",
+    "eighteenF1": "18F 是美国总务管理局内部的一个团队。从 2014 年起，他们与联邦机构坐在一起，做那些不起眼的工作：用户研究、平实的语言、共享的设计系统、默认开源。机构变得更好用，靠的不是一场宏大的现代化，而是在做决定的时候，房间里有一个带着设计视角的人。",
+    "eighteenF2": "2025 年 3 月 1 日，它在一夜之间被关停。员工在午夜被锁在了自己的电脑之外。",
+    "eighteenF3": "让 18F 得以运转的东西，几乎没有随他们一起离开。方法已经发表。设计系统是开源的。指南就在网上。团队被关停了；这项工作不必停下来 <blue>—</blue> 它需要的是愿意继续做下去的人，无论规模多大。",
+    "takeHeading": "我们从两者中学到的",
+    "take1": "把消费级软件在清晰、速度和尊重屏幕另一端那个人上学到的东西，用在人们无法选择退出的系统上：登记投票、按时到岗、弄清规则是什么。",
+    "take2": "台湾的追踪工具是几个人在几天里做出来的。18F 最好的工作往往是一位设计师在一场会议里完成的。规模从来不是重点。在场才是。",
+    "cta": "认识我们的团队"
+  },
+  "team": {
+    "metaTitle": "团队",
+    "metaDescription": "B-59 Studio 背后的人。创始人 Jon Reise——来自德克萨斯州奥斯汀的公民科技。",
+    "ogTitle": "团队 | B-59",
+    "ogDescription": "在 B-59 Studio 与你共事的人。",
+    "heading": "团队",
+    "intro": "<brand></brand> Studio 目前只有一个人。",
+    "jonName": "Jon Reise",
+    "jonRole": "创始人",
+    "jonBio1": "Jon 设计并构建 <brand></brand> 发布的一切 <blue>—</blue> 「解决方案」下的产品、「案例研究」下的客户项目，以及周边。他在德克萨斯州奥斯汀工作，毕业于西北大学（Northwestern University）。",
+    "jonBio2": "工作室的目标写在<link>我们的灵感</link>里。",
+    "jonLinkedIn": "Jon 的 LinkedIn",
+    "opensNewWindow": "（在新窗口中打开）"
+  },
   "aboutSitemap": {
     "metaTitle": "网站地图",
     "metaDescription": "浏览 B-59 的网站。链接至我们的主页、关于我们、隐私政策和使用条款。以人为本的设计与公民技术。",
@@ -101,10 +141,13 @@
     "linkTravisCountyVdr": "Travis 县 VDR 工具包",
     "linkVoterRegistrationPalooza": "Voter Registration Palooza",
     "linkOurStory": "我们的故事",
+    "linkInspirations": "我们的灵感",
     "linkBrandDesignPhilosophy": "品牌设计理念",
     "linkDonate": "捐赠",
     "linkPrivacyPolicy": "隐私政策",
-    "linkTermsOfUse": "使用条款"
+    "linkTermsOfUse": "使用条款",
+    "linkTeam": "团队",
+    "linkMerch": "周边"
   },
   "donate": {
     "metaTitle": "捐赠",
@@ -336,5 +379,21 @@
     "attribution1": "州级选举竞选经理",
     "quote2": "克制正是关键所在。这个品牌让我们看起来清楚地知道自己在做什么——而到那时，我们确实也做到了。",
     "attribution2": "诉讼事务所管理合伙人"
+  },
+  "merch": {
+    "metaTitle": "周边",
+    "metaDescription": "B-59 为合作团体设计的贴纸、T恤和印刷品。从为 Pflugerville Area Democrats 设计的一枚异形贴纸开始。",
+    "ogTitle": "周边 | B-59",
+    "ogDescription": "为我们合作的团体设计的贴纸、T恤和印刷品——缩小到笔记本电脑盖大小的品牌。",
+    "heading": "周边",
+    "intro": "我们为合作团体设计的贴纸、T恤和印刷品。一个品牌得经得起贴在笔记本电脑上、穿去开会 <blue>—</blue> 这里就是它接受考验的地方。",
+    "stickerClient": "Pflugerville Area Democrats",
+    "stickerTitle": "「I'm a Tala-Pfreakin' Texan!」贴纸",
+    "stickerBlurb": "为俱乐部成员设计的异形贴纸。Pflugerville 里不发音的 Pf，用牛仔竞技海报式的字体排出，上下各一颗孤星，做旧得像在皮卡上贴了好一阵子。工会印厂印制。",
+    "stickerAlt": "一枚异形贴纸，上面用米色、红色和海军蓝写着「I'm a Tala-Pfreakin' Texan!」，文字上下各有一颗星。",
+    "more": "客户授权后将陆续增加。",
+    "closingBody": "背后的思路写在<link></link>里。",
+    "closingLinkText": "品牌设计理念",
+    "cta": "和我们聊聊周边"
   }
 }

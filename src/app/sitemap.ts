@@ -27,6 +27,7 @@ const overrides: Record<string, RouteOverride> = {
   "/studio": { priority: 0.9 },
   "/solutions/brand-design/philosophy": { priority: 0.8, changeFrequency: "yearly" },
   "/solutions/brand-design/portfolio": { exclude: true }, // built but not public yet
+  "/solutions/brand-design/merch": { priority: 0.8 },
   "/solutions/hotline": { priority: 0.9 },
   "/solutions/ready2vote": { priority: 0.9 },
   "/solutions/travis-county-vdr": { priority: 0.9 },
@@ -34,6 +35,8 @@ const overrides: Record<string, RouteOverride> = {
   "/donate": { priority: 0.8 },
   "/donate/success": { exclude: true }, // post-transaction confirmation, not for search engines
   "/about": { priority: 0.9 },
+  "/about/inspirations": { priority: 0.8, changeFrequency: "yearly" },
+  "/about/team": { priority: 0.7 },
   "/about/sitemap": { priority: 0.5, changeFrequency: "yearly" },
   "/about/privacy": { priority: 0.5, changeFrequency: "yearly" },
   "/about/terms": { priority: 0.5, changeFrequency: "yearly" },

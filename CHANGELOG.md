@@ -30,6 +30,34 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ### Added
 
+- **Our Inspirations** (`/about/inspirations`): the two examples the studio
+  takes its bearings from. Audrey Tang, who went from g0v civic hacker and
+  Sunflower Movement protester to Taiwan's first digital minister by building
+  better government websites, and met COVID with open data; and 18F, whose
+  shutdown in March 2025 did not take its methods with it.
+- A **Team** page (`/about/team`). One member, for now, with a slot for a
+  portrait once there is one.
+- **Merch** (`/solutions/brand-design/merch`): the stickers, shirts and print
+  designed for the groups we work with, starting with a die-cut sticker for the
+  Pflugerville Area Democrats. It sits under Case Studies in both header menus
+  and on Our Work, with a hang-tag mark of its own.
+
+### Changed
+
+- The About menu now lists Our Story, Our Inspirations, Team and Brand Design
+  Philosophy in that order, in the header, the phone panel, the footer and the
+  sitemap page.
+- The language selector and the light/dark toggle moved off the header bar into
+  the footer and the foot of the phone menu. The site opens in the reader's
+  language and in their device's light or dark mode, and follows the device if
+  it switches; the controls are there to override that, not to find it. A
+  reader whose device is dark no longer sees a white flash before the page
+  settles.
+
+## 2026-09-03
+
+### Added
+
 - A case study for **Voter Registration Palooza**, the campaign site we built for
   Make Government Work PAC's statewide push to register Texans before the
   October 5 deadline. It sits beside the Travis County Toolkit under Case

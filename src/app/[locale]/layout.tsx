@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { resolveSiteUrl } from "@/lib/site-url";
 import { routing } from "@/i18n/routing";
+import { noFlashScript } from "@/lib/theme";
 
 const siteUrl = resolveSiteUrl();
 // Cookieless pageview analytics (docs/adr/0001-telemetry-decision.md): the
@@ -44,6 +45,12 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <html lang={locale} suppressHydrationWarning>
+      <head>
+        {/* Resolve the mode before first paint. Without this a reader whose
+            device is dark is shown a white page until React hydrates
+            (standards/25). */}
+        <script dangerouslySetInnerHTML={{ __html: noFlashScript }} />
+      </head>
       <body className="min-h-screen flex flex-col transition-colors">
         <script
           type="application/ld+json"

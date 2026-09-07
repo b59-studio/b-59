@@ -14,12 +14,16 @@
     "voterRegistrationPaloozaSub": "Un esfuerzo estatal para registrar a los tejanos antes de la fecha límite.",
     "about": "Nosotros",
     "ourStory": "Nuestra Historia",
+    "inspirations": "Nuestras Inspiraciones",
     "brandDesignPhilosophy": "Filosofía de Diseño de Marca",
     "donate": "Donar",
     "toggleTheme": "Cambiar tema",
     "openMenu": "Abrir menú",
     "closeMenu": "Cerrar menú",
-    "skipToContent": "Saltar al contenido principal"
+    "skipToContent": "Saltar al contenido principal",
+    "team": "Equipo",
+    "merch": "Merch",
+    "merchSub": "Calcomanías, camisetas e impresos para los grupos con los que trabajamos."
   },
   "footer": {
     "tagline": "Diseño deliberado <blue>para</blue> sistemas imperfectos.",
@@ -63,7 +67,10 @@
     "ready2voteBlurb": "La primera herramienta en línea que ayuda a los tejanos a completar su solicitud de registro de votante y enviarla por correo a su condado.",
     "hotlineBlurb": "Programación y gestión de personal para equipos cívicos y de interés público: reuniones, turnos, cobertura y horas en un solo lugar.",
     "travisCountyVdrBlurb": "Una reconstrucción instalable y centrada en móviles del kit de herramientas de registro de votantes del condado de Travis para registradores adjuntos voluntarios.",
-    "voterRegistrationPaloozaBlurb": "El sitio de campaña de un esfuerzo estatal para celebrar miles de eventos de registro organizados por voluntarios en todo Texas antes de la fecha límite del 5 de octubre."
+    "voterRegistrationPaloozaBlurb": "El sitio de campaña de un esfuerzo estatal para celebrar miles de eventos de registro organizados por voluntarios en todo Texas antes de la fecha límite del 5 de octubre.",
+    "tagBrandDesign": "Diseño de marca",
+    "merchTitle": "Merch",
+    "merchBlurb": "Calcomanías, camisetas e impresos diseñados para los grupos con los que trabajamos: la marca al tamaño de la tapa de una laptop."
   },
   "about": {
     "metaTitle": "Nosotros",
@@ -87,6 +94,39 @@
     "believeHeading": "En qué creemos",
     "believeBody": "Ser centrado en las personas no es una estética de diseño. Es un compromiso. Construimos para las personas e instituciones que dependen de estos sistemas, y lo hacemos para que el trabajo se sostenga cuando de verdad importa."
   },
+  "inspirations": {
+    "metaTitle": "Nuestras Inspiraciones",
+    "metaDescription": "A lo que aspira B-59. Audrey Tang pasó de hacker cívica y manifestante a primera ministra digital de Taiwán construyendo mejores sitios web de gobierno, y enfrentó el COVID con datos abiertos. 18F hizo más usables las agencias de EE. UU. poniendo una perspectiva de diseño en la sala, y su cierre en 2025 no se llevó sus métodos.",
+    "ogTitle": "Nuestras Inspiraciones | B-59",
+    "ogDescription": "Audrey Tang, g0v y la respuesta al COVID con datos abiertos en Taiwán; 18F y el trabajo que sobrevivió a su cierre. Los dos ejemplos de los que B-59 toma su rumbo.",
+    "heading": "Nuestras Inspiraciones",
+    "tangHeading": "Audrey Tang",
+    "tang1": "En 2012, la comunidad de hackers cívicos de Taiwán fundó g0v tomando sitios web del gobierno y construyendo versiones mejores <blue>—</blue> los mismos datos en la misma dirección con una letra cambiada, y de verdad usables. Audrey Tang era parte de ella. En 2014, cuando el Movimiento Girasol ocupó el parlamento, Tang ayudó a mantener funcionando las comunicaciones de la ocupación.",
+    "tang2": "Dos años después, Taiwán nombró a Tang su primera ministra digital. Una manifestante se convirtió en constructora de instituciones, y la credencial fue, al final, haber hecho un mejor sitio web. Cuando llegó el COVID en 2020, la respuesta no fue una app en la que se le pedía al público confiar. El gobierno puso sus cifras y sus datos de suministros en la web, abiertos, y en cuestión de días la comunidad de hackers cívicos tenía en marcha los rastreadores que la gente realmente usaba.",
+    "tang3": "A eso aspiramos: un gobierno que aplica lo que la tecnología de consumo aprendió sobre rapidez, transparencia y confianza en el usuario, para el bien público <blue>—</blue> y la puerta de la institución abriéndose porque el trabajo era bueno.",
+    "eighteenFHeading": "18F",
+    "eighteenF1": "18F fue un equipo dentro de la Administración de Servicios Generales de Estados Unidos que, desde 2014, se sentaba con las agencias federales a hacer el trabajo sin gloria: investigación con usuarios, lenguaje claro, un sistema de diseño compartido, código abierto por defecto. Las agencias se volvieron más usables no por una gran modernización, sino porque alguien con perspectiva de diseño estaba en la sala cuando se tomaban las decisiones.",
+    "eighteenF2": "El 1 de marzo de 2025 lo cerraron de la noche a la mañana. Al personal le bloquearon las computadoras a medianoche.",
+    "eighteenF3": "Casi nada de lo que hacía funcionar a 18F se fue con ellos. Los métodos estaban publicados. El sistema de diseño es código abierto. Las guías están en la web. Cerraron el equipo; el trabajo no tenía por qué detenerse <blue>—</blue> necesitaba gente dispuesta a seguir haciéndolo, a la escala que pudiera.",
+    "takeHeading": "Lo que tomamos de ambos",
+    "take1": "Tomar lo que el software de consumo ha aprendido sobre claridad, rapidez y respeto por la persona al otro lado de la pantalla, y gastarlo en los sistemas de los que la gente no puede salirse: registrarse para votar, presentarse a un turno, enterarse de cuáles son las reglas.",
+    "take2": "Los rastreadores de Taiwán los construyó un puñado de personas en unos días. El mejor trabajo de 18F solía ser una diseñadora en una reunión. La escala nunca fue el punto. Estar en la sala, sí.",
+    "cta": "Conoce al equipo"
+  },
+  "team": {
+    "metaTitle": "Equipo",
+    "metaDescription": "Las personas detrás de B-59 Studio. Jon Reise, fundador: tecnología cívica desde Austin, Texas.",
+    "ogTitle": "Equipo | B-59",
+    "ogDescription": "Con quién vas a trabajar en B-59 Studio.",
+    "heading": "Equipo",
+    "intro": "<brand></brand> Studio es, por ahora, una sola persona.",
+    "jonName": "Jon Reise",
+    "jonRole": "Fundador",
+    "jonBio1": "Jon diseña y construye todo lo que <brand></brand> publica <blue>—</blue> los productos en Soluciones, el trabajo de cliente en Casos de Estudio y el merch. Trabaja desde Austin, Texas, y estudió en Northwestern University.",
+    "jonBio2": "A lo que apunta el estudio está en <link>Nuestras Inspiraciones</link>.",
+    "jonLinkedIn": "Jon en LinkedIn",
+    "opensNewWindow": " (se abre en una ventana nueva)"
+  },
   "aboutSitemap": {
     "metaTitle": "Mapa del sitio",
     "metaDescription": "Navega por el sitio web de B-59. Enlaces a nuestra página de inicio, información sobre nosotros, política de privacidad y términos de uso. Diseño centrado en las personas y tecnología cívica.",
@@ -101,10 +141,13 @@
     "linkTravisCountyVdr": "Kit de Herramientas VDR del Condado de Travis",
     "linkVoterRegistrationPalooza": "Voter Registration Palooza",
     "linkOurStory": "Nuestra Historia",
+    "linkInspirations": "Nuestras Inspiraciones",
     "linkBrandDesignPhilosophy": "Filosofía de Diseño de Marca",
     "linkDonate": "Donar",
     "linkPrivacyPolicy": "Política de Privacidad",
-    "linkTermsOfUse": "Términos de Uso"
+    "linkTermsOfUse": "Términos de Uso",
+    "linkTeam": "Equipo",
+    "linkMerch": "Merch"
   },
   "donate": {
     "metaTitle": "Donar",
@@ -336,5 +379,21 @@
     "attribution1": "Gerente de campaña, elección estatal",
     "quote2": "La contención era el punto. La marca nos hizo ver como si supiéramos exactamente lo que hacíamos, porque para entonces ya lo sabíamos.",
     "attribution2": "Socio director, firma de litigios"
+  },
+  "merch": {
+    "metaTitle": "Merch",
+    "metaDescription": "Calcomanías, camisetas e impresos que B-59 diseña para los grupos con los que trabaja. Empezando por una calcomanía troquelada para los Pflugerville Area Democrats.",
+    "ogTitle": "Merch | B-59",
+    "ogDescription": "Calcomanías, camisetas e impresos diseñados para los grupos con los que trabajamos: la marca al tamaño de la tapa de una laptop.",
+    "heading": "Merch",
+    "intro": "Calcomanías, camisetas e impresos que diseñamos para los grupos con los que trabajamos. Una marca tiene que sobrevivir pegada a una laptop o puesta en una reunión <blue>—</blue> aquí es donde se pone a prueba.",
+    "stickerClient": "Pflugerville Area Democrats",
+    "stickerTitle": "Calcomanía “I'm a Tala-Pfreakin' Texan!”",
+    "stickerBlurb": "Una calcomanía troquelada para los miembros del club. La Pf muda de Pflugerville, en letras de cartel de rodeo con una estrella solitaria arriba y otra abajo, desgastada como si llevara tiempo en la camioneta. Impresa en imprenta sindical.",
+    "stickerAlt": "Una calcomanía troquelada que dice “I'm a Tala-Pfreakin' Texan!” en crema, rojo y azul marino, con una estrella arriba y otra abajo del texto.",
+    "more": "Más a medida que los clientes autoricen mostrarlas.",
+    "closingBody": "El razonamiento detrás está en <link></link>.",
+    "closingLinkText": "Filosofía de Diseño de Marca",
+    "cta": "Hablemos de merch"
   }
 }

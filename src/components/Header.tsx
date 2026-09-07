@@ -4,8 +4,6 @@ import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { MobileMenu } from "./MobileMenu";
-import { LanguageSwitcher } from "./LanguageSwitcher";
-import { useTheme } from "./ThemeProvider";
 import { useDropdownClose } from "@/lib/use-dropdown-close";
 import { ProjectMark } from "./ProjectMark";
 
@@ -16,7 +14,6 @@ export default function Header() {
   const [aboutOpen, setAboutOpen] = useState(false);
   const solutionsRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
-  const { theme, toggleTheme } = useTheme();
 
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
@@ -123,6 +120,18 @@ export default function Header() {
                           <span className="nav-mega-item-sub">{t("voterRegistrationPaloozaSub")}</span>
                         </span>
                       </Link>
+                      <Link
+                        href="/solutions/brand-design/merch"
+                        className="nav-mega-item"
+                        role="menuitem"
+                        onClick={() => setSolutionsOpen(false)}
+                      >
+                        <ProjectMark project="merch" size={22} />
+                        <span className="nav-mega-item-text">
+                          <span className="nav-mega-item-name">{t("merch")}</span>
+                          <span className="nav-mega-item-sub">{t("merchSub")}</span>
+                        </span>
+                      </Link>
                     </div>
                   )}
                 </div>
@@ -161,6 +170,22 @@ export default function Header() {
                         {t("ourStory")}
                       </Link>
                       <Link
+                        href="/about/inspirations"
+                        className="nav-dropdown-item"
+                        role="menuitem"
+                        onClick={() => setAboutOpen(false)}
+                      >
+                        {t("inspirations")}
+                      </Link>
+                      <Link
+                        href="/about/team"
+                        className="nav-dropdown-item"
+                        role="menuitem"
+                        onClick={() => setAboutOpen(false)}
+                      >
+                        {t("team")}
+                      </Link>
+                      <Link
                         href="/solutions/brand-design/philosophy"
                         className="nav-dropdown-item"
                         role="menuitem"
@@ -173,72 +198,19 @@ export default function Header() {
                 </div>
               </div>
 
+              {/* The action, alone. The language selector and the theme
+                  toggle are not header furniture: the page already opens in
+                  the reader's language and their device's mode, so both sit in
+                  the footer and at the foot of the mobile menu
+                  (standards/33, standards/25). */}
               <div className="flex items-center gap-2">
                 <Link href="/donate" className="btn-secondary !py-2 !px-5">
                   {t("donate")}
                 </Link>
-
-                <LanguageSwitcher />
-
-                <button
-                  onClick={toggleTheme}
-                  className="theme-toggle-btn"
-                  aria-label={t("toggleTheme")}
-                  type="button"
-                >
-                  {theme === "light" ? (
-                    <svg className="theme-toggle-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                      />
-                    </svg>
-                  ) : (
-                    <svg className="theme-toggle-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-                      />
-                    </svg>
-                  )}
-                </button>
               </div>
             </div>
 
             <div className="md:hidden flex items-center gap-2">
-              <LanguageSwitcher />
-
-              <button
-                onClick={toggleTheme}
-                className="p-2 mobile-menu-btn"
-                aria-label={t("toggleTheme")}
-                type="button"
-              >
-                {theme === "light" ? (
-                  <svg className="theme-toggle-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                    />
-                  </svg>
-                ) : (
-                  <svg className="theme-toggle-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-                    />
-                  </svg>
-                )}
-              </button>
-
               <button
                 onClick={() => setMobileMenuOpen((open) => !open)}
                 className="mobile-menu-btn"
