@@ -51,9 +51,9 @@ export default async function BrandPhilosophy() {
         </section>
 
         <section>
-          <h2 className="heading-lg mb-6">{t("neutralHeading")}</h2>
+          <h2 className="heading-lg mb-6">{t("alignedHeading")}</h2>
           <div className="body-lg space-y-4">
-            <p>{t.rich("neutralBody", { blue })}</p>
+            <p>{t.rich("alignedBody", { blue })}</p>
           </div>
           <a href="mailto:contact@b-59.com" className="btn-primary mt-8">
             {t("cta")}

@@ -78,10 +78,10 @@
     "ogTitle": "About B-59",
     "ogDescription": "We design and build civic software that actually works. Democracy isn't something you improvise—it's something you design. Mission, values, and the story behind the name.",
     "heading": "About <brand></brand>",
-    "intro1": "We design and build civic software that actually works <blue>—</blue> for voter access, courts, administrative processes, and public transparency. We do it with care, neutrality, and technical competence, for the long term.",
+    "intro1": "We design and build civic software that actually works <blue>—</blue> for voter access, courts, administrative processes, and public transparency. We do it with care, conviction, and technical competence, for the long term.",
     "intro2": "Democracy isn't something you improvise. It's something you design. We help institutions and the people they serve get tools that fit how things really work, not how they look on a slide deck.",
     "missionHeading": "Mission",
-    "missionBody": "<brand></brand> exists to modernize civic infrastructure thoughtfully. We're not here to advocate a political ideology, \"disrupt\" democracy for its own sake, or build flashy consumer apps. We're here to make the systems that underpin democratic life <blue>—</blue> voting, justice, administration, transparency <blue>—</blue> more trustworthy and usable.",
+    "missionBody": "<brand></brand> exists to modernize civic infrastructure thoughtfully, and to do it for the progressive movement: the campaigns, committees, and organizations working to widen access rather than narrow it. We're not here to \"disrupt\" democracy for its own sake or to build flashy consumer apps. We're here to make the systems that underpin democratic life <blue>—</blue> voting, justice, administration, transparency <blue>—</blue> more trustworthy and usable.",
     "howWeWorkHeading": "How we work",
     "howWeWork1": "We take responsibility for what we build. We resist hype. We bring a public-interest mindset without the weight of big institutions. Our job is to help you see clearly, decide well, and ship things that last.",
     "howWeWork2": "We work with leaders and teams who operate in high-stakes, uncertain environments. We help them understand the systems they're in, see where those systems fall short, and make clear, defensible choices when the \"right\" answer isn't obvious.",
@@ -336,8 +336,8 @@
     "restraintBody": "The temptation is always to add: more color, more motion, more message. We subtract. In high-stakes contexts <blue>—</blue> a campaign in its final weeks, a firm in front of a jury, a committee under scrutiny <blue>—</blue> restraint reads as confidence. The work should look like it knows what it is.",
     "builtHeading": "Built to be used",
     "builtBody": "A brand lives in the hands of people who aren't designers <blue>—</blue> staff, volunteers, counsel, a comms director at 11pm. We design systems that hold up when we're not in the room: clear rules, real files, and no guesswork. A brand that can only be applied by the people who made it isn't finished.",
-    "neutralHeading": "Neutral by default",
-    "neutralBody": "We work across the political and professional spectrum. Our craft is making your message land <blue>—</blue> not inserting ours. We bring judgment about what will read as credible to the people you need to reach, and we keep our own thumb off the scale.",
+    "alignedHeading": "Progressive by choice",
+    "alignedBody": "We work with progressives <blue>—</blue> campaigns, committees, unions, and advocacy organizations on the left, along with the public institutions whose work serves the same end. Within that, the craft is making your message land rather than inserting ours: we bring judgment about what will read as credible to the people you need to reach.",
     "cta": "Start a brand project"
   },
   "brandPortfolio": {

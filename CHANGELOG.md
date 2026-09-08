@@ -28,6 +28,20 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+## 2026-09-08
+
+### Changed
+
+- **The studio says who it works for.** B-59 works with progressives, and the
+  site now says so instead of claiming neutrality. The brand philosophy's
+  closing section is "Progressive by choice" rather than "Neutral by default",
+  and no longer offers to work across the political spectrum; the About page's
+  mission names the movement it serves in place of the line disclaiming any
+  political ideology, and drops "neutrality" from the three things the work is
+  done with. The craft commitment underneath is unchanged and still stated: the
+  job is to make the client's message land, not to insert ours. In all five
+  languages.
+
 ## 2026-09-07
 
 ### Added
