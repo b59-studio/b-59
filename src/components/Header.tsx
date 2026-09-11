@@ -95,6 +95,8 @@ export default function Header() {
                         </span>
                       </Link>
 
+                      {/* Case studies are held back for now; the pages stay
+                          built but unlinked, as the portfolio is.
                       <p className="nav-mega-heading nav-mega-heading-mt">{t("caseStudies")}</p>
                       <Link
                         href="/solutions/travis-county-vdr"
@@ -132,6 +134,7 @@ export default function Header() {
                           <span className="nav-mega-item-sub">{t("merchSub")}</span>
                         </span>
                       </Link>
+                      */}
                     </div>
                   )}
                 </div>

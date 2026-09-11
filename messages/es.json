@@ -5,7 +5,7 @@
   "nav": {
     "studio": "Estudio",
     "ourWork": "Nuestro Trabajo",
-    "ourWorkSub": "Casos de estudio y soluciones, todo en un solo lugar",
+    "ourWorkSub": "Los productos que construimos y operamos, todo en un solo lugar",
     "solutions": "Soluciones",
     "ready2voteSub": "Ayuda a los tejanos a completar y enviar por correo su solicitud de registro de votante.",
     "hotlineSub": "Citas, turnos y horas para equipos cívicos.",
@@ -54,11 +54,11 @@
   },
   "studio": {
     "metaTitle": "Nuestro Trabajo",
-    "metaDescription": "El trabajo de B-59 Studio en un solo lugar: los productos cívicos que construimos y operamos, y casos de estudio selectos de clientes. ready2vote, Hotline, el kit de herramientas VDR del condado de Travis y Voter Registration Palooza.",
+    "metaDescription": "El trabajo de B-59 Studio en un solo lugar: los productos cívicos que construimos y operamos. ready2vote y Hotline.",
     "ogTitle": "Nuestro Trabajo | B-59",
-    "ogDescription": "Productos cívicos que construimos y operamos, además de trabajo selecto de clientes, todo en un solo lugar.",
+    "ogDescription": "Los productos cívicos que construimos y operamos, todo en un solo lugar.",
     "heading": "Nuestro Trabajo",
-    "intro": "Todo lo que <brand></brand> Studio crea, en un solo lugar <blue>—</blue> los productos cívicos que construimos y operamos, y trabajo selecto de clientes.",
+    "intro": "Todo lo que <brand></brand> Studio crea, en un solo lugar <blue>—</blue> los productos cívicos que construimos y operamos.",
     "solutionsHeading": "Soluciones",
     "caseStudiesHeading": "Casos de Estudio",
     "tagVoting": "Votación",
@@ -122,7 +122,7 @@
     "intro": "<brand></brand> Studio es, por ahora, una sola persona.",
     "jonName": "Jon Reise",
     "jonRole": "Fundador",
-    "jonBio1": "Jon diseña y construye todo lo que <brand></brand> publica <blue>—</blue> los productos en Soluciones, el trabajo de cliente en Casos de Estudio y el merch. Trabaja desde Austin, Texas, y estudió en Northwestern University.",
+    "jonBio1": "Jon diseña y construye todo lo que <brand></brand> publica <blue>—</blue> los productos en Soluciones, el trabajo de cliente y el merch. Trabaja desde Austin, Texas, y estudió en Northwestern University.",
     "jonBio2": "A lo que apunta el estudio está en <link>Nuestras Inspiraciones</link>.",
     "jonLinkedIn": "Jon en LinkedIn",
     "opensNewWindow": " (se abre en una ventana nueva)"

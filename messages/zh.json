@@ -5,7 +5,7 @@
   "nav": {
     "studio": "工作室",
     "ourWork": "我们的作品",
-    "ourWorkSub": "案例研究与解决方案，尽在一处",
+    "ourWorkSub": "我们构建和运营的产品，尽在一处",
     "solutions": "解决方案",
     "ready2voteSub": "帮助得克萨斯州居民填写并邮寄选民登记申请。",
     "hotlineSub": "为公民团队提供的日程安排、排班与工时。",
@@ -54,11 +54,11 @@
   },
   "studio": {
     "metaTitle": "我们的作品",
-    "metaDescription": "B-59 Studio 的所有作品尽在一处——我们构建和运营的公民产品，以及精选的客户案例研究。ready2vote、Hotline、Travis 县 VDR 工具包，以及 Voter Registration Palooza。",
+    "metaDescription": "B-59 Studio 的所有作品尽在一处——我们构建和运营的公民产品。ready2vote 和 Hotline。",
     "ogTitle": "我们的作品 | B-59",
-    "ogDescription": "我们构建和运营的公民产品，加上精选的客户作品——尽在一处。",
+    "ogDescription": "我们构建和运营的公民产品——尽在一处。",
     "heading": "我们的作品",
-    "intro": "<brand></brand> Studio 制作的一切，尽在一处<blue>——</blue>我们构建和运营的公民产品，以及精选的客户作品。",
+    "intro": "<brand></brand> Studio 制作的一切，尽在一处<blue>——</blue>我们构建和运营的公民产品。",
     "solutionsHeading": "解决方案",
     "caseStudiesHeading": "案例研究",
     "tagVoting": "投票",
@@ -122,7 +122,7 @@
     "intro": "<brand></brand> Studio 目前只有一个人。",
     "jonName": "Jon Reise",
     "jonRole": "创始人",
-    "jonBio1": "Jon 设计并构建 <brand></brand> 发布的一切 <blue>—</blue> 「解决方案」下的产品、「案例研究」下的客户项目，以及周边。他在德克萨斯州奥斯汀工作，毕业于西北大学（Northwestern University）。",
+    "jonBio1": "Jon 设计并构建 <brand></brand> 发布的一切 <blue>—</blue> 「解决方案」下的产品、客户项目，以及周边。他在德克萨斯州奥斯汀工作，毕业于西北大学（Northwestern University）。",
     "jonBio2": "工作室的目标写在<link>我们的灵感</link>里。",
     "jonLinkedIn": "Jon 的 LinkedIn",
     "opensNewWindow": "（在新窗口中打开）"

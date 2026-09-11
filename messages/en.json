@@ -5,7 +5,7 @@
   "nav": {
     "studio": "Studio",
     "ourWork": "Our Work",
-    "ourWorkSub": "Case studies and solutions, all in one place",
+    "ourWorkSub": "The products we build and run, all in one place",
     "solutions": "Solutions",
     "ready2voteSub": "Helps Texans complete and mail their voter registration application.",
     "hotlineSub": "Scheduling, shifts and hours for civic teams.",
@@ -54,11 +54,11 @@
   },
   "studio": {
     "metaTitle": "Our Work",
-    "metaDescription": "The work of B-59 Studio in one place — the civic products we build and run, and selected client case studies. ready2vote, Hotline, the Travis County VDR Toolkit, and Voter Registration Palooza.",
+    "metaDescription": "The work of B-59 Studio in one place — the civic products we build and run. ready2vote and Hotline.",
     "ogTitle": "Our Work | B-59",
-    "ogDescription": "Civic products we build and run, plus selected client work — all in one place.",
+    "ogDescription": "The civic products we build and run — all in one place.",
     "heading": "Our Work",
-    "intro": "Everything <brand></brand> Studio makes, in one place <blue>—</blue> the civic products we build and run, and selected client work.",
+    "intro": "Everything <brand></brand> Studio makes, in one place <blue>—</blue> the civic products we build and run.",
     "solutionsHeading": "Solutions",
     "caseStudiesHeading": "Case Studies",
     "tagVoting": "Voting",
@@ -122,7 +122,7 @@
     "intro": "<brand></brand> Studio is, for now, one person.",
     "jonName": "Jon Reise",
     "jonRole": "Founder",
-    "jonBio1": "Jon designs and builds everything <brand></brand> ships <blue>—</blue> the products under Solutions, the client work under Case Studies, and the merch. He works from Austin, Texas, and studied at Northwestern University.",
+    "jonBio1": "Jon designs and builds everything <brand></brand> ships <blue>—</blue> the products under Solutions, the client work, and the merch. He works from Austin, Texas, and studied at Northwestern University.",
     "jonBio2": "What the studio is aiming at is on <link>Our Inspirations</link>.",
     "jonLinkedIn": "Jon on LinkedIn",
     "opensNewWindow": " (opens in new window)"

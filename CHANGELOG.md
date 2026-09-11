@@ -28,6 +28,24 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Removed
+
+- **Case Studies is off the site for now.** The Travis County VDR Toolkit,
+  Voter Registration Palooza and Merch no longer appear on Our Work, in the
+  Solutions menu, or in the phone panel. The pages themselves are untouched and
+  still resolve at their own URLs — they are unlinked rather than deleted, the
+  same way the brand portfolio is, so bringing the section back is uncommenting
+  it.
+
+### Changed
+
+- **Copy that pointed at the section went with it.** Our Work's introduction
+  and its search-result description no longer promise selected client work, the
+  Solutions menu's Our Work label reads "The products we build and run" instead
+  of leading with case studies, and Jon's biography on the Team page names the
+  client work without sending the reader to a menu section that is not there.
+  In all five languages.
+
 ## 2026-09-08
 
 ### Changed

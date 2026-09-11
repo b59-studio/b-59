@@ -5,7 +5,7 @@
   "nav": {
     "studio": "סטודיו",
     "ourWork": "העבודות שלנו",
-    "ourWorkSub": "מקרי בוחן ופתרונות, במקום אחד",
+    "ourWorkSub": "המוצרים שאנחנו בונים ומפעילים, במקום אחד",
     "solutions": "פתרונות",
     "ready2voteSub": "עוזר לתושבי טקסס למלא ולשלוח בדואר את בקשת רישום הבוחרים שלהם.",
     "hotlineSub": "תזמון, משמרות ושעות לצוותים אזרחיים.",
@@ -54,11 +54,11 @@
   },
   "studio": {
     "metaTitle": "העבודות שלנו",
-    "metaDescription": "העבודה של B-59 Studio במקום אחד — המוצרים האזרחיים שאנחנו בונים ומפעילים, ומקרי בוחן נבחרים של לקוחות. ready2vote, Hotline, ערכת ה-VDR של מחוז טרוויס ו-Voter Registration Palooza.",
+    "metaDescription": "העבודה של B-59 Studio במקום אחד — המוצרים האזרחיים שאנחנו בונים ומפעילים. ready2vote ו-Hotline.",
     "ogTitle": "העבודות שלנו | B-59",
-    "ogDescription": "מוצרים אזרחיים שאנחנו בונים ומפעילים, לצד עבודות נבחרות עבור לקוחות — הכול במקום אחד.",
+    "ogDescription": "המוצרים האזרחיים שאנחנו בונים ומפעילים — הכול במקום אחד.",
     "heading": "העבודות שלנו",
-    "intro": "כל מה ש-<brand></brand> Studio יוצר, במקום אחד <blue>—</blue> המוצרים האזרחיים שאנחנו בונים ומפעילים, ועבודות נבחרות עבור לקוחות.",
+    "intro": "כל מה ש-<brand></brand> Studio יוצר, במקום אחד <blue>—</blue> המוצרים האזרחיים שאנחנו בונים ומפעילים.",
     "solutionsHeading": "פתרונות",
     "caseStudiesHeading": "מקרי בוחן",
     "tagVoting": "הצבעה",
@@ -122,7 +122,7 @@
     "intro": "<brand></brand> Studio הוא, לעת עתה, אדם אחד.",
     "jonName": "Jon Reise",
     "jonRole": "מייסד",
-    "jonBio1": "Jon מעצב ובונה את כל מה ש-<brand></brand> מוציא <blue>—</blue> המוצרים תחת פתרונות, עבודות הלקוחות תחת מקרי בוחן, וה-Merch. הוא עובד מאוסטין, טקסס, ולמד ב-Northwestern University.",
+    "jonBio1": "Jon מעצב ובונה את כל מה ש-<brand></brand> מוציא <blue>—</blue> המוצרים תחת פתרונות, עבודות הלקוחות, וה-Merch. הוא עובד מאוסטין, טקסס, ולמד ב-Northwestern University.",
     "jonBio2": "מה שהסטודיו מכוון אליו נמצא בעמוד <link>ההשראות שלנו</link>.",
     "jonLinkedIn": "Jon ב-LinkedIn",
     "opensNewWindow": " (נפתח בחלון חדש)"
