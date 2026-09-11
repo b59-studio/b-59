@@ -14,10 +14,14 @@ This repo is public for transparency and for others to learn from. You're welcom
 git clone https://github.com/b59-studio/b-59.git
 cd b-59
 pnpm install
+bash scripts/install-hooks.sh
 NEXT_PUBLIC_SITE_URL=http://localhost:3000 pnpm dev
 ```
 
 Site runs on [http://localhost:3000](http://localhost:3000).
+
+`install-hooks.sh` wires the pre-push hook. Git hooks are not part of a clone,
+so this is once per checkout — see [Changelog dates](#changelog-dates).
 
 ## Scripts
 
@@ -28,6 +32,32 @@ Site runs on [http://localhost:3000](http://localhost:3000).
 | `pnpm start` | Serve production build |
 | `pnpm lint` | ESLint |
 | `pnpm test` | Unit tests (Jest) |
+| `bash scripts/install-hooks.sh` | Wire the pre-push hook (once per clone) |
+
+## Changelog dates
+
+The site is continuously deployed, so a `## YYYY-MM-DD` heading in
+[CHANGELOG.md](CHANGELOG.md) is a claim about the day a change went live. An
+entry filed under the wrong day is invisible in review — the addition is clean
+and only the heading above it changed — so the pre-push hook checks it:
+
+**A dated heading your branch adds, and anything you add under one, must name
+today.** `## [Unreleased]` is always allowed, and a push that leaves the
+changelog alone is never inspected.
+
+If your branch sits open past midnight, the next push asks you to re-date it.
+That is the check working: the heading is meant to name the day the change
+actually ships. To correct notes that already shipped — a typo in an old entry,
+or re-dating one that was filed wrong:
+
+```bash
+CHANGELOG_DATE_GUARD=off git push
+```
+
+The logic lives in `scripts/changelog-date-guard` (run it with `--help`), and
+is covered by `scripts/changelog-date-guard.test.ts` in the normal test run.
+It cannot catch a branch dated today that merges tomorrow without another push;
+nothing at push time knows the merge date.
 
 ## Environment variables
 
@@ -40,6 +70,7 @@ Site runs on [http://localhost:3000](http://localhost:3000).
 | `src/app/` | Routes and global layout |
 | `src/components/` | Shared UI (header, footer, theme) |
 | `public/` | Static assets |
+| `scripts/` | Repo tooling (the pre-push guard and its installer) |
 
 ## Deployment
 

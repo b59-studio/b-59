@@ -1,0 +1,174 @@
+#!/usr/bin/env bash
+# changelog-date-guard — refuse a push whose CHANGELOG entries are filed under
+# a day that is not today.
+#
+# WHY THIS EXISTS
+#   Merging to main deploys immediately, so an entry's heading is a claim about
+#   the day it went live. CHANGELOG.md's own working convention warns about the
+#   way that claim goes wrong: "an entry can end up filed under a date that
+#   shipped without it, and git will not flag it, because the addition is clean
+#   and only the heading above it changed." It happened twice on one branch —
+#   the Case Studies entries merged still under [Unreleased], and the
+#   positioning entry merged under a 2026-09-08 heading written two days before
+#   the branch actually landed. Nothing shipped on the 8th at all.
+#
+# THE RULE, IN ONE SENTENCE
+#   A dated heading this branch adds, and any line it adds underneath one, must
+#   name today. [Unreleased] is always allowed — it is where the convention says
+#   an open branch parks its entry.
+#
+# WHAT IT BINDS (standards/59 — state the rung)
+#   One file, CHANGELOG.md, in the commits a branch adds on top of its merge
+#   base with origin/main. It reads no other file, inspects no other repo, and
+#   has no effect on a push that leaves CHANGELOG.md alone. It compares the
+#   whole branch rather than only the commits in this push, because the hazard
+#   is what the branch will MERGE: a stale heading added in the first commit is
+#   invisible in the range of the third push, which is exactly how the
+#   2026-09-08 heading survived a re-push two days later.
+#
+# WHAT IT CANNOT SEE
+#   A branch dated today that merges tomorrow with no push in between. Nothing
+#   at push time can know the merge date. The catch point for that case would
+#   be post-merge, on main — this repo does not have one yet.
+#
+# DATES ARE LOCAL
+#   The headings are local days: #15 merged at 23:08 CDT, which is 04:08Z the
+#   next morning. A UTC comparison would have called it a day late every
+#   evening after 19:00 CDT, which is when most of this repo's merges happen.
+#
+# USAGE
+#   scripts/changelog-date-guard <base> <head>
+#   CHANGELOG_DATE_GUARD=off   skips the check (deliberate corrections to
+#                              already-published notes — see --help)
+#
+# Exit 0 clean, 1 on a violation, 2 on a usage error.
+
+set -euo pipefail
+
+RED='\033[0;31m'
+YELLOW='\033[0;33m'
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+CHANGELOG=CHANGELOG.md
+
+usage() {
+  cat <<'USAGE'
+usage: scripts/changelog-date-guard <base> <head>
+
+Refuses a CHANGELOG.md entry filed under a dated heading that is not today.
+[Unreleased] is always allowed.
+
+  base   commit the branch is measured from (normally the merge base with
+         origin/main)
+  head   commit being pushed
+
+Escape hatch, for a deliberate correction to notes that already shipped —
+fixing a typo in an old entry, or re-dating one that was filed wrong:
+
+  CHANGELOG_DATE_GUARD=off git push
+
+That skips this check and nothing else. `git push --no-verify` also works but
+skips every hook, including the privacy ones, so prefer the variable.
+USAGE
+}
+
+case "${1:-}" in
+  -h|--help) usage; exit 0 ;;
+esac
+
+if [ "$#" -ne 2 ]; then
+  usage >&2
+  exit 2
+fi
+
+base=$1
+head=$2
+
+if [ "${CHANGELOG_DATE_GUARD:-}" = "off" ]; then
+  echo -e "${YELLOW}⚠ CHANGELOG date guard skipped (CHANGELOG_DATE_GUARD=off).${NC}"
+  exit 0
+fi
+
+# Nothing to judge if the branch does not touch the file.
+if git diff --quiet "$base" "$head" -- "$CHANGELOG" 2>/dev/null; then
+  exit 0
+fi
+
+today=$(date +%F)
+
+# Full-context diff: every line of the new file appears, in order, as context
+# or as an addition, so walking it gives each added line the heading it lands
+# under without tracking line numbers. Deletions never move the heading.
+violations=$(
+  git diff -U100000 "$base" "$head" -- "$CHANGELOG" |
+  awk -v today="$today" '
+    /^(\+\+\+|---|@@|diff |index |new file|deleted file)/ { next }
+    {
+      marker = substr($0, 1, 1)
+      text   = substr($0, 2)
+      if (marker == "-") next                      # a deletion is not an entry
+      if (text ~ /^## /) {
+        heading = substr(text, 4)
+        sub(/[ \t\r]+$/, "", heading)
+      }
+      if (marker != "+") next                      # context only sets the heading
+      if (text ~ /^[ \t]*$/) next                  # a blank line is not an entry
+      if (heading == "" || heading == "[Unreleased]") next
+      if (heading !~ /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/) next   # not a dated section
+      if (heading == today) next
+      count[heading]++
+    }
+    END { for (h in count) print h "\t" count[h] }
+  ' | sort
+)
+
+if [ -z "$violations" ]; then
+  echo -e "${GREEN}✓ No CHANGELOG entry filed under a day other than $today.${NC}"
+  exit 0
+fi
+
+echo ""
+echo -e "${RED}✗ Push blocked: CHANGELOG entries filed under a day that is not today.${NC}"
+echo ""
+echo "  Merging deploys immediately, so a dated heading claims the day the"
+echo "  change went live. Today is $today."
+echo ""
+
+# A heading this branch invented can simply be retitled. One that already
+# exists upstream is published — renaming it would redate somebody else's
+# shipped entries, so that case gets the other instruction (standards/40:
+# remediation that cannot do what it claims is worse than none).
+published=$(git show "$base:$CHANGELOG" 2>/dev/null | sed -n 's/^## //p' || true)
+
+while IFS=$'\t' read -r heading count; do
+  [ -n "$heading" ] || continue
+  lines="$count line"; [ "$count" -eq 1 ] || lines="$count lines"
+
+  if printf '%s\n' "$published" | grep -qxF "$heading"; then
+    echo "    ## $heading  ($lines added to a section that already shipped)"
+    echo ""
+    echo "      Move those lines under ## $today — add the heading if it is not"
+    echo "      there yet. Do not retitle ## $heading: other entries live under it"
+    echo "      and they did ship that day."
+  elif [[ "$heading" < "$today" ]]; then
+    echo "    ## $heading  ($lines added; that day has passed and shipped without them)"
+    echo ""
+    echo "      perl -pi -e 's/^## $heading\$/## $today/' $CHANGELOG"
+  else
+    echo "    ## $heading  ($lines added; that day is in the future)"
+    echo ""
+    echo "      You cannot know the branch merges then. Retitle it to today:"
+    echo "      perl -pi -e 's/^## $heading\$/## $today/' $CHANGELOG"
+  fi
+  echo ""
+done <<< "$violations"
+
+echo "  ## [Unreleased] is always allowed if you would rather park them there."
+echo ""
+echo "  Deliberately correcting notes that already shipped — fixing a typo in an"
+echo "  old entry, or re-dating one that was filed wrong? Then:"
+echo ""
+echo "    CHANGELOG_DATE_GUARD=off git push"
+echo ""
+exit 1
