@@ -7,7 +7,7 @@ const createJestConfig = nextJest({
 /** @type {import("jest").Config} */
 const config = {
   testEnvironment: "node",
-  testMatch: ["<rootDir>/src/**/*.test.ts"],
+  testMatch: ["<rootDir>/src/**/*.test.ts", "<rootDir>/scripts/**/*.test.ts"],
 };
 
 export default createJestConfig(config);

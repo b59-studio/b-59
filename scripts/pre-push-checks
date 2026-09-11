@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# pre-push-checks — everything this repo gates a push on. Invoked by
+# .git/hooks/pre-push (see scripts/install-hooks.sh).
+#
+# Git hands us one line per ref being pushed on stdin:
+#   <local ref> <local sha> <remote ref> <remote sha>
+#
+# WHAT WE MEASURE THE BRANCH AGAINST
+#   Not the range of this push. The hazard the date guard exists for is what
+#   the branch will MERGE, and a stale heading added in the first commit is
+#   invisible in the range of the third push — which is exactly how a
+#   2026-09-08 heading survived a re-push on the 10th. So a feature branch is
+#   measured from its merge base with origin/main. A push straight to main is
+#   measured from what main already has, since that is all that is new.
+
+set -euo pipefail
+
+root="$(git rev-parse --show-toplevel)"
+zero='0000000000000000000000000000000000000000'
+status=0
+
+while read -r _local_ref local_sha remote_ref remote_sha; do
+  # Deleting a branch pushes the zero sha and has nothing to check.
+  [ "$local_sha" = "$zero" ] && continue
+
+  if [ "$remote_ref" = "refs/heads/main" ] && [ "$remote_sha" != "$zero" ]; then
+    base="$remote_sha"
+  elif base=$(git merge-base origin/main "$local_sha" 2>/dev/null); then
+    :
+  elif [ "$remote_sha" != "$zero" ]; then
+    base="$remote_sha"
+  else
+    # No origin/main and no remote branch: nothing to measure against. This is
+    # "cannot compare", not "clean" — say which, and let the push through.
+    echo "· CHANGELOG date guard skipped: no origin/main to measure against."
+    continue
+  fi
+
+  "$root"/scripts/changelog-date-guard "$base" "$local_sha" || status=1
+done
+
+exit "$status"
