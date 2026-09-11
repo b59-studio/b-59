@@ -29,7 +29,8 @@ export default async function SiteMap() {
     { href: "/about/inspirations", label: t("linkInspirations") },
     { href: "/about/team", label: t("linkTeam") },
     { href: "/solutions/brand-design/philosophy", label: t("linkBrandDesignPhilosophy") },
-    { href: "/donate", label: t("linkDonate") },
+    // Donations are closed and /donate is a 404; see src/lib/donations.ts.
+    // { href: "/donate", label: t("linkDonate") },
     { href: "/about/privacy", label: t("linkPrivacyPolicy") },
     { href: "/about/terms", label: t("linkTermsOfUse") },
   ] as const;

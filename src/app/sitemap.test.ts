@@ -38,6 +38,7 @@ describe("sitemap", () => {
     const entries = sitemap();
     const urls = entries.map((entry) => entry.url);
     expect(urls.some((url) => url.endsWith("/solutions/brand-design/portfolio"))).toBe(false);
+    expect(urls.some((url) => url.endsWith("/donate"))).toBe(false);
     expect(urls.some((url) => url.endsWith("/donate/success"))).toBe(false);
   });
 
