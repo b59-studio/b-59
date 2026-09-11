@@ -9,6 +9,14 @@
   --color-b59-alert: #FF3333;
 }
 
+/* The touch floor: 44px, the size every tappable thing on a surface a phone
+   can reach has to meet (standards/44, docs/design/design-system.md). Built
+   out of min-height + padding rather than a fixed height, so a label that
+   wraps grows the target instead of being clipped by it. */
+:root {
+  --touch-target: 2.75rem; /* 44px */
+}
+
 /* Global styles */
 body {
   background-color: var(--color-b59-light);
@@ -380,9 +388,20 @@ body {
 }
 
 /* The mobile nav panel is fully opaque (unlike the translucent header bar
-   above it) so page content scrolling underneath doesn't bleed through. */
+   above it) so page content scrolling underneath doesn't bleed through.
+
+   The header is fixed, so a panel taller than the screen is clipped off the
+   bottom of the viewport with nothing to scroll — the links past the fold
+   become unreachable. Bound it to what's left under the bar (1rem top inset +
+   4rem bar + 0.5rem gap), keep the same 1rem inset at the foot, and scroll the
+   remainder inside the panel. dvh so the phone's collapsing URL bar counts;
+   the vh line is the fallback for browsers without it. */
 .nav-mobile-panel {
   background-color: var(--color-b59-light);
+  max-height: calc(100vh - 6.5rem);
+  max-height: calc(100dvh - 6.5rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .dark .nav-mobile-panel {
@@ -403,7 +422,9 @@ body {
 }
 
 .nav-mobile-link {
-  display: block;
+  display: flex;
+  align-items: center;
+  min-height: var(--touch-target);
   padding: 0.5rem 1rem;
   color: var(--color-b59-dark);
   border-radius: 0.375rem;
@@ -607,8 +628,12 @@ body {
   color: #9ca3af;
 }
 
+/* Shared by the About menu and the language options, and the language menu
+   opens from inside the phone panel — so it takes the touch floor too. */
 .nav-dropdown-item {
-  display: block;
+  display: flex;
+  align-items: center;
+  min-height: var(--touch-target);
   padding: 0.5rem 0.75rem;
   border-radius: 0.5rem;
   color: var(--color-b59-dark);
@@ -669,6 +694,11 @@ body {
 }
 
 .theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--touch-target);
+  min-height: var(--touch-target);
   padding: 0.5rem;
   border-radius: 0.5rem;
   transition: background-color 0.2s;
@@ -692,6 +722,7 @@ body {
 .lang-switcher-trigger {
   display: inline-flex;
   align-items: center;
+  min-height: var(--touch-target);
   gap: 0.375rem;
   padding: 0.5rem 0.75rem;
   border-radius: 0.5rem;
@@ -766,7 +797,14 @@ body {
   text-align: start;
 }
 
+/* The glyph stays 24px; the pressable around it is the touch floor. The hit
+   area is allowed to be larger than the ink (standards/44). */
 .mobile-menu-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--touch-target);
+  min-height: var(--touch-target);
   color: var(--color-b59-blue);
   border-radius: 0.5rem;
   transition: background-color 0.2s;
@@ -811,7 +849,15 @@ body {
   color: var(--color-b59-light);
 }
 
+/* A stacked column of links is a thumb target like any other, so each one
+   takes the touch floor. inline-flex rather than block: the hit area hugs
+   the label and grows to 44 only where the word is shorter than that, so a
+   click three inches to the right of "Team" isn't a navigation. */
 .footer-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch-target);
+  min-width: var(--touch-target);
   color: var(--color-b59-gray);
   font-size: 0.875rem;
   transition: color 0.2s;

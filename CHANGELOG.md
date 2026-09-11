@@ -46,6 +46,22 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   client work without sending the reader to a menu section that is not there.
   In all five languages.
 
+## 2026-09-10
+
+### Fixed
+
+- **The phone menu scrolls.** On a shorter phone the menu ran off the bottom of
+  the screen and the links past the fold could not be reached at all — the
+  header is fixed, so there was nothing to scroll. The panel now stops at the
+  bottom of the screen and scrolls its own overflow, and a flick at the end of
+  the list no longer drags the page behind it.
+- **Everything in the menu is a thumb-sized target.** The links, the language
+  and theme controls at the foot of the panel, the language options, and the
+  menu button itself — which was 24×24, the smallest thing on the site — now
+  all meet the 44px minimum. The same floor reaches the About menu and the
+  footer's link columns, which were 16px tall. The glyphs are unchanged; it is
+  the pressable area around them that grew.
+
 ## 2026-09-08
 
 ### Changed
