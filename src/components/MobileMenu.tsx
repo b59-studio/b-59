@@ -38,6 +38,8 @@ export function MobileMenu({ open, onNavigate }: MobileMenuProps) {
       </Link>
       <span className="nav-mobile-sub nav-mobile-sub-marked">{t("hotlineSub")}</span>
 
+      {/* Case studies are held back for now; the pages stay built but
+          unlinked, as the portfolio is.
       <span className="nav-mobile-heading">{t("caseStudies")}</span>
       <Link
         href="/solutions/travis-county-vdr"
@@ -64,6 +66,7 @@ export function MobileMenu({ open, onNavigate }: MobileMenuProps) {
         <span>{t("merch")}</span>
       </Link>
       <span className="nav-mobile-sub nav-mobile-sub-marked">{t("merchSub")}</span>
+      */}
 
       <Link href="/about" className="nav-mobile-link" onClick={onNavigate}>
         {t("ourStory")}

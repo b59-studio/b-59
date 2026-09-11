@@ -28,6 +28,38 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Removed
+
+- **Case Studies is off the site for now.** The Travis County VDR Toolkit,
+  Voter Registration Palooza and Merch no longer appear on Our Work, in the
+  Solutions menu, or in the phone panel. The pages themselves are untouched and
+  still resolve at their own URLs — they are unlinked rather than deleted, the
+  same way the brand portfolio is, so bringing the section back is uncommenting
+  it.
+
+### Changed
+
+- **Copy that pointed at the section went with it.** Our Work's introduction
+  and its search-result description no longer promise selected client work, the
+  Solutions menu's Our Work label reads "The products we build and run" instead
+  of leading with case studies, and Jon's biography on the Team page names the
+  client work without sending the reader to a menu section that is not there.
+  In all five languages.
+
+## 2026-09-08
+
+### Changed
+
+- **The studio says who it works for.** B-59 works with progressives, and the
+  site now says so instead of claiming neutrality. The brand philosophy's
+  closing section is "Progressive by choice" rather than "Neutral by default",
+  and no longer offers to work across the political spectrum; the About page's
+  mission names the movement it serves in place of the line disclaiming any
+  political ideology, and drops "neutrality" from the three things the work is
+  done with. The craft commitment underneath is unchanged and still stated: the
+  job is to make the client's message land, not to insert ours. In all five
+  languages.
+
 ## 2026-09-07
 
 ### Added

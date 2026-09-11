@@ -8,12 +8,12 @@ import { ProjectMark, type ProjectKey } from "@/components/ProjectMark";
 export const metadata: Metadata = {
   title: "Our Work",
   description:
-    "The work of B-59 Studio in one place — the civic products we build and run, and selected client case studies. ready2vote, Hotline, the Travis County VDR Toolkit, and Voter Registration Palooza.",
+    "The work of B-59 Studio in one place — the civic products we build and run. ready2vote and Hotline.",
   alternates: { canonical: "/studio" },
   openGraph: {
     title: "Our Work | B-59",
     description:
-      "Civic products we build and run, plus selected client work — all in one place.",
+      "The civic products we build and run — all in one place.",
     url: "/studio",
   },
 };
@@ -71,29 +71,31 @@ export default async function Studio() {
     },
   ];
 
-  const caseStudies: WorkItem[] = [
-    {
-      tag: t("tagClientWork"),
-      project: "travis-county-vdr",
-      title: "Travis County VDR Toolkit",
-      href: "/solutions/travis-county-vdr",
-      blurb: t("travisCountyVdrBlurb"),
-    },
-    {
-      tag: t("tagClientWork"),
-      project: "voter-registration-palooza",
-      title: "Voter Registration Palooza",
-      href: "/solutions/voter-registration-palooza",
-      blurb: t("voterRegistrationPaloozaBlurb"),
-    },
-    {
-      tag: t("tagBrandDesign"),
-      project: "merch",
-      title: t("merchTitle"),
-      href: "/solutions/brand-design/merch",
-      blurb: t("merchBlurb"),
-    },
-  ];
+  // Case studies are held back for now. The pages themselves still build and
+  // resolve; they are simply unlinked, as the portfolio is.
+  // const caseStudies: WorkItem[] = [
+  //   {
+  //     tag: t("tagClientWork"),
+  //     project: "travis-county-vdr",
+  //     title: "Travis County VDR Toolkit",
+  //     href: "/solutions/travis-county-vdr",
+  //     blurb: t("travisCountyVdrBlurb"),
+  //   },
+  //   {
+  //     tag: t("tagClientWork"),
+  //     project: "voter-registration-palooza",
+  //     title: "Voter Registration Palooza",
+  //     href: "/solutions/voter-registration-palooza",
+  //     blurb: t("voterRegistrationPaloozaBlurb"),
+  //   },
+  //   {
+  //     tag: t("tagBrandDesign"),
+  //     project: "merch",
+  //     title: t("merchTitle"),
+  //     href: "/solutions/brand-design/merch",
+  //     blurb: t("merchBlurb"),
+  //   },
+  // ];
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -108,10 +110,10 @@ export default async function Studio() {
           <WorkGrid items={solutions} />
         </section>
 
-        <section>
+        {/* <section>
           <h2 className="heading-md mb-4">{t("caseStudiesHeading")}</h2>
           <WorkGrid items={caseStudies} />
-        </section>
+        </section> */}
       </div>
     </div>
   );
