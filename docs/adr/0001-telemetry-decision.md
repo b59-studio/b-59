@@ -6,6 +6,13 @@ Accepted — merged 2026-08-10. The wiring (Sentry, the Plausible script,
 the privacy-policy processor list) is in the codebase; events flow once
 the vendor accounts exist and their keys land in Doppler.
 
+**Section 3 (product analytics) was superseded on 2026-09-11 by
+`0002-pageview-analytics-on-vercel.md`.** The Plausible site was never
+created, so the script never loaded and the site went a month with no
+pageview measurement; Vercel Analytics replaces it. Sections 1 and 2 —
+crash reporting as not-applicable, and Sentry for error reporting —
+stand as written.
+
 Date: 2026-08-10
 
 ## Context

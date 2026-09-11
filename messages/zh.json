@@ -198,7 +198,7 @@
     "useItem3": "维护我们系统的安全性和完整性",
     "noSell": "我们不出售个人信息。",
     "cookiesHeading": "Cookie 与分析",
-    "cookiesBody": "本网站设置的唯一 Cookie 用于记住你的语言选择。流量通过 Plausible 统计，这是一项无 Cookie 的分析服务，仅记录聚合的页面浏览量，不收集个人信息。四家服务提供商代表我们处理数据：Vercel（托管）、Stripe（捐赠支付）、Sentry（错误报告）和 Plausible（分析），每家仅接收履行其职能所需的信息。",
+    "cookiesBody": "本网站设置的唯一 Cookie 用于记住你的语言选择。流量通过 Vercel Analytics 统计，这是一项无 Cookie 的分析服务，仅记录聚合的页面浏览量，不收集个人信息。三家服务提供商代表我们处理数据：Vercel（托管与分析）、Stripe（捐赠支付）和 Sentry（错误报告），每家仅接收履行其职能所需的信息。",
     "sharingHeading": "数据共享",
     "sharingBody": "除非法律要求或为运营网站所需（例如托管或分析服务提供商），否则我们不会与第三方共享个人信息。",
     "securityHeading": "数据安全",

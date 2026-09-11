@@ -1,5 +1,6 @@
 import "../globals.css";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
@@ -12,8 +13,10 @@ import { noFlashScript } from "@/lib/theme";
 import { textDirection } from "@/i18n/config";
 
 const siteUrl = resolveSiteUrl();
-// Cookieless pageview analytics (docs/adr/0001-telemetry-decision.md): the
-// script loads only when the Plausible site domain is configured.
+// Plausible is wired but unconfigured, so this script does not load. Vercel
+// Analytics is the pageview answer in its place (ADR-0001, superseded 2026-09-11).
+// Setting this domain would put a second analytics processor on every page, so
+// the privacy policy's processor list must be updated in the same change.
 const plausibleDomain = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN;
 
 export function generateStaticParams() {
@@ -73,6 +76,7 @@ export default async function LocaleLayout({ children, params }: Props) {
             src="https://plausible.io/js/script.js"
           />
         ) : null}
+        <Analytics />
       </body>
     </html>
   );

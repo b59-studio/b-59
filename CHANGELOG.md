@@ -30,6 +30,13 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## 2026-09-11
 
+### Changed
+
+- The privacy policy's processor list now names three providers rather than
+  four. Vercel's role widens from hosting to hosting and analytics, and
+  Plausible leaves the list, since it never processed any data. Updated in
+  all five languages. Still cookieless, still no banner.
+
 ### Removed
 
 - **The Donate page is down.** `/donate` returns "page not found" rather than a
@@ -41,6 +48,14 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   contributions from starting, not ones already running. The page, the form and
   the payment plumbing are untouched and still build, so bringing donations back
   is a one-line change rather than a rebuild.
+
+### Fixed
+
+- Pageview analytics work again. The site has recorded no traffic since
+  2026-08-10: Vercel Analytics was removed that day in favour of Plausible,
+  but the Plausible site was never created, so its script — which only loads
+  when its domain is configured — never rendered. Vercel Analytics is
+  restored as the pageview measure.
 
 ## 2026-09-10
 
