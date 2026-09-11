@@ -28,6 +28,21 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Fixed
+
+- Pageview analytics work again. The site has recorded no traffic since
+  2026-08-10: Vercel Analytics was removed that day in favour of Plausible,
+  but the Plausible site was never created, so its script — which only loads
+  when its domain is configured — never rendered. Vercel Analytics is
+  restored as the pageview measure.
+
+### Changed
+
+- The privacy policy's processor list now names three providers rather than
+  four. Vercel's role widens from hosting to hosting and analytics, and
+  Plausible leaves the list, since it never processed any data. Updated in
+  all five languages. Still cookieless, still no banner.
+
 ### Removed
 
 - **Case Studies is off the site for now.** The Travis County VDR Toolkit,
