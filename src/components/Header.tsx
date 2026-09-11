@@ -201,16 +201,18 @@ export default function Header() {
                 </div>
               </div>
 
-              {/* The action, alone. The language selector and the theme
-                  toggle are not header furniture: the page already opens in
-                  the reader's language and their device's mode, so both sit in
-                  the footer and at the foot of the mobile menu
-                  (standards/33, standards/25). */}
+              {/* Donations are closed, so the bar has no action on it for now.
+                  The language selector and the theme toggle do not move up here
+                  to fill the gap: the page already opens in the reader's
+                  language and their device's mode, so both stay in the footer
+                  and at the foot of the mobile menu (standards/33,
+                  standards/25). Uncomment with src/lib/donations.ts.
               <div className="flex items-center gap-2">
                 <Link href="/donate" className="btn-secondary !py-2 !px-5">
                   {t("donate")}
                 </Link>
               </div>
+              */}
             </div>
 
             <div className="md:hidden flex items-center gap-2">

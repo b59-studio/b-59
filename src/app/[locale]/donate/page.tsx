@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { Brand } from "@/components/Brand";
 import { DonateForm } from "@/components/DonateForm";
+import { donationsOpen } from "@/lib/donations";
 
 export const metadata: Metadata = {
   title: "Donate",
@@ -21,6 +23,10 @@ const blue = (chunks: React.ReactNode) => <span className="text-b59-blue">{chunk
 const strong = (chunks: React.ReactNode) => <strong>{chunks}</strong>;
 
 export default async function Donate() {
+  // Donations are closed, so this page is a 404 rather than a form that takes
+  // money. The page below is intact; see src/lib/donations.ts to reopen it.
+  if (!donationsOpen) notFound();
+
   const t = await getTranslations("donate");
 
   return (

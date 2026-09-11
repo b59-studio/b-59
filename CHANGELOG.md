@@ -30,6 +30,15 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ### Removed
 
+- **The Donate page is down.** `/donate` returns "page not found" rather than a
+  form, and the Donate action is gone from the header, the phone menu, the
+  footer and the site map. Unlinking it would not have been enough on its own —
+  a bookmark or a search result would still have opened a working checkout — so
+  the page itself refuses, and the search engines are told it is gone. Monthly
+  donations already set up are not affected: taking the page down stops new
+  contributions from starting, not ones already running. The page, the form and
+  the payment plumbing are untouched and still build, so bringing donations back
+  is a one-line change rather than a rebuild.
 - **Case Studies is off the site for now.** The Travis County VDR Toolkit,
   Voter Registration Palooza and Merch no longer appear on Our Work, in the
   Solutions menu, or in the phone panel. The pages themselves are untouched and

@@ -64,11 +64,13 @@ export default async function Footer() {
                 {tNav("ourWork")}
               </Link>
             </li>
+            {/* Donations are closed; see src/lib/donations.ts.
             <li>
               <Link href="/donate" className="footer-link">
                 {tNav("donate")}
               </Link>
             </li>
+            */}
           </FooterColumn>
 
           <FooterColumn heading={t("connectHeading")}>

@@ -82,9 +82,11 @@ export function MobileMenu({ open, onNavigate }: MobileMenuProps) {
       </Link>
       {/* Portfolio is built but unlinked until it's ready to go public. */}
 
+      {/* Donations are closed; see src/lib/donations.ts.
       <Link href="/donate" className="nav-mobile-link" onClick={onNavigate}>
         {t("donate")}
       </Link>
+      */}
 
       {/* Last in the panel, under the links: the page already opens in the
           reader's language and their device's mode, so these are the override

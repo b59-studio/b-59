@@ -7,6 +7,7 @@ import {
   resolveRedirectBaseUrl,
 } from "@/lib/stripe";
 import { resolveSiteUrl } from "@/lib/site-url";
+import { donationsOpen } from "@/lib/donations";
 import { defaultLocale, isLocale } from "@/i18n/config";
 
 // Stripe calls need the Node.js runtime (not edge) and must never be cached.
@@ -16,6 +17,13 @@ export const dynamic = "force-dynamic";
 const siteUrl = resolveSiteUrl();
 
 export async function POST(request: Request) {
+  // Donations are closed. Refuse here as well as on the page: the page being a
+  // 404 stops nobody who posts straight at this endpoint, or whose tab was
+  // open before it came down.
+  if (!donationsOpen) {
+    return NextResponse.json({ error: "B-59 is not accepting donations." }, { status: 404 });
+  }
+
   let body: unknown;
   try {
     body = await request.json();
