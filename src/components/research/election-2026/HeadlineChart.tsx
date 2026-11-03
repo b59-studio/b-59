@@ -1,7 +1,7 @@
 "use client";
 
 import { fmt, pct } from "@/lib/election-2026/live";
-import { ballots2022, COUNTIES, DATA } from "./data";
+import { ballots2022, CORE, DATA } from "./data";
 import { Panel } from "./parts";
 
 /**
@@ -11,7 +11,7 @@ import { Panel } from "./parts";
  * the table below.
  */
 export function HeadlineChart() {
-  const rows = COUNTIES.map((g) => {
+  const rows = CORE.map((g) => {
     const early = DATA.ev[g][3];
     const prior = ballots2022(g);
     return { g, early, prior, share: early / prior };

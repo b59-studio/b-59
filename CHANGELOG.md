@@ -28,6 +28,18 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Added
+
+- **The election analysis covers every Texas county.** All 254 are in every
+  table. The state's row stays pinned under the column headers, Travis comes
+  next as the benchmark, then the 17 focus counties, then every other county
+  by 2024 population. Each county's numbers come from the same sources as
+  before; the 17 counties' figures are unchanged.
+- **A win calculator in the Studio menu, behind a password.** Campaign teams
+  can set the Democratic share in each focus county and see what the rest of
+  the state would need. The page is kept out of search engines and the
+  sitemap, and stays locked until a password is configured.
+
 ## 2026-11-03
 
 ### Added

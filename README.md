@@ -62,6 +62,9 @@ nothing at push time knows the merge date.
 ## Environment variables
 
 - `NEXT_PUBLIC_SITE_URL` — canonical URL for metadata and sitemap (required).
+- `WIN_CALCULATOR_PASSWORD` — the shared password for `/studio/win-calculator`.
+  Unset keeps the page locked. Set it in Doppler (`doppler secrets set
+  WIN_CALCULATOR_PASSWORD --project b59`) for each config that deploys.
 
 ## Project layout
 

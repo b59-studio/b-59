@@ -41,6 +41,7 @@ describe("sitemap", () => {
     expect(urls.some((url) => url.endsWith("/solutions/brand-design/portfolio"))).toBe(false);
     expect(urls.some((url) => url.endsWith("/donate"))).toBe(false);
     expect(urls.some((url) => url.endsWith("/donate/success"))).toBe(false);
+    expect(urls.some((url) => url.endsWith("/studio/win-calculator"))).toBe(false);
   });
 
   it("gives every entry full locale alternates including x-default", () => {

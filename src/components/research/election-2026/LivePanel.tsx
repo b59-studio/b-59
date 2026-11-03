@@ -2,7 +2,7 @@
 
 import type { LiveFigures } from "@/lib/election-2026/live";
 import { fmt, hourLabel, pct, timeCentral } from "@/lib/election-2026/live";
-import { ballots2022, DATA } from "./data";
+import { ballots2022, CORE } from "./data";
 import { DataTable, Note, Panel, TrackerLink } from "./parts";
 
 const HOURS = Array.from({ length: 13 }, (_, i) => 7 + i);
@@ -16,7 +16,7 @@ export function LivePanel({ live, order, fetched }: { live: Map<string, LiveFigu
       </Panel>
     );
   }
-  const reference = names.filter((g) => !DATA.gen[g]);
+  const reference = names.filter((g) => !CORE.includes(g));
 
   return (
     <>
@@ -24,7 +24,7 @@ export function LivePanel({ live, order, fetched }: { live: Map<string, LiveFigu
         <Note>
           Unofficial tracker check-ins plus the state’s mail-ballot count, read at {timeCentral(fetched)} CT. The last
           column compares election-day check-ins through the last full hour with the same hour in 2024.
-          {reference.length ? ` ${reference.join(" and ")} are not among the 17 and are shown for reference.` : ""}
+          {reference.length ? ` ${reference.join(" and ")} are not among the 17 focus counties.` : ""}
         </Note>
         <DataTable
           head={
@@ -46,7 +46,7 @@ export function LivePanel({ live, order, fetched }: { live: Map<string, LiveFigu
             const g22 = ballots2022(g);
             const pace = L.priorThrough ? L.edThrough / L.priorThrough : null;
             return (
-              <tr key={g} className={DATA.gen[g] ? undefined : "ea-sub"}>
+              <tr key={g} className={CORE.includes(g) ? undefined : "ea-sub"}>
                 <td>
                   <TrackerLink label={g} url={L.url} />
                 </td>

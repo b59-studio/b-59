@@ -38,6 +38,12 @@ export function MobileMenu({ open, onNavigate }: MobileMenuProps) {
       </Link>
       <span className="nav-mobile-sub nav-mobile-sub-marked">{t("hotlineSub")}</span>
 
+      <span className="nav-mobile-heading">{t("tools")}</span>
+      <Link href="/studio/win-calculator" className="nav-mobile-link" onClick={onNavigate}>
+        {t("winCalculator")}
+      </Link>
+      <span className="nav-mobile-sub">{t("winCalculatorSub")}</span>
+
       {/* Case studies are held back for now; the pages stay built but
           unlinked, as the portfolio is.
       <span className="nav-mobile-heading">{t("caseStudies")}</span>
