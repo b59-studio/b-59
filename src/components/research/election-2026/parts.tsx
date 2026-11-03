@@ -145,7 +145,8 @@ export function TrackerLink({ label, url, extra }: { label: string; url: string;
   );
 }
 
-export type PickOption = { value: string; label: string; detail?: string };
+/** `group` sections the list: a heading shows wherever it changes from the option before. */
+export type PickOption = { value: string; label: string; detail?: string; group?: string };
 
 /**
  * Filter-and-pick: type to narrow the list, arrows to move, Enter to choose,
@@ -171,7 +172,8 @@ export function FilterPick({
   const current = options.find((o) => o.value === value);
 
   const q = query.trim().toLowerCase();
-  const matches = q ? options.filter((o) => `${o.label} ${o.detail ?? ""}`.toLowerCase().includes(q)) : options;
+  // The section counts as a match too, so typing "border" lists the border counties.
+  const matches = q ? options.filter((o) => `${o.label} ${o.detail ?? ""} ${o.group ?? ""}`.toLowerCase().includes(q)) : options;
 
   const show = () => {
     setQuery("");
@@ -228,7 +230,12 @@ export function FilterPick({
         onKeyDown={onKeyDown}
       />
       <ul id={listId} role="listbox" aria-label={label} className="ea-pick-list" hidden={!open}>
-        {matches.map((o, i) => (
+        {matches.map((o, i) => [
+          o.group && o.group !== matches[i - 1]?.group && (
+            <li key={`group-${o.group}`} role="presentation" className="ea-pick-group">
+              {o.group}
+            </li>
+          ),
           <li
             key={o.value}
             id={`${id}-${i}`}
@@ -243,8 +250,8 @@ export function FilterPick({
           >
             <span>{o.label}</span>
             {o.detail && <span className="ea-cnt">{o.detail}</span>}
-          </li>
-        ))}
+          </li>,
+        ])}
         {!matches.length && <li className="ea-pick-empty">Nothing matches “{query}”.</li>}
       </ul>
     </div>

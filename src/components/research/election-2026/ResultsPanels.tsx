@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { fmt, margin, pct, points } from "@/lib/election-2026/live";
-import { DATA, MIDTERMS, race, raceMargin, shade, SHORT_OFFICE, TOP_OF_TICKET, YEARS } from "./data";
+import { BY_GEOGRAPHY, DATA, MIDTERMS, race, raceMargin, shade, SHORT_OFFICE, TOP_OF_TICKET, YEARS } from "./data";
 import { FilterPick, Note, Panel, usePanelExpanded } from "./parts";
 import { GeoTable } from "./GeoTable";
 
@@ -128,7 +128,7 @@ function GapTable({ office, years }: { office: string; years: string[] }) {
 }
 
 export function TicketPanel() {
-  const [geo, setGeo] = useState("Valley");
+  const [geo, setGeo] = useState("Statewide");
   return (
     <>
       <p className="ea-note">
@@ -138,7 +138,7 @@ export function TicketPanel() {
       </p>
       <Panel title="Margin over time">
         <div className="ea-bar ea-bar-start">
-          <FilterPick label="County" options={DATA.geos.map(([g]) => ({ value: g, label: g }))} value={geo} onChange={setGeo} />
+          <FilterPick label="Place" options={BY_GEOGRAPHY.map(({ geo: g, section }) => ({ value: g, label: g, group: section }))} value={geo} onChange={setGeo} />
         </div>
         <Legend
           items={[

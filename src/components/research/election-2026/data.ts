@@ -61,6 +61,26 @@ export const officeName = (office: string) => (office === "Railroad Comm." ? "Ra
 
 /** The 17 focus counties, as single counties (the Valley row is their sum, not a county). */
 export const FOCUS = ROWS.filter(([g, group]) => group === "focus" && g !== "Valley").map(([g]) => g);
+/** Where each focus county sits, for sections that group places by geography. */
+const REGION: Record<string, string> = {
+  "El Paso": "Border", Valley: "Border", Hidalgo: "Border", Cameron: "Border", Starr: "Border", Willacy: "Border",
+  Webb: "Border", Maverick: "Border",
+  Harris: "Metro", Dallas: "Metro", Bexar: "Metro",
+  Collin: "Suburban", Denton: "Suburban", Williamson: "Suburban", Bell: "Suburban", Montgomery: "Suburban",
+  Ellis: "Suburban",
+  Hockley: "Rural",
+};
+const SECTIONS = ["Statewide", "Benchmark", "Border", "Metro", "Suburban", "Rural", "Other counties, by population"];
+
+/** Every geography grouped by geography: the state, Travis, the 17 by region, then the rest by size. */
+export const BY_GEOGRAPHY = DATA.geos
+  .map(([g, group]) => ({
+    geo: g,
+    section:
+      group === "statewide" ? "Statewide" : group === "benchmark" ? "Benchmark" : REGION[g] ?? "Other counties, by population",
+  }))
+  .sort((a, b) => SECTIONS.indexOf(a.section) - SECTIONS.indexOf(b.section));
+
 /** The focus counties and the Travis benchmark: the set the win calculator works over. */
 export const CORE = [...FOCUS, "Travis"];
 

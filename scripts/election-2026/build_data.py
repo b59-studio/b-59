@@ -103,6 +103,15 @@ def latest_sos(sos: Path, election: int, names: dict[str, str]) -> dict[str, dic
 
 
 def build(args: argparse.Namespace) -> dict:
+    """Assemble the page's data for every county from the raw inputs.
+
+    Args:
+        args: Parsed command-line paths (see the module docstring).
+
+    Returns:
+        The JSON-ready dict the page imports: geos, gen, prim, ev, raceMeta,
+        races and evAsOf, as documented in src/components/research/election-2026/data.ts.
+    """
     names = county_names(args.census)
     pop = populations(args.census)
     assert len(names) == 254, len(names)
@@ -183,6 +192,7 @@ def build(args: argparse.Namespace) -> dict:
 
 
 def main() -> None:
+    """Parse the input paths, build the data and write it to --out."""
     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     for flag in ("--ted", "--races", "--sos", "--census", "--out"):
         p.add_argument(flag, type=Path, required=True)
