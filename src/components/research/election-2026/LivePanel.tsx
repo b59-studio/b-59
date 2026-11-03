@@ -3,6 +3,7 @@
 import type { LiveFigures } from "@/lib/election-2026/live";
 import { fmt, hourLabel, pct, timeCentral } from "@/lib/election-2026/live";
 import { ballots2022, CORE } from "./data";
+import { SortContext, SortTh, sortItems, useSortState } from "./GeoTable";
 import { DataTable, Note, Panel, TrackerLink } from "./parts";
 
 const HOURS = Array.from({ length: 13 }, (_, i) => 7 + i);
@@ -26,44 +27,7 @@ export function LivePanel({ live, order, fetched }: { live: Map<string, LiveFigu
           column compares election-day check-ins through the last full hour with the same hour in 2024.
           {reference.length ? ` ${reference.join(" and ")} are not among the 17 focus counties.` : ""}
         </Note>
-        <DataTable
-          head={
-            <tr>
-              <th>County</th>
-              <th>Tracker time (CT)</th>
-              <th>Early in person</th>
-              <th>Mail</th>
-              <th>Election day</th>
-              <th>Total</th>
-              <th>% of registered</th>
-              <th>% of 2022 total</th>
-              <th>Election day vs 2024</th>
-            </tr>
-          }
-        >
-          {names.map((g) => {
-            const L = live.get(g)!;
-            const g22 = ballots2022(g);
-            const pace = L.priorThrough ? L.edThrough / L.priorThrough : null;
-            return (
-              <tr key={g} className={CORE.includes(g) ? undefined : "ea-sub"}>
-                <td>
-                  <TrackerLink label={g} url={L.url} />
-                </td>
-                <td>{timeCentral(L.refreshed)}</td>
-                <td>{fmt(L.evInPerson)}</td>
-                <td>{fmt(L.mail)}</td>
-                <td>{fmt(L.electionDay)}</td>
-                <td>
-                  <strong>{fmt(L.total)}</strong>
-                </td>
-                <td>{pct(L.total / L.registered)}</td>
-                <td>{g22 ? pct(L.total / g22) : ""}</td>
-                <td className={pace != null && pace >= 1 ? "ea-pos" : undefined}>{pace != null ? pct(pace) : "—"}</td>
-              </tr>
-            );
-          })}
-        </DataTable>
+        <TrackerTotals live={live} names={names} />
       </Panel>
       <div className="ea-grid2">
         {names.map((g) => (
@@ -147,5 +111,66 @@ function HourlyPanel({ name, live: L }: { name: string; live: LiveFigures }) {
         {rows}
       </DataTable>
     </Panel>
+  );
+}
+
+const TRACKER_SORT: Record<string, (L: LiveFigures, g: string) => number | string | null> = {
+  name: (_, g) => g,
+  time: (L) => L.refreshed,
+  evInPerson: (L) => L.evInPerson,
+  mail: (L) => L.mail,
+  electionDay: (L) => L.electionDay,
+  total: (L) => L.total,
+  rate: (L) => L.total / L.registered,
+  of2022: (L, g) => L.total / ballots2022(g),
+  pace: (L) => (L.priorThrough ? L.edThrough / L.priorThrough : null),
+};
+
+/** Each tracker county's running total, sortable by any column. */
+function TrackerTotals({ live, names }: { live: Map<string, LiveFigures>; names: string[] }) {
+  const sort = useSortState();
+  const value = sort.by ? (g: string) => TRACKER_SORT[sort.by!](live.get(g)!, g) : null;
+  const rows = sortItems(names, value, sort.dir);
+  return (
+    <SortContext.Provider value={sort}>
+      <DataTable
+        head={
+          <tr>
+            <SortTh by="name">County</SortTh>
+            <SortTh by="time">Tracker time (CT)</SortTh>
+            <SortTh by="evInPerson">Early in person</SortTh>
+            <SortTh by="mail">Mail</SortTh>
+            <SortTh by="electionDay">Election day</SortTh>
+            <SortTh by="total">Total</SortTh>
+            <SortTh by="rate">% of registered</SortTh>
+            <SortTh by="of2022">% of 2022 total</SortTh>
+            <SortTh by="pace">Election day vs 2024</SortTh>
+          </tr>
+        }
+      >
+        {rows.map((g) => {
+          const L = live.get(g)!;
+          const g22 = ballots2022(g);
+          const pace = L.priorThrough ? L.edThrough / L.priorThrough : null;
+          return (
+            <tr key={g} className={CORE.includes(g) ? undefined : "ea-sub"}>
+              <td>
+                <TrackerLink label={g} url={L.url} />
+              </td>
+              <td>{timeCentral(L.refreshed)}</td>
+              <td>{fmt(L.evInPerson)}</td>
+              <td>{fmt(L.mail)}</td>
+              <td>{fmt(L.electionDay)}</td>
+              <td>
+                <strong>{fmt(L.total)}</strong>
+              </td>
+              <td>{pct(L.total / L.registered)}</td>
+              <td>{g22 ? pct(L.total / g22) : ""}</td>
+              <td className={pace != null && pace >= 1 ? "ea-pos" : undefined}>{pace != null ? pct(pace) : "—"}</td>
+            </tr>
+          );
+        })}
+      </DataTable>
+    </SortContext.Provider>
   );
 }

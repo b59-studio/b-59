@@ -28,6 +28,27 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Added
+
+- **A Demographics tab in the 2026 election analysis**, built only from
+  public sources: a county map of Texas that shades by early turnout, early
+  vote against 2022, Hispanic-surname voters or Hispanic residents; a table of
+  Hispanic-surname registration and turnout since 2016; and each county's
+  residents by race, ethnicity, sex and age from the Census Bureau's 2024
+  estimates.
+- Every county table sorts by any column: click a header for highest first,
+  again for lowest, and a third time for the default order.
+
+### Changed
+
+- County tables open on Travis, the counties with a live election-day
+  tracker and the 17 focus counties, with every other county a button away,
+  so the page no longer runs to 250 rows.
+- The headline chart shows the 2024 comparison as a second line on each
+  county's bar, in place of the switch between 2022 and 2024.
+- On phones, a table wider than the screen scrolls in its own box so its
+  header, the Statewide row and the county column stay in view.
+
 ## 2026-11-03
 
 ### Added

@@ -3,7 +3,7 @@
 import type { LiveFigures } from "@/lib/election-2026/live";
 import { fmt, pct, timeCentral } from "@/lib/election-2026/live";
 import { ballots2022, DATA, shade, YEARS } from "./data";
-import { GeoTable } from "./GeoTable";
+import { GeoTable, SortTh } from "./GeoTable";
 import { Note, Panel, TrackerLink } from "./parts";
 
 /** Past generals shown beside the 2026 numbers; the full run is under Turnout history. */
@@ -26,6 +26,17 @@ export function TurnoutTable({ live, fetched }: { live: Map<string, LiveFigures>
       </Note>
       <GeoTable
         columns={1 + 2 + 3 + RECENT.length}
+        sort={{
+          liveBallots: (g) => live.get(g)?.total,
+          liveRate: (g) => {
+            const L = live.get(g);
+            return L ? L.total / L.registered : null;
+          },
+          earlyBallots: (g) => DATA.ev[g][3],
+          earlyRate: (g) => DATA.ev[g][3] / DATA.ev[g][0],
+          of2022: (g) => DATA.ev[g][3] / ballots2022(g),
+          ...Object.fromEntries(RECENT.map((y) => [`t${y}`, (g: string) => DATA.gen[g][y][1] / DATA.gen[g][y][0]])),
+        }}
         name={(g) => {
           const L = live.get(g);
           return L ? <TrackerLink label={g} url={L.url} /> : g;
@@ -33,7 +44,9 @@ export function TurnoutTable({ live, fetched }: { live: Map<string, LiveFigures>
         head={
           <>
             <tr>
-              <th rowSpan={2}>County</th>
+              <SortTh by="name" rowSpan={2}>
+                County
+              </SortTh>
               <th className="ea-grp ea-sep" colSpan={2}>
                 Live <span className="ea-src-tag">county trackers, unofficial</span>
               </th>
@@ -45,15 +58,19 @@ export function TurnoutTable({ live, fetched }: { live: Map<string, LiveFigures>
               </th>
             </tr>
             <tr>
-              <th className="ea-sep">Ballots</th>
-              <th>% of registered</th>
-              <th className="ea-sep">Ballots</th>
-              <th>% of registered</th>
-              <th>% of 2022 total</th>
+              <SortTh by="liveBallots" className="ea-sep">
+                Ballots
+              </SortTh>
+              <SortTh by="liveRate">% of registered</SortTh>
+              <SortTh by="earlyBallots" className="ea-sep">
+                Ballots
+              </SortTh>
+              <SortTh by="earlyRate">% of registered</SortTh>
+              <SortTh by="of2022">% of 2022 total</SortTh>
               {RECENT.map((y, i) => (
-                <th key={y} className={i === 0 ? "ea-sep" : undefined}>
+                <SortTh key={y} by={`t${y}`} className={i === 0 ? "ea-sep" : undefined}>
                   {y}
-                </th>
+                </SortTh>
               ))}
             </tr>
           </>
@@ -106,10 +123,19 @@ export function TurnoutHistory() {
       </Note>
       <GeoTable
         columns={1 + 4 + YEARS.length}
+        sort={{
+          registered: (g) => DATA.ev[g][0],
+          inPerson: (g) => DATA.ev[g][1],
+          mail: (g) => DATA.ev[g][2],
+          total: (g) => DATA.ev[g][3],
+          ...Object.fromEntries(YEARS.map((y) => [`t${y}`, (g: string) => DATA.gen[g][y][1] / DATA.gen[g][y][0]])),
+        }}
         head={
           <>
             <tr>
-              <th rowSpan={2}>County</th>
+              <SortTh by="name" rowSpan={2}>
+                County
+              </SortTh>
               <th className="ea-grp ea-sep" colSpan={4}>
                 2026 early vote <span className="ea-src-tag">Texas SOS</span>
               </th>
@@ -118,14 +144,16 @@ export function TurnoutHistory() {
               </th>
             </tr>
             <tr>
-              <th className="ea-sep">Registered</th>
-              <th>In person</th>
-              <th>Mail</th>
-              <th>Total</th>
+              <SortTh by="registered" className="ea-sep">
+                Registered
+              </SortTh>
+              <SortTh by="inPerson">In person</SortTh>
+              <SortTh by="mail">Mail</SortTh>
+              <SortTh by="total">Total</SortTh>
               {YEARS.map((y, i) => (
-                <th key={y} className={i === 0 ? "ea-sep" : undefined}>
+                <SortTh key={y} by={`t${y}`} className={i === 0 ? "ea-sep" : undefined}>
                   {y}
-                </th>
+                </SortTh>
               ))}
             </tr>
           </>
