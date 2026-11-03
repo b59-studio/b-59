@@ -28,6 +28,13 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Changed
+
+- The headline chart draws two plain lines for each place, one for its
+  share of 2022 turnout and one for 2024, each labelled with its value, with
+  the state as a whole on top. It replaces the shaded bar with a mark across
+  it, which was hard to read.
+
 ## 2026-11-03
 
 ### Added
