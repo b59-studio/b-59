@@ -28,6 +28,8 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+## 2026-11-03
+
 ### Added
 
 - **The election analysis covers every Texas county.** All 254 are in every
@@ -41,18 +43,6 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   sitemap, and stays locked until a password is configured.
 - The headline chart can compare the early vote with all of 2024 as well as
   all of 2022.
-
-### Changed
-
-- The margin-over-time chart opens on the state as a whole, and its place
-  picker is grouped by geography: the state, Travis, then the border, metro,
-  suburban and rural focus counties, then every other county by size.
-- Hovering a bar or a table row highlights it in B-59 blue.
-
-## 2026-11-03
-
-### Added
-
 - **A Research section, and its first page: the 2026 Texas election
   analysis.** A new Research menu in the header and the phone menu leads to a
   turnout analysis for 17 Texas target counties, with Travis and the state as
@@ -67,6 +57,10 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ### Changed
 
+- The margin-over-time chart opens on the state as a whole, and its place
+  picker is grouped by geography: the state, Travis, then the border, metro,
+  suburban and rural focus counties, then every other county by size.
+- Hovering a bar or a table row highlights it in B-59 blue.
 - **The 2026 election analysis reads as research now.** It opens with a
   byline, a publication date and a link to a new Method and sources section,
   which names the 17 counties and explains each measure. A ranked chart of
