@@ -28,6 +28,20 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Added
+
+- **A Research section, and its first page: the 2026 Texas election
+  analysis.** A new Research menu in the header and the phone menu leads to a
+  turnout analysis for 17 Texas target counties, with Travis and the state as
+  benchmarks: the 2026 early vote, election-day counts from the county
+  trackers, primaries since 2014, down-ballot margins against the top of the
+  ticket, and every statewide race on one table. The site rereads the tracker
+  counts every 15 minutes. A win calculator lets a reader set each county's
+  Democratic share and see what the rest of the state would need; any win
+  numbers they type stay in their browser and are never saved or sent. The
+  analysis itself is in English; in the other four languages the menu is
+  translated and the page says so.
+
 ## 2026-09-11
 
 ### Changed

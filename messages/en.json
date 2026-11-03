@@ -4,6 +4,8 @@
   },
   "nav": {
     "studio": "Studio",
+    "research": "Research",
+    "electionAnalysis2026": "2026 Election Analysis",
     "ourWork": "Our Work",
     "ourWorkSub": "The products we build and run, all in one place",
     "solutions": "Solutions",
@@ -136,6 +138,7 @@
     "intro": "Public pages on b-59.com. Reach out at <email>contact@b-59.com</email>.",
     "linkHome": "Home",
     "linkOurWork": "Our Work",
+    "linkElectionAnalysis2026": "2026 Election Analysis",
     "linkReady2vote": "ready2vote",
     "linkHotline": "Hotline",
     "linkTravisCountyVdr": "Travis County VDR Toolkit",
@@ -148,6 +151,9 @@
     "linkTermsOfUse": "Terms of Use",
     "linkTeam": "Team",
     "linkMerch": "Merch"
+  },
+  "research": {
+    "englishOnly": "This analysis is published in English."
   },
   "donate": {
     "metaTitle": "Donate",

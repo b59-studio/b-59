@@ -1,0 +1,343 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import { fmt, margin, pct, points } from "@/lib/election-2026/live";
+import { DATA, MIDTERMS, race, raceMargin, shade, SHORT_OFFICE, TOP_OF_TICKET, YEARS } from "./data";
+import { DataTable, FilterPick, Note, Panel, usePanelExpanded } from "./parts";
+import { rowClass } from "./TurnoutTable";
+
+/** Every geography as a row, in regional order, with `cells` filling the columns after the name. */
+function GeoTable({ columns, cells }: { columns: React.ReactNode; cells: (geo: string) => React.ReactNode }) {
+  return (
+    <DataTable
+      head={
+        <tr>
+          <th>County</th>
+          {columns}
+        </tr>
+      }
+    >
+      {DATA.geos.map(([g, region, isSub], i) => (
+        <tr key={g} className={rowClass(region, isSub, i > 0 && DATA.geos[i - 1][1] !== region)}>
+          <td>{g}</td>
+          {cells(g)}
+        </tr>
+      ))}
+    </DataTable>
+  );
+}
+
+function Legend({ items }: { items: [color: string, label: string][] }) {
+  return (
+    <div className="ea-legend">
+      {items.map(([color, label]) => (
+        <span key={label}>
+          <span className="ea-sw" style={{ background: color }} />
+          {label}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+const PRIMARY_YEARS = [...YEARS, "2026"];
+
+export function PrimariesPanel() {
+  const P = DATA.prim;
+  return (
+    <>
+      <Panel title="D share of primary ballots">
+        <Note>
+          D ÷ (D + R) primary ballots, counts below. 2026 is early vote only: read direction, not size.
+        </Note>
+        <Legend
+          items={[
+            ["color-mix(in srgb, var(--ea-dem) 45%, var(--ea-panel))", "More D ballots"],
+            ["color-mix(in srgb, var(--ea-rep) 45%, var(--ea-panel))", "More R ballots"],
+          ]}
+        />
+        <GeoTable
+          columns={PRIMARY_YEARS.map((y) => (
+            <th key={y} className={y === "2026" ? "ea-sep" : undefined}>
+              {y === "2026" ? "2026 (early)" : y}
+            </th>
+          ))}
+          cells={(g) =>
+            PRIMARY_YEARS.map((y) => {
+              const [d, r] = P[g][y];
+              const s = d / (d + r);
+              return (
+                <td key={y} className={y === "2026" ? "ea-sep" : undefined} style={shade(s >= 0.5 ? "dem" : "rep", Math.abs(s - 0.5) * 2)}>
+                  {pct(s)}
+                  <span className="ea-cnt">{`${fmt(d)} D · ${fmt(r)} R`}</span>
+                </td>
+              );
+            })
+          }
+        />
+      </Panel>
+      <Panel title="Primary turnout">
+        <Note>
+          D + R primary ballots ÷ registered voters. Presidential years run higher.
+        </Note>
+        <GeoTable
+          columns={YEARS.map((y) => (
+            <th key={y}>{y}</th>
+          ))}
+          cells={(g) =>
+            YEARS.map((y) => {
+              const [d, r, reg] = P[g][y];
+              return (
+                <td key={y}>
+                  {pct((d + r) / reg)}
+                  <span className="ea-cnt">{fmt(d + r)}</span>
+                </td>
+              );
+            })
+          }
+        />
+      </Panel>
+    </>
+  );
+}
+
+const DOWN_BALLOT = [
+  { office: "Railroad Comm.", name: "Railroad Comm.", color: "var(--ea-series-2)", years: YEARS },
+  { office: "Comptroller", name: "Comptroller", color: "var(--ea-series-3)", years: MIDTERMS },
+];
+
+function GapTable({ office, years }: { office: string; years: string[] }) {
+  const gap = (g: string, y: string) => {
+    const top = raceMargin(race(g, y, TOP_OF_TICKET[y]));
+    const down = raceMargin(race(g, y, office));
+    return top == null || down == null ? null : down - top;
+  };
+  return (
+    <GeoTable
+      columns={years.map((y) => (
+        <th key={y}>{`${y} (v. ${SHORT_OFFICE[TOP_OF_TICKET[y]]})`}</th>
+      ))}
+      cells={(g) =>
+        years.map((y) => {
+          const v = gap(g, y);
+          return (
+            <td key={y} style={v == null ? undefined : shade(v >= 0 ? "dem" : "rep", Math.abs(v) / 0.2)}>
+              {points(v)}
+            </td>
+          );
+        })
+      }
+    />
+  );
+}
+
+export function TicketPanel() {
+  const [geo, setGeo] = useState("Valley");
+  return (
+    <>
+      <p className="ea-note">
+        Margin = D share − R share. Top of ticket: Governor (2014, 2022), Senate (2018), President (2016, 2020, 2024).
+        Comptroller: midterms only. Positive gap = down-ballot D ran ahead.
+      </p>
+      <Panel title="Margin over time">
+        <div className="ea-bar ea-bar-start">
+          <FilterPick label="County" options={DATA.geos.map(([g]) => ({ value: g, label: g }))} value={geo} onChange={setGeo} />
+        </div>
+        <Legend
+          items={[
+            ["var(--ea-accent)", "Top of ticket"],
+            ...DOWN_BALLOT.map((d): [string, string] => [d.color, d.name + (d.years === MIDTERMS ? " (midterms)" : "")]),
+          ]}
+        />
+        <TrendChart geo={geo} />
+      </Panel>
+      <div className="ea-grid2">
+        <Panel title="Railroad Comm. vs top of ticket">
+          <Note>Points. Blue = down-ballot D ran ahead.</Note>
+          <GapTable office="Railroad Comm." years={YEARS} />
+        </Panel>
+        <Panel title="Comptroller vs top of ticket">
+          <Note>
+            Points, midterms only: Collier (2014), Chevalier (2018), Dudding (2022).
+          </Note>
+          <GapTable office="Comptroller" years={MIDTERMS} />
+        </Panel>
+      </div>
+    </>
+  );
+}
+
+function TrendChart({ geo }: { geo: string }) {
+  const box = useRef<HTMLDivElement>(null);
+  const expanded = usePanelExpanded();
+  const [size, setSize] = useState({ w: 600, h: 300 });
+  const [hover, setHover] = useState<number | null>(null);
+
+  useEffect(() => {
+    const el = box.current;
+    if (!el) return;
+    const measure = () =>
+      setSize({ w: Math.max(320, el.clientWidth || 600), h: expanded ? Math.max(300, el.clientHeight - 8) : 300 });
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [expanded]);
+
+  const { w: W, h: H } = size;
+  const top = 14;
+  const bottom = 30;
+  const left = 48;
+  const right = 16;
+  const series = [
+    { name: "Top of ticket", color: "var(--ea-accent)", pts: YEARS.map((y) => ({ office: TOP_OF_TICKET[y], v: raceMargin(race(geo, y, TOP_OF_TICKET[y])) })) },
+    ...DOWN_BALLOT.map((d) => ({
+      name: d.name,
+      color: d.color,
+      pts: YEARS.map((y) => ({ office: d.office, v: d.years.includes(y) ? raceMargin(race(geo, y, d.office)) : null })),
+    })),
+  ];
+  const vals = series.flatMap((s) => s.pts.map((p) => p.v)).filter((v): v is number => v != null).concat([0]);
+  let lo = Math.min(...vals);
+  let hi = Math.max(...vals);
+  const pad = Math.max(0.04, (hi - lo) * 0.1);
+  lo -= pad;
+  hi += pad;
+  const step = hi - lo > 0.8 ? 0.2 : hi - lo > 0.35 ? 0.1 : 0.05;
+  const ticks: number[] = [];
+  for (let t = Math.ceil(lo / step) * step; t <= hi + 1e-9; t += step) ticks.push(Math.round(t * 100) / 100);
+  const yS = (v: number) => top + ((hi - v) / (hi - lo)) * (H - top - bottom);
+  const xS = (i: number) => left + 10 + (i * (W - left - right - 20)) / (YEARS.length - 1);
+
+  const pointAt = (e: React.PointerEvent<SVGRectElement>) => {
+    const r = e.currentTarget.ownerSVGElement!.getBoundingClientRect();
+    const mx = ((e.clientX - r.left) / r.width) * W;
+    let i = 0;
+    YEARS.forEach((_, j) => {
+      if (Math.abs(xS(j) - mx) < Math.abs(xS(i) - mx)) i = j;
+    });
+    setHover(i);
+  };
+
+  return (
+    <div ref={box} className="ea-chart">
+      <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${geo}: top-of-ticket, Railroad Commissioner and Comptroller margins, 2014 to 2024`}>
+        {ticks.map((t) => (
+          <g key={t}>
+            <line x1={left} x2={W - right} y1={yS(t)} y2={yS(t)} stroke={t === 0 ? "var(--ea-muted)" : "var(--ea-line)"} strokeWidth={1} />
+            <text x={left - 8} y={yS(t)} dy="0.32em" textAnchor="end" fontSize={13} fill="var(--ea-muted)">
+              {t === 0 ? "0" : `${t > 0 ? "D+" : "R+"}${Math.round(Math.abs(t) * 100)}`}
+            </text>
+          </g>
+        ))}
+        {YEARS.map((y, i) => (
+          <text key={y} x={xS(i)} y={H - 8} textAnchor="middle" fontSize={13} fill="var(--ea-muted)">
+            {y}
+          </text>
+        ))}
+        {series.map((s) => (
+          <g key={s.name}>
+            <path
+              d={"M" + s.pts.map((p, i) => (p.v == null ? null : `${xS(i)},${yS(p.v)}`)).filter(Boolean).join(" L")}
+              fill="none"
+              stroke={s.color}
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            {s.pts.map((p, i) => (p.v == null ? null : <circle key={i} cx={xS(i)} cy={yS(p.v)} r={4.5} fill={s.color} stroke="var(--ea-panel)" strokeWidth={2} />))}
+          </g>
+        ))}
+        {hover != null && <line x1={xS(hover)} x2={xS(hover)} y1={top} y2={H - bottom} stroke="var(--ea-muted)" strokeWidth={1} />}
+        <rect x={left} y={0} width={W - left} height={H} fill="transparent" onPointerMove={pointAt} onPointerDown={pointAt} onPointerLeave={() => setHover(null)} />
+      </svg>
+      {hover != null && (
+        <div className="ea-tip" style={{ left: `min(calc(100% - 13rem), ${(xS(hover) / W) * 100}% + 12px)` }}>
+          <div className="ea-muted">{`${geo} · ${YEARS[hover]}`}</div>
+          {series
+            .filter((s) => s.pts[hover].v != null)
+            .map((s) => (
+              <div key={s.name}>
+                <span className="ea-sw" style={{ background: s.color }} />
+                {`${s.pts[hover].office}: ${margin(s.pts[hover].v)}`}
+              </div>
+            ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+const RACE_OFFICES = ["President", "U.S. Senate", "Governor", "Railroad Comm.", "Comptroller"];
+
+export function RacesPanel() {
+  const order = YEARS.flatMap((y) => RACE_OFFICES.filter((o) => race("Statewide", y, o)).map((o): [string, string] => [y, o]));
+  const names = order
+    .map(([y, o]) => {
+      const r = race("Statewide", y, o)!;
+      return `${y} ${SHORT_OFFICE[o]}: ${r[3]} (D) v. ${r[4]} (R)`;
+    })
+    .join(" · ");
+  const sep = (i: number) => (i > 0 && order[i - 1][0] !== order[i][0] ? "ea-sep" : undefined);
+  return (
+    <Panel title="All statewide races">
+      <Note>{`Margin, with D and R votes below. ${names}.`}</Note>
+      <GeoTable
+        columns={order.map(([y, o], i) => (
+          <th key={`${y}${o}`} className={sep(i)}>{`${y} ${SHORT_OFFICE[o]}`}</th>
+        ))}
+        cells={(g) =>
+          order.map(([y, o], i) => {
+            const r = race(g, y, o);
+            const m = raceMargin(r);
+            return (
+              <td key={`${y}${o}`} className={sep(i)} style={m == null ? undefined : shade(m >= 0 ? "dem" : "rep", Math.abs(m) / 0.7)}>
+                {margin(m)}
+                {r && <span className="ea-cnt">{`${fmt(r[5])} D · ${fmt(r[6])} R`}</span>}
+              </td>
+            );
+          })
+        }
+      />
+    </Panel>
+  );
+}
+
+export function SourcesPanel() {
+  const a = (href: string, text: string) => (
+    <a className="ea-link" href={href} target="_blank" rel="noopener noreferrer">
+      {text}
+    </a>
+  );
+  return (
+    <Panel title="Sources" expandable={false}>
+      <ul className="ea-src">
+        <li>
+          2014–2024: Texas Legislative Council precinct data ({a("https://data.capitol.texas.gov/", "Capitol Data Portal")}),
+          summed to county. Runs ~0.5% above certified turnout; registration re-mapped to current precincts. Consistent
+          across years, not official.
+        </li>
+        <li>
+          2026 early vote and March primary early vote: Texas SOS{" "}
+          {a("https://goelect.txelections.civixapps.com/ivis-evr-ui/evr", "early-voting turnout")}. Final primary totals
+          not yet published.
+        </li>
+        <li>
+          Election day: county ElectionLink trackers, refreshed every 15 minutes. In-person check-ins only, unofficial;
+          state mail count added.
+        </li>
+        <li>
+          2014 is a real low, not an error: record-low midterm in El Paso, ~34% statewide.
+        </li>
+        <li>
+          Primary share is a rough partisan read, not a likely-voter model. Uncontested local D primaries (Starr,
+          Maverick, Webb) inflate the D share.
+        </li>
+        <li>
+          Railroad Comm.: Sitton v. Brown (2014), Christian v. Yarbrough (2016), Craddick v. McAllen (2018), Wright v.
+          Castañeda (2020), Christian v. Warford (2022), Craddick v. Culbert (2024).
+        </li>
+      </ul>
+    </Panel>
+  );
+}
