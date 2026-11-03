@@ -98,6 +98,18 @@ export default function Header() {
                           <span className="nav-mega-item-sub">{t("hotlineSub")}</span>
                         </span>
                       </Link>
+                      <p className="nav-mega-heading nav-mega-heading-mt">{t("tools")}</p>
+                      <Link
+                        href="/studio/win-calculator"
+                        className="nav-mega-item"
+                        role="menuitem"
+                        onClick={() => setSolutionsOpen(false)}
+                      >
+                        <span className="nav-mega-item-text">
+                          <span className="nav-mega-item-name">{t("winCalculator")}</span>
+                          <span className="nav-mega-item-sub">{t("winCalculatorSub")}</span>
+                        </span>
+                      </Link>
 
                       {/* Case studies are held back for now; the pages stay
                           built but unlinked, as the portfolio is.

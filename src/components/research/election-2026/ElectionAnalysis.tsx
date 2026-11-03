@@ -4,7 +4,7 @@ import { useMemo, useRef, useSyncExternalStore } from "react";
 import { Brand } from "@/components/Brand";
 import type { LiveSnapshot } from "@/lib/election-2026/electionlink";
 import { fmt, liveByCounty, pct, timeCentral } from "@/lib/election-2026/live";
-import { ballots2022, DATA, TARGETS } from "./data";
+import { ballots2022, DATA, FOCUS } from "./data";
 import { LivePanel } from "./LivePanel";
 import { HeadlineChart } from "./HeadlineChart";
 import { Stat } from "./parts";
@@ -64,7 +64,7 @@ export function ElectionAnalysis({ snapshot }: { snapshot: LiveSnapshot }) {
     <div className="ea" lang="en" dir="ltr">
       <header className="ea-head">
         <p className="ea-dateline">Research · Texas general election, Nov. 3, 2026</p>
-        <h1 className="ea-h1">Texas 2026: turnout in {TARGETS.length} counties</h1>
+        <h1 className="ea-h1">Texas 2026: county turnout</h1>
         <p className="ea-byline">
           By <Brand /> · Published Nov. 3, 2026 · Live figures read {timeCentral(snapshot.fetched)} CT ·{" "}
           <a className="ea-link" href="#method" onClick={(e) => (e.preventDefault(), openMethod())}>
@@ -80,14 +80,14 @@ export function ElectionAnalysis({ snapshot }: { snapshot: LiveSnapshot }) {
         </p>
         <div className="ea-stats">
           <Stat value={fmt(statewide[3])} label="Early ballots, statewide" />
-          <Stat value={fmt(TARGETS.reduce((a, g) => a + DATA.ev[g][3], 0))} label={`Early ballots, the ${TARGETS.length} counties`} />
+          <Stat value={fmt(FOCUS.reduce((a, g) => a + DATA.ev[g][3], 0))} label={`Early ballots, the ${FOCUS.length} focus counties`} />
           <Stat value={pct(statewide[3] / statewide[0])} label="Early turnout, statewide" />
         </div>
       </header>
 
       <HeadlineChart />
 
-      <TurnoutTable live={live} liveOrder={order} fetched={snapshot.fetched} />
+      <TurnoutTable live={live} fetched={snapshot.fetched} />
 
       <section className="ea-head" aria-labelledby="ea-drill">
         <h2 id="ea-drill" className="ea-section-title">

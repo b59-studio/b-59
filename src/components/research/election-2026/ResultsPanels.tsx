@@ -2,28 +2,23 @@
 
 import { useEffect, useRef, useState } from "react";
 import { fmt, margin, pct, points } from "@/lib/election-2026/live";
-import { DATA, MIDTERMS, race, raceMargin, shade, SHORT_OFFICE, TOP_OF_TICKET, YEARS } from "./data";
-import { DataTable, FilterPick, Note, Panel, usePanelExpanded } from "./parts";
-import { rowClass } from "./TurnoutTable";
+import { BY_GEOGRAPHY, DATA, MIDTERMS, race, raceMargin, shade, SHORT_OFFICE, TOP_OF_TICKET, YEARS } from "./data";
+import { FilterPick, Note, Panel, usePanelExpanded } from "./parts";
+import { GeoTable } from "./GeoTable";
 
-/** Every geography as a row, in regional order, with `cells` filling the columns after the name. */
-function GeoTable({ columns, cells }: { columns: React.ReactNode; cells: (geo: string) => React.ReactNode }) {
+/** A one-row header of `columns` after the County title, over every geography. */
+function GeoColumns({ columns, cells }: { columns: React.ReactNode[]; cells: (geo: string) => React.ReactNode }) {
   return (
-    <DataTable
+    <GeoTable
+      columns={1 + columns.length}
       head={
         <tr>
           <th>County</th>
           {columns}
         </tr>
       }
-    >
-      {DATA.geos.map(([g, region, isSub], i) => (
-        <tr key={g} className={rowClass(region, isSub, i > 0 && DATA.geos[i - 1][1] !== region)}>
-          <td>{g}</td>
-          {cells(g)}
-        </tr>
-      ))}
-    </DataTable>
+      cells={cells}
+    />
   );
 }
 
@@ -57,7 +52,7 @@ export function PrimariesPanel() {
             ["color-mix(in srgb, var(--ea-rep) 45%, var(--ea-panel))", "More Republican ballots"],
           ]}
         />
-        <GeoTable
+        <GeoColumns
           columns={PRIMARY_YEARS.map((y) => (
             <th key={y} className={y === "2026" ? "ea-sep" : undefined}>
               {y === "2026" ? "2026 (early vote)" : y}
@@ -81,7 +76,7 @@ export function PrimariesPanel() {
         <Note>
           D + R primary ballots ÷ registered voters. Presidential years run higher.
         </Note>
-        <GeoTable
+        <GeoColumns
           columns={YEARS.map((y) => (
             <th key={y}>{y}</th>
           ))}
@@ -114,7 +109,7 @@ function GapTable({ office, years }: { office: string; years: string[] }) {
     return top == null || down == null ? null : down - top;
   };
   return (
-    <GeoTable
+    <GeoColumns
       columns={years.map((y) => (
         <th key={y}>{`${y} vs ${SHORT_OFFICE[TOP_OF_TICKET[y]]}`}</th>
       ))}
@@ -133,7 +128,7 @@ function GapTable({ office, years }: { office: string; years: string[] }) {
 }
 
 export function TicketPanel() {
-  const [geo, setGeo] = useState("Valley");
+  const [geo, setGeo] = useState("Statewide");
   return (
     <>
       <p className="ea-note">
@@ -143,7 +138,7 @@ export function TicketPanel() {
       </p>
       <Panel title="Margin over time">
         <div className="ea-bar ea-bar-start">
-          <FilterPick label="County" options={DATA.geos.map(([g]) => ({ value: g, label: g }))} value={geo} onChange={setGeo} />
+          <FilterPick label="Place" options={BY_GEOGRAPHY.map(({ geo: g, section }) => ({ value: g, label: g, group: section }))} value={geo} onChange={setGeo} />
         </div>
         <Legend
           items={[
@@ -278,7 +273,7 @@ export function RacesPanel() {
   return (
     <Panel title="All statewide races">
       <Note>Winning margin, with Democratic and Republican votes below. Each column names the Democrat first.</Note>
-      <GeoTable
+      <GeoColumns
         columns={order.map(([y, o], i) => (
           <th key={`${y}${o}`} className={sep(i)}>
             {`${y} ${SHORT_OFFICE[o]}`}
@@ -313,9 +308,12 @@ export function MethodPanel() {
       <div className="ea-prose">
         <h3 className="ea-subhead">Counties</h3>
         <p>
-          Seventeen counties: El Paso, Webb and Maverick on the border; Hidalgo, Cameron, Starr and Willacy in the Rio
-          Grande Valley, which the tables also sum as “Valley”; Harris, Dallas and Bexar; Collin, Denton, Williamson, Bell,
-          Montgomery and Ellis; and Hockley. Travis County and the state as a whole are shown as benchmarks.
+          Every Texas county is here. Seventeen come first, chosen because together they represent the range of
+          sentiment across the state: El Paso, Webb and Maverick on the border; Hidalgo, Cameron, Starr and Willacy in
+          the Rio Grande Valley, which the tables also sum as “Valley”; Harris, Dallas and Bexar; Collin, Denton,
+          Williamson, Bell, Montgomery and Ellis; and Hockley. Every table pins the state as a whole at the top and lists
+          Travis County next as a benchmark. After the 17, the remaining counties follow by population, using the
+          Census Bureau’s 2024 estimates.
         </p>
         <h3 className="ea-subhead">Measures</h3>
         <p>
@@ -341,6 +339,10 @@ export function MethodPanel() {
             2026 primary totals were not yet published.
           </li>
           <li>Election day: each county’s ElectionLink turnout tracker.</li>
+          <li>
+            County order: Census Bureau{" "}
+            {a("https://www.census.gov/data/tables/time-series/demo/popest/2020s-counties-total.html", "2024 county population estimates")}.
+          </li>
         </ul>
         <h3 className="ea-subhead">Caveats</h3>
         <ul className="ea-src">

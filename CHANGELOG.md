@@ -32,6 +32,17 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ### Added
 
+- **The election analysis covers every Texas county.** All 254 are in every
+  table. The state's row stays pinned under the column headers, Travis comes
+  next as the benchmark, then the 17 focus counties, then every other county
+  by 2024 population. Each county's numbers come from the same sources as
+  before; the 17 counties' figures are unchanged.
+- **A win calculator in the Studio menu, behind a password.** Campaign teams
+  can set the Democratic share in each focus county and see what the rest of
+  the state would need. The page is kept out of search engines and the
+  sitemap, and stays locked until a password is configured.
+- The headline chart can compare the early vote with all of 2024 as well as
+  all of 2022.
 - **A Research section, and its first page: the 2026 Texas election
   analysis.** A new Research menu in the header and the phone menu leads to a
   turnout analysis for 17 Texas target counties, with Travis and the state as
@@ -46,6 +57,10 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ### Changed
 
+- The margin-over-time chart opens on the state as a whole, and its place
+  picker is grouped by geography: the state, Travis, then the border, metro,
+  suburban and rural focus counties, then every other county by size.
+- Hovering a bar or a table row highlights it in B-59 blue.
 - **The 2026 election analysis reads as research now.** It opens with a
   byline, a publication date and a link to a new Method and sources section,
   which names the 17 counties and explains each measure. A ranked chart of
@@ -57,7 +72,8 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ### Removed
 
-- The win calculator is gone from the public analysis.
+- The win calculator is no longer part of the public analysis; it moved to
+  the Studio menu, behind a password.
 - 2014 results are gone from the analysis while their accuracy is checked.
 
 ## 2026-09-11

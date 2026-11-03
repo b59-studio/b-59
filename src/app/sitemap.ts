@@ -35,6 +35,7 @@ const overrides: Record<string, RouteOverride> = {
   "/donate": { exclude: true }, // donations closed: the page returns 404 (src/lib/donations.ts)
   "/donate/success": { exclude: true }, // post-transaction confirmation, not for search engines
   "/research/2026-election-analysis": { priority: 0.8, changeFrequency: "daily" },
+  "/studio/win-calculator": { exclude: true }, // behind a password, for campaign teams
   "/about": { priority: 0.9 },
   "/about/inspirations": { priority: 0.8, changeFrequency: "yearly" },
   "/about/team": { priority: 0.7 },
