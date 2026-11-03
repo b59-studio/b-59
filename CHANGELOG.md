@@ -39,6 +39,15 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   can set the Democratic share in each focus county and see what the rest of
   the state would need. The page is kept out of search engines and the
   sitemap, and stays locked until a password is configured.
+- The headline chart can compare the early vote with all of 2024 as well as
+  all of 2022.
+
+### Changed
+
+- The margin-over-time chart opens on the state as a whole, and its place
+  picker is grouped by geography: the state, Travis, then the border, metro,
+  suburban and rural focus counties, then every other county by size.
+- Hovering a bar or a table row highlights it in B-59 blue.
 
 ## 2026-11-03
 
