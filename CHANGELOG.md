@@ -28,6 +28,8 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+## 2026-11-03
+
 ### Added
 
 - **A Demographics tab in the 2026 election analysis**, built only from
@@ -38,21 +40,6 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   estimates.
 - Every county table sorts by any column: click a header for highest first,
   again for lowest, and a third time for the default order.
-
-### Changed
-
-- County tables open on Travis, the counties with a live election-day
-  tracker and the 17 focus counties, with every other county a button away,
-  so the page no longer runs to 250 rows.
-- The headline chart shows the 2024 comparison as a second line on each
-  county's bar, in place of the switch between 2022 and 2024.
-- On phones, a table wider than the screen scrolls in its own box so its
-  header, the Statewide row and the county column stay in view.
-
-## 2026-11-03
-
-### Added
-
 - **The election analysis covers every Texas county.** All 254 are in every
   table. The state's row stays pinned under the column headers, Travis comes
   next as the benchmark, then the 17 focus counties, then every other county
@@ -78,6 +65,13 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ### Changed
 
+- County tables open on Travis, the counties with a live election-day
+  tracker and the 17 focus counties, with every other county a button away,
+  so the page no longer runs to 250 rows.
+- The headline chart shows the 2024 comparison as a second line on each
+  county's bar, in place of the switch between 2022 and 2024.
+- On phones, a table wider than the screen scrolls in its own box so its
+  header, the Statewide row and the county column stay in view.
 - The margin-over-time chart opens on the state as a whole, and its place
   picker is grouped by geography: the state, Travis, then the border, metro,
   suburban and rural focus counties, then every other county by size.
