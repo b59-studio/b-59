@@ -28,6 +28,22 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Changed
+
+- **The 2026 election analysis reads as research now.** It opens with a
+  byline, a publication date and a link to a new Method and sources section,
+  which names the 17 counties and explains each measure. A ranked chart of
+  each county's early vote against its whole 2022 turnout comes before any
+  table. The main table is shorter, names the source of each column group,
+  and scrolls with the page instead of capturing the scroll; the full
+  breakdown moved to a Turnout history tab. Turnout is shaded in grey, with
+  blue and red kept for partisan measures. Abbreviations are spelled out.
+
+### Removed
+
+- The win calculator is gone from the public analysis.
+- 2014 results are gone from the analysis while their accuracy is checked.
+
 ## 2026-11-03
 
 ### Added

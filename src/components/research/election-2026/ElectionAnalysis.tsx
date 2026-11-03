@@ -1,21 +1,23 @@
 "use client";
 
 import { useMemo, useRef, useSyncExternalStore } from "react";
+import { Brand } from "@/components/Brand";
 import type { LiveSnapshot } from "@/lib/election-2026/electionlink";
 import { fmt, liveByCounty, pct, timeCentral } from "@/lib/election-2026/live";
 import { ballots2022, DATA, TARGETS } from "./data";
 import { LivePanel } from "./LivePanel";
-import { PrimariesPanel, RacesPanel, SourcesPanel, TicketPanel } from "./ResultsPanels";
-import { TurnoutTable } from "./TurnoutTable";
-import { Stat, WinPanel } from "./WinPanel";
+import { HeadlineChart } from "./HeadlineChart";
+import { Stat } from "./parts";
+import { MethodPanel, PrimariesPanel, RacesPanel, TicketPanel } from "./ResultsPanels";
+import { TurnoutHistory, TurnoutTable } from "./TurnoutTable";
 
 const TABS = [
-  ["live", "Live"],
-  ["win", "Win math"],
+  ["live", "Election day"],
+  ["history", "Turnout history"],
   ["primaries", "Primaries"],
   ["ticket", "Down-ballot"],
   ["races", "All statewide races"],
-  ["sources", "Sources"],
+  ["method", "Method and sources"],
 ] as const;
 type TabId = (typeof TABS)[number][0];
 
@@ -49,6 +51,11 @@ export function ElectionAnalysis({ snapshot }: { snapshot: LiveSnapshot }) {
     choose(TABS[(to + TABS.length) % TABS.length][0], true);
   };
 
+  const openMethod = () => {
+    choose("method");
+    document.getElementById("ea-drill")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   const statewide = DATA.ev.Statewide;
   const valley = DATA.ev.Valley;
   const travis = live.get("Travis");
@@ -56,27 +63,35 @@ export function ElectionAnalysis({ snapshot }: { snapshot: LiveSnapshot }) {
   return (
     <div className="ea" lang="en" dir="ltr">
       <header className="ea-head">
-        <p className="ea-dateline">Texas general · Nov. 3, 2026</p>
-        <h1 className="ea-h1">Target county turnout</h1>
+        <p className="ea-dateline">Research · Texas general election, Nov. 3, 2026</p>
+        <h1 className="ea-h1">Texas 2026: turnout in {TARGETS.length} counties</h1>
+        <p className="ea-byline">
+          By <Brand /> · Published Nov. 3, 2026 · Live figures read {timeCentral(snapshot.fetched)} CT ·{" "}
+          <a className="ea-link" href="#method" onClick={(e) => (e.preventDefault(), openMethod())}>
+            Method and sources
+          </a>
+        </p>
         <p className="ea-lede">
-          Early vote: {fmt(statewide[3])} ballots statewide, {pct(statewide[3] / statewide[0])} of registered voters and{" "}
-          {pct(statewide[3] / ballots2022("Statewide"))} of total 2022 turnout. The Valley is already at{" "}
-          {pct(valley[3] / ballots2022("Valley"))} of 2022.
+          Early voting closed on Oct. 30 with {fmt(statewide[3])} ballots cast statewide: {pct(statewide[3] / statewide[0])}{" "}
+          of registered voters, and {pct(statewide[3] / ballots2022("Statewide"))} of everyone who voted in 2022. In the
+          Rio Grande Valley the early vote has already passed the 2022 total, at {pct(valley[3] / ballots2022("Valley"))}.
           {travis &&
-            ` Travis: ${fmt(travis.total)} ballots (${pct(travis.total / travis.registered)}) as of ${timeCentral(travis.refreshed)}.`}
+            ` On election day, Travis County’s tracker shows ${fmt(travis.total)} ballots, ${pct(travis.total / travis.registered)} of registered voters, as of ${timeCentral(travis.refreshed)}.`}
         </p>
         <div className="ea-stats">
-          <Stat value={fmt(statewide[3])} label="Early vote, statewide" />
-          <Stat value={fmt(TARGETS.reduce((a, g) => a + DATA.ev[g][3], 0))} label={`Early vote, ${TARGETS.length} target counties`} />
-          <Stat value={pct(statewide[3] / statewide[0])} label="Statewide turnout so far" />
+          <Stat value={fmt(statewide[3])} label="Early ballots, statewide" />
+          <Stat value={fmt(TARGETS.reduce((a, g) => a + DATA.ev[g][3], 0))} label={`Early ballots, the ${TARGETS.length} counties`} />
+          <Stat value={pct(statewide[3] / statewide[0])} label="Early turnout, statewide" />
         </div>
       </header>
+
+      <HeadlineChart />
 
       <TurnoutTable live={live} liveOrder={order} fetched={snapshot.fetched} />
 
       <section className="ea-head" aria-labelledby="ea-drill">
         <h2 id="ea-drill" className="ea-section-title">
-          More
+          Detail
         </h2>
         <div className="ea-tabs" role="tablist" aria-label="Views">
           {TABS.map(([id, label], i) => (
@@ -103,11 +118,11 @@ export function ElectionAnalysis({ snapshot }: { snapshot: LiveSnapshot }) {
 
       <div id="ea-tabpanel" role="tabpanel" aria-labelledby={`ea-tab-${tab}`} className="ea-head">
         {tab === "live" && <LivePanel live={live} order={order} fetched={snapshot.fetched} />}
-        {tab === "win" && <WinPanel />}
+        {tab === "history" && <TurnoutHistory />}
         {tab === "primaries" && <PrimariesPanel />}
         {tab === "ticket" && <TicketPanel />}
         {tab === "races" && <RacesPanel />}
-        {tab === "sources" && <SourcesPanel />}
+        {tab === "method" && <MethodPanel />}
       </div>
     </div>
   );

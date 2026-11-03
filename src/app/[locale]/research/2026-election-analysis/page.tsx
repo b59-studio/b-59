@@ -11,12 +11,12 @@ export const revalidate = 900;
 export const metadata: Metadata = {
   title: "2026 Texas Election Analysis",
   description:
-    "Turnout in 17 Texas target counties for the November 3, 2026 general election: early vote, live election-day tracker counts, primaries and down-ballot margins since 2014.",
+    "Turnout in 17 Texas counties for the November 3, 2026 general election: early vote, live election-day tracker counts, primaries and down-ballot margins since 2016.",
   alternates: { canonical: "/research/2026-election-analysis" },
   openGraph: {
     title: "2026 Texas Election Analysis | B-59",
     description:
-      "Early vote, live election-day turnout and a decade of results for 17 Texas target counties, with Travis and statewide as benchmarks.",
+      "Early vote, live election-day turnout and results since 2016 for 17 Texas counties, with Travis and statewide as benchmarks.",
     url: "/research/2026-election-analysis",
   },
 };
