@@ -21,6 +21,7 @@ export default async function SiteMap() {
     { href: "/", label: t("linkHome") },
     { href: "/studio", label: t("linkOurWork") },
     { href: "/research/2026-election-analysis", label: t("linkElectionAnalysis2026") },
+    { href: "/research/2026-polls", label: t("linkPolls2026") },
     { href: "/solutions/ready2vote", label: t("linkReady2vote") },
     { href: "/solutions/hotline", label: t("linkHotline") },
     { href: "/solutions/travis-county-vdr", label: t("linkTravisCountyVdr") },

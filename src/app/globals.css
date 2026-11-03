@@ -1578,6 +1578,10 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
 .ea-bars-tick { position: absolute; z-index: 1; top: 50%; left: calc((100% - var(--ea-vw)) * var(--ea-ref)); width: 3px; height: 1.25rem; margin-left: -1.5px; transform: translateY(-50%); border-radius: 1px; background: var(--ea-fg); box-shadow: 0 0 0 1px var(--ea-panel); }
 .ea-sw-bar { background: color-mix(in srgb, var(--ea-fg) 55%, var(--ea-panel)); }
 .ea-sw-tick { width: 3px; height: 14px; background: var(--ea-fg); }
+
+/* Poll trend chart: a poll's dot is neutral in the legend, party-coloured in the plot. */
+.ea-sw-dot { width: 9px; height: 9px; border-radius: 50%; background: color-mix(in srgb, var(--ea-fg) 35%, transparent); }
+.ea-table td .ea-why { display: inline-block; max-width: 11rem; white-space: normal; font-size: 0.8rem; text-align: right; }
 .ea-bars-bar { flex: none; height: 0.875rem; border-radius: 0 4px 4px 0; background: color-mix(in srgb, var(--ea-fg) 55%, var(--ea-panel)); }
 .ea-bars-bench .ea-bars-bar { background: color-mix(in srgb, var(--ea-fg) 25%, var(--ea-panel)); }
 .ea-bars-bench .ea-bars-name { font-weight: 400; color: var(--ea-muted); }

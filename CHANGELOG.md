@@ -28,6 +28,18 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Added
+
+- **A polling page in the Research menu: 2026 Texas polls.** It averages the
+  public polls of seven statewide races (U.S. Senate, governor, lieutenant
+  governor, attorney general, comptroller, Railroad Commissioner and the
+  generic congressional ballot) and shows where each race stands, how the
+  average moved over time, and every poll, linked to its source, in a table
+  that sorts by any column. The average is a simple one, explained on the
+  page: each pollster's latest poll from the last 30 days, weighted toward
+  newer and larger polls. An Exit polls tab sits beside it for results after
+  the polls close.
+
 ## 2026-11-03
 
 ### Added
