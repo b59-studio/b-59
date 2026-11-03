@@ -72,7 +72,8 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ### Removed
 
-- The win calculator is gone from the public analysis.
+- The win calculator is no longer part of the public analysis; it moved to
+  the Studio menu, behind a password.
 - 2014 results are gone from the analysis while their accuracy is checked.
 
 ## 2026-09-11
