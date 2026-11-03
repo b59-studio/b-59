@@ -4,6 +4,8 @@
   },
   "nav": {
     "studio": "סטודיו",
+    "research": "מחקר",
+    "electionAnalysis2026": "ניתוח הבחירות של 2026",
     "ourWork": "העבודות שלנו",
     "ourWorkSub": "המוצרים שאנחנו בונים ומפעילים, במקום אחד",
     "solutions": "פתרונות",
@@ -136,6 +138,7 @@
     "intro": "העמודים הציבוריים ב-b-59.com. כתבו לנו לכתובת <email>contact@b-59.com</email>.",
     "linkHome": "דף הבית",
     "linkOurWork": "העבודות שלנו",
+    "linkElectionAnalysis2026": "ניתוח הבחירות של 2026",
     "linkReady2vote": "ready2vote",
     "linkHotline": "Hotline",
     "linkTravisCountyVdr": "ערכת ה-VDR של מחוז טרוויס",
@@ -148,6 +151,9 @@
     "linkTermsOfUse": "תנאי שימוש",
     "linkTeam": "הצוות",
     "linkMerch": "Merch"
+  },
+  "research": {
+    "englishOnly": "ניתוח זה מתפרסם באנגלית."
   },
   "donate": {
     "metaTitle": "תרומה",

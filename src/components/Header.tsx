@@ -11,13 +11,16 @@ export default function Header() {
   const t = useTranslations("nav");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [solutionsOpen, setSolutionsOpen] = useState(false);
+  const [researchOpen, setResearchOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
   const solutionsRef = useRef<HTMLDivElement>(null);
+  const researchRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
 
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
   useDropdownClose(solutionsRef, solutionsOpen, () => setSolutionsOpen(false));
+  useDropdownClose(researchRef, researchOpen, () => setResearchOpen(false));
   useDropdownClose(aboutRef, aboutOpen, () => setAboutOpen(false));
 
   return (
@@ -39,6 +42,7 @@ export default function Header() {
                     aria-expanded={solutionsOpen}
                     onClick={() => {
                       setSolutionsOpen((open) => !open);
+                      setResearchOpen(false);
                       setAboutOpen(false);
                     }}
                   >
@@ -139,6 +143,44 @@ export default function Header() {
                   )}
                 </div>
 
+                <div className="nav-dropdown" ref={researchRef}>
+                  <button
+                    type="button"
+                    className="nav-link nav-dropdown-trigger"
+                    aria-haspopup="true"
+                    aria-expanded={researchOpen}
+                    onClick={() => {
+                      setResearchOpen((open) => !open);
+                      setSolutionsOpen(false);
+                      setAboutOpen(false);
+                    }}
+                  >
+                    {t("research")}
+                    <svg
+                      className={`nav-dropdown-chevron ${researchOpen ? "open" : ""}`}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+
+                  {researchOpen && (
+                    <div className="nav-mega-menu nav-mega-menu-narrow" role="menu">
+                      <Link
+                        href="/research/2026-election-analysis"
+                        className="nav-dropdown-item"
+                        role="menuitem"
+                        onClick={() => setResearchOpen(false)}
+                      >
+                        {t("electionAnalysis2026")}
+                      </Link>
+                    </div>
+                  )}
+                </div>
+
                 <div className="nav-dropdown" ref={aboutRef}>
                   <button
                     type="button"
@@ -148,6 +190,7 @@ export default function Header() {
                     onClick={() => {
                       setAboutOpen((open) => !open);
                       setSolutionsOpen(false);
+                      setResearchOpen(false);
                     }}
                   >
                     {t("about")}

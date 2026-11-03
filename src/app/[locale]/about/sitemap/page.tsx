@@ -20,6 +20,7 @@ export default async function SiteMap() {
   const siteLinks = [
     { href: "/", label: t("linkHome") },
     { href: "/studio", label: t("linkOurWork") },
+    { href: "/research/2026-election-analysis", label: t("linkElectionAnalysis2026") },
     { href: "/solutions/ready2vote", label: t("linkReady2vote") },
     { href: "/solutions/hotline", label: t("linkHotline") },
     { href: "/solutions/travis-county-vdr", label: t("linkTravisCountyVdr") },

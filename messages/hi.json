@@ -4,6 +4,8 @@
   },
   "nav": {
     "studio": "स्टूडियो",
+    "research": "शोध",
+    "electionAnalysis2026": "2026 चुनाव विश्लेषण",
     "ourWork": "हमारा काम",
     "ourWorkSub": "वे उत्पाद जो हम बनाते और चलाते हैं, सब एक जगह",
     "solutions": "समाधान",
@@ -136,6 +138,7 @@
     "intro": "b-59.com के सार्वजनिक पेज। <email>contact@b-59.com</email> पर संपर्क करें।",
     "linkHome": "होम",
     "linkOurWork": "हमारा काम",
+    "linkElectionAnalysis2026": "2026 चुनाव विश्लेषण",
     "linkReady2vote": "ready2vote",
     "linkHotline": "Hotline",
     "linkTravisCountyVdr": "ट्रैविस काउंटी VDR टूलकिट",
@@ -148,6 +151,9 @@
     "linkTermsOfUse": "उपयोग की शर्तें",
     "linkTeam": "टीम",
     "linkMerch": "मर्च"
+  },
+  "research": {
+    "englishOnly": "यह विश्लेषण अंग्रेज़ी में प्रकाशित है।"
   },
   "donate": {
     "metaTitle": "दान करें",

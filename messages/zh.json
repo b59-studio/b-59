@@ -4,6 +4,8 @@
   },
   "nav": {
     "studio": "工作室",
+    "research": "研究",
+    "electionAnalysis2026": "2026年选举分析",
     "ourWork": "我们的作品",
     "ourWorkSub": "我们构建和运营的产品，尽在一处",
     "solutions": "解决方案",
@@ -136,6 +138,7 @@
     "intro": "b-59.com 上的公开页面。通过 <email>contact@b-59.com</email> 联系我们。",
     "linkHome": "主页",
     "linkOurWork": "我们的作品",
+    "linkElectionAnalysis2026": "2026年选举分析",
     "linkReady2vote": "ready2vote",
     "linkHotline": "Hotline",
     "linkTravisCountyVdr": "Travis 县 VDR 工具包",
@@ -148,6 +151,9 @@
     "linkTermsOfUse": "使用条款",
     "linkTeam": "团队",
     "linkMerch": "周边"
+  },
+  "research": {
+    "englishOnly": "本分析以英文发布。"
   },
   "donate": {
     "metaTitle": "捐赠",

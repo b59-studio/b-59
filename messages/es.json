@@ -4,6 +4,8 @@
   },
   "nav": {
     "studio": "Estudio",
+    "research": "Investigación",
+    "electionAnalysis2026": "Análisis de las elecciones de 2026",
     "ourWork": "Nuestro Trabajo",
     "ourWorkSub": "Los productos que construimos y operamos, todo en un solo lugar",
     "solutions": "Soluciones",
@@ -136,6 +138,7 @@
     "intro": "Páginas públicas en b-59.com. Escríbenos a <email>contact@b-59.com</email>.",
     "linkHome": "Inicio",
     "linkOurWork": "Nuestro Trabajo",
+    "linkElectionAnalysis2026": "Análisis de las elecciones de 2026",
     "linkReady2vote": "ready2vote",
     "linkHotline": "Hotline",
     "linkTravisCountyVdr": "Kit de Herramientas VDR del Condado de Travis",
@@ -148,6 +151,9 @@
     "linkTermsOfUse": "Términos de Uso",
     "linkTeam": "Equipo",
     "linkMerch": "Merch"
+  },
+  "research": {
+    "englishOnly": "Este análisis se publica en inglés."
   },
   "donate": {
     "metaTitle": "Donar",

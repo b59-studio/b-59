@@ -22,6 +22,7 @@ describe("discoverRoutePaths", () => {
         "/about/sitemap",
         "/about/privacy",
         "/about/terms",
+        "/research/2026-election-analysis",
       ]),
     );
   });
