@@ -1,19 +1,28 @@
 "use client";
 
 import { useMemo, useRef, useSyncExternalStore } from "react";
+import dynamic from "next/dynamic";
 import { Brand } from "@/components/Brand";
 import type { LiveSnapshot } from "@/lib/election-2026/electionlink";
 import { fmt, liveByCounty, pct, timeCentral } from "@/lib/election-2026/live";
 import { ballots2022, DATA, FOCUS } from "./data";
 import { LivePanel } from "./LivePanel";
+import { LiveCountiesContext } from "./GeoTable";
 import { HeadlineChart } from "./HeadlineChart";
 import { Stat } from "./parts";
 import { MethodPanel, PrimariesPanel, RacesPanel, TicketPanel } from "./ResultsPanels";
 import { TurnoutHistory, TurnoutTable } from "./TurnoutTable";
 
+// The map shapes and Census tables are the page's heaviest data, so they load
+// only when someone opens the tab.
+const DemographicsPanel = dynamic(() => import("./DemographicsPanel"), {
+  loading: () => <p className="ea-note">Loading demographics…</p>,
+});
+
 const TABS = [
   ["live", "Election day"],
   ["history", "Turnout history"],
+  ["demographics", "Demographics"],
   ["primaries", "Primaries"],
   ["ticket", "Down-ballot"],
   ["races", "All statewide races"],
@@ -30,6 +39,7 @@ function subscribeHash(onChange: () => void) {
 
 export function ElectionAnalysis({ snapshot }: { snapshot: LiveSnapshot }) {
   const live = useMemo(() => liveByCounty(snapshot), [snapshot]);
+  const liveCounties = useMemo(() => new Set(live.keys()), [live]);
   const order = snapshot.counties.map((c) => c.name);
   // The tab lives in the URL hash so a link can open on a drill-down. The
   // server cannot see the hash, so it renders the first tab.
@@ -61,6 +71,7 @@ export function ElectionAnalysis({ snapshot }: { snapshot: LiveSnapshot }) {
   const travis = live.get("Travis");
 
   return (
+    <LiveCountiesContext.Provider value={liveCounties}>
     <div className="ea" lang="en" dir="ltr">
       <header className="ea-head">
         <p className="ea-dateline">Research · Texas general election, Nov. 3, 2026</p>
@@ -119,11 +130,13 @@ export function ElectionAnalysis({ snapshot }: { snapshot: LiveSnapshot }) {
       <div id="ea-tabpanel" role="tabpanel" aria-labelledby={`ea-tab-${tab}`} className="ea-head">
         {tab === "live" && <LivePanel live={live} order={order} fetched={snapshot.fetched} />}
         {tab === "history" && <TurnoutHistory />}
+        {tab === "demographics" && <DemographicsPanel />}
         {tab === "primaries" && <PrimariesPanel />}
         {tab === "ticket" && <TicketPanel />}
         {tab === "races" && <RacesPanel />}
         {tab === "method" && <MethodPanel />}
       </div>
     </div>
+    </LiveCountiesContext.Provider>
   );
 }

@@ -4,17 +4,24 @@ import { useEffect, useRef, useState } from "react";
 import { fmt, margin, pct, points } from "@/lib/election-2026/live";
 import { BY_GEOGRAPHY, DATA, MIDTERMS, race, raceMargin, shade, SHORT_OFFICE, TOP_OF_TICKET, YEARS } from "./data";
 import { FilterPick, Note, Panel, usePanelExpanded } from "./parts";
-import { GeoTable } from "./GeoTable";
+import { GeoTable, SortTh } from "./GeoTable";
 
-/** A one-row header of `columns` after the County title, over every geography. */
-function GeoColumns({ columns, cells }: { columns: React.ReactNode[]; cells: (geo: string) => React.ReactNode }) {
+type Column = { key: string; header: React.ReactNode; className?: string; value: (geo: string) => number | null };
+
+/** A one-row header of sortable `columns` after the County title, over every geography. */
+function GeoColumns({ columns, cells }: { columns: Column[]; cells: (geo: string) => React.ReactNode }) {
   return (
     <GeoTable
       columns={1 + columns.length}
+      sort={Object.fromEntries(columns.map((c) => [c.key, c.value]))}
       head={
         <tr>
-          <th>County</th>
-          {columns}
+          <SortTh by="name">County</SortTh>
+          {columns.map((c) => (
+            <SortTh key={c.key} by={c.key} className={c.className}>
+              {c.header}
+            </SortTh>
+          ))}
         </tr>
       }
       cells={cells}
@@ -53,11 +60,12 @@ export function PrimariesPanel() {
           ]}
         />
         <GeoColumns
-          columns={PRIMARY_YEARS.map((y) => (
-            <th key={y} className={y === "2026" ? "ea-sep" : undefined}>
-              {y === "2026" ? "2026 (early vote)" : y}
-            </th>
-          ))}
+          columns={PRIMARY_YEARS.map((y) => ({
+            key: y,
+            header: y === "2026" ? "2026 (early vote)" : y,
+            className: y === "2026" ? "ea-sep" : undefined,
+            value: (g) => P[g][y][0] / (P[g][y][0] + P[g][y][1]),
+          }))}
           cells={(g) =>
             PRIMARY_YEARS.map((y) => {
               const [d, r] = P[g][y];
@@ -77,9 +85,11 @@ export function PrimariesPanel() {
           D + R primary ballots ÷ registered voters. Presidential years run higher.
         </Note>
         <GeoColumns
-          columns={YEARS.map((y) => (
-            <th key={y}>{y}</th>
-          ))}
+          columns={YEARS.map((y) => ({
+            key: y,
+            header: y,
+            value: (g) => (P[g][y][0] + P[g][y][1]) / P[g][y][2],
+          }))}
           cells={(g) =>
             YEARS.map((y) => {
               const [d, r, reg] = P[g][y];
@@ -110,9 +120,7 @@ function GapTable({ office, years }: { office: string; years: string[] }) {
   };
   return (
     <GeoColumns
-      columns={years.map((y) => (
-        <th key={y}>{`${y} vs ${SHORT_OFFICE[TOP_OF_TICKET[y]]}`}</th>
-      ))}
+      columns={years.map((y) => ({ key: y, header: `${y} vs ${SHORT_OFFICE[TOP_OF_TICKET[y]]}`, value: (g) => gap(g, y) }))}
       cells={(g) =>
         years.map((y) => {
           const v = gap(g, y);
@@ -274,12 +282,17 @@ export function RacesPanel() {
     <Panel title="All statewide races">
       <Note>Winning margin, with Democratic and Republican votes below. Each column names the Democrat first.</Note>
       <GeoColumns
-        columns={order.map(([y, o], i) => (
-          <th key={`${y}${o}`} className={sep(i)}>
-            {`${y} ${SHORT_OFFICE[o]}`}
-            <span className="ea-src-tag">{`${race("Statewide", y, o)![3]} v. ${race("Statewide", y, o)![4]}`}</span>
-          </th>
-        ))}
+        columns={order.map(([y, o], i) => ({
+          key: `${y}|${o}`,
+          className: sep(i),
+          header: (
+            <span>
+              {`${y} ${SHORT_OFFICE[o]}`}
+              <span className="ea-src-tag">{`${race("Statewide", y, o)![3]} v. ${race("Statewide", y, o)![4]}`}</span>
+            </span>
+          ),
+          value: (g) => raceMargin(race(g, y, o)),
+        }))}
         cells={(g) =>
           order.map(([y, o], i) => {
             const r = race(g, y, o);
@@ -339,6 +352,13 @@ export function MethodPanel() {
             2026 primary totals were not yet published.
           </li>
           <li>Election day: each county’s ElectionLink turnout tracker.</li>
+          <li>
+            Demographics: Census Bureau{" "}
+            {a("https://www.census.gov/data/tables/time-series/demo/popest/2020s-counties-detail.html", "2024 county characteristics estimates")}{" "}
+            (age, sex, race and Hispanic origin); Spanish-surname registration and turnout from the Texas Legislative
+            Council’s precinct data; county shapes from the Census Bureau’s cartographic boundaries, via{" "}
+            {a("https://github.com/topojson/us-atlas", "us-atlas")}.
+          </li>
           <li>
             County order: Census Bureau{" "}
             {a("https://www.census.gov/data/tables/time-series/demo/popest/2020s-counties-total.html", "2024 county population estimates")}.
