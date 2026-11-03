@@ -46,20 +46,21 @@ export function PrimariesPanel() {
   const P = DATA.prim;
   return (
     <>
-      <Panel title="D share of primary ballots">
+      <Panel title="Democratic share of primary ballots">
         <Note>
-          D ÷ (D + R) primary ballots, counts below. 2026 is early vote only: read direction, not size.
+          Democratic primary ballots as a share of all major-party primary ballots, with counts below. 2026 is early
+          vote only, so read it for direction, not size.
         </Note>
         <Legend
           items={[
-            ["color-mix(in srgb, var(--ea-dem) 45%, var(--ea-panel))", "More D ballots"],
-            ["color-mix(in srgb, var(--ea-rep) 45%, var(--ea-panel))", "More R ballots"],
+            ["color-mix(in srgb, var(--ea-dem) 45%, var(--ea-panel))", "More Democratic ballots"],
+            ["color-mix(in srgb, var(--ea-rep) 45%, var(--ea-panel))", "More Republican ballots"],
           ]}
         />
         <GeoTable
           columns={PRIMARY_YEARS.map((y) => (
             <th key={y} className={y === "2026" ? "ea-sep" : undefined}>
-              {y === "2026" ? "2026 (early)" : y}
+              {y === "2026" ? "2026 (early vote)" : y}
             </th>
           ))}
           cells={(g) =>
@@ -115,7 +116,7 @@ function GapTable({ office, years }: { office: string; years: string[] }) {
   return (
     <GeoTable
       columns={years.map((y) => (
-        <th key={y}>{`${y} (v. ${SHORT_OFFICE[TOP_OF_TICKET[y]]})`}</th>
+        <th key={y}>{`${y} vs ${SHORT_OFFICE[TOP_OF_TICKET[y]]}`}</th>
       ))}
       cells={(g) =>
         years.map((y) => {
@@ -136,8 +137,9 @@ export function TicketPanel() {
   return (
     <>
       <p className="ea-note">
-        Margin = D share − R share. Top of ticket: Governor (2014, 2022), Senate (2018), President (2016, 2020, 2024).
-        Comptroller: midterms only. Positive gap = down-ballot D ran ahead.
+        Margin is the Democratic share minus the Republican share. Top of the ticket is the Governor in 2022, the U.S.
+        Senate in 2018 and the President in 2016, 2020 and 2024. The Comptroller is elected in midterm years only. A
+        positive gap means the down-ballot Democrat ran ahead of the top of the ticket.
       </p>
       <Panel title="Margin over time">
         <div className="ea-bar ea-bar-start">
@@ -152,13 +154,13 @@ export function TicketPanel() {
         <TrendChart geo={geo} />
       </Panel>
       <div className="ea-grid2">
-        <Panel title="Railroad Comm. vs top of ticket">
-          <Note>Points. Blue = down-ballot D ran ahead.</Note>
+        <Panel title="Railroad Commissioner vs top of ticket">
+          <Note>Gap in percentage points. Blue where the Democrat ran ahead of the top of the ticket, red where behind.</Note>
           <GapTable office="Railroad Comm." years={YEARS} />
         </Panel>
         <Panel title="Comptroller vs top of ticket">
           <Note>
-            Points, midterms only: Collier (2014), Chevalier (2018), Dudding (2022).
+            Gap in percentage points, midterm years only: Chevalier (2018) and Dudding (2022).
           </Note>
           <GapTable office="Comptroller" years={MIDTERMS} />
         </Panel>
@@ -221,7 +223,7 @@ function TrendChart({ geo }: { geo: string }) {
 
   return (
     <div ref={box} className="ea-chart">
-      <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${geo}: top-of-ticket, Railroad Commissioner and Comptroller margins, 2014 to 2024`}>
+      <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${geo}: top-of-ticket, Railroad Commissioner and Comptroller margins, 2016 to 2024`}>
         {ticks.map((t) => (
           <g key={t}>
             <line x1={left} x2={W - right} y1={yS(t)} y2={yS(t)} stroke={t === 0 ? "var(--ea-muted)" : "var(--ea-line)"} strokeWidth={1} />
@@ -272,19 +274,16 @@ const RACE_OFFICES = ["President", "U.S. Senate", "Governor", "Railroad Comm.", 
 
 export function RacesPanel() {
   const order = YEARS.flatMap((y) => RACE_OFFICES.filter((o) => race("Statewide", y, o)).map((o): [string, string] => [y, o]));
-  const names = order
-    .map(([y, o]) => {
-      const r = race("Statewide", y, o)!;
-      return `${y} ${SHORT_OFFICE[o]}: ${r[3]} (D) v. ${r[4]} (R)`;
-    })
-    .join(" · ");
   const sep = (i: number) => (i > 0 && order[i - 1][0] !== order[i][0] ? "ea-sep" : undefined);
   return (
     <Panel title="All statewide races">
-      <Note>{`Margin, with D and R votes below. ${names}.`}</Note>
+      <Note>Winning margin, with Democratic and Republican votes below. Each column names the Democrat first.</Note>
       <GeoTable
         columns={order.map(([y, o], i) => (
-          <th key={`${y}${o}`} className={sep(i)}>{`${y} ${SHORT_OFFICE[o]}`}</th>
+          <th key={`${y}${o}`} className={sep(i)}>
+            {`${y} ${SHORT_OFFICE[o]}`}
+            <span className="ea-src-tag">{`${race("Statewide", y, o)![3]} v. ${race("Statewide", y, o)![4]}`}</span>
+          </th>
         ))}
         cells={(g) =>
           order.map(([y, o], i) => {
@@ -303,41 +302,59 @@ export function RacesPanel() {
   );
 }
 
-export function SourcesPanel() {
+export function MethodPanel() {
   const a = (href: string, text: string) => (
     <a className="ea-link" href={href} target="_blank" rel="noopener noreferrer">
       {text}
     </a>
   );
   return (
-    <Panel title="Sources" expandable={false}>
-      <ul className="ea-src">
-        <li>
-          2014–2024: Texas Legislative Council precinct data ({a("https://data.capitol.texas.gov/", "Capitol Data Portal")}),
-          summed to county. Runs ~0.5% above certified turnout; registration re-mapped to current precincts. Consistent
-          across years, not official.
-        </li>
-        <li>
-          2026 early vote and March primary early vote: Texas SOS{" "}
-          {a("https://goelect.txelections.civixapps.com/ivis-evr-ui/evr", "early-voting turnout")}. Final primary totals
-          not yet published.
-        </li>
-        <li>
-          Election day: county ElectionLink trackers, refreshed every 15 minutes. In-person check-ins only, unofficial;
-          state mail count added.
-        </li>
-        <li>
-          2014 is a real low, not an error: record-low midterm in El Paso, ~34% statewide.
-        </li>
-        <li>
-          Primary share is a rough partisan read, not a likely-voter model. Uncontested local D primaries (Starr,
-          Maverick, Webb) inflate the D share.
-        </li>
-        <li>
-          Railroad Comm.: Sitton v. Brown (2014), Christian v. Yarbrough (2016), Craddick v. McAllen (2018), Wright v.
-          Castañeda (2020), Christian v. Warford (2022), Craddick v. Culbert (2024).
-        </li>
-      </ul>
+    <Panel title="Method and sources" expandable={false}>
+      <div className="ea-prose">
+        <h3 className="ea-subhead">Counties</h3>
+        <p>
+          Seventeen counties: El Paso, Webb and Maverick on the border; Hidalgo, Cameron, Starr and Willacy in the Rio
+          Grande Valley, which the tables also sum as “Valley”; Harris, Dallas and Bexar; Collin, Denton, Williamson, Bell,
+          Montgomery and Ellis; and Hockley. Travis County and the state as a whole are shown as benchmarks.
+        </p>
+        <h3 className="ea-subhead">Measures</h3>
+        <p>
+          Turnout is ballots cast as a share of registered voters. The 2026 early vote is the final count of in-person
+          and mail ballots through October 30. Live figures add the state’s mail-ballot count to each county tracker’s
+          in-person check-ins, early and election day; they are unofficial and are reread every 15 minutes. Five of
+          the 17 counties publish a tracker. McLennan and Madison also do, and are shown for reference.
+        </p>
+        <p>
+          Grey shading shows turnout. Blue and red appear only on partisan measures: margins and primary share.
+        </p>
+        <h3 className="ea-subhead">Sources</h3>
+        <ul className="ea-src">
+          <li>
+            2016–2024 registration, turnout and results: Texas Legislative Council precinct data from the{" "}
+            {a("https://data.capitol.texas.gov/", "Capitol Data Portal")}, summed to county. Its turnout runs about 0.5%
+            above the Secretary of State’s certified totals, and its registration is mapped onto current precincts, so
+            it is consistent across years rather than official.
+          </li>
+          <li>
+            2026 early vote and March 2026 primary early vote: Texas Secretary of State,{" "}
+            {a("https://goelect.txelections.civixapps.com/ivis-evr-ui/evr", "early-voting turnout by county")}. Final
+            2026 primary totals were not yet published.
+          </li>
+          <li>Election day: each county’s ElectionLink turnout tracker.</li>
+        </ul>
+        <h3 className="ea-subhead">Caveats</h3>
+        <ul className="ea-src">
+          <li>
+            Primary share counts ballots in each party’s primary. It is a rough read on partisanship, not a model of
+            likely voters, and uncontested local Democratic primaries (Starr, Maverick, Webb) inflate the Democratic
+            share.
+          </li>
+          <li>
+            Railroad Commissioner races: Christian v. Yarbrough (2016), Craddick v. McAllen (2018), Wright v. Castañeda
+            (2020), Christian v. Warford (2022), Craddick v. Culbert (2024).
+          </li>
+        </ul>
+      </div>
     </Panel>
   );
 }

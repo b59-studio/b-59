@@ -11,8 +11,8 @@ export function LivePanel({ live, order, fetched }: { live: Map<string, LiveFigu
   const names = order.filter((g) => live.has(g));
   if (!names.length) {
     return (
-      <Panel title="Live" expandable={false}>
-        <p className="ea-note">Trackers unavailable. Retrying every 15 minutes.</p>
+      <Panel title="Election day" expandable={false}>
+        <p className="ea-note">The county trackers could not be read. The page tries again every 15 minutes.</p>
       </Panel>
     );
   }
@@ -20,24 +20,24 @@ export function LivePanel({ live, order, fetched }: { live: Map<string, LiveFigu
 
   return (
     <>
-      <Panel title="Tracker totals">
+      <Panel title="Election day, from county trackers">
         <Note>
-          Unofficial check-ins plus the state’s mail count. Pulled {timeCentral(fetched)} CT. “vs 2024” compares
-          election day through the last full hour with the same hour in 2024.
-          {reference.length ? ` ${reference.join(" and ")}: reference only.` : ""}
+          Unofficial tracker check-ins plus the state’s mail-ballot count, read at {timeCentral(fetched)} CT. The last
+          column compares election-day check-ins through the last full hour with the same hour in 2024.
+          {reference.length ? ` ${reference.join(" and ")} are not among the 17 and are shown for reference.` : ""}
         </Note>
         <DataTable
           head={
             <tr>
               <th>County</th>
-              <th>Updated (CT)</th>
+              <th>Tracker time (CT)</th>
               <th>Early in person</th>
               <th>Mail</th>
-              <th>E-day</th>
+              <th>Election day</th>
               <th>Total</th>
-              <th>% of reg.</th>
-              <th>% of 2022</th>
-              <th>vs 2024</th>
+              <th>% of registered</th>
+              <th>% of 2022 total</th>
+              <th>Election day vs 2024</th>
             </tr>
           }
         >
@@ -125,19 +125,19 @@ function HourlyPanel({ name, live: L }: { name: string; live: LiveFigures }) {
     <Panel as="h3" title={<TrackerLink label={`${name} County`} url={L.url} extra="tracker" />}>
       <Note>
         {hasPrior
-          ? `E-day check-ins by hour vs 2024 (${fmt(L.priorTotal)} total).`
-          : "E-day check-ins by hour. No 2024 data."}
+          ? `Election-day check-ins by hour, against the 2024 general (${fmt(L.priorTotal)} that day).`
+          : "Election-day check-ins by hour. This county’s 2024 tracker data is gone, so there is no comparison."}
       </Note>
       <DataTable
         head={
           <tr>
             <th>Hour</th>
             <th>2026</th>
-            <th>2026 cum.</th>
+            <th>2026 running total</th>
             {hasPrior && (
               <>
                 <th>2024</th>
-                <th>2024 cum.</th>
+                <th>2024 running total</th>
                 <th>2026 ÷ 2024</th>
               </>
             )}

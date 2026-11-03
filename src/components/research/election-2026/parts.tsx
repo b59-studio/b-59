@@ -7,8 +7,9 @@ const ExpandedContext = createContext(false);
 export const usePanelExpanded = () => useContext(ExpandedContext);
 
 /**
- * One block of the analysis. A panel holding a table or chart can be expanded
- * to fill the browser window (not the screen); Escape or the button closes it.
+ * One block of the analysis. A panel whose table is wider than the page can be
+ * expanded to fill the browser window (not the screen); Escape or the button
+ * closes it. The button shows only while the table overflows.
  */
 export function Panel({
   title,
@@ -86,31 +87,37 @@ export function Note({ children }: { children: React.ReactNode }) {
 }
 
 /**
- * A scrolling table whose header rows and first column stick. Each header row
+ * A table with sticky header rows. A table that fits the page flows with it and
+ * its header sticks below the site header. One wider than the page scrolls
+ * sideways in its own box, with the first column pinned. Each header row
  * sticks below the ones above it, so a two-row header stays readable.
  */
 export function DataTable({ head, children }: { head: React.ReactNode; children: React.ReactNode }) {
+  const box = useRef<HTMLDivElement>(null);
   const table = useRef<HTMLTableElement>(null);
 
   useLayoutEffect(() => {
+    const wrap = box.current;
     const el = table.current;
-    if (!el?.tHead) return;
+    if (!wrap || !el?.tHead) return;
     const thead = el.tHead;
-    const stick = () => {
+    const layout = () => {
+      wrap.classList.toggle("ea-overflows", el.offsetWidth > wrap.clientWidth + 1);
       let y = 0;
       for (const row of thead.rows) {
-        for (const th of row.cells) if (th.rowSpan === 1 || y === 0) th.style.top = `${y}px`;
+        for (const th of row.cells) if (th.rowSpan === 1 || y === 0) th.style.top = `calc(var(--ea-stick) + ${y}px)`;
         y += row.getBoundingClientRect().height;
       }
     };
-    stick();
-    const observer = new ResizeObserver(stick);
-    observer.observe(thead);
+    layout();
+    const observer = new ResizeObserver(layout);
+    observer.observe(wrap);
+    observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
   return (
-    <div className="ea-scroll">
+    <div ref={box} className="ea-scroll">
       <table ref={table} className="ea-table">
         <thead>{head}</thead>
         <tbody>{children}</tbody>
@@ -240,6 +247,15 @@ export function FilterPick({
         ))}
         {!matches.length && <li className="ea-pick-empty">Nothing matches “{query}”.</li>}
       </ul>
+    </div>
+  );
+}
+
+export function Stat({ value, label }: { value: string; label: string }) {
+  return (
+    <div className="ea-stat">
+      <span className="ea-stat-v">{value}</span>
+      <span className="ea-stat-k">{label}</span>
     </div>
   );
 }

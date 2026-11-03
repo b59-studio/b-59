@@ -2,7 +2,7 @@ import turnout from "@/data/election-2026/turnout.json";
 
 /**
  * Turnout and results for the target counties, built from Texas Legislative
- * Council precinct data (2014–2024, summed to county) and the Secretary of
+ * Council precinct data (2016–2024, summed to county) and the Secretary of
  * State's early-voting feed (2026). Shapes, as stored:
  *
  * - geos: [name, region, isIndentedUnderValley]
@@ -25,10 +25,9 @@ type TurnoutData = {
 
 export const DATA = turnout as unknown as TurnoutData;
 
-export const YEARS = ["2014", "2016", "2018", "2020", "2022", "2024"];
-export const MIDTERMS = ["2014", "2018", "2022"];
+export const YEARS = ["2016", "2018", "2020", "2022", "2024"];
+export const MIDTERMS = ["2018", "2022"];
 export const TOP_OF_TICKET: Record<string, string> = {
-  "2014": "Governor",
   "2016": "President",
   "2018": "U.S. Senate",
   "2020": "President",
@@ -36,11 +35,11 @@ export const TOP_OF_TICKET: Record<string, string> = {
   "2024": "President",
 };
 export const SHORT_OFFICE: Record<string, string> = {
-  Governor: "Gov",
-  "U.S. Senate": "Sen",
-  President: "Pres",
-  "Railroad Comm.": "RRC",
-  Comptroller: "Comp",
+  Governor: "Governor",
+  "U.S. Senate": "Senate",
+  President: "President",
+  "Railroad Comm.": "Railroad Comm.",
+  Comptroller: "Comptroller",
 };
 export const officeName = (office: string) => (office === "Railroad Comm." ? "Railroad Commissioner" : office);
 
@@ -58,7 +57,19 @@ export const raceMargin = (r: Race | undefined) => (r ? (r[5] - r[6]) / r[7] : n
 /** 2022 general ballots, the turnout yardstick most columns compare with. */
 export const ballots2022 = (geo: string) => DATA.gen[geo]?.["2022"]?.[1];
 
-/** A cell fill shading toward a data colour, 0 to 1. */
-export const shade = (color: "dem" | "rep", strength: number) => ({
-  background: `color-mix(in srgb, var(--ea-${color}) ${Math.round(Math.max(0, Math.min(1, strength)) * 45)}%, var(--ea-panel))`,
-});
+/**
+ * A cell fill, 0 to 1. Party colours mark partisan measures only (margins,
+ * primary share); turnout, which has no party, shades in neutral ink.
+ */
+export const shade = (color: "dem" | "rep" | "ink", strength: number) => {
+  const s = Math.max(0, Math.min(1, strength));
+  return {
+    background:
+      color === "ink"
+        ? `color-mix(in srgb, var(--ea-fg) ${Math.round(s * 18)}%, var(--ea-panel))`
+        : `color-mix(in srgb, var(--ea-${color}) ${Math.round(s * 45)}%, var(--ea-panel))`,
+  };
+};
+
+/** The four Rio Grande Valley counties the tables sum as "Valley". */
+export const VALLEY = ["Hidalgo", "Cameron", "Starr", "Willacy"];

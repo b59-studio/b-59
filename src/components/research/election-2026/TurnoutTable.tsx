@@ -6,6 +6,12 @@ import { fmt, pct, timeCentral } from "@/lib/election-2026/live";
 import { ballots2022, DATA, shade, YEARS } from "./data";
 import { DataTable, Note, Panel, TrackerLink } from "./parts";
 
+/** Past generals shown beside the 2026 numbers; the full run is under Turnout history. */
+const RECENT = ["2020", "2022", "2024"];
+
+/** Turnout shading: 20% of registered voters is unshaded, 70% is the darkest step. */
+const turnoutShade = (rate: number) => shade("ink", (rate - 0.2) / 0.5);
+
 /** The headline table: live tracker counties first, then everything else in regional order. */
 export function TurnoutTable({
   live,
@@ -18,33 +24,30 @@ export function TurnoutTable({
 }) {
   const tracked = liveOrder.flatMap((g) => DATA.geos.filter(([x]) => x === g && live.has(g)));
   const rest = DATA.geos.filter(([g]) => !live.has(g));
-  const columns = 1 + 3 + 5 + YEARS.length;
+  const columns = 1 + 2 + 3 + RECENT.length;
   const trackedNames = tracked.map(([g]) => g);
 
   const head = (
     <>
       <tr>
         <th rowSpan={2}>County</th>
+        <th className="ea-grp ea-sep" colSpan={2}>
+          Live <span className="ea-src-tag">county trackers, unofficial</span>
+        </th>
         <th className="ea-grp ea-sep" colSpan={3}>
-          Live (county trackers)
+          2026 early vote <span className="ea-src-tag">Texas SOS</span>
         </th>
-        <th className="ea-grp ea-sep" colSpan={5}>
-          2026 early vote
-        </th>
-        <th className="ea-grp ea-sep" colSpan={YEARS.length}>
-          Past generals
+        <th className="ea-grp ea-sep" colSpan={RECENT.length}>
+          Past turnout <span className="ea-src-tag">TLC</span>
         </th>
       </tr>
       <tr>
-        <th className="ea-sep">Total</th>
-        <th>% of reg.</th>
-        <th>E-day</th>
-        <th className="ea-sep">Registered</th>
-        <th>In person</th>
-        <th>Mail</th>
-        <th>Total</th>
-        <th>% of reg.</th>
-        {YEARS.map((y, i) => (
+        <th className="ea-sep">Ballots</th>
+        <th>% of registered</th>
+        <th className="ea-sep">Ballots</th>
+        <th>% of registered</th>
+        <th>% of 2022 total</th>
+        {RECENT.map((y, i) => (
           <th key={y} className={i === 0 ? "ea-sep" : undefined}>
             {y}
           </th>
@@ -55,16 +58,17 @@ export function TurnoutTable({
 
   const groups: [string | null, typeof DATA.geos][] = tracked.length
     ? [
-        [`Live trackers · ${timeCentral(fetched)} CT`, tracked],
-        ["No live tracker", rest],
+        [`Counties with a live tracker · read ${timeCentral(fetched)} CT`, tracked],
+        ["Early vote only", rest],
       ]
     : [[null, rest]];
 
   return (
     <Panel id="turnout" title="Turnout by county">
       <Note>
-        2026 is early vote only (in person + mail, through {DATA.evAsOf.split(",")[0]}). Past years: turnout rate,
-        ballots below.
+        Live figures add the state’s mail-ballot count to each tracker’s in-person check-ins, early and election day.
+        2026 early vote is final (in person and mail, through {DATA.evAsOf.split(",")[0]}). Rates use registered voters.
+        {trackedNames.length ? ` Live trackers: ${trackedNames.join(", ")}.` : ""}
       </Note>
       <DataTable head={head}>
         {groups.map(([label, rows]) => (
@@ -75,11 +79,10 @@ export function TurnoutTable({
               </tr>
             )}
             {rows.map(([g, region, isSub], i) => {
-              const [reg, inPerson, mail, total] = DATA.ev[g];
+              const [reg, , , total] = DATA.ev[g];
               const L = live.get(g);
-              const startsRegion = i > 0 && rows[i - 1][1] !== region;
               return (
-                <tr key={g} className={rowClass(region, isSub, startsRegion)}>
+                <tr key={g} className={rowClass(region, isSub, i > 0 && rows[i - 1][1] !== region)}>
                   <td>{L ? <TrackerLink label={g} url={L.url} /> : g}</td>
                   {L ? (
                     <>
@@ -87,32 +90,22 @@ export function TurnoutTable({
                         <strong>{fmt(L.total)}</strong>
                         <span className="ea-cnt">as of {timeCentral(L.refreshed)}</span>
                       </td>
-                      <td style={shade("dem", (L.total / L.registered - 0.2) / 0.35)}>{pct(L.total / L.registered)}</td>
-                      <td>{fmt(L.electionDay)}</td>
+                      <td style={turnoutShade(L.total / L.registered)}>{pct(L.total / L.registered)}</td>
                     </>
                   ) : (
                     <>
-                      <td className="ea-sep" title="No live tracker for this county">
-                        —
-                      </td>
-                      <td />
+                      <td className="ea-sep ea-muted">—</td>
                       <td />
                     </>
                   )}
-                  <td className="ea-sep">{fmt(reg)}</td>
-                  <td>{fmt(inPerson)}</td>
-                  <td>{fmt(mail)}</td>
-                  <td>
-                    <strong>{fmt(total)}</strong>
-                    <span className="ea-cnt">{pct(total / ballots2022(g))} of 2022</span>
-                  </td>
-                  <td style={shade("dem", (total / reg - 0.2) / 0.35)}>{pct(total / reg)}</td>
-                  {YEARS.map((y, yi) => {
+                  <td className="ea-sep">{fmt(total)}</td>
+                  <td style={turnoutShade(total / reg)}>{pct(total / reg)}</td>
+                  <td>{pct(total / ballots2022(g))}</td>
+                  {RECENT.map((y, yi) => {
                     const [r, v] = DATA.gen[g][y];
                     return (
-                      <td key={y} className={yi === 0 ? "ea-sep" : undefined} style={shade("dem", (v / r - 0.15) / 0.65)}>
+                      <td key={y} className={yi === 0 ? "ea-sep" : undefined} style={turnoutShade(v / r)}>
                         {pct(v / r)}
-                        <span className="ea-cnt">{fmt(v)}</span>
                       </td>
                     );
                   })}
@@ -122,11 +115,68 @@ export function TurnoutTable({
           </Fragment>
         ))}
       </DataTable>
+    </Panel>
+  );
+}
+
+/** Every general since 2016, with the 2026 early vote broken out by method. */
+export function TurnoutHistory() {
+  return (
+    <Panel title="Turnout history">
       <Note>
-        Live = tracker check-ins (early + election day) plus the state’s mail count. Unofficial.
-        {trackedNames.length ? ` Trackers: ${trackedNames.join(", ")}.` : ""} Percentages use state registration. Valley =
-        Hidalgo, Cameron, Starr, Willacy.
+        2026 is the final early vote. Each past general shows turnout as a share of registered voters, with ballots cast
+        below.
       </Note>
+      <DataTable
+        head={
+          <>
+            <tr>
+              <th rowSpan={2}>County</th>
+              <th className="ea-grp ea-sep" colSpan={4}>
+                2026 early vote <span className="ea-src-tag">Texas SOS</span>
+              </th>
+              <th className="ea-grp ea-sep" colSpan={YEARS.length}>
+                Past generals <span className="ea-src-tag">TLC</span>
+              </th>
+            </tr>
+            <tr>
+              <th className="ea-sep">Registered</th>
+              <th>In person</th>
+              <th>Mail</th>
+              <th>Total</th>
+              {YEARS.map((y, i) => (
+                <th key={y} className={i === 0 ? "ea-sep" : undefined}>
+                  {y}
+                </th>
+              ))}
+            </tr>
+          </>
+        }
+      >
+        {DATA.geos.map(([g, region, isSub], i) => {
+          const [reg, inPerson, mail, total] = DATA.ev[g];
+          return (
+            <tr key={g} className={rowClass(region, isSub, i > 0 && DATA.geos[i - 1][1] !== region)}>
+              <td>{g}</td>
+              <td className="ea-sep">{fmt(reg)}</td>
+              <td>{fmt(inPerson)}</td>
+              <td>{fmt(mail)}</td>
+              <td>
+                <strong>{fmt(total)}</strong>
+              </td>
+              {YEARS.map((y, yi) => {
+                const [r, v] = DATA.gen[g][y];
+                return (
+                  <td key={y} className={yi === 0 ? "ea-sep" : undefined} style={turnoutShade(v / r)}>
+                    {pct(v / r)}
+                    <span className="ea-cnt">{fmt(v)}</span>
+                  </td>
+                );
+              })}
+            </tr>
+          );
+        })}
+      </DataTable>
     </Panel>
   );
 }
