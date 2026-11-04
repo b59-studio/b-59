@@ -1670,6 +1670,22 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
 .ea-map-legend { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; margin: 0; padding: 0; list-style: none; font-size: 0.875rem; color: var(--ea-muted); }
 .ea-sw-outline { background: transparent; border: 1.5px solid var(--ea-fg); }
 
+/* Live results: the race picker row and the statewide candidate bars. Party
+   colours here mark partisan results, the one place they belong. */
+.ea-results-pick { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: flex-end; }
+.ea-results-pick .ea-pick { flex: 1 1 22rem; max-width: 36rem; }
+.ea-results-src { white-space: normal; min-width: 8rem; }
+.ea-cands { display: grid; gap: 0.625rem; margin: 0; padding: 0; list-style: none; }
+.ea-cands li { display: grid; grid-template-columns: minmax(9rem, 14rem) 1fr auto; align-items: center; gap: 0.75rem; }
+.ea-cand-name { font-weight: 600; font-size: 0.95rem; min-width: 0; overflow-wrap: anywhere; }
+.ea-cand-party { font-weight: 400; font-size: 0.8rem; color: var(--ea-muted); }
+.ea-cand-bar { display: block; height: 1rem; min-width: 2px; border-radius: 0 4px 4px 0; }
+.ea-cand-val { font-variant-numeric: tabular-nums; font-size: 0.9rem; white-space: nowrap; }
+@media (max-width: 640px) {
+  .ea-cands li { grid-template-columns: 1fr auto; row-gap: 0.25rem; }
+  .ea-cand-bar { grid-column: 1 / -1; grid-row: 2; }
+}
+
 /* Filter-and-pick (standards/42) */
 .ea-pick { position: relative; display: grid; gap: 0.25rem; min-width: min(100%, 16rem); }
 .ea-pick-list {

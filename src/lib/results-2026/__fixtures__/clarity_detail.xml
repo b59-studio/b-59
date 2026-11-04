@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Election result snapshot imported from Tabulation System
+-->
+<ElectionResult>
+  <Timestamp>11/3/2026 6:37:58 PM CST</Timestamp>
+  <ElectionName>General &amp; Joint Election 2026</ElectionName>
+  <ElectionDate>11/3/2026</ElectionDate>
+  <Region>Dallas</Region>
+  <VoterTurnout totalVoters="1497907" ballotsCast="631609" voterTurnout="42.17">
+    <Precincts>
+      <Precinct name="1004-01" totalVoters="1708" ballotsCast="919" voterTurnout="53.81" percentReporting="4" />
+      <Precinct name="1006-01" totalVoters="1531" ballotsCast="928" voterTurnout="60.61" percentReporting="4" />
+      <Precinct name="1007-01" totalVoters="595" ballotsCast="366" voterTurnout="61.51" percentReporting="4" />
+      <Precinct name="1040-01" totalVoters="3557" ballotsCast="1237" voterTurnout="34.78" percentReporting="4" />
+      <Precinct name="1041-01" totalVoters="859" ballotsCast="147" voterTurnout="17.11" percentReporting="4" />
+      <Precinct name="1042-01" totalVoters="824" ballotsCast="403" voterTurnout="48.91" percentReporting="4" />
+    </Precincts>
+  </VoterTurnout>
+  <VoteCenters totalVoteCenters="444" VoteCentersPartiallyReported="0" VoteCentersCompletelyReported="0" />
+  <Contest key="0007" text="United States Senator" voteFor="1" isQuestion="false" precinctsReporting="914" precinctsReported="730">
+    <VoteType name="regVotersCounty" votes="0">
+      <Precinct name="1004-01" votes="0" />
+      <Precinct name="1006-01" votes="0" />
+      <Precinct name="1007-01" votes="0" />
+      <Precinct name="1040-01" votes="0" />
+      <Precinct name="1041-01" votes="0" />
+      <Precinct name="1042-01" votes="0" />
+      </VoteType>
+    <Choice key="001" text="Ken Paxton" party="REP" totalVotes="158692">
+      <VoteType name="Election Day" votes="0">
+        <Precinct name="1004-01" votes="0" />
+        <Precinct name="1006-01" votes="0" />
+        <Precinct name="1007-01" votes="0" />
+        <Precinct name="1040-01" votes="0" />
+        <Precinct name="1041-01" votes="0" />
+        <Precinct name="1042-01" votes="0" />
+      </VoteType>
+      <VoteType name="EV In-person" votes="153155">
+        <Precinct name="1004-01" votes="278" />
+        <Precinct name="1006-01" votes="331" />
+        <Precinct name="1007-01" votes="131" />
+        <Precinct name="1040-01" votes="262" />
+        <Precinct name="1041-01" votes="12" />
+        <Precinct name="1042-01" votes="133" />
+      </VoteType>
+      <VoteType name="EV Mail" votes="5537">
+        <Precinct name="1004-01" votes="14" />
+        <Precinct name="1006-01" votes="10" />
+        <Precinct name="1007-01" votes="5" />
+        <Precinct name="1040-01" votes="13" />
+        <Precinct name="1041-01" votes="0" />
+        <Precinct name="1042-01" votes="4" />
+      </VoteType>
+    </Choice>
+    <Choice key="002" text="James Talarico" party="DEM" totalVotes="457916">
+      <VoteType name="Election Day" votes="0">
+        <Precinct name="1004-01" votes="0" />
+        <Precinct name="1006-01" votes="0" />
+        <Precinct name="1007-01" votes="0" />
+        <Precinct name="1040-01" votes="0" />
+        <Precinct name="1041-01" votes="0" />
+        <Precinct name="1042-01" votes="0" />
+      </VoteType>
+      <VoteType name="EV In-person" votes="443515">
+        <Precinct name="1004-01" votes="573" />
+        <Precinct name="1006-01" votes="531" />
+        <Precinct name="1007-01" votes="203" />
+        <Precinct name="1040-01" votes="910" />
+        <Precinct name="1041-01" votes="124" />
+        <Precinct name="1042-01" votes="244" />
+      </VoteType>
+      <VoteType name="EV Mail" votes="14401">
+        <Precinct name="1004-01" votes="33" />
+        <Precinct name="1006-01" votes="28" />
+        <Precinct name="1007-01" votes="21" />
+        <Precinct name="1040-01" votes="29" />
+        <Precinct name="1041-01" votes="3" />
+        <Precinct name="1042-01" votes="15" />
+      </VoteType>
+    </Choice>
+    <Choice key="003" text="Ted Brown" party="LIB" totalVotes="9067">
+      <VoteType name="Election Day" votes="0">
+        <Precinct name="1004-01" votes="0" />
+        <Precinct name="1006-01" votes="0" />
+        <Precinct name="1007-01" votes="0" />
+        <Precinct name="1040-01" votes="0" />
+        <Precinct name="1041-01" votes="0" />
+        <Precinct name="1042-01" votes="0" />
+      </VoteType>
+      <VoteType name="EV In-person" votes="8718">
+        <Precinct name="1004-01" votes="9" />
+        <Precinct name="1006-01" votes="16" />
+        <Precinct name="1007-01" votes="1" />
+        <Precinct name="1040-01" votes="12" />
+        <Precinct name="1041-01" votes="3" />
+        <Precinct name="1042-01" votes="1" />
+      </VoteType>
+      <VoteType name="EV Mail" votes="349">
+        <Precinct name="1004-01" votes="0" />
+        <Precinct name="1006-01" votes="0" />
+        <Precinct name="1007-01" votes="0" />
+        <Precinct name="1040-01" votes="1" />
+        <Precinct name="1041-01" votes="1" />
+        <Precinct name="1042-01" votes="0" />
+      </VoteType>
+    </Choice>
+    <Choice key="004" text="Write-In Votes Cast" party="NON" totalVotes="1372">
+      <VoteType name="Election Day" votes="0">
+        <Precinct name="1004-01" votes="0" />
+        <Precinct name="1006-01" votes="0" />
+        <Precinct name="1007-01" votes="0" />
+        <Precinct name="1040-01" votes="0" />
+        <Precinct name="1041-01" votes="0" />
+        <Precinct name="1042-01" votes="0" />
+      </VoteType>
+      <VoteType name="EV In-person" votes="1294">
+        <Precinct name="1004-01" votes="3" />
+        <Precinct name="1006-01" votes="9" />
+        <Precinct name="1007-01" votes="2" />
+        <Precinct name="1040-01" votes="1" />
+        <Precinct name="1041-01" votes="2" />
+        <Precinct name="1042-01" votes="2" />
+      </VoteType>
+      <VoteType name="EV Mail" votes="78">
+        <Precinct name="1004-01" votes="0" />
+        <Precinct name="1006-01" votes="0" />
+        <Precinct name="1007-01" votes="0" />
+        <Precinct name="1040-01" votes="0" />
+        <Precinct name="1041-01" votes="0" />
+        <Precinct name="1042-01" votes="0" />
+      </VoteType>
+    </Choice>
+  </Contest>
+  <Contest key="0008" text="United States Representative, District 5" voteFor="1" isQuestion="false" precinctsReporting="153" precinctsReported="110">
+    <VoteType name="regVotersCounty" votes="0">
+      <Precinct name="1007-01" votes="0" />
+      <Precinct name="1040-01" votes="0" />
+      <Precinct name="1042-01" votes="0" />
+      <Precinct name="1044-01" votes="0" />
+      <Precinct name="1049-01" votes="0" />
+      <Precinct name="1050-01" votes="0" />
+      </VoteType>
+    <Choice key="001" text="Lance Gooden" party="REP" totalVotes="34156">
+      <VoteType name="Election Day" votes="0">
+        <Precinct name="1007-01" votes="0" />
+        <Precinct name="1040-01" votes="0" />
+        <Precinct name="1042-01" votes="0" />
+        <Precinct name="1044-01" votes="0" />
+        <Precinct name="1049-01" votes="0" />
+        <Precinct name="1050-01" votes="0" />
+      </VoteType>
+      <VoteType name="EV In-person" votes="32940">
+        <Precinct name="1007-01" votes="151" />
+        <Precinct name="1040-01" votes="273" />
+        <Precinct name="1042-01" votes="146" />
+        <Precinct name="1044-01" votes="653" />
+        <Precinct name="1049-01" votes="369" />
+        <Precinct name="1050-01" votes="13" />
+      </VoteType>
+      <VoteType name="EV Mail" votes="1216">
+        <Precinct name="1007-01" votes="10" />
+        <Precinct name="1040-01" votes="13" />
+        <Precinct name="1042-01" votes="5" />
+        <Precinct name="1044-01" votes="12" />
+        <Precinct name="1049-01" votes="5" />
+        <Precinct name="1050-01" votes="0" />
+      </VoteType>
+    </Choice>
+    <Choice key="002" text="Chelsey Hockett" party="DEM" totalVotes="64084">
+      <VoteType name="Election Day" votes="0">
+        <Precinct name="1007-01" votes="0" />
+        <Precinct name="1040-01" votes="0" />
+        <Precinct name="1042-01" votes="0" />
+        <Precinct name="1044-01" votes="0" />
+        <Precinct name="1049-01" votes="0" />
+        <Precinct name="1050-01" votes="0" />
+      </VoteType>
+      <VoteType name="EV In-person" votes="62081">
+        <Precinct name="1007-01" votes="177" />
+        <Precinct name="1040-01" votes="880" />
+        <Precinct name="1042-01" votes="227" />
+        <Precinct name="1044-01" votes="862" />
+        <Precinct name="1049-01" votes="603" />
+        <Precinct name="1050-01" votes="15" />
+      </VoteType>
+      <VoteType name="EV Mail" votes="2003">
+        <Precinct name="1007-01" votes="15" />
+        <Precinct name="1040-01" votes="30" />
+        <Precinct name="1042-01" votes="14" />
+        <Precinct name="1044-01" votes="48" />
+        <Precinct name="1049-01" votes="28" />
+        <Precinct name="1050-01" votes="0" />
+      </VoteType>
+    </Choice>
+  </Contest>
+</ElectionResult>
