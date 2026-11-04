@@ -1,8 +1,8 @@
 "use client";
 
 import type { LiveFigures } from "@/lib/election-2026/live";
-import { fmt, hourLabel, pct, timeCentral } from "@/lib/election-2026/live";
-import { ballots2022, CORE } from "./data";
+import { fmt, hourLabel, pct, timeCentral, versus2024, wholeElectionByHour } from "@/lib/election-2026/live";
+import { ballots2022, ballots2024, CORE } from "./data";
 import { SortContext, SortTh, sortItems, useSortState } from "./GeoTable";
 import { DataTable, Note, Panel, TrackerLink } from "./parts";
 
@@ -27,8 +27,10 @@ export function LivePanel({ live, order, fetched }: { live: Map<string, LiveFigu
     <>
       <Panel title="Election day, from county trackers">
         <Note>
-          Unofficial tracker check-ins plus the state’s mail-ballot count, read at {timeCentral(fetched)} CT. The last
-          column compares election-day check-ins through the last full hour with the same hour in 2024.
+          Unofficial tracker check-ins plus the state’s mail-ballot count, read at {timeCentral(fetched)} CT. The 2022
+          and 2024 columns set every 2026 ballot so far against each year’s final total. The last two compare 2026
+          with 2024 at the same hour of election day, through the last full hour: first every ballot, early vote
+          included, then election-day check-ins alone.
           {reference.length
             ? ` ${listNames(reference)} ${reference.length > 1 ? "are" : "is"} not among the 17 focus counties.`
             : ""}
@@ -44,49 +46,46 @@ export function LivePanel({ live, order, fetched }: { live: Map<string, LiveFigu
   );
 }
 
+/**
+ * One county's election day by hour, set against the whole of 2024: each
+ * hour's check-ins, then every ballot cast so far, early vote included, in
+ * 2026 and in 2024 through the same hour.
+ */
 function HourlyPanel({ name, live: L }: { name: string; live: LiveFigures }) {
   const at = (rows: [number, number][], h: number) => rows.find(([x]) => x === h)?.[1] ?? 0;
+  const total24 = ballots2024(name);
   const hasPrior = L.priorTotal > 0;
-  const running = (rows: [number, number][]) => HOURS.map((h) => rows.filter(([x]) => x <= h).reduce((a, [, v]) => a + v, 0));
-  const run26 = running(L.today);
-  const run24 = running(L.prior);
+  const whole = total24 ? wholeElectionByHour(L, total24, HOURS) : [];
   const rows = HOURS.map((h, i) => {
-    const v26 = at(L.today, h);
-    const v24 = at(L.prior, h);
-    const c26 = run26[i];
-    const c24 = run24[i];
     const label = hourLabel(h) + (h === 19 ? "–close" : "");
+    const v26 = at(L.today, h);
+    const then = whole[i]?.then ?? null;
     if (h > L.doneHour && !v26) {
       return (
         <tr key={h}>
           <td>{label}</td>
           <td className="ea-muted">—</td>
+          {hasPrior && <td>{fmt(at(L.prior, h))}</td>}
           <td />
-          {hasPrior && (
-            <>
-              <td>{fmt(v24)}</td>
-              <td>{fmt(c24)}</td>
-              <td />
-            </>
-          )}
+          {hasPrior ? <td>{then != null ? fmt(then) : ""}</td> : null}
+          <td />
         </tr>
       );
     }
-    const pace = hasPrior && c24 && h < L.doneHour ? c26 / c24 : null;
+    const now = whole[i]?.now ?? L.beforeElectionDay;
+    // Only complete hours are compared; the hour in progress would understate 2026.
+    const complete = h < L.doneHour;
+    const ratio = !total24 || !complete ? null : hasPrior ? (then ? now / then : null) : now / total24;
     return (
       <tr key={h}>
         <td>{label + (h === L.doneHour ? " (partial)" : "")}</td>
         <td>{fmt(v26)}</td>
+        {hasPrior && <td>{fmt(at(L.prior, h))}</td>}
         <td>
-          <strong>{fmt(c26)}</strong>
+          <strong>{fmt(now)}</strong>
         </td>
-        {hasPrior && (
-          <>
-            <td>{fmt(v24)}</td>
-            <td>{fmt(c24)}</td>
-            <td className={pace != null && pace >= 1 ? "ea-pos" : undefined}>{pace != null ? pct(pace) : ""}</td>
-          </>
-        )}
+        {hasPrior && <td>{then != null ? fmt(then) : ""}</td>}
+        <td className={ratio != null && ratio >= 1 ? "ea-pos" : undefined}>{ratio != null ? pct(ratio) : ""}</td>
       </tr>
     );
   });
@@ -94,23 +93,20 @@ function HourlyPanel({ name, live: L }: { name: string; live: LiveFigures }) {
   return (
     <Panel as="h3" title={<TrackerLink label={`${name} County`} url={L.url} extra="tracker" />}>
       <Note>
+        {`Before election day: ${fmt(L.beforeElectionDay)} ballots (early in person and mail). `}
         {hasPrior
-          ? `Election-day check-ins by hour, against the 2024 general (${fmt(L.priorTotal)} that day).`
-          : "Election-day check-ins by hour. This county’s 2024 tracker data is gone, so there is no comparison."}
+          ? `“All ballots” adds each hour’s check-ins and compares the whole election so far with 2024 at the same hour, when ${fmt(total24 ?? 0)} voted in all.`
+          : `This county’s 2024 hourly data is gone, so the whole election so far is compared with the 2024 total of ${fmt(total24 ?? 0)}.`}
       </Note>
       <DataTable
         head={
           <tr>
             <th>Hour</th>
-            <th>2026</th>
-            <th>2026 running total</th>
-            {hasPrior && (
-              <>
-                <th>2024</th>
-                <th>2024 running total</th>
-                <th>2026 ÷ 2024</th>
-              </>
-            )}
+            <th>Election day 2026</th>
+            {hasPrior && <th>Election day 2024</th>}
+            <th>All ballots 2026</th>
+            {hasPrior && <th>All ballots 2024</th>}
+            <th>{hasPrior ? "2026 ÷ 2024" : "% of 2024 total"}</th>
           </tr>
         }
       >
@@ -118,6 +114,14 @@ function HourlyPanel({ name, live: L }: { name: string; live: LiveFigures }) {
       </DataTable>
     </Panel>
   );
+}
+
+/** Every ballot so far against 2024 at the same hour of election day, or null without 2024 hourly data. */
+function wholePace(L: LiveFigures, g: string): number | null {
+  const total24 = ballots2024(g);
+  if (!total24) return null;
+  const { now, then } = versus2024(L, total24);
+  return then ? now / then : null;
 }
 
 const TRACKER_SORT: Record<string, (L: LiveFigures, g: string) => number | string | null> = {
@@ -129,6 +133,8 @@ const TRACKER_SORT: Record<string, (L: LiveFigures, g: string) => number | strin
   total: (L) => L.total,
   rate: (L) => L.total / L.registered,
   of2022: (L, g) => L.total / ballots2022(g),
+  of2024: (L, g) => L.total / ballots2024(g),
+  wholePace: (L, g) => wholePace(L, g),
   pace: (L) => (L.priorThrough ? L.edThrough / L.priorThrough : null),
 };
 
@@ -150,13 +156,17 @@ function TrackerTotals({ live, names }: { live: Map<string, LiveFigures>; names:
             <SortTh by="total">Total</SortTh>
             <SortTh by="rate">% of registered</SortTh>
             <SortTh by="of2022">% of 2022 total</SortTh>
-            <SortTh by="pace">Election day vs 2024</SortTh>
+            <SortTh by="of2024">% of 2024 total</SortTh>
+            <SortTh by="wholePace">All ballots vs 2024, same hour</SortTh>
+            <SortTh by="pace">Election day vs 2024, same hour</SortTh>
           </tr>
         }
       >
         {rows.map((g) => {
           const L = live.get(g)!;
           const g22 = ballots2022(g);
+          const g24 = ballots2024(g);
+          const whole = wholePace(L, g);
           const pace = L.priorThrough ? L.edThrough / L.priorThrough : null;
           return (
             <tr key={g} className={CORE.includes(g) ? undefined : "ea-sub"}>
@@ -172,6 +182,8 @@ function TrackerTotals({ live, names }: { live: Map<string, LiveFigures>; names:
               </td>
               <td>{pct(L.total / L.registered)}</td>
               <td>{g22 ? pct(L.total / g22) : ""}</td>
+              <td>{g24 ? pct(L.total / g24) : ""}</td>
+              <td className={whole != null && whole >= 1 ? "ea-pos" : undefined}>{whole != null ? pct(whole) : "—"}</td>
               <td className={pace != null && pace >= 1 ? "ea-pos" : undefined}>{pace != null ? pct(pace) : "—"}</td>
             </tr>
           );

@@ -97,6 +97,9 @@ export const raceMargin = (r: Race | undefined) => (r ? (r[5] - r[6]) / r[7] : n
 /** 2022 general ballots, the turnout yardstick most columns compare with. */
 export const ballots2022 = (geo: string) => DATA.gen[geo]?.["2022"]?.[1];
 
+/** 2024 general ballots, the last presidential election, for whole-election comparisons. */
+export const ballots2024 = (geo: string) => DATA.gen[geo]?.["2024"]?.[1];
+
 /**
  * A cell fill, 0 to 1. Party colours mark partisan measures only (margins,
  * primary share); turnout, which has no party, shades in neutral ink.

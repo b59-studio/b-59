@@ -28,6 +28,16 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Changed
+
+- **The 2026 election analysis now sets the live count against the whole
+  2024 election, not just its election day.** Each county's hourly table
+  shows every ballot cast so far, early vote included, beside 2024's total at
+  the same hour, ending on 2024's final count. The tracker table adds each
+  county's share of its 2024 total and the whole-election comparison at the
+  same hour, next to the election-day-only one, and the main turnout table
+  adds a "% of 2024 total" column for the live counties.
+
 ## 2026-11-03
 
 ### Added
