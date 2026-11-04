@@ -28,6 +28,8 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+## 2026-11-03
+
 ### Added
 
 - **Hays County's live election-day tracker in the 2026 election analysis.**
@@ -36,16 +38,6 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   Travis, Bell, Montgomery, Ellis, Hockley, McLennan and Madison. The Method
   section names the source and says that the other 246 counties publish no
   live check-in count.
-
-### Fixed
-
-- The Method section said five of the 17 focus counties publish a tracker;
-  four do (Bell, Montgomery, Ellis and Hockley).
-
-## 2026-11-03
-
-### Added
-
 - **A polling page in the Research menu: 2026 Texas polls.** It averages the
   public polls of seven statewide races (U.S. Senate, governor, lieutenant
   governor, attorney general, comptroller, Railroad Commissioner and the
@@ -123,6 +115,11 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 - The win calculator is no longer part of the public analysis; it moved to
   the Studio menu, behind a password.
 - 2014 results are gone from the analysis while their accuracy is checked.
+
+### Fixed
+
+- The Method section said five of the 17 focus counties publish a tracker;
+  four do (Bell, Montgomery, Ellis and Hockley).
 
 ## 2026-09-11
 
