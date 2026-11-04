@@ -41,66 +41,71 @@ function CountyMap() {
 
   return (
     <Panel title="County map" expandable={false}>
-      <fieldset className="ea-seg">
-        <legend className="ea-field-label">Shade counties by</legend>
-        {MEASURES.map((m) => (
-          <label key={m.id} className="ea-seg-option">
-            <input
-              type="radio"
-              className="sr-only"
-              name={name}
-              value={m.id}
-              checked={measureId === m.id}
-              onChange={() => setMeasureId(m.id)}
-            />
-            <span>{m.label}</span>
-          </label>
-        ))}
-      </fieldset>
-      <div className="ea-map">
-        <svg
-          viewBox={`0 0 ${width} ${height}`}
-          role="img"
-          aria-label={`Map of Texas counties shaded by ${measure.label.toLowerCase()}. The values are in the tables below.`}
-          onPointerLeave={() => setPicked(null)}
-        >
-          {counties.map((g) => (
-            <path
-              key={g}
-              d={paths[g]}
-              fill={STEP_FILL[stepOf(values.get(g)!)]}
-              className="ea-map-county"
-              onPointerEnter={() => setPicked(g)}
-              onPointerDown={() => setPicked(g)}
-            />
-          ))}
-          {CORE.filter((g) => paths[g]).map((g) => (
-            <path key={`focus-${g}`} d={paths[g]} className="ea-map-focus" />
-          ))}
-          {picked && <path d={paths[picked]} className="ea-map-picked" />}
-        </svg>
+      {/* The controls and the key sit beside the map on a wide screen and above it on a phone. */}
+      <div className="ea-map-layout">
+        <div className="ea-map-side">
+          <fieldset className="ea-seg">
+            <legend className="ea-field-label">Shade counties by</legend>
+            {MEASURES.map((m) => (
+              <label key={m.id} className="ea-seg-option">
+                <input
+                  type="radio"
+                  className="sr-only"
+                  name={name}
+                  value={m.id}
+                  checked={measureId === m.id}
+                  onChange={() => setMeasureId(m.id)}
+                />
+                <span>{m.label}</span>
+              </label>
+            ))}
+          </fieldset>
+          <p className="ea-map-readout" aria-live="polite">
+            {picked ? (
+              <>
+                <strong>{picked}</strong> · {measure.label}: {pct(values.get(picked)!)}
+              </>
+            ) : (
+              "Point at or tap a county to read its value."
+            )}
+          </p>
+          <ul className="ea-map-legend" aria-label="Key">
+            {STEP_FILL.map((fill, i) => (
+              <li key={fill}>
+                <span className="ea-sw" style={{ background: fill }} />
+                {i === 0 ? `Under ${pct(cuts[0])}` : i === 4 ? `${pct(cuts[3])} and up` : `${pct(cuts[i - 1])}–${pct(cuts[i])}`}
+              </li>
+            ))}
+            <li>
+              <span className="ea-sw ea-sw-outline" />
+              The 17 focus counties and Travis
+            </li>
+          </ul>
+        </div>
+        <div className="ea-map">
+          <svg
+            viewBox={`0 0 ${width} ${height}`}
+            role="img"
+            aria-label={`Map of Texas counties shaded by ${measure.label.toLowerCase()}. The values are in the tables below.`}
+            onPointerLeave={() => setPicked(null)}
+          >
+            {counties.map((g) => (
+              <path
+                key={g}
+                d={paths[g]}
+                fill={STEP_FILL[stepOf(values.get(g)!)]}
+                className="ea-map-county"
+                onPointerEnter={() => setPicked(g)}
+                onPointerDown={() => setPicked(g)}
+              />
+            ))}
+            {CORE.filter((g) => paths[g]).map((g) => (
+              <path key={`focus-${g}`} d={paths[g]} className="ea-map-focus" />
+            ))}
+            {picked && <path d={paths[picked]} className="ea-map-picked" />}
+          </svg>
+        </div>
       </div>
-      <p className="ea-map-readout" aria-live="polite">
-        {picked ? (
-          <>
-            <strong>{picked}</strong> · {measure.label}: {pct(values.get(picked)!)}
-          </>
-        ) : (
-          "Point at or tap a county to read its value."
-        )}
-      </p>
-      <ul className="ea-map-legend" aria-label="Legend">
-        {STEP_FILL.map((fill, i) => (
-          <li key={fill}>
-            <span className="ea-sw" style={{ background: fill }} />
-            {i === 0 ? `Under ${pct(cuts[0])}` : i === 4 ? `${pct(cuts[3])} and up` : `${pct(cuts[i - 1])}–${pct(cuts[i])}`}
-          </li>
-        ))}
-        <li>
-          <span className="ea-sw ea-sw-outline" />
-          The 17 focus counties and Travis
-        </li>
-      </ul>
     </Panel>
   );
 }
