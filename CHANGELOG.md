@@ -28,6 +28,15 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Changed
+
+- The headline chart is one bar per place again: the 2026 early vote as a
+  share of all 2022 ballots, the last midterm, so the comparison is like for
+  like. The 2024 presidential comparison moves into the sentence above it and
+  stays in the tables.
+- On a wide screen the county map's measure selector and shading key sit in
+  a column to the left of the map; on a phone they stay above it.
+
 ## 2026-11-03
 
 ### Added
