@@ -28,6 +28,16 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+## 2026-11-04
+
+### Fixed
+
+- The live results keep showing a county when its results system briefly
+  fails. Clarity has been answering some requests with server errors under
+  election-night load; the site now retries those, and keeps the last good
+  copy of each county's file where every server sees it, so a server that has
+  just started no longer shows that county blank.
+
 ## 2026-11-03
 
 ### Added
