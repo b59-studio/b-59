@@ -78,6 +78,9 @@ export function MobileMenu({ open, onNavigate }: MobileMenuProps) {
       <Link href="/research/2026-election-analysis" className="nav-mobile-link" onClick={onNavigate}>
         {t("electionAnalysis2026")}
       </Link>
+      <Link href="/research/2026-polls" className="nav-mobile-link" onClick={onNavigate}>
+        {t("polls2026")}
+      </Link>
 
       {/* Headed like the groups above it, or these read as more Research links. */}
       <span className="nav-mobile-heading">{t("about")}</span>

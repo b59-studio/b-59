@@ -1611,6 +1611,10 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
 .ea-verdict-big { font-size: 1.125rem; font-weight: 700; line-height: 1.4; }
 .ea-lock { display: grid; gap: 0.75rem; max-width: 24rem; }
 
+/* Poll trend chart: a poll's dot is neutral in the legend, party-coloured in the plot. */
+.ea-sw-dot { width: 9px; height: 9px; border-radius: 50%; background: color-mix(in srgb, var(--ea-fg) 35%, transparent); }
+.ea-table td .ea-why { display: inline-block; max-width: 11rem; white-space: normal; font-size: 0.8rem; text-align: right; }
+
 /* Option pills: real radios, every choice visible (standards/42). Selection is
    carried by fill and weight, not colour alone. */
 .ea-seg { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin: 0; padding: 0; border: 0; }

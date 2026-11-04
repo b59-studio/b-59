@@ -189,6 +189,14 @@ export default function Header() {
                       >
                         {t("electionAnalysis2026")}
                       </Link>
+                      <Link
+                        href="/research/2026-polls"
+                        className="nav-dropdown-item"
+                        role="menuitem"
+                        onClick={() => setResearchOpen(false)}
+                      >
+                        {t("polls2026")}
+                      </Link>
                     </div>
                   )}
                 </div>
