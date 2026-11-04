@@ -28,6 +28,8 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+## 2026-11-04
+
 ### Fixed
 
 - The live results keep showing a county when its results system briefly
