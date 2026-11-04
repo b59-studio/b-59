@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { fmt, margin, pct, points } from "@/lib/election-2026/live";
-import { BY_GEOGRAPHY, DATA, MIDTERMS, race, raceMargin, shade, SHORT_OFFICE, TOP_OF_TICKET, YEARS } from "./data";
+import { TRACKERS } from "@/lib/election-2026/electionlink";
+import { BY_GEOGRAPHY, CORE, DATA, MIDTERMS, race, raceMargin, shade, SHORT_OFFICE, TOP_OF_TICKET, YEARS } from "./data";
 import { FilterPick, Note, Panel, usePanelExpanded } from "./parts";
 import { GeoTable, SortTh } from "./GeoTable";
 
@@ -310,6 +311,12 @@ export function RacesPanel() {
   );
 }
 
+/** Tracker counties outside the 17 and the Travis benchmark, as prose. */
+const referenceTrackers = (() => {
+  const names = TRACKERS.map((t) => t.name).filter((g) => !CORE.includes(g));
+  return names.length > 1 ? `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}` : names.join("");
+})();
+
 export function MethodPanel() {
   const a = (href: string, text: string) => (
     <a className="ea-link" href={href} target="_blank" rel="noopener noreferrer">
@@ -332,8 +339,13 @@ export function MethodPanel() {
         <p>
           Turnout is ballots cast as a share of registered voters. The 2026 early vote is the final count of in-person
           and mail ballots through October 30. Live figures add the state’s mail-ballot count to each county tracker’s
-          in-person check-ins, early and election day; they are unofficial and are reread every 15 minutes. Five of
-          the 17 counties publish a tracker. McLennan and Madison also do, and are shown for reference.
+          in-person check-ins, early and election day; they are unofficial and are reread every 15 minutes. Live
+          figures come from ElectionLink turnout trackers, the only election-day check-in counts Texas counties
+          publish in a form the page can read. On election day we checked every county for one; {TRACKERS.length}{" "}
+          publish it: four of the 17 (Bell, Montgomery, Ellis and Hockley), the Travis benchmark, and{" "}
+          {referenceTrackers}, shown for reference. The other {254 - TRACKERS.length} counties, including Harris, Dallas,
+          Bexar, Tarrant, Collin, Denton, El Paso, Hidalgo and Williamson, publish no live check-in count, so they
+          show the early vote only until results arrive.
         </p>
         <p>
           Grey shading shows turnout. Blue and red appear only on partisan measures: margins and primary share.
@@ -351,7 +363,11 @@ export function MethodPanel() {
             {a("https://goelect.txelections.civixapps.com/ivis-evr-ui/evr", "early-voting turnout by county")}. Final
             2026 primary totals were not yet published.
           </li>
-          <li>Election day: each county’s ElectionLink turnout tracker.</li>
+          <li>
+            Election day: each county’s ElectionLink turnout tracker ({TRACKERS.map((t) => t.name).join(", ")}),
+            at updates.electionlink.net: ballots cast from its summary page, check-ins by hour from its hourly table.
+            A county whose tracker cannot be read drops out of the live tables until the next read.
+          </li>
           <li>
             Demographics: Census Bureau{" "}
             {a("https://www.census.gov/data/tables/time-series/demo/popest/2020s-counties-detail.html", "2024 county characteristics estimates")}{" "}

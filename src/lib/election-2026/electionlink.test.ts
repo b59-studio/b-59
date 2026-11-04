@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "@jest/globals";
-import { parseHourly, parseSummary, type TrackerReading } from "./electionlink";
+import { parseHourly, parseSummary, stateEarlyVote, TRACKERS, type TrackerReading } from "./electionlink";
 import { hourCentral, liveFigures, margin, pct, points } from "./live";
 
 const fixture = (name: string) => fs.readFileSync(path.join(__dirname, "__fixtures__", name), "utf8");
@@ -11,6 +11,13 @@ describe("parseSummary", () => {
     expect(parseSummary(fixture("travis_BallotTypeTurnout.html"))).toEqual({
       ballots: 475853,
       refreshed: "2026-11-03T18:37:57Z",
+    });
+  });
+
+  it("reads the Hays widget, which reports no eligible voters", () => {
+    expect(parseSummary(fixture("hays_BallotTypeTurnout.html"))).toEqual({
+      ballots: 114023,
+      refreshed: "2026-11-04T00:55:33Z",
     });
   });
 
@@ -35,8 +42,29 @@ describe("parseHourly", () => {
     expect(rows).toEqual([[7, 10], [12, 5], [19, 3]]);
   });
 
+  it("reads the Hays table, whose 7 PM close row is zero", () => {
+    const rows = parseHourly(fixture("hays_CheckinsPerHourTable.csv"), "2026-11-03");
+    expect(rows).toHaveLength(13);
+    expect(rows[0]).toEqual([7, 1762]);
+    expect(rows.reduce((a, [, v]) => a + v, 0)).toBe(20056);
+  });
+
   it("returns nothing for a day the file does not hold", () => {
     expect(parseHourly(csv, "2024-11-05")).toEqual([]);
+  });
+});
+
+describe("stateEarlyVote", () => {
+  it("reads a county's final early vote from the state file", () => {
+    expect(stateEarlyVote("Travis")).toEqual({ registered: 945505, evInPerson: 427686, mail: 16221 });
+  });
+
+  it("has a figure for every tracker county", () => {
+    for (const { name } of TRACKERS) expect(stateEarlyVote(name)).not.toBeNull();
+  });
+
+  it("returns null for a name the file does not hold", () => {
+    expect(stateEarlyVote("Nowhere")).toBeNull();
   });
 });
 

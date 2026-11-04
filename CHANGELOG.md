@@ -28,6 +28,20 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Added
+
+- **Hays County's live election-day tracker in the 2026 election analysis.**
+  Every Texas county was checked for a live election-day turnout tracker;
+  Hays is the one new county that publishes one, and it now appears beside
+  Travis, Bell, Montgomery, Ellis, Hockley, McLennan and Madison. The Method
+  section names the source and says that the other 246 counties publish no
+  live check-in count.
+
+### Fixed
+
+- The Method section said five of the 17 focus counties publish a tracker;
+  four do (Bell, Montgomery, Ellis and Hockley).
+
 ## 2026-11-03
 
 ### Added
