@@ -1575,15 +1575,14 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
 .ea-bars-state .ea-bars-name { font-weight: 700; }
 .ea-bars-bench .ea-bars-name { font-weight: 400; color: var(--ea-muted); }
 .ea-bars-name { font-size: 0.875rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-inline-end: 0.75rem; }
-/* Two lines per place, one per year, on one scale. The track's padding holds
-   the value label, so the scale is the width without it. */
-.ea-bars-pair { display: grid; gap: 0.125rem; }
+/* One bar per place. The track's padding holds the value label, so the
+   scale is the width without it. */
 .ea-bars-track { display: flex; align-items: center; gap: 0.375rem; padding-inline-end: var(--ea-vw); }
-.ea-bars-line { flex: none; height: 0.375rem; border-radius: 0 3px 3px 0; }
-.ea-y2022 { background: color-mix(in srgb, var(--ea-fg) 62%, var(--ea-panel)); }
-.ea-y2024 { background: var(--color-b59-blue); }
-.ea-sw-line { width: 18px; height: 6px; vertical-align: 1px; }
-.ea-bars-val { position: relative; z-index: 2; flex: none; padding-inline: 2px; border-radius: 2px; background: var(--ea-panel); font-size: 0.8rem; line-height: 1.2; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ea-bars-bar { flex: none; height: 0.875rem; border-radius: 0 4px 4px 0; background: color-mix(in srgb, var(--ea-fg) 55%, var(--ea-panel)); }
+.ea-bars-state .ea-bars-bar { background: var(--ea-fg); }
+.ea-bars-bench .ea-bars-bar { background: color-mix(in srgb, var(--ea-fg) 28%, var(--ea-panel)); }
+.ea-bars-row:hover .ea-bars-bar { background: var(--color-b59-blue); }
+.ea-bars-val { position: relative; z-index: 2; flex: none; padding-inline: 2px; border-radius: 2px; background: var(--ea-panel); font-size: 0.875rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .ea-bars-row:hover .ea-bars-val { background: transparent; }
 /* --ea-ref is the 100% mark as a 0–1 fraction of the scale. */
 .ea-bars-ref { position: absolute; z-index: 1; top: 0; bottom: 0; left: calc(var(--ea-lw) + (100% - var(--ea-lw) - var(--ea-vw)) * var(--ea-ref)); width: 0; border-left: 1px dashed var(--ea-muted); pointer-events: none; }
@@ -1640,7 +1639,16 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
 
 /* County map. Shading is one neutral hue; the hover and tap highlight is
    B-59 blue, and the 17 focus counties carry a darker outline. */
+.ea-map-layout { display: grid; gap: 1.25rem; align-items: start; }
+.ea-map-side { display: grid; gap: 1rem; align-content: start; min-width: 0; }
 .ea-map { width: 100%; max-width: 46rem; margin-inline: auto; }
+@media (min-width: 768px) {
+  .ea-map-layout { grid-template-columns: minmax(13rem, 16rem) 1fr; }
+  .ea-map-side .ea-seg { flex-direction: column; align-items: stretch; }
+  .ea-map-side .ea-seg legend { float: none; margin-bottom: 0.25rem; }
+  .ea-map-side .ea-seg-option span { width: 100%; }
+  .ea-map-side .ea-map-legend { flex-direction: column; }
+}
 .ea-map svg { display: block; width: 100%; height: auto; touch-action: manipulation; }
 .ea-map-county { stroke: var(--ea-panel); stroke-width: 0.6; vector-effect: non-scaling-stroke; cursor: pointer; }
 .ea-map-focus { fill: none; stroke: var(--ea-fg); stroke-width: 1.2; vector-effect: non-scaling-stroke; pointer-events: none; }

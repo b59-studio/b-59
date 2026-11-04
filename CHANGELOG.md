@@ -28,6 +28,8 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+## 2026-11-03
+
 ### Added
 
 - **A polling page in the Research menu: 2026 Texas polls.** It averages the
@@ -39,11 +41,6 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   page: each pollster's latest poll from the last 30 days, weighted toward
   newer and larger polls. An Exit polls tab sits beside it for results after
   the polls close.
-
-## 2026-11-03
-
-### Added
-
 - **A Demographics tab in the 2026 election analysis**, built only from
   public sources: a county map of Texas that shades by early turnout, early
   vote against 2022, Hispanic-surname voters or Hispanic residents; a table of
@@ -77,6 +74,12 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ### Changed
 
+- The headline chart is one bar per place again: the 2026 early vote as a
+  share of all 2022 ballots, the last midterm, so the comparison is like for
+  like. The 2024 presidential comparison moves into the sentence above it and
+  stays in the tables.
+- On a wide screen the county map's measure selector and shading key sit in
+  a column to the left of the map; on a phone they stay above it.
 - The headline chart draws two plain lines for each place, one for its
   share of 2022 turnout and one for 2024, each labelled with its value, with
   the state as a whole on top. It replaces the shaded bar with a mark across
