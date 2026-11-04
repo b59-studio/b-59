@@ -8,7 +8,7 @@ import { unzipEntry } from "./zip";
 export const REFRESH_SECONDS = 120;
 
 const UA = { "User-Agent": "Mozilla/5.0 (compatible; b-59.com election results)" };
-const TIMEOUT_MS = 30_000;
+const TIMEOUT_MS = 15_000;
 const SOS_URL = "https://goelect.txelections.civixapps.com/api-ivis-system/api/s3/enr/election/countyInfo/53815";
 const HARRIS_BASE = "https://appfiles.harrisvotes.com/harrisvotes/prd/Data/1126/";
 
@@ -59,10 +59,44 @@ export type Snapshot = {
   counties: CountyReading[];
 };
 
-async function get(url: string): Promise<Response> {
-  const res = await fetch(url, { headers: UA, cache: "no-store", signal: AbortSignal.timeout(TIMEOUT_MS) });
-  if (!res.ok) throw new Error(`${res.status} from ${new URL(url).host}`);
-  return res;
+/**
+ * How a source file may be cached in Next's shared fetch cache, which every
+ * server instance sees, so one that has just started still has the last good
+ * copy when a source is failing:
+ * - "live": a small file that changes, held for one refresh interval;
+ * - "immutable": addressed by version, so it never changes;
+ * - "none": too large for the shared cache (its limit is 2 MB), read fresh.
+ */
+type Caching = "live" | "immutable" | "none";
+
+const ATTEMPTS = 3;
+const pause = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+/**
+ * Fetch a source file, retrying a server error or a dropped connection twice
+ * with a short backoff: on election night Clarity answers 502 now and then
+ * under load, and the next request usually succeeds.
+ */
+async function get(url: string, caching: Caching = "none"): Promise<Response> {
+  const init: RequestInit & { next?: { revalidate: number } } =
+    caching === "live"
+      ? { next: { revalidate: REFRESH_SECONDS } }
+      : caching === "immutable"
+        ? { cache: "force-cache" }
+        : { cache: "no-store" };
+  let last: unknown;
+  for (let attempt = 0; attempt < ATTEMPTS; attempt++) {
+    if (attempt) await pause(500 * 3 ** (attempt - 1));
+    try {
+      const res = await fetch(url, { ...init, headers: UA, signal: AbortSignal.timeout(TIMEOUT_MS) });
+      if (res.ok) return res;
+      last = new Error(`${res.status} from ${new URL(url).host}`);
+      if (res.status < 500) break; // a 4xx will not fix itself
+    } catch (error) {
+      last = error;
+    }
+  }
+  throw last;
 }
 
 const now = () => new Date().toISOString();
@@ -76,17 +110,17 @@ const harrisPrecinctCache = new Map<string, PrecinctDetail>();
 
 async function readClarity(source: Extract<Source, { system: "clarity" }>): Promise<ClarityResults & { readAt: string }> {
   const base = `https://results.enr.clarityelections.com/TX/${source.slug}/${source.electionId}/`;
-  const version = (await (await get(`${base}current_ver.txt`)).text()).trim();
+  const version = (await (await get(`${base}current_ver.txt`, "live")).text()).trim();
   const cached = clarityCache.get(source.county);
   if (cached?.version === version) return { ...cached.parsed, readAt: now() };
-  const zip = Buffer.from(await (await get(`${base}${version}/reports/detailxml.zip`)).arrayBuffer());
+  const zip = Buffer.from(await (await get(`${base}${version}/reports/detailxml.zip`, "immutable")).arrayBuffer());
   const parsed = parseClarity(unzipEntry(zip, "detail.xml").toString("utf8").replace(/^﻿/, ""));
   clarityCache.set(source.county, { version, parsed, readAt: now() });
   return { ...parsed, readAt: now() };
 }
 
 async function readHarris(): Promise<{ summary: HarrisSummary; readAt: string }> {
-  const summary = (await (await get(`${HARRIS_BASE}resultsbyballot.json`)).json()) as HarrisSummary;
+  const summary = (await (await get(`${HARRIS_BASE}resultsbyballot.json`, "live")).json()) as HarrisSummary;
   harrisCache = { summary, readAt: now() };
   return harrisCache;
 }
