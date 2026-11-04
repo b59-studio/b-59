@@ -36,6 +36,7 @@ const overrides: Record<string, RouteOverride> = {
   "/donate/success": { exclude: true }, // post-transaction confirmation, not for search engines
   "/research/2026-election-analysis": { priority: 0.8, changeFrequency: "daily" },
   "/research/2026-polls": { priority: 0.8, changeFrequency: "daily" },
+  "/research/2026-results": { priority: 0.9, changeFrequency: "hourly" },
   "/studio/win-calculator": { exclude: true }, // behind a password, for campaign teams
   "/about": { priority: 0.9 },
   "/about/inspirations": { priority: 0.8, changeFrequency: "yearly" },

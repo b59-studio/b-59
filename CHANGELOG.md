@@ -32,6 +32,15 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ### Added
 
+- **Live election results in the Research menu: 2026 Texas live results.**
+  Every race on the ballot in the 19 counties the analysis follows, from the
+  U.S. Senate down to local races, refreshed every two minutes. Each race
+  shows a statewide count, each county from its own results system (Clarity
+  for eight counties, HarrisVotes for Harris, the Secretary of State for the
+  ten that post only PDFs) with a link to it and the time it last updated,
+  and, where a county publishes them, its precincts by vote type. Any column
+  sorts, and each race downloads as a CSV of its statewide, county and
+  precinct figures. Results are unofficial until canvassed.
 - **Hays County's live election-day tracker in the 2026 election analysis.**
   Every Texas county was checked for a live election-day turnout tracker;
   Hays is the one new county that publishes one, and it now appears beside
