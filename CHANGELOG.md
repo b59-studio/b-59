@@ -47,6 +47,15 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   page: each pollster's latest poll from the last 30 days, weighted toward
   newer and larger polls. An Exit polls tab sits beside it for results after
   the polls close.
+- **An Exit polls tab on the 2026 polling page.** For the Texas Senate and
+  Governor races it sets the Edison Research exit poll (published by CNN, ABC
+  News, CBS News and NBC News) beside AP VoteCast, group by group: each
+  group's share of voters, the Democratic and Republican shares of its vote,
+  the margin, and the spread between the two surveys. Every figure carries the
+  time its source released it and a link back, and a second table follows a
+  group through the night as the surveys are reweighted. The surveys are not
+  averaged, because they reach voters differently, and B-59 shows only a fixed
+  set of headline groups, credited to each source, not the full crosstabs.
 - **A Demographics tab in the 2026 election analysis**, built only from
   public sources: a county map of Texas that shades by early turnout, early
   vote against 2022, Hispanic-surname voters or Hispanic residents; a table of

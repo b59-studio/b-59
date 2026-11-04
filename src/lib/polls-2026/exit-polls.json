@@ -1,0 +1,31 @@
+{
+  "sources": [
+    {
+      "id": "edison",
+      "name": "Edison Research exit poll",
+      "short": "Edison",
+      "publishers": "the National Election Pool: CNN, ABC News, CBS News and NBC News",
+      "url": "https://www.edisonresearch.com/election-polling/",
+      "method": "Interviews voters as they leave polling places on election day, with phone and online interviews of early and mail voters, weighted to the vote count as it comes in."
+    },
+    {
+      "id": "votecast",
+      "name": "AP VoteCast",
+      "short": "VoteCast",
+      "publishers": "The Associated Press, conducted by NORC at the University of Chicago",
+      "url": "https://apnews.com/hub/ap-votecast",
+      "method": "Surveys registered voters online and by phone over the last days of voting, from a probability sample of the voter file plus an opt-in panel, weighted to the vote count as it comes in."
+    }
+  ],
+  "races": [
+    {
+      "id": "senate",
+      "label": "U.S. Senate: Talarico (D) v. Paxton (R)"
+    },
+    {
+      "id": "governor",
+      "label": "Governor: Hinojosa (D) v. Abbott (R)"
+    }
+  ],
+  "releases": []
+}
