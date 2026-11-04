@@ -2,7 +2,7 @@
 
 import type { LiveFigures } from "@/lib/election-2026/live";
 import { fmt, pct, timeCentral } from "@/lib/election-2026/live";
-import { ballots2022, DATA, shade, YEARS } from "./data";
+import { ballots2022, ballots2024, DATA, shade, YEARS } from "./data";
 import { GeoTable, SortTh } from "./GeoTable";
 import { Note, Panel, TrackerLink } from "./parts";
 
@@ -20,17 +20,21 @@ export function TurnoutTable({ live, fetched }: { live: Map<string, LiveFigures>
     <Panel id="turnout" title="Turnout by county">
       <Note>
         Live figures add the state’s mail-ballot count to each tracker’s in-person check-ins, early and election day,
-        read at {timeCentral(fetched)} CT. 2026 early vote is final (in person and mail, through{" "}
+        read at {timeCentral(fetched)} CT, and set them against every ballot cast in the 2024 general. 2026 early vote is final (in person and mail, through{" "}
         {DATA.evAsOf.split(",")[0]}). Rates use registered voters.
         {trackedNames.length ? ` Live trackers: ${trackedNames.join(", ")}.` : ""}
       </Note>
       <GeoTable
-        columns={1 + 2 + 3 + RECENT.length}
+        columns={1 + 3 + 3 + RECENT.length}
         sort={{
           liveBallots: (g) => live.get(g)?.total,
           liveRate: (g) => {
             const L = live.get(g);
             return L ? L.total / L.registered : null;
+          },
+          liveOf2024: (g) => {
+            const L = live.get(g);
+            return L ? L.total / ballots2024(g) : null;
           },
           earlyBallots: (g) => DATA.ev[g][3],
           earlyRate: (g) => DATA.ev[g][3] / DATA.ev[g][0],
@@ -47,7 +51,7 @@ export function TurnoutTable({ live, fetched }: { live: Map<string, LiveFigures>
               <SortTh by="name" rowSpan={2}>
                 County
               </SortTh>
-              <th className="ea-grp ea-sep" colSpan={2}>
+              <th className="ea-grp ea-sep" colSpan={3}>
                 Live <span className="ea-src-tag">county trackers, unofficial</span>
               </th>
               <th className="ea-grp ea-sep" colSpan={3}>
@@ -62,6 +66,7 @@ export function TurnoutTable({ live, fetched }: { live: Map<string, LiveFigures>
                 Ballots
               </SortTh>
               <SortTh by="liveRate">% of registered</SortTh>
+              <SortTh by="liveOf2024">% of 2024 total</SortTh>
               <SortTh by="earlyBallots" className="ea-sep">
                 Ballots
               </SortTh>
@@ -87,10 +92,12 @@ export function TurnoutTable({ live, fetched }: { live: Map<string, LiveFigures>
                     <span className="ea-cnt">as of {timeCentral(L.refreshed)}</span>
                   </td>
                   <td style={turnoutShade(L.total / L.registered)}>{pct(L.total / L.registered)}</td>
+                  <td>{pct(L.total / ballots2024(g))}</td>
                 </>
               ) : (
                 <>
                   <td className="ea-sep ea-muted">—</td>
+                  <td />
                   <td />
                 </>
               )}

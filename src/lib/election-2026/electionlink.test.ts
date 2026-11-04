@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "@jest/globals";
 import { parseHourly, parseSummary, stateEarlyVote, TRACKERS, type TrackerReading } from "./electionlink";
-import { hourCentral, liveFigures, margin, pct, points } from "./live";
+import { hourCentral, liveFigures, margin, pct, points, versus2024, wholeElectionByHour } from "./live";
 
 const fixture = (name: string) => fs.readFileSync(path.join(__dirname, "__fixtures__", name), "utf8");
 
@@ -96,6 +96,41 @@ describe("liveFigures", () => {
 
   it("drops a county whose summary could not be read", () => {
     expect(liveFigures({ ...reading, ballots: null })).toBeNull();
+  });
+});
+
+describe("2026 against the whole 2024 election", () => {
+  const reading: TrackerReading = {
+    name: "Test",
+    ballots: 1350, // 1,000 early in person + 350 on election day
+    refreshed: "2026-11-03T21:30:00Z", // 3:30 PM Central
+    today: [[7, 100], [14, 200], [15, 50]],
+    prior: [[7, 120], [14, 180], [15, 300]],
+    sos: { registered: 5000, evInPerson: 1000, mail: 50 },
+    url: "https://example.test/",
+  };
+  const L = liveFigures(reading)!;
+
+  it("counts everything cast before election day", () => {
+    expect(L.beforeElectionDay).toBe(1050);
+  });
+
+  it("compares through the last complete hour, early vote included", () => {
+    // 2024: 2,000 ballots, 600 of them on election day, so 1,400 before it.
+    expect(versus2024(L, 2000)).toEqual({ now: 1050 + 300, then: 1400 + 300, ofTotal: 1400 / 2000 });
+  });
+
+  it("has no same-hour 2024 figure without a 2024 hourly table", () => {
+    const noPrior = liveFigures({ ...reading, prior: [] })!;
+    expect(versus2024(noPrior, 2000).then).toBeNull();
+    expect(wholeElectionByHour(noPrior, 2000, [7])[0].then).toBeNull();
+  });
+
+  it("runs each year's whole-election total by hour, ending 2024 on its final total", () => {
+    const rows = wholeElectionByHour(L, 2000, [7, 14, 19]);
+    expect(rows[0]).toEqual({ hour: 7, now: 1150, then: 1520 });
+    expect(rows[1]).toEqual({ hour: 14, now: 1350, then: 1700 });
+    expect(rows[2].then).toBe(2000);
   });
 });
 
