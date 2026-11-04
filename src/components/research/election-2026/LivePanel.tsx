@@ -6,6 +6,10 @@ import { ballots2022, CORE } from "./data";
 import { SortContext, SortTh, sortItems, useSortState } from "./GeoTable";
 import { DataTable, Note, Panel, TrackerLink } from "./parts";
 
+/** "A", "A and B", "A, B and C". */
+const listNames = (names: string[]) =>
+  names.length > 1 ? `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}` : (names[0] ?? "");
+
 const HOURS = Array.from({ length: 13 }, (_, i) => 7 + i);
 
 export function LivePanel({ live, order, fetched }: { live: Map<string, LiveFigures>; order: string[]; fetched: string }) {
@@ -25,7 +29,9 @@ export function LivePanel({ live, order, fetched }: { live: Map<string, LiveFigu
         <Note>
           Unofficial tracker check-ins plus the state’s mail-ballot count, read at {timeCentral(fetched)} CT. The last
           column compares election-day check-ins through the last full hour with the same hour in 2024.
-          {reference.length ? ` ${reference.join(" and ")} are not among the 17 focus counties.` : ""}
+          {reference.length
+            ? ` ${listNames(reference)} ${reference.length > 1 ? "are" : "is"} not among the 17 focus counties.`
+            : ""}
         </Note>
         <TrackerTotals live={live} names={names} />
       </Panel>

@@ -8,6 +8,8 @@
  * early-vote figures: the mail count is added on top to reach a running total.
  */
 
+import turnout from "@/data/election-2026/turnout.json";
+
 export const ELECTION_DAY = "2026-11-03";
 export const PRIOR_ELECTION_DAY = "2024-11-05";
 
@@ -20,7 +22,16 @@ const TIMEOUT_MS = 20_000;
 /** The Secretary of State's early-vote figures for a county, final as of Oct 30. */
 export type StateEarlyVote = { registered: number; evInPerson: number; mail: number };
 
-export type Tracker = { slug: string; name: string; sos: StateEarlyVote };
+export type Tracker = { slug: string; name: string };
+
+/** ev[county]: [registered, early in person, mail, total], from the state's final early-vote file. */
+const EARLY_VOTE = (turnout as unknown as { ev: Record<string, [number, number, number, number]> }).ev;
+
+/** The state's early-vote figures for a county, or null for a name the file does not hold. */
+export function stateEarlyVote(name: string): StateEarlyVote | null {
+  const row = EARLY_VOTE[name];
+  return row ? { registered: row[0], evInPerson: row[1], mail: row[2] } : null;
+}
 
 /** Hour of day (0–23, Central) and the check-ins recorded in it. */
 export type HourCount = [hour: number, checkins: number];
@@ -39,16 +50,19 @@ export type TrackerReading = {
 
 export type LiveSnapshot = { fetched: string; counties: TrackerReading[] };
 
-// Ordered as the page lists them. McLennan and Madison are not target counties
-// and are carried for reference.
+// Ordered as the page lists them. Hays, McLennan and Madison are not among the
+// 17 focus counties and are carried for reference. These are the only Texas
+// counties with a 2026 ElectionLink tracker: every county's <name>tx slug was
+// probed on election day and the rest return 404.
 export const TRACKERS: Tracker[] = [
-  { slug: "travistx", name: "Travis", sos: { registered: 945505, evInPerson: 427686, mail: 16221 } },
-  { slug: "belltx", name: "Bell", sos: { registered: 246817, evInPerson: 80141, mail: 3252 } },
-  { slug: "montgomerytx", name: "Montgomery", sos: { registered: 487323, evInPerson: 183345, mail: 8532 } },
-  { slug: "ellistx", name: "Ellis", sos: { registered: 159133, evInPerson: 68519, mail: 648 } },
-  { slug: "hockleytx", name: "Hockley", sos: { registered: 14373, evInPerson: 4407, mail: 162 } },
-  { slug: "mclennantx", name: "McLennan", sos: { registered: 161164, evInPerson: 56006, mail: 2692 } },
-  { slug: "madisontx", name: "Madison", sos: { registered: 8576, evInPerson: 2879, mail: 103 } },
+  { slug: "travistx", name: "Travis" },
+  { slug: "belltx", name: "Bell" },
+  { slug: "montgomerytx", name: "Montgomery" },
+  { slug: "ellistx", name: "Ellis" },
+  { slug: "hockleytx", name: "Hockley" },
+  { slug: "haystx", name: "Hays" },
+  { slug: "mclennantx", name: "McLennan" },
+  { slug: "madisontx", name: "Madison" },
 ];
 
 export function widgetUrl(slug: string, date: string, file = ""): string {
@@ -121,7 +135,9 @@ async function hourly(slug: string, date: string, revalidate: number): Promise<H
   }
 }
 
-async function readTracker({ slug, name, sos }: Tracker): Promise<TrackerReading> {
+async function readTracker({ slug, name }: Tracker): Promise<TrackerReading | null> {
+  const sos = stateEarlyVote(name);
+  if (!sos) return null;
   // The 2024 table no longer changes, so it is held for a day rather than refetched with the live one.
   const [summary, today, prior] = await Promise.all([
     getText(widgetUrl(slug, ELECTION_DAY, "BallotTypeTurnout.html"), LIVE_REVALIDATE_SECONDS)
@@ -138,6 +154,6 @@ async function readTracker({ slug, name, sos }: Tracker): Promise<TrackerReading
 
 /** Every tracker, read in parallel. A county that fails comes back with null ballots, not an error. */
 export async function fetchLiveSnapshot(): Promise<LiveSnapshot> {
-  const counties = await Promise.all(TRACKERS.map(readTracker));
+  const counties = (await Promise.all(TRACKERS.map(readTracker))).filter((c): c is TrackerReading => c !== null);
   return { fetched: new Date().toISOString().replace(/\.\d{3}Z$/, "Z"), counties };
 }
