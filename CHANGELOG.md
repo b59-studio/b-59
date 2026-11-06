@@ -28,6 +28,15 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Changed
+
+- The home page shows the work instead of a tagline. The three 2026 Texas
+  research pages and both products — ready2vote and Hotline — are now on the
+  first screen, each one click away, where before the page was a headline and
+  a "Learn More" button. It ends in a way to reach the studio by email. In
+  every language but English the research list says it is published in
+  English.
+
 ## 2026-11-04
 
 ### Fixed
