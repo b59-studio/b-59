@@ -60,9 +60,9 @@ export default async function Home() {
   const englishOnly = locale !== defaultLocale;
 
   const latest: Research[] = [
-    { href: "/research/2026-results", title: nav("results2026"), blurb: t("resultsBlurb") },
-    { href: "/research/2026-election-analysis", title: nav("electionAnalysis2026"), blurb: t("analysisBlurb") },
-    { href: "/research/2026-polls", title: nav("polls2026"), blurb: t("pollsBlurb") },
+    { href: "/research/2026-results", title: nav("results2026"), blurb: nav("results2026Sub") },
+    { href: "/research/2026-election-analysis", title: nav("electionAnalysis2026"), blurb: nav("electionAnalysis2026Sub") },
+    { href: "/research/2026-polls", title: nav("polls2026"), blurb: nav("polls2026Sub") },
   ];
 
   const products: Product[] = [

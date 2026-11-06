@@ -74,16 +74,22 @@ export function MobileMenu({ open, onNavigate }: MobileMenuProps) {
       <span className="nav-mobile-sub nav-mobile-sub-marked">{t("merchSub")}</span>
       */}
 
-      <span className="nav-mobile-heading">{t("research")}</span>
+      {/* Research, which today is all the 2026 elections work, headed by that name. */}
+      <span className="nav-mobile-heading">
+        {t("research")}: {t("elections2026")}
+      </span>
       <Link href="/research/2026-election-analysis" className="nav-mobile-link" onClick={onNavigate}>
         {t("electionAnalysis2026")}
       </Link>
+      <span className="nav-mobile-sub">{t("electionAnalysis2026Sub")}</span>
       <Link href="/research/2026-polls" className="nav-mobile-link" onClick={onNavigate}>
         {t("polls2026")}
       </Link>
+      <span className="nav-mobile-sub">{t("polls2026Sub")}</span>
       <Link href="/research/2026-results" className="nav-mobile-link" onClick={onNavigate}>
         {t("results2026")}
       </Link>
+      <span className="nav-mobile-sub">{t("results2026Sub")}</span>
 
       {/* Headed like the groups above it, or these read as more Research links. */}
       <span className="nav-mobile-heading">{t("about")}</span>

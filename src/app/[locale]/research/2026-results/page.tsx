@@ -12,12 +12,12 @@ import { getSnapshot } from "@/lib/results-2026/snapshot";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "2026 Texas Live Results",
+  title: "2026 Texas Election Results",
   description:
-    "Live, unofficial results of the November 3, 2026 Texas general election, race by race: statewide totals, 19 counties from their own results systems, and precinct detail where counties publish it.",
+    "Results of the November 3, 2026 Texas general election, unofficial until canvassed, race by race: statewide totals, 19 counties from their own results systems, and precinct detail where counties publish it.",
   alternates: { canonical: "/research/2026-results" },
   openGraph: {
-    title: "2026 Texas Live Results | B-59",
+    title: "2026 Texas Election Results | B-59",
     description: "Race-by-race results for Texas, by county and precinct, refreshed every two minutes.",
     url: "/research/2026-results",
   },
@@ -36,7 +36,7 @@ export default async function Results2026() {
           {t("englishOnly")}
         </p>
       )}
-      <ResultsView index={index} initial={{ readAt: snapshot.readAt, race, counties: countyStatuses(snapshot) }} />
+      <ResultsView index={index} initial={{ readAt: snapshot.readAt, official: snapshot.official, race, counties: countyStatuses(snapshot) }} />
     </div>
   );
 }

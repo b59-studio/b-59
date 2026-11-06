@@ -180,30 +180,40 @@ export default function Header() {
                   </button>
 
                   {researchOpen && (
-                    <div className="nav-mega-menu nav-mega-menu-narrow" role="menu">
+                    <div className="nav-mega-menu" role="menu">
+                      <p className="nav-mega-heading">{t("elections2026")}</p>
                       <Link
                         href="/research/2026-election-analysis"
-                        className="nav-dropdown-item"
+                        className="nav-mega-item"
                         role="menuitem"
                         onClick={() => setResearchOpen(false)}
                       >
-                        {t("electionAnalysis2026")}
+                        <span className="nav-mega-item-text">
+                          <span className="nav-mega-item-name">{t("electionAnalysis2026")}</span>
+                          <span className="nav-mega-item-sub">{t("electionAnalysis2026Sub")}</span>
+                        </span>
                       </Link>
                       <Link
                         href="/research/2026-polls"
-                        className="nav-dropdown-item"
+                        className="nav-mega-item"
                         role="menuitem"
                         onClick={() => setResearchOpen(false)}
                       >
-                        {t("polls2026")}
+                        <span className="nav-mega-item-text">
+                          <span className="nav-mega-item-name">{t("polls2026")}</span>
+                          <span className="nav-mega-item-sub">{t("polls2026Sub")}</span>
+                        </span>
                       </Link>
                       <Link
                         href="/research/2026-results"
-                        className="nav-dropdown-item"
+                        className="nav-mega-item"
                         role="menuitem"
                         onClick={() => setResearchOpen(false)}
                       >
-                        {t("results2026")}
+                        <span className="nav-mega-item-text">
+                          <span className="nav-mega-item-name">{t("results2026")}</span>
+                          <span className="nav-mega-item-sub">{t("results2026Sub")}</span>
+                        </span>
                       </Link>
                     </div>
                   )}
