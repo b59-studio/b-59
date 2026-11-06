@@ -335,6 +335,22 @@ export function MethodPanel() {
           Travis County next as a benchmark. After the 17, the remaining counties follow by population, using the
           Census Bureau’s 2024 estimates.
         </p>
+        <h3 className="ea-subhead">What is final</h3>
+        <ul className="ea-src">
+          <li>
+            <strong>Final:</strong> the 2026 early vote (in person and mail, through October 30), and every result from 2016
+            to 2024.
+          </li>
+          <li>
+            <strong>Unofficial:</strong> the 2026 results and turnout. They are each county’s complete election-night
+            count, read from the Texas Secretary of State, and can still change until counties canvass and the state
+            certifies them. The page says so where they appear, and says when they become official.
+          </li>
+          <li>
+            <strong>As of election night:</strong> the county trackers’ hour-by-hour check-ins on the Election day tab.
+            They are poll-book counts, not results, and they stopped on November 3.
+          </li>
+        </ul>
         <h3 className="ea-subhead">Measures</h3>
         <p>
           Turnout is ballots cast as a share of registered voters. The 2026 early vote is the final count of in-person
@@ -362,6 +378,10 @@ export function MethodPanel() {
             2026 early vote and March 2026 primary early vote: Texas Secretary of State,{" "}
             {a("https://goelect.txelections.civixapps.com/ivis-evr-ui/evr", "early-voting turnout by county")}. Final
             2026 primary totals were not yet published.
+          </li>
+          <li>
+            2026 results and turnout: the Texas Secretary of State’s county-by-race results, read as counties update
+            them. Past results compared with them are the Legislative Council figures above.
           </li>
           <li>
             Election day: each county’s ElectionLink turnout tracker ({TRACKERS.map((t) => t.name).join(", ")}),

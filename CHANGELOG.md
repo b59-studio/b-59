@@ -28,6 +28,33 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Added
+
+- **The 2026 research pages compare against past years and against the
+  forecasts.** The election analysis opens on a new "2026 vs past years" tab:
+  each county's 2026 turnout against 2022, 2018 and 2024, in points and in
+  ballots, and the Democratic–Republican margin for the top of the ticket,
+  the U.S. Senate, Governor, Railroad Commissioner and Comptroller against
+  each earlier race for that office, with the shift and the change in each
+  party's votes. The polls page gains a "Polls vs results" tab setting each
+  race's final poll average, and each poll in it, against the result, and the
+  win calculator's election-day assumption against what election day added.
+
+### Changed
+
+- The research pages say plainly which numbers are final. The 2026 results
+  and turnout are each county's complete election-night count, unofficial
+  until canvassed; each county on the results page shows its status and the
+  date its figures were last updated, with links to the precinct reports
+  Collin, Starr and Willacy have posted. The pages read the state's count as
+  it moves toward canvass, and will say so when the state certifies it.
+- The analysis page's headline figures and main turnout table show 2026's
+  final count instead of election-night tracker readings, which stay on the
+  Election day tab.
+- The Research menu groups the 2026 work under one heading, 2026 Elections:
+  the analysis, the polls and the results, each with a line on what it holds.
+  "2026 Live Results" is now "2026 Results".
+
 ### Fixed
 
 - The live results now show how many ballots Harris County has counted, and

@@ -4,6 +4,7 @@ import type { LiveFigures } from "@/lib/election-2026/live";
 import { fmt, pct, timeCentral } from "@/lib/election-2026/live";
 import { ballots2022, ballots2024, DATA, shade, YEARS } from "./data";
 import { GeoTable, SortTh } from "./GeoTable";
+import { useFinal } from "./YearOverYear";
 import { Note, Panel, TrackerLink } from "./parts";
 
 /** Past generals shown beside the 2026 numbers; the full run is under Turnout history. */
@@ -12,29 +13,42 @@ const RECENT = ["2020", "2022", "2024"];
 /** Turnout shading: 20% of registered voters is unshaded, 70% is the darkest step. */
 const turnoutShade = (rate: number) => shade("ink", (rate - 0.2) / 0.5);
 
-/** The headline table: live tracker counts where a county publishes one, the early vote, recent turnout. */
+/**
+ * The headline table: each county's 2026 count (unofficial, from the state),
+ * the early vote, and recent turnout. Before the state has a count, the
+ * election-day trackers stand in where a county publishes one.
+ */
 export function TurnoutTable({ live, fetched }: { live: Map<string, LiveFigures>; fetched: string }) {
   const trackedNames = [...live.keys()];
+  const final = useFinal();
+  // Ballots and registration for the 2026 column group: the state's count, or a tracker reading.
+  const result = (g: string): { ballots: number; registered: number; note: string } | null => {
+    const f = final?.geos[g];
+    if (f?.ballots) return { ballots: f.ballots, registered: f.registered, note: "unofficial" };
+    const L = live.get(g);
+    return L ? { ballots: L.total, registered: L.registered, note: `tracker, ${timeCentral(L.refreshed)}` } : null;
+  };
 
   return (
     <Panel id="turnout" title="Turnout by county">
       <Note>
-        Live figures add the state’s mail-ballot count to each tracker’s in-person check-ins, early and election day,
-        read at {timeCentral(fetched)} CT, and set them against every ballot cast in the 2024 general. 2026 early vote is final (in person and mail, through{" "}
-        {DATA.evAsOf.split(",")[0]}). Rates use registered voters.
-        {trackedNames.length ? ` Live trackers: ${trackedNames.join(", ")}.` : ""}
+        {final
+          ? "The 2026 count is each county’s complete election-night count from the Texas Secretary of State, unofficial until canvassed. "
+          : `The 2026 columns are election-day tracker readings, read at ${timeCentral(fetched)} CT, plus the state’s mail count. `}
+        The 2026 early vote is final (in person and mail, through {DATA.evAsOf.split(",")[0]}). Rates use registered voters.
+        {trackedNames.length ? ` Counties with an election-day tracker: ${trackedNames.join(", ")}.` : ""}
       </Note>
       <GeoTable
         columns={1 + 3 + 3 + RECENT.length}
         sort={{
-          liveBallots: (g) => live.get(g)?.total,
+          liveBallots: (g) => result(g)?.ballots,
           liveRate: (g) => {
-            const L = live.get(g);
-            return L ? L.total / L.registered : null;
+            const r = result(g);
+            return r ? r.ballots / r.registered : null;
           },
           liveOf2024: (g) => {
-            const L = live.get(g);
-            return L ? L.total / ballots2024(g) : null;
+            const r = result(g);
+            return r ? r.ballots / ballots2024(g) : null;
           },
           earlyBallots: (g) => DATA.ev[g][3],
           earlyRate: (g) => DATA.ev[g][3] / DATA.ev[g][0],
@@ -52,7 +66,7 @@ export function TurnoutTable({ live, fetched }: { live: Map<string, LiveFigures>
                 County
               </SortTh>
               <th className="ea-grp ea-sep" colSpan={3}>
-                Live <span className="ea-src-tag">county trackers, unofficial</span>
+                2026 result <span className="ea-src-tag">{final ? "unofficial, Texas SOS" : "county trackers, unofficial"}</span>
               </th>
               <th className="ea-grp ea-sep" colSpan={3}>
                 2026 early vote <span className="ea-src-tag">Texas SOS</span>
@@ -82,17 +96,17 @@ export function TurnoutTable({ live, fetched }: { live: Map<string, LiveFigures>
         }
         cells={(g) => {
           const [reg, , , total] = DATA.ev[g];
-          const L = live.get(g);
+          const r = result(g);
           return (
             <>
-              {L ? (
+              {r ? (
                 <>
                   <td className="ea-sep">
-                    <strong>{fmt(L.total)}</strong>
-                    <span className="ea-cnt">as of {timeCentral(L.refreshed)}</span>
+                    <strong>{fmt(r.ballots)}</strong>
+                    {!final && <span className="ea-cnt">{r.note}</span>}
                   </td>
-                  <td style={turnoutShade(L.total / L.registered)}>{pct(L.total / L.registered)}</td>
-                  <td>{pct(L.total / ballots2024(g))}</td>
+                  <td style={turnoutShade(r.ballots / r.registered)}>{pct(r.ballots / r.registered)}</td>
+                  <td>{pct(r.ballots / ballots2024(g))}</td>
                 </>
               ) : (
                 <>

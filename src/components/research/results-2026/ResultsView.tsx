@@ -3,11 +3,11 @@
 import { useEffect, useId, useState, useSyncExternalStore } from "react";
 import { SortContext, SortTh, sortItems, useSortState } from "@/components/research/election-2026/GeoTable";
 import { DataTable, FilterPick, Note, Panel, Stat } from "@/components/research/election-2026/parts";
-import { fmt, pct, timeCentral } from "@/lib/election-2026/live";
+import { dateTimeCentral, fmt, pct, timeCentral } from "@/lib/election-2026/live";
 import type { Column, CountyStatus, RaceDetail, RaceRow, RaceSummary } from "@/lib/results-2026/present";
 import type { PrecinctDetail } from "@/lib/results-2026/types";
 
-type Payload = { readAt: string; race: RaceDetail | null; counties: CountyStatus[] };
+type Payload = { readAt: string; official: boolean; race: RaceDetail | null; counties: CountyStatus[] };
 
 const REFRESH_MS = 120_000;
 
@@ -16,7 +16,12 @@ const partyFill = (party: string) =>
   party === "DEM" ? "var(--ea-dem)" : party === "REP" ? "var(--ea-rep)" : "color-mix(in srgb, var(--ea-fg) 45%, var(--ea-panel))";
 
 /** A source's own update stamp: Harris gives ISO time, Clarity a local string. */
-const stamp = (s: string | null) => (!s ? "—" : /^\d{4}-\d\d-\d\dT/.test(s) ? `${timeCentral(s)} CT` : s.replace(/^\d+\/\d+\/\d{4}\s+/, ""));
+const stamp = (s: string | null) => {
+  if (!s) return "—";
+  if (/^\d{4}-\d\d-\d\dT/.test(s)) return `${dateTimeCentral(s)} CT`;
+  // Clarity's own stamp, "11/4/2026 3:34:48 AM CST": drop the year and the seconds.
+  return s.replace(/^(\d+\/\d+)\/\d{4}\s+(\d+:\d\d):\d\d/, "$1 $2");
+};
 
 const keyFromHash = () => {
   const m = window.location.hash.match(/^#race=(.+)$/);
@@ -86,14 +91,15 @@ export function ResultsView({ index, initial }: { index: RaceSummary[]; initial:
     <div className="ea" lang="en" dir="ltr">
       <header className="ea-head">
         <p className="ea-dateline">Research · Texas general election, Nov. 3, 2026</p>
-        <h1 className="ea-h1">Texas 2026: live results</h1>
+        <h1 className="ea-h1">Texas 2026: results</h1>
         <p className="ea-byline">
-          Unofficial · read from each county’s results system and the Texas Secretary of State every two minutes · last
-          read {timeCentral(data.readAt)} CT{loading ? " · updating…" : ""}
+          Read from each county’s results system and the Texas Secretary of State every two minutes · last read{" "}
+          {dateTimeCentral(data.readAt)} CT{loading ? " · updating…" : ""}
         </p>
+        <p className="ea-lede">{statusLine(data)}</p>
         {failed && (
           <p role="alert" className="ea-note ea-error">
-            The latest update could not be loaded. The figures below are from {timeCentral(data.readAt)} CT; the page
+            The latest update could not be loaded. The figures below are from {dateTimeCentral(data.readAt)} CT; the page
             tries again in two minutes.
           </p>
         )}
@@ -127,7 +133,7 @@ export function ResultsView({ index, initial }: { index: RaceSummary[]; initial:
       {race ? (
         <>
           {race.statewide && <Statewide race={race} />}
-          <CountyTable race={race} onPrecincts={setPrecinctCounty} open={precinctCounty} />
+          <CountyTable race={race} statuses={data.counties} onPrecincts={setPrecinctCounty} open={precinctCounty} />
           {precinctCounty && <PrecinctPanel key={`${race.key}|${precinctCounty}`} race={race} county={precinctCounty} readAt={data.readAt} />}
         </>
       ) : (
@@ -137,6 +143,16 @@ export function ResultsView({ index, initial }: { index: RaceSummary[]; initial:
       <SourcesPanel counties={data.counties} />
     </div>
   );
+}
+
+/** Which figures are final, said plainly. */
+function statusLine(data: Payload): string {
+  if (data.official) return "Official: the Texas Secretary of State has canvassed these results.";
+  const canvassed = data.counties.filter((c) => c.status === "Canvassed").map((c) => c.county);
+  const counties = canvassed.length
+    ? `${canvassed.join(", ")} ${canvassed.length === 1 ? "has" : "have"} canvassed; the other ${data.counties.length - canvassed.length} followed counties have not.`
+    : "No followed county has canvassed yet.";
+  return `Unofficial. These are the counties’ complete election-night counts, which can still change until each county canvasses its results and the state certifies them. ${counties}`;
 }
 
 function Statewide({ race }: { race: RaceDetail }) {
@@ -168,7 +184,17 @@ function Statewide({ race }: { race: RaceDetail }) {
   );
 }
 
-function CountyTable({ race, onPrecincts, open }: { race: RaceDetail; onPrecincts: (c: string | null) => void; open: string | null }) {
+function CountyTable({
+  race,
+  statuses,
+  onPrecincts,
+  open,
+}: {
+  race: RaceDetail;
+  statuses: CountyStatus[];
+  onPrecincts: (c: string | null) => void;
+  open: string | null;
+}) {
   const sort = useSortState();
   const value = (r: RaceRow): number | string | null => {
     if (!sort.by) return null;
@@ -249,7 +275,10 @@ function CountyTable({ race, onPrecincts, open }: { race: RaceDetail; onPrecinct
                   {r.system}
                   <span className="sr-only"> (opens in a new tab)</span>
                 </a>
-                <span className="ea-cnt">{r.updated ? stamp(r.updated) : `read ${timeCentral(r.readAt)} CT`}</span>
+                <span className="ea-cnt">
+                  {statuses.find((c) => c.county === r.county)?.status ?? "Unofficial"} ·{" "}
+                  {r.updated ? stamp(r.updated) : `read ${dateTimeCentral(r.readAt)} CT`}
+                </span>
               </td>
               <td>
                 {r.hasPrecincts && (
@@ -391,11 +420,12 @@ function SourcesPanel({ counties }: { counties: CountyStatus[] }) {
           <tr>
             <th>County</th>
             <th>System</th>
+            <th>Status</th>
             <th>Its last update</th>
             <th>Ballots counted</th>
             <th>Reporting</th>
             <th>Read here (CT)</th>
-            <th>Results page</th>
+            <th>Results</th>
           </tr>
         }
       >
@@ -403,18 +433,31 @@ function SourcesPanel({ counties }: { counties: CountyStatus[] }) {
           <tr key={c.county}>
             <td>{c.county}</td>
             <td>{c.system}</td>
+            <td>
+              {c.status}
+              {c.canvassUrl && (
+                <a className="ea-cnt ea-link" href={c.canvassUrl} target="_blank" rel="noopener noreferrer">
+                  Canvass report<span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              )}
+            </td>
             <td>{stamp(c.updated)}</td>
             <td>{c.ballots ? fmt(c.ballots) : "—"}</td>
             <td>{c.reporting ?? "—"}</td>
             <td>
-              {timeCentral(c.readAt)}
+              {dateTimeCentral(c.readAt)}
               {c.error && <span className="ea-cnt ea-error">Last read failed; showing the previous reading</span>}
             </td>
             <td>
               <a className="ea-link" href={c.resultsUrl} target="_blank" rel="noopener noreferrer">
-                Open
-                <span className="sr-only"> {c.county} results (opens in a new tab)</span>
+                Results page
+                <span className="sr-only"> for {c.county} (opens in a new tab)</span>
               </a>
+              {c.precinctPdf && (
+                <a className="ea-cnt ea-link" href={c.precinctPdf} target="_blank" rel="noopener noreferrer">
+                  Precinct report (PDF)<span className="sr-only"> for {c.county}, opens in a new tab</span>
+                </a>
+              )}
             </td>
           </tr>
         ))}

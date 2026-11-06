@@ -12,7 +12,7 @@ export async function GET(request: Request) {
   const race = raceDetail(snapshot, key);
   if (!race) return NextResponse.json({ error: "No such race." }, { status: 404 });
   return NextResponse.json(
-    { readAt: snapshot.readAt, race, counties: countyStatuses(snapshot) },
+    { readAt: snapshot.readAt, official: snapshot.official, race, counties: countyStatuses(snapshot) },
     // Shared caches may hold it for half a refresh; the sources are read at most every REFRESH_SECONDS anyway.
     { headers: { "Cache-Control": `public, s-maxage=${REFRESH_SECONDS / 2}, stale-while-revalidate=${REFRESH_SECONDS}` } },
   );

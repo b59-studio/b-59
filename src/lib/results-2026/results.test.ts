@@ -4,8 +4,9 @@ import { describe, expect, it } from "@jest/globals";
 import { parseClarity } from "./clarity";
 import { harrisBallots, harrisContests, harrisPrecincts, type HarrisPrecinctFile, type HarrisSummary } from "./harris";
 import { cleanChoice, countyName, normParty, raceKey, splitParty } from "./normalize";
-import { parseSos, sumCounties } from "./sos";
+import { parseSos, sumCounties, type SosCounty } from "./sos";
 import { csvFileName, raceCsv } from "./csv";
+import { finalByGeo, partyVotes, POLL_RACE_KEYS, statewideShares } from "./final";
 import { defaultRace, raceDetail, raceIndex, type SnapshotLike } from "./present";
 import type { Contest, CountyReading } from "./types";
 import { unzipEntry } from "./zip";
@@ -150,6 +151,7 @@ describe("present", () => {
     reporting: null,
     contests,
     hasPrecincts,
+    status: "Unofficial",
   });
   const snapshot: SnapshotLike = {
     readAt: "2026-11-04T01:20:00Z",
@@ -220,5 +222,39 @@ describe("present", () => {
     expect(precinctLines.length).toBeGreaterThan(0);
     expect(precinctLines.every((l) => !/,0,Clarity,/.test(l))).toBe(true);
     expect(csvFileName("United States Senator")).toBe("tx-2026-results-united-states-senator.csv");
+  });
+});
+
+describe("final", () => {
+  const county = (name: string, d: number, r: number, other: number, ballots: number): SosCounty => ({
+    county: name,
+    registered: 1000,
+    ballots,
+    contests: [
+      { key: "US SENATOR", name: "U. S. SENATOR", choices: [{ name: "D", party: "DEM", votes: d }, { name: "R", party: "REP", votes: r }, { name: "L", party: "LIB", votes: other }] },
+      { key: "US REPRESENTATIVE DISTRICT 1", name: "U. S. REPRESENTATIVE DISTRICT 1", choices: [{ name: "D", party: "DEM", votes: d }, { name: "R", party: "REP", votes: r }] },
+      { key: "US REPRESENTATIVE DISTRICT 2", name: "U. S. REPRESENTATIVE DISTRICT 2", choices: [{ name: "R", party: "REP", votes: 50 }] },
+    ],
+  });
+  const sos = [county("Hidalgo", 300, 200, 10, 520), county("Travis", 400, 100, 0, 505)];
+
+  it("splits a race into Democratic, Republican and all votes", () => {
+    expect(partyVotes([{ party: "DEM", votes: 3 }, { party: "REP", votes: 2 }, { party: "LIB", votes: 1 }])).toEqual([3, 2, 6]);
+  });
+
+  it("adds counties into the state and the Valley, with turnout", () => {
+    const f = finalByGeo(sos, false, "t");
+    expect(f.geos.Statewide).toMatchObject({ registered: 2000, ballots: 1025, races: { senate: [700, 300, 1010] } });
+    expect(f.geos.Valley.races.senate).toEqual([300, 200, 510]);
+    expect(f.official).toBe(false);
+  });
+
+  it("gives statewide shares in percent, and sums every House race for the generic ballot", () => {
+    const senate = statewideShares(sos, POLL_RACE_KEYS["us-senate"])!;
+    expect(senate.dem).toBeCloseTo((700 / 1010) * 100);
+    expect(senate.margin).toBeCloseTo(((700 - 300) / 1010) * 100);
+    const generic = statewideShares(sos, POLL_RACE_KEYS["generic-ballot"])!;
+    expect(generic.total).toBe(700 + 300 + 100);
+    expect(statewideShares(sos, () => false)).toBeNull();
   });
 });
