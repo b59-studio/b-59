@@ -1,5 +1,5 @@
 import { parseClarity, type ClarityResults } from "./clarity";
-import { harrisContests, harrisPrecincts, type HarrisPrecinctFile, type HarrisSummary } from "./harris";
+import { harrisBallots, harrisContests, harrisPrecincts, type HarrisPrecinctFile, type HarrisSummary } from "./harris";
 import { parseSos, type SosCounty } from "./sos";
 import type { CountyReading, PrecinctDetail } from "./types";
 import { unzipEntry } from "./zip";
@@ -10,6 +10,8 @@ export const REFRESH_SECONDS = 120;
 const UA = { "User-Agent": "Mozilla/5.0 (compatible; b-59.com election results)" };
 const TIMEOUT_MS = 15_000;
 const SOS_URL = "https://goelect.txelections.civixapps.com/api-ivis-system/api/s3/enr/election/countyInfo/53815";
+const SOS_ELECTIONS_URL = "https://goelect.txelections.civixapps.com/api-ivis-system/api/s3/enr/electionConstants";
+const ELECTION_ID = "53815";
 const HARRIS_BASE = "https://appfiles.harrisvotes.com/harrisvotes/prd/Data/1126/";
 
 type Source =
@@ -52,8 +54,26 @@ export const SOURCES: Source[] = [
 
 export const SOS_RESULTS_URL = "https://goelect.txelections.civixapps.com/ivis-enr-ui/races";
 
+/**
+ * Counties that have canvassed, with the date and the report. Texas counties
+ * canvass in the second week after a general election; none had by Nov 6,
+ * 2026. Add a county here when its canvass report is posted.
+ */
+export const CANVASSED: Record<string, { date: string; url: string }> = {};
+
+/** Unofficial precinct-by-precinct reports posted as PDFs by counties with no machine-readable results. */
+export const PRECINCT_PDFS: Record<string, string> = {
+  Collin:
+    "https://www.collincountytx.gov/docs/default-source/elections/election-results/november-3-2026---joint-general-and-special-election---precinct-results-report---unofficial-totals2.pdf?sfvrsn=cc877970_3",
+  Starr: "https://www.co.starr.tx.us/upload/page/0119/2026/Unofficial%20PCT%20Summary%20Nov%203%202026%20write%20ins.pdf",
+  Willacy:
+    "https://www.willacy.gov/upload/page/6531/docs/Elections%20folder/2026/General%20Election/Precinct%20Results%2011%2003%202026.pdf",
+};
+
 export type Snapshot = {
   readAt: string;
+  /** Whether the Secretary of State has marked the election official. */
+  official: boolean;
   sos: SosCounty[];
   sosReadAt: string | null;
   counties: CountyReading[];
@@ -125,6 +145,16 @@ async function readHarris(): Promise<{ summary: HarrisSummary; readAt: string }>
   return harrisCache;
 }
 
+/** Whether the state lists the election as official ("O": "Y") in its election list. */
+async function readOfficial(): Promise<boolean> {
+  const envelope = (await (await get(SOS_ELECTIONS_URL, "live")).json()) as { upload: string };
+  const text = Buffer.from(envelope.upload, "base64").toString("utf8");
+  const m = text.match(new RegExp(`"${ELECTION_ID}"\\s*:\\s*\\{[^}]*"O"\\s*:\\s*"([YN])"`));
+  return m?.[1] === "Y";
+}
+
+let officialCache = false;
+
 async function readSos(): Promise<{ counties: SosCounty[]; readAt: string }> {
   const counties = parseSos((await (await get(SOS_URL)).json()) as { upload: string });
   sosCache = { counties, readAt: now() };
@@ -144,7 +174,7 @@ async function build(): Promise<Snapshot> {
   const sosByCounty = new Map((sos?.counties ?? []).map((c) => [c.county, c]));
 
   let ci = 0;
-  const counties: CountyReading[] = SOURCES.map((source) => {
+  const counties: Omit<CountyReading, "status">[] = SOURCES.map((source) => {
     if (source.system === "clarity") {
       const r = clarityResults[ci++];
       const cached = clarityCache.get(source.county);
@@ -172,7 +202,7 @@ async function build(): Promise<Snapshot> {
         resultsUrl: source.resultsUrl,
         updated: h?.summary.dt ?? null,
         readAt: h?.readAt ?? now(),
-        ballots: h?.summary.bc ?? null,
+        ballots: h ? harrisBallots(h.summary) : null,
         reporting: h ? `${h.summary.vc} of ${h.summary.vt} vote centers` : null,
         contests: h ? harrisContests(h.summary) : [],
         hasPrecincts: Boolean(h),
@@ -194,7 +224,20 @@ async function build(): Promise<Snapshot> {
     };
   });
 
-  return { readAt: now(), sos: sos?.counties ?? [], sosReadAt: sos?.readAt ?? null, counties };
+  const official = await readOfficial().then(
+    (o) => (officialCache = o),
+    () => officialCache,
+  );
+  const withStatus = counties.map((c) => {
+    const canvass = CANVASSED[c.county];
+    return {
+      ...c,
+      status: canvass ? ("Canvassed" as const) : ("Unofficial" as const),
+      ...(canvass ? { canvassUrl: canvass.url } : {}),
+      ...(PRECINCT_PDFS[c.county] ? { precinctPdf: PRECINCT_PDFS[c.county] } : {}),
+    };
+  });
+  return { readAt: now(), official, sos: sos?.counties ?? [], sosReadAt: sos?.readAt ?? null, counties: withStatus };
 }
 
 let current: { at: number; promise: Promise<Snapshot> } | null = null;
@@ -213,6 +256,35 @@ export function getSnapshot(): Promise<Snapshot> {
     });
   }
   return current.promise;
+}
+
+let stateCurrent: { at: number; promise: Promise<{ counties: SosCounty[]; readAt: string | null; official: boolean }> } | null = null;
+
+/**
+ * Just the Secretary of State's county-by-race file and its official flag,
+ * for pages that compare the 2026 count without needing each county's own
+ * system. Read at most once per REFRESH_SECONDS per server instance; a failed
+ * read falls back to the last good copy.
+ */
+export function getStateResults(): Promise<{ counties: SosCounty[]; readAt: string | null; official: boolean }> {
+  if (!stateCurrent || Date.now() - stateCurrent.at > REFRESH_SECONDS * 1000) {
+    const promise = Promise.all([
+      readSos().catch((error: unknown) => {
+        console.error("Texas SOS results read failed", error);
+        if (sosCache) return sosCache;
+        throw error;
+      }),
+      readOfficial().then(
+        (o) => (officialCache = o),
+        () => officialCache,
+      ),
+    ]).then(([sos, official]) => ({ counties: sos.counties, readAt: sos.readAt, official }));
+    stateCurrent = { at: Date.now(), promise };
+    promise.catch(() => {
+      if (stateCurrent?.promise === promise) stateCurrent = null;
+    });
+  }
+  return stateCurrent.promise;
 }
 
 /** One county's precinct detail for one race, or null where the county publishes none. */

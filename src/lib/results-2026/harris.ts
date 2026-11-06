@@ -7,7 +7,8 @@ export type HarrisSummary = {
   bc: number;
   vc: number;
   vt: number;
-  contests: { i: number; t: string; ca: string[]; tv?: number[] }[];
+  /** tuv and tov: the contest's undervotes and overvotes, repeated once per candidate. */
+  contests: { i: number; t: string; ca: string[]; tv?: number[]; tuv?: number[]; tov?: number[] }[];
 };
 
 /** A per-contest precinct file, pv-<id>.json: per-precinct arrays of per-candidate votes. */
@@ -35,6 +36,20 @@ export function harrisContests(summary: HarrisSummary): (Contest & { id: number 
       return { name, party, votes: c.tv?.[j] ?? 0 };
     }),
   }));
+}
+
+/**
+ * Ballots counted. Harris publishes a field for it (bc) but leaves it at 0, so
+ * when it is empty the count comes from the U.S. Senate contest, which is on
+ * every ballot in the county: its votes, plus its undervotes and overvotes,
+ * are one per ballot.
+ */
+export function harrisBallots(summary: HarrisSummary): number | null {
+  if (summary.bc > 0) return summary.bc;
+  const senate = summary.contests.find((c) => raceKey(c.t) === "US SENATOR");
+  if (!senate?.tv) return null;
+  const ballots = senate.tv.reduce((a, b) => a + b, 0) + (senate.tuv?.[0] ?? 0) + (senate.tov?.[0] ?? 0);
+  return ballots || null;
 }
 
 /** One contest's precinct detail, leaving out precincts with no votes. */

@@ -120,6 +120,17 @@ export const fmt = (x: number) => numberFormat.format(x);
 /** A time of day in Central, e.g. "4:05 PM". */
 export const timeCentral = (iso: string | null) => (iso ? timeFormat.format(new Date(iso)) : "");
 
+const dateTimeFormat = new Intl.DateTimeFormat("en-US", {
+  timeZone: "America/Chicago",
+  month: "short",
+  day: "numeric",
+  hour: "numeric",
+  minute: "2-digit",
+});
+
+/** A date and time in Central, e.g. "Nov 4, 3:37 AM". For figures read days after the election. */
+export const dateTimeCentral = (iso: string | null) => (iso ? dateTimeFormat.format(new Date(iso)) : "");
+
 export const hourLabel = (h: number) => `${h % 12 || 12} ${h < 12 ? "AM" : "PM"}`;
 
 const finite = (x: number | null | undefined): x is number => x != null && Number.isFinite(x);

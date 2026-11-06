@@ -4,7 +4,8 @@ import { useMemo, useRef, useSyncExternalStore } from "react";
 import dynamic from "next/dynamic";
 import { Brand } from "@/components/Brand";
 import type { LiveSnapshot } from "@/lib/election-2026/electionlink";
-import { fmt, liveByCounty, pct, timeCentral } from "@/lib/election-2026/live";
+import { dateTimeCentral, fmt, liveByCounty, pct } from "@/lib/election-2026/live";
+import type { Final2026 } from "@/lib/results-2026/final";
 import { ballots2022, DATA, FOCUS } from "./data";
 import { LivePanel } from "./LivePanel";
 import { LiveCountiesContext } from "./GeoTable";
@@ -12,6 +13,7 @@ import { HeadlineChart } from "./HeadlineChart";
 import { Stat } from "./parts";
 import { MethodPanel, PrimariesPanel, RacesPanel, TicketPanel } from "./ResultsPanels";
 import { TurnoutHistory, TurnoutTable } from "./TurnoutTable";
+import { FinalContext, turnout2026, YearOverYearPanel } from "./YearOverYear";
 
 // The map shapes and Census tables are the page's heaviest data, so they load
 // only when someone opens the tab.
@@ -20,6 +22,7 @@ const DemographicsPanel = dynamic(() => import("./DemographicsPanel"), {
 });
 
 const TABS = [
+  ["past", "2026 vs past years"],
   ["live", "Election day"],
   ["history", "Turnout history"],
   ["demographics", "Demographics"],
@@ -37,14 +40,14 @@ function subscribeHash(onChange: () => void) {
   return () => window.removeEventListener("hashchange", onChange);
 }
 
-export function ElectionAnalysis({ snapshot }: { snapshot: LiveSnapshot }) {
+export function ElectionAnalysis({ snapshot, final }: { snapshot: LiveSnapshot; final: Final2026 | null }) {
   const live = useMemo(() => liveByCounty(snapshot), [snapshot]);
   const liveCounties = useMemo(() => new Set(live.keys()), [live]);
   const order = snapshot.counties.map((c) => c.name);
   // The tab lives in the URL hash so a link can open on a drill-down. The
   // server cannot see the hash, so it renders the first tab.
   const hash = useSyncExternalStore(subscribeHash, () => window.location.hash.slice(1), () => "");
-  const tab: TabId = isTab(hash) ? hash : "live";
+  const tab: TabId = isTab(hash) ? hash : "past";
   const tabRefs = useRef<Partial<Record<TabId, HTMLButtonElement | null>>>({});
 
   const choose = (id: TabId, focus = false) => {
@@ -68,31 +71,49 @@ export function ElectionAnalysis({ snapshot }: { snapshot: LiveSnapshot }) {
 
   const statewide = DATA.ev.Statewide;
   const valley = DATA.ev.Valley;
-  const travis = live.get("Travis");
+  const sw2026 = final?.geos.Statewide;
+  const rate2026 = final ? turnout2026(final, "Statewide") : null;
+  const rate = (year: string) => DATA.gen.Statewide[year][1] / DATA.gen.Statewide[year][0];
 
   return (
+    <FinalContext.Provider value={final}>
     <LiveCountiesContext.Provider value={liveCounties}>
     <div className="ea" lang="en" dir="ltr">
       <header className="ea-head">
         <p className="ea-dateline">Research · Texas general election, Nov. 3, 2026</p>
         <h1 className="ea-h1">Texas 2026: county turnout</h1>
         <p className="ea-byline">
-          By <Brand /> · Published Nov. 3, 2026 · Live figures read {timeCentral(snapshot.fetched)} CT ·{" "}
+          By <Brand /> · Published Nov. 3, 2026 · Updated with each county’s count
+          {final?.readAt ? `, read ${dateTimeCentral(final.readAt)} CT` : ""} ·{" "}
           <a className="ea-link" href="#method" onClick={(e) => (e.preventDefault(), openMethod())}>
             Method and sources
           </a>
         </p>
-        <p className="ea-lede">
-          Early voting closed on Oct. 30 with {fmt(statewide[3])} ballots cast statewide: {pct(statewide[3] / statewide[0])}{" "}
-          of registered voters, and {pct(statewide[3] / ballots2022("Statewide"))} of everyone who voted in 2022. In the
-          Rio Grande Valley the early vote has already passed the 2022 total, at {pct(valley[3] / ballots2022("Valley"))}.
-          {travis &&
-            ` On election day, Travis County’s tracker shows ${fmt(travis.total)} ballots, ${pct(travis.total / travis.registered)} of registered voters, as of ${timeCentral(travis.refreshed)}.`}
+        {sw2026 ? (
+          <p className="ea-lede">
+            With every county’s count in, {fmt(sw2026.ballots)} Texans voted: {pct(rate2026)} of registered voters, against{" "}
+            {pct(rate("2022"))} in the 2022 midterm, {pct(rate("2018"))} in 2018 and {pct(rate("2024"))} in the 2024
+            presidential election. Early voting, which closed on Oct. 30, cast {pct(statewide[3] / sw2026.ballots)} of
+            those ballots. In the Rio Grande Valley the early vote alone passed the 2022 total, at{" "}
+            {pct(valley[3] / ballots2022("Valley"))}.
+          </p>
+        ) : (
+          <p className="ea-lede">
+            Early voting closed on Oct. 30 with {fmt(statewide[3])} ballots cast statewide:{" "}
+            {pct(statewide[3] / statewide[0])} of registered voters, and {pct(statewide[3] / ballots2022("Statewide"))} of
+            everyone who voted in 2022.
+          </p>
+        )}
+        <p className="ea-note ea-note-lead">
+          {final?.official
+            ? "The 2026 results are official: the state has canvassed them."
+            : "What is final: the early vote (closed Oct. 30) and every past year. What is not yet: the 2026 results and turnout are each county’s complete election-night count, unofficial until counties canvass and the state certifies them."}
         </p>
         <div className="ea-stats">
-          <Stat value={fmt(statewide[3])} label="Early ballots, statewide" />
+          {sw2026 && <Stat value={fmt(sw2026.ballots)} label="Ballots cast, statewide (unofficial)" />}
+          {rate2026 != null && <Stat value={pct(rate2026)} label="Turnout, statewide (unofficial)" />}
+          <Stat value={fmt(statewide[3])} label="Early ballots, statewide (final)" />
           <Stat value={fmt(FOCUS.reduce((a, g) => a + DATA.ev[g][3], 0))} label={`Early ballots, the ${FOCUS.length} focus counties`} />
-          <Stat value={pct(statewide[3] / statewide[0])} label="Early turnout, statewide" />
         </div>
       </header>
 
@@ -128,6 +149,7 @@ export function ElectionAnalysis({ snapshot }: { snapshot: LiveSnapshot }) {
       </section>
 
       <div id="ea-tabpanel" role="tabpanel" aria-labelledby={`ea-tab-${tab}`} className="ea-head">
+        {tab === "past" && <YearOverYearPanel />}
         {tab === "live" && <LivePanel live={live} order={order} fetched={snapshot.fetched} />}
         {tab === "history" && <TurnoutHistory />}
         {tab === "demographics" && <DemographicsPanel />}
@@ -138,5 +160,6 @@ export function ElectionAnalysis({ snapshot }: { snapshot: LiveSnapshot }) {
       </div>
     </div>
     </LiveCountiesContext.Provider>
+    </FinalContext.Provider>
   );
 }

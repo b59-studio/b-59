@@ -3,6 +3,7 @@
 import { useRef, useSyncExternalStore } from "react";
 import { Brand } from "@/components/Brand";
 import { ExitPollsPanel } from "./ExitPollsPanel";
+import { PollsVsResults, type PollResults } from "./PollsVsResults";
 import { PreElectionPanel } from "./PreElectionPanel";
 
 /**
@@ -12,6 +13,7 @@ import { PreElectionPanel } from "./PreElectionPanel";
  */
 const TABS = [
   ["pre", "Pre-election polls"],
+  ["results", "Polls vs results"],
   ["exit", "Exit polls"],
 ] as const;
 type TabId = (typeof TABS)[number][0];
@@ -23,7 +25,7 @@ function subscribeHash(onChange: () => void) {
   return () => window.removeEventListener("hashchange", onChange);
 }
 
-export function PollsPage() {
+export function PollsPage({ results }: { results: PollResults | null }) {
   // The tab lives in the URL hash so a link can open on exit polls. The server
   // cannot see the hash, so it renders the first tab.
   const hash = useSyncExternalStore(subscribeHash, () => window.location.hash.slice(1), () => "");
@@ -53,8 +55,8 @@ export function PollsPage() {
           By <Brand /> · Public polls only, each linked to its source
         </p>
         <p className="ea-lede">
-          What published polls said about the Texas statewide races before election day, averaged one simple way, and
-          what exit polls say about who voted.
+          What published polls said about the Texas statewide races before election day, averaged one simple way; how
+          that average compares with the result; and what exit polls say about who voted.
         </p>
         <div className="ea-tabs" role="tablist" aria-label="Kind of poll">
           {TABS.map(([id, label], i) => (
@@ -81,6 +83,12 @@ export function PollsPage() {
 
       <div id="ea-tabpanel" role="tabpanel" aria-labelledby={`ea-tab-${tab}`} className="ea-head">
         {tab === "pre" && <PreElectionPanel />}
+        {tab === "results" &&
+          (results ? (
+            <PollsVsResults data={results} />
+          ) : (
+            <p className="ea-note">The state’s count could not be read just now. The page tries again shortly.</p>
+          ))}
         {tab === "exit" && <ExitPollsPanel />}
       </div>
     </div>

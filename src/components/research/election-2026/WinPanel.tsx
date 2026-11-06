@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { CALCULATOR_ELECTION_DAY_BUMP } from "@/components/research/polls-2026/PollsVsResults";
 import { fmt, pct } from "@/lib/election-2026/live";
 import { CORE as COUNTIES, DATA, officeName, race } from "./data";
 import { DataTable, FilterPick, Note, Panel, Stat } from "./parts";
@@ -37,7 +38,7 @@ function parseWin(raw: string | undefined): { value: number | null; invalid: boo
  * start blank and live only in this page's state; nothing is saved.
  */
 export function WinPanel() {
-  const [edPct, setEdPct] = useState(25);
+  const [edPct, setEdPct] = useState(CALCULATOR_ELECTION_DAY_BUMP * 100);
   const [thirdPct, setThirdPct] = useState(2);
   const [base, setBase] = useState("2024|President");
   const [shares, setShares] = useState<Record<string, number>>({});

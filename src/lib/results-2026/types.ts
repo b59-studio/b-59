@@ -31,5 +31,14 @@ export type CountyReading = {
   reporting: string | null;
   contests: Contest[];
   hasPrecincts: boolean;
+  /**
+   * "Unofficial" until the county canvasses (lists CANVASSED in snapshot.ts),
+   * then "Canvassed". The state's own canvass is Snapshot.official.
+   */
+  status: "Unofficial" | "Canvassed";
+  /** The county's canvass report, once posted. */
+  canvassUrl?: string;
+  /** A precinct-by-precinct report the county has posted as a PDF, where it has no machine-readable one. */
+  precinctPdf?: string;
   error?: string;
 };
