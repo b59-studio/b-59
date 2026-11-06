@@ -28,6 +28,13 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Fixed
+
+- The live results now show how many ballots Harris County has counted, and
+  count it among the counties reporting. Harris's results file leaves its own
+  ballots-counted field at zero, so the figure comes from its U.S. Senate
+  contest, which is on every ballot.
+
 ## 2026-11-04
 
 ### Fixed

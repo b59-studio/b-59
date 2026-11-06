@@ -1,5 +1,5 @@
 import { parseClarity, type ClarityResults } from "./clarity";
-import { harrisContests, harrisPrecincts, type HarrisPrecinctFile, type HarrisSummary } from "./harris";
+import { harrisBallots, harrisContests, harrisPrecincts, type HarrisPrecinctFile, type HarrisSummary } from "./harris";
 import { parseSos, type SosCounty } from "./sos";
 import type { CountyReading, PrecinctDetail } from "./types";
 import { unzipEntry } from "./zip";
@@ -172,7 +172,7 @@ async function build(): Promise<Snapshot> {
         resultsUrl: source.resultsUrl,
         updated: h?.summary.dt ?? null,
         readAt: h?.readAt ?? now(),
-        ballots: h?.summary.bc ?? null,
+        ballots: h ? harrisBallots(h.summary) : null,
         reporting: h ? `${h.summary.vc} of ${h.summary.vt} vote centers` : null,
         contests: h ? harrisContests(h.summary) : [],
         hasPrecincts: Boolean(h),

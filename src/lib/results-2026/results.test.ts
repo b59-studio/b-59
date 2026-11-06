@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "@jest/globals";
 import { parseClarity } from "./clarity";
-import { harrisContests, harrisPrecincts, type HarrisPrecinctFile, type HarrisSummary } from "./harris";
+import { harrisBallots, harrisContests, harrisPrecincts, type HarrisPrecinctFile, type HarrisSummary } from "./harris";
 import { cleanChoice, countyName, normParty, raceKey, splitParty } from "./normalize";
 import { parseSos, sumCounties } from "./sos";
 import { csvFileName, raceCsv } from "./csv";
@@ -94,6 +94,13 @@ describe("Harris", () => {
   it("splits party suffixes off the candidate labels", () => {
     expect(contests[0].key).toBe(raceKey("U. S. SENATOR "));
     expect(contests[0].choices[0]).toEqual({ name: "KEN PAXTON", party: "REP", votes: 0 });
+  });
+
+  it("counts ballots from the Senate contest when Harris leaves its own count at 0", () => {
+    const senate = { i: 1, t: "United States Senator", ca: ["A (REP)", "B (DEM)"], tv: [451780, 907617], tuv: [7115, 7115], tov: [18, 18] };
+    expect(harrisBallots({ ...summary, bc: 0, contests: [senate] })).toBe(451780 + 907617 + 7115 + 18);
+    expect(harrisBallots({ ...summary, bc: 1200, contests: [senate] })).toBe(1200);
+    expect(harrisBallots({ ...summary, bc: 0, contests: [] })).toBeNull();
   });
 
   it("builds precinct detail by vote type, dropping precincts with no votes", () => {
