@@ -28,6 +28,14 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Added
+
+- The Team page now covers Jonathon's organizing work alongside B-59: Field
+  Director for the Travis County Democratic Party and Communications Director
+  for the Pflugerville Area Democrats. It also links his two Pfront Porch
+  op-eds, "We Can Change" and "When We Organize", on pfadc.org rather than
+  republishing them. In every locale.
+
 ## 2026-11-06
 
 ### Added
