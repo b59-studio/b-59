@@ -101,6 +101,12 @@ export const NAV_MENUS: NavMenu[] = [
             label: { key: "austinPetitions" },
             sub: "austinPetitionsSub",
           },
+          {
+            href: "/research/austin-petitions/prop-g",
+            icon: { glyph: "petition" },
+            label: { key: "propG" },
+            sub: "propGSub",
+          },
         ],
       },
       {

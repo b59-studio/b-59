@@ -44,3 +44,13 @@ describe("deadlinesFor", () => {
     expect(d.oldestSignature).toBe("2026-07-07");
   });
 });
+
+describe("deadlinesFor November 2028", () => {
+  it("lands the filing date in July and the oldest signature in January", () => {
+    const d = deadlinesFor("2028-11-07", { orderLeadDays: 78, councilDays: 10, clerkDays: 30, signatureLifeDays: 180 });
+    expect(d.orderBy).toBe("2028-08-21");
+    expect(d.certifyBy).toBe("2028-08-11");
+    expect(d.fileBy).toBe("2028-07-12");
+    expect(d.oldestSignature).toBe("2028-01-14");
+  });
+});

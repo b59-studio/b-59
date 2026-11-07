@@ -28,6 +28,20 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Added
+
+- Research page on Austin's Proposition G, approved by voters on November 3,
+  2026: citizen initiatives and petitioned charter amendments now go only on
+  November ballots in even-numbered years, so the next petition election is
+  November 7, 2028. It gives the filing dates counted back from that election,
+  and what a drive that misses them waits for (November 2030).
+
+### Fixed
+
+- The petitions research and the Ballot Measures page no longer give 2027
+  filing dates or say a measure goes to the next election the law allows. Both
+  now count back from November 2028, the first election Proposition G allows.
+
 ## 2026-11-07
 
 ### Added
