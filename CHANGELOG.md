@@ -28,6 +28,15 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Fixed
+
+- The sitemap now tells search engines when each page last changed, taken from
+  the page's git history, instead of stamping every page with the build time.
+  Search engines ignore a date that is always "now"; an accurate one helps them
+  recrawl the pages that actually changed. The live election pages (results,
+  polls, analysis) carry no date, since their content changes with the data,
+  not the code.
+
 ## 2026-11-07
 
 ### Changed

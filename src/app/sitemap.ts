@@ -1,11 +1,13 @@
 import fs from "node:fs";
 import path from "node:path";
 import type { MetadataRoute } from "next";
+import { lastCommitDates } from "@/lib/git-dates";
 import { resolveSiteUrl } from "@/lib/site-url";
 import { locales, defaultLocale, type Locale } from "@/i18n/config";
 
 const siteUrl = resolveSiteUrl();
-const APP_LOCALE_DIR = path.join(process.cwd(), "src/app/[locale]");
+const APP_LOCALE_REL = "src/app/[locale]";
+const APP_LOCALE_DIR = path.join(process.cwd(), APP_LOCALE_REL);
 
 type ChangeFrequency = NonNullable<MetadataRoute.Sitemap[number]["changeFrequency"]>;
 
@@ -14,6 +16,8 @@ type RouteOverride = {
   changeFrequency?: ChangeFrequency;
   /** Page exists and is reachable, but shouldn't be offered to search engines. */
   exclude?: boolean;
+  /** Content comes from live data, so no commit date describes it: leave lastModified out. */
+  liveData?: boolean;
 };
 
 const DEFAULT_PRIORITY = 0.5;
@@ -35,9 +39,9 @@ const overrides: Record<string, RouteOverride> = {
   "/donate": { exclude: true }, // donations closed: the page returns 404 (src/lib/donations.ts)
   "/donate/success": { exclude: true }, // post-transaction confirmation, not for search engines
   "/research": { priority: 0.8 },
-  "/research/2026-election-analysis": { priority: 0.8, changeFrequency: "daily" },
-  "/research/2026-polls": { priority: 0.8, changeFrequency: "daily" },
-  "/research/2026-results": { priority: 0.9, changeFrequency: "hourly" },
+  "/research/2026-election-analysis": { priority: 0.8, changeFrequency: "daily", liveData: true },
+  "/research/2026-polls": { priority: 0.8, changeFrequency: "daily", liveData: true },
+  "/research/2026-results": { priority: 0.9, changeFrequency: "hourly", liveData: true },
   "/research/austin-petitions": { priority: 0.8 },
   "/research/austin-petitions/prop-g": { priority: 0.8 },
   "/studio/political-consulting": { priority: 0.9 },
@@ -65,6 +69,24 @@ export function discoverRoutePaths(dir: string = APP_LOCALE_DIR, prefix = ""): s
   return routes;
 }
 
+// Files that wrap other pages rather than belong to the one in their folder.
+const SHARED_FILE = /^(layout|template)\./;
+
+/**
+ * The last commit to touch a page's own folder (its page file and anything
+ * kept beside it, not its subpages). Undefined when git can't say, so the
+ * sitemap never claims a date it doesn't know.
+ */
+export function pageLastModified(routePath: string, dates: Map<string, Date>): Date | undefined {
+  const folder = `${APP_LOCALE_REL}${routePath}`;
+  let latest: Date | undefined;
+  for (const [file, date] of dates) {
+    if (path.posix.dirname(file) !== folder || SHARED_FILE.test(path.posix.basename(file))) continue;
+    if (!latest || date > latest) latest = date;
+  }
+  return latest;
+}
+
 // Default locale is unprefixed under `localePrefix: 'as-needed'`.
 function localizedPath(locale: Locale, routePath: string): string {
   return locale === defaultLocale ? routePath : `/${locale}${routePath}`;
@@ -75,9 +97,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     .map((routePath) => ({ path: routePath, ...overrides[routePath] }))
     .filter((route) => !route.exclude);
 
-  return routes.map(({ path: routePath, priority = DEFAULT_PRIORITY, changeFrequency = DEFAULT_CHANGE_FREQUENCY }) => ({
+  const dates = lastCommitDates(APP_LOCALE_REL);
+
+  return routes.map(({ path: routePath, priority = DEFAULT_PRIORITY, changeFrequency = DEFAULT_CHANGE_FREQUENCY, liveData }) => ({
     url: `${siteUrl}${localizedPath(defaultLocale, routePath)}`,
-    lastModified: new Date(),
+    ...(liveData ? {} : { lastModified: pageLastModified(routePath, dates) }),
     changeFrequency,
     priority,
     alternates: {
