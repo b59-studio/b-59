@@ -37,7 +37,8 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   section has screenshots of the U.S. Web Design System and 18F Methods, and
   links to the Methods, USWDS, the Content Guide, the open-source IRS Direct
   File code and 18f.org. Photos carry their Wikimedia Commons credit and
-  license. In every locale.
+  license. The opening line is rewritten more plainly, and the two closing
+  statements now share one text color. In every locale.
 
 ## 2026-11-06
 
