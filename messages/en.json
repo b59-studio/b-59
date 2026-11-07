@@ -50,7 +50,9 @@
     "allResearchSub": "Texas elections and Austin ballot petitions, in data.",
     "ballotPetitions": "Ballot Petitions",
     "austinPetitions": "Austin Petitions",
-    "austinPetitionsSub": "What it really takes to put a citizen petition on the Austin ballot."
+    "austinPetitionsSub": "What it really takes to put a citizen petition on the Austin ballot.",
+    "propG": "Prop G and 2028",
+    "propGSub": "Why Austin's next petition election is November 2028, and the dates to file by."
   },
   "footer": {
     "tagline": "Deliberate design <blue>for</blue> imperfect systems.",
@@ -158,7 +160,7 @@
     "step4Title": "The City Clerk verifies",
     "step4Body": "By a random sample of at least 25% of the signatures or 1,000, whichever is more. For petitions of 20,000 or more, the Clerk expects it to take at least 30 days.",
     "step5Title": "The Council adopts it, or voters decide",
-    "step5Body": "For a proposed ordinance, the Council either passes it exactly as written within 10 days or orders an election. A charter amendment goes to voters at the next election the law allows.",
+    "step5Body": "For a proposed ordinance, the Council either passes it exactly as written within 10 days or orders an election. Any petition that goes to voters, ordinance or charter amendment, is on the ballot in November of an even-numbered year, under a charter change Austin voters approved in 2026.",
     "sourcesIntro": "These rules are the City Clerk's and the Texas Secretary of State's own:",
     "sourceClerkInitiative": "Austin City Clerk: initiative petitions",
     "sourceClerkCharter": "Austin City Clerk: charter amendment petitions",

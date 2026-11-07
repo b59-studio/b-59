@@ -6,13 +6,14 @@ import { CONTACT_HREF } from "@/components/ContactClosing";
 import { JsonLd } from "@/components/JsonLd";
 import { Link } from "@/i18n/navigation";
 import { defaultLocale } from "@/i18n/config";
+import { PETITION_ELECTION, PETITION_TIMING } from "@/lib/petition-calendar";
 import { deadlinesFor, signaturesRequired, thresholdShare, validityNeeded } from "@/lib/petition-math";
 import { resolveSiteUrl } from "@/lib/site-url";
 import { datasetJsonLd } from "@/lib/structured-data";
 
 const PATH = "/research/austin-petitions";
 const DESCRIPTION =
-  "What it takes to get a petition on the Austin ballot: how many signatures to collect, how the last five Austin petitions did, out-of-city signers, and the last safe filing dates for the 2027 elections.";
+  "What it takes to get a petition on the Austin ballot: how many signatures to collect, how the last five Austin petitions did, out-of-city signers, and the last safe filing date for November 2028, the next election a petition can reach under Proposition G.";
 
 export const metadata: Metadata = {
   title: "Austin Ballot Petitions: What Campaigns Miss",
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
   alternates: { canonical: PATH },
   openGraph: {
     title: "Austin Ballot Petitions: What Campaigns Miss | B-59",
-    description: "Why 20,000 signatures isn't enough, how the last five Austin petitions did, and when to file for 2027.",
+    description: "Why 20,000 signatures isn't enough, how the last five Austin petitions did, and when to file for November 2028.",
     url: PATH,
   },
 };
@@ -30,7 +31,7 @@ const DATASET = datasetJsonLd({
   path: PATH,
   name: "Austin citizen petitions: validity and filing deadlines",
   description: DESCRIPTION,
-  temporalCoverage: "2018/2027",
+  temporalCoverage: "2018/2028",
   keywords: ["Austin petition", "ballot initiative", "petition signatures", "City of Austin election", "charter amendment"],
 });
 
@@ -126,22 +127,19 @@ const CASES: Case[] = [
   },
 ];
 
-/** Uniform election dates (Tex. Elec. Code §41.001) for the coming year. */
-const ELECTIONS = [
-  { label: "May 2027", date: "2027-05-01" },
-  { label: "November 2027", date: "2027-11-02" },
-];
-
-const TIMING = { orderLeadDays: 78, councilDays: 10, clerkDays: 30, signatureLifeDays: 180 };
 
 const SOURCES = [
   { name: "Austin City Clerk: petition types and current thresholds", href: "https://www.austintexas.gov/department/petitions" },
   { name: "Austin City Clerk: initiative petitions (sampling, verification time, Council's 10 days)", href: "https://www.austintexas.gov/clerk/initiative-petitions" },
   { name: "Texas Election Code ch. 277: petition requirements, the 180-day rule, sampling", href: "https://www.sos.texas.gov/elections/laws/petitions.shtml" },
+  {
+    name: "KUT: Proposition G's ballot language (even-year November petition elections)",
+    href: "https://www.kut.org/politics/2026-10-19/austin-tx-charter-amendments-prop-i-ballot-election-audit-propositions",
+  },
   { name: "Texas Election Code §3.005(c): order by the 78th day before a uniform-date election", href: "https://tcss.legis.texas.gov/resources/EL/htm/EL.3.htm" },
   { name: "Texas Election Code §41.001: uniform election dates", href: "https://tcss.legis.texas.gov/resources/EL/htm/EL.41.htm" },
   { name: "Texas Local Government Code §9.004: charter amendment petitions", href: "https://tcss.legis.texas.gov/resources/LG/htm/LG.9.htm" },
-  { name: "Texas Constitution art. XI, §5: charters amended no more than every two years", href: "https://tcss.legis.texas.gov/resources/CN/htm/CN.11.htm" },
+  { name: "Texas Constitution art. XI, §5(a): charters amended no more than every two years", href: "https://tcss.legis.texas.gov/resources/CN/htm/CN.11.htm" },
 ];
 
 const pct = (n: number, digits = 0) =>
@@ -208,7 +206,7 @@ export default async function AustinPetitions() {
   const [locale, t] = await Promise.all([getLocale(), getTranslations("research")]);
   const share = thresholdShare(QUALIFIED_VOTERS);
   const shares = CASES.flatMap((c) => (c.share ? [c.share] : []));
-  const deadlines = ELECTIONS.map((e) => ({ ...e, ...deadlinesFor(e.date, TIMING) }));
+  const deadlines = [PETITION_ELECTION].map((e) => ({ ...e, ...deadlinesFor(e.date, PETITION_TIMING) }));
 
   return (
     <div className="max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -350,9 +348,10 @@ export default async function AustinPetitions() {
             Count back from the election
           </h2>
           <p className="ea-prose">
-            Measures go on uniform election dates. The Council has to order the election 78 days out and gets up to 10
-            days after the Clerk certifies; the Clerk needs at least 30 days to verify. No signature can be more than 180
-            days old on the day you file.
+            Since voters approved Proposition G in November 2026, petitions go only on November ballots in
+            even-numbered years, so the next is November 2028. The Council has to order the election 78 days out and gets
+            up to 10 days after the Clerk certifies; the Clerk needs at least 30 days to verify. No signature can be more
+            than 180 days old on the day you file.
           </p>
           <div className="pet-timelines">
             {deadlines.map((d) => (
@@ -385,7 +384,10 @@ export default async function AustinPetitions() {
           </div>
           <p className="ea-note">
             Assumes the Clerk takes the stated minimum of 30 days and the Council uses its full 10. Verification can run
-            longer, so file earlier if you can.
+            longer, so file earlier if you can. Miss it and the next election is November 2030.{" "}
+            <Link href="/research/austin-petitions/prop-g" className="ea-link">
+              What Prop G changed
+            </Link>
           </p>
           <Takeaway
             miss="Planning from election day, then running out of time while the Clerk verifies."
@@ -401,8 +403,8 @@ export default async function AustinPetitions() {
             <div className="pet-rule">
               <p className="pet-rule-big">Every 2 years</p>
               <p>
-                The most often a Texas city charter can be amended. A charter petition that misses the window waits for
-                the next one, however many signatures it has.
+                The most often a Texas city charter can be amended. Austin amended its charter in November 2026, so the
+                next charter election can&apos;t come before November 2028.
               </p>
             </div>
             <div className="pet-rule">
