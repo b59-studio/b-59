@@ -28,6 +28,15 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Changed
+
+- **Our Work and Research read as numbered catalogues** instead of a narrow
+  column of boxed cards. Each page runs to the site's full width with the home
+  page's headline; each section shows how many entries it holds; and every
+  entry is one numbered row (mark, name, category, summary) that draws a blue
+  line across itself when pointed at. Research in other languages now says
+  once that the analysis is published in English.
+
 ## 2026-11-07
 
 ### Added
