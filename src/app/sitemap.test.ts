@@ -22,6 +22,7 @@ describe("discoverRoutePaths", () => {
         "/about/sitemap",
         "/about/privacy",
         "/about/terms",
+        "/research",
         "/research/2026-election-analysis",
         "/research/2026-polls",
         "/research/2026-results",

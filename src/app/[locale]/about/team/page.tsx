@@ -8,7 +8,7 @@ import { Brand } from "@/components/Brand";
 
 export const metadata: Metadata = {
   title: "Team",
-  description: "The people behind B-59 Studio. Jon Reise, founder — civic technology from Austin, Texas.",
+  description: "The people behind B-59 Studio. Jonathon Reise, principal — civic technology from Austin, Texas.",
   alternates: { canonical: "/about/team" },
   openGraph: {
     title: "Team | B-59",

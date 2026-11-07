@@ -61,7 +61,7 @@ export default async function Home() {
       <div className="home-hero">
         <div className="home-hero-lead">
           <h1 id="home-title" className="home-title">
-            {t("heading")}
+            {t.rich("heading", { blue: (chunks) => <span className="text-b59-blue">{chunks}</span> })}
           </h1>
           <p className="home-lede">{t("lede")}</p>
           <div className="home-actions">
