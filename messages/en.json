@@ -475,7 +475,10 @@
     "altBooking": "A Hotline booking page for a constituent meeting, offering three times in the guest's own timezone.",
     "closingHeading": "Free for one person. Per organization after that.",
     "closingBody": "No card to start and nothing metered. The people you book don't need an account at all.",
-    "altCalendar": "Hotline's month calendar, with booked meetings on the days they fall."
+    "altCalendar": "Hotline's month calendar, with booked meetings on the days they fall.",
+    "altRotaShifts": "A week of shifts in Hotline: six people down the side, each day's shifts in red, and Thursday left empty.",
+    "altRotaCoverage": "Hotline's coverage view: nobody is on Thursday, Wednesday has a gap from noon to one, and the week's hours and cost by person.",
+    "altRotaTime": "Hotline's Time page: expected against actual hours for each person, what has been approved, the cost, and three entries waiting for sign-off."
   },
   "solutionsTravisCountyVdr": {
     "metaTitle": "Travis County VDR Toolkit",
