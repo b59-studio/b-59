@@ -50,12 +50,20 @@ describe("Clarity and Harris official flags", () => {
   });
 });
 
+/** The shape these assertions read; each county's file has its own set of races. */
+type PrecinctFile = {
+  largestGap: number;
+  races: Record<string, { choices: unknown[]; types: unknown[]; rows: { votes: unknown[][] }[] }>;
+};
+
+const parsed: [county: string, file: PrecinctFile, races: number, gap: number][] = [
+  ["Collin", collin, 39, 0.003],
+  ["Starr", starr, 23, 0],
+  ["Willacy", willacy, 23, 0],
+];
+
 describe("parsed precinct PDFs", () => {
-  it.each([
-    ["Collin", collin, 39, 0.003],
-    ["Starr", starr, 23, 0],
-    ["Willacy", willacy, 23, 0],
-  ] as const)("%s: every state race, with sums close to the state's total", (_, file, races, gap) => {
+  it.each(parsed)("%s: every state race, with sums close to the state's total", (_, file, races, gap) => {
     expect(Object.keys(file.races)).toHaveLength(races);
     expect(file.largestGap).toBeLessThanOrEqual(gap);
     const senate = file.races["US SENATOR"];
