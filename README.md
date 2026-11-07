@@ -30,6 +30,7 @@ so this is once per checkout — see [Changelog dates](#changelog-dates).
 | `pnpm dev` | Local development server |
 | `pnpm build` | Production build |
 | `pnpm start` | Serve production build |
+| `pnpm typecheck` | Type-check everything, test files included (`tsc --noEmit`) |
 | `pnpm lint` | ESLint |
 | `pnpm test` | Unit tests (Jest) |
 | `bash scripts/install-hooks.sh` | Wire the pre-push hook (once per clone) |

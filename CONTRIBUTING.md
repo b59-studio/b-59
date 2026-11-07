@@ -5,7 +5,7 @@ We're not actively seeking external contributions to this repo, but we welcome f
 ## If you do fork or modify
 
 - Create a feature branch per change.
-- Run `pnpm lint` and `pnpm build` before committing. Both must pass.
+- Run `pnpm typecheck`, `pnpm lint` and `pnpm build` before committing. All three must pass. Jest does not type-check, so `pnpm typecheck` is the only thing that catches a type error in a test file.
 - Commit messages: imperative voice ("Add feature X", "Fix bug Y"). Explain the *why*, not just the what.
 - No AI tool mentions in commits, code, or PRs.
 
