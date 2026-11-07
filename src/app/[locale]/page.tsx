@@ -10,7 +10,7 @@ import { RowArrow } from "@/components/RowArrow";
 export const metadata: Metadata = {
   title: { absolute: "B-59 Studio" },
   description:
-    "Deliberate design for imperfect systems. B-59 is a design and strategy studio building civic platforms, advising on complex decisions, and making things that matter. Human-centered. Public-first.",
+    "Deliberate design for imperfect systems. B-59 is a design and strategy studio in Austin, Texas, building civic platforms, publishing Texas election research, and advising on complex decisions. Human-centered. Public-first.",
   alternates: { canonical: "/" },
   openGraph: {
     title: "B-59 — Deliberate design for imperfect systems",

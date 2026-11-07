@@ -12,8 +12,16 @@ export const metadata: Metadata = {
     template: "B-59 | %s",
   },
   description:
-    "Human-centered design and strategy. We build civic technology, advise on complex decisions, and make things that matter. Public-first.",
-  keywords: ["civic technology", "design", "strategy", "government", "public sector", "B-59"],
+    "B-59 Studio is a civic technology design and strategy studio in Austin, Texas. We build civic software, publish Texas election research, and advise on complex decisions.",
+  keywords: [
+    "B-59 Studio",
+    "civic technology",
+    "Austin, Texas",
+    "Texas election research",
+    "election data",
+    "voter registration",
+    "design and strategy studio",
+  ],
   authors: [{ name: "B-59" }],
   creator: "B-59",
   openGraph: {
