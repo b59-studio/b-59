@@ -4,6 +4,8 @@ import type { Contest, PrecinctDetail } from "./types";
 /** Harris County's resultsbyballot.json, the fields used here. */
 export type HarrisSummary = {
   dt: string;
+  /** Harris's official flag: 0 until the county canvasses. */
+  o?: number;
   bc: number;
   vc: number;
   vt: number;

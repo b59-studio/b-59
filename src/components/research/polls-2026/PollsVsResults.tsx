@@ -5,6 +5,12 @@ import { DataTable, Note, Panel, Stat } from "@/components/research/election-202
 import { dateTimeCentral, fmt, pct } from "@/lib/election-2026/live";
 import { pollAverage } from "@/lib/polls-2026/average";
 import { AS_OF, pollsFor, RACES } from "@/lib/polls-2026/data";
+import exitRaw from "@/lib/polls-2026/exit-polls.json";
+import { impliedTopline, latestReleases, type ExitPollData, type RaceId } from "@/lib/polls-2026/exitPolls";
+
+const EXIT = exitRaw as ExitPollData;
+/** Exit-poll race ids to the poll page's race ids. */
+const EXIT_TO_POLL: Record<RaceId, string> = { senate: "us-senate", governor: "governor" };
 
 /** A race's statewide result, in percent of all votes, as polls report shares. */
 export type RaceResult = { dem: number; rep: number; margin: number; total: number };
@@ -71,13 +77,7 @@ export function PollsVsResults({ data }: { data: PollResults }) {
       <RaceTable rows={raceRows} />
       <PollTable rows={pollRows} />
       <TurnoutProjection turnout={data.turnout} />
-      <Panel title="Exit polls against the result" expandable={false}>
-        <p className="ea-note">
-          Exit polls describe who voted rather than forecasting the count, and no exit-poll figures have been entered on
-          the Exit polls tab yet, so there is nothing to compare. When they are, their topline share for each race can be
-          set against the result here.
-        </p>
-      </Panel>
+      <ExitVsResults results={data.results} />
     </>
   );
 }
@@ -214,6 +214,86 @@ function TurnoutProjection({ turnout }: { turnout: PollResults["turnout"] }) {
           ))}
         </DataTable>
       </SortContext.Provider>
+    </Panel>
+  );
+}
+
+type ExitRow = { key: string; race: string; source: string; url: string; dimension: string; implied: number; result: number; gap: number };
+
+/**
+ * Each exit survey's topline against the count. The published releases have
+ * no "All voters" row, so the topline is the one each table implies: its
+ * groups' votes weighted by their shares of voters.
+ */
+function ExitVsResults({ results }: { results: Record<string, RaceResult | null> }) {
+  const sort = useSortState();
+  const rows: ExitRow[] = EXIT.races.flatMap((race) => {
+    const result = results[EXIT_TO_POLL[race.id]];
+    if (!result) return [];
+    return latestReleases(EXIT.releases, race.id).flatMap((release) => {
+      const source = EXIT.sources.find((s) => s.id === release.source)!;
+      return impliedTopline(release).map((t) => {
+        const implied = t.margin * 100;
+        return {
+          key: `${race.id}|${source.id}|${t.dimension}`,
+          race: race.label.split(":")[0],
+          source: source.short,
+          url: release.url,
+          dimension: t.dimension,
+          implied,
+          result: result.margin,
+          gap: implied - result.margin,
+        };
+      });
+    });
+  });
+  const missing = EXIT.sources.filter((s) => s.unavailable);
+  const value = (r: ExitRow) =>
+    sort.by === "race" ? r.race : sort.by === "dim" ? r.dimension : sort.by === "implied" ? r.implied : sort.by === "gap" ? Math.abs(r.gap) : null;
+
+  return (
+    <Panel title="Exit polls against the result" expandable={false}>
+      <p className="ea-note">
+        {rows.length
+          ? "Exit polls describe who voted rather than forecasting the count, and they are weighted toward the count as it comes in, so they should land close to it. None of the published Texas tables has an “All voters” row, so each table’s topline here is the one its groups imply: each group’s vote weighted by its share of voters. A gap is the implied margin minus the counted margin, in points: positive means the survey leans more Democratic than the count."
+          : "No exit-poll figures have been entered on the Exit polls tab, so there is nothing to compare."}
+        {missing.map((s) => ` ${s.name}: ${s.unavailable}`).join("")}
+      </p>
+      {rows.length > 0 && (
+        <SortContext.Provider value={sort}>
+          <DataTable
+            head={
+              <tr>
+                <SortTh by="race">Race</SortTh>
+                <SortTh by="dim">Survey table</SortTh>
+                <SortTh by="implied" className="ea-sep">
+                  Implied margin
+                </SortTh>
+                <th>Counted</th>
+                <SortTh by="gap" className="ea-sep">
+                  Gap
+                </SortTh>
+              </tr>
+            }
+          >
+            {sortItems(rows, sort.by ? value : null, sort.dir).map((r) => (
+              <tr key={r.key}>
+                <td>{r.race}</td>
+                <td>
+                  {r.dimension}
+                  <a className="ea-cnt ea-link" href={r.url} target="_blank" rel="noopener noreferrer">
+                    {r.source}
+                    <span className="sr-only"> exit poll (opens in a new tab)</span>
+                  </a>
+                </td>
+                <td className="ea-sep">{lead(r.implied)}</td>
+                <td>{lead(r.result)}</td>
+                <td className="ea-sep">{Math.abs(r.gap) < 0.05 ? "None" : `${r.gap > 0 ? "+" : "−"}${Math.abs(r.gap).toFixed(1)} pts`}</td>
+              </tr>
+            ))}
+          </DataTable>
+        </SortContext.Provider>
+      )}
     </Panel>
   );
 }

@@ -13,6 +13,17 @@ export type PrecinctDetail = {
   choices: { name: string; party: string }[];
   types: string[];
   rows: { precinct: string; votes: number[][] }[];
+  /** Set where the detail was parsed from a county's PDF report rather than read from a results system. */
+  parsed?: ParsedReport;
+};
+
+/** A county's precinct PDF, parsed here: when the county ran it, and how far its sums sit from the state's total. */
+export type ParsedReport = {
+  pdf: string;
+  /** The report's own run stamp, as printed ("11/04/2026 1:08 AM"). */
+  reportStamp: string;
+  /** Largest gap between a race's precinct sum and the state's county total, as a fraction. */
+  largestGap: number;
 };
 
 /** Everything one county's own results system published, as last read. */
@@ -32,13 +43,20 @@ export type CountyReading = {
   contests: Contest[];
   hasPrecincts: boolean;
   /**
-   * "Unofficial" until the county canvasses (lists CANVASSED in snapshot.ts),
-   * then "Canvassed". The state's own canvass is Snapshot.official.
+   * "Unofficial" until the county canvasses, then "Canvassed". Read from the
+   * county's own results system or elections page, or from the state's
+   * official flag (see canvass.ts); CANVASSED in snapshot.ts overrides.
    */
   status: "Unofficial" | "Canvassed";
   /** The county's canvass report, once posted. */
   canvassUrl?: string;
+  /** Where the canvass was seen. */
+  canvassVia?: "county page" | "county results system" | "state" | "checked by hand";
   /** A precinct-by-precinct report the county has posted as a PDF, where it has no machine-readable one. */
   precinctPdf?: string;
+  /** Set when that PDF has been parsed into the precinct tables. */
+  parsed?: ParsedReport;
+  /** The county's site refuses automated requests, so nothing here can read it. */
+  blocksReads?: boolean;
   error?: string;
 };

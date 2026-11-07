@@ -28,6 +28,38 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Added
+
+- **Precinct tables for Collin, Starr and Willacy counties.** These counties
+  publish precinct results only as PDF reports. The reports are now parsed into
+  the same per-race precinct tables and CSV rows as the Clarity and Harris
+  counties, with a link to each PDF. Starr's and Willacy's precinct sums match
+  the state's county totals exactly. Collin's report was run at 1:08 AM on
+  Nov 4, before the county's last update, so its sums run up to 0.3% below the
+  state's total. The page says so beside each table.
+- **Exit polls are on the polling page.** Texas exit-poll figures for the
+  Senate and governor races are now entered from NBC News, covering gender,
+  age, race, education and party. Fox News shows the same figures, and neither
+  names the pollster. The "Polls vs results" tab now sets each exit-poll table
+  against the count. The published tables have no all-voters row, so each
+  table's topline is worked out from its groups. AP VoteCast had no Texas
+  release that could be found, and the page says where it was looked for and
+  when.
+
+### Changed
+
+- **Counties flip to "Canvassed" on their own.** Each county is now checked
+  hourly for its canvass: in Clarity's page header, through Harris's official
+  flag, or through a link to a Nov 3, 2026 canvass or official report on the
+  county's elections page. The state's own official flag marks every county.
+  The hand-kept list now serves only as an override. A report that still says
+  "unofficial" is never counted as a canvass, even when it is titled "Canvass
+  Results Report", which is how Hays labels its election-night report.
+- **Hays County is labelled as unreadable.** Its website refuses automated
+  requests, so its totals still come from the Texas Secretary of State. The
+  sources table now says so and links Hays's precinct report for reading by
+  hand.
+
 ## 2026-11-06
 
 ### Added
