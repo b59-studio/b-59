@@ -17,6 +17,12 @@ const SECTIONS: { heading: string; entries: Entry[] }[] = [
     ],
   },
   {
+    heading: "Political consulting and organizing",
+    entries: [
+      { path: "/studio/political-consulting", title: "Political Consulting & Organizing", summary: "Field organizing, voter registration, turnout targeting and communications for Texas campaigns and civic groups, from Austin." },
+    ],
+  },
+  {
     heading: "Texas election research",
     entries: [
       { path: "/research/2026-results", title: "2026 Texas Election Results", summary: "Race-by-race results of the November 3, 2026 general election, by county and precinct." },
@@ -29,7 +35,6 @@ const SECTIONS: { heading: string; entries: Entry[] }[] = [
     entries: [
       { path: "/solutions/ready2vote", title: "ready2vote", summary: "Helps Texans complete a voter registration application online and have it mailed to their county." },
       { path: "/solutions/hotline", title: "Hotline", summary: "Scheduling and workforce management for civic and public-interest teams." },
-      { path: "/solutions/travis-county-vdr", title: "Travis County VDR", summary: "The Travis County Voter Registration Toolkit for Volunteer Deputy Registrars, rebuilt as a fast, accessible web app." },
       { path: "/studio", title: "Our Work", summary: "Every product the studio builds and runs." },
     ],
   },

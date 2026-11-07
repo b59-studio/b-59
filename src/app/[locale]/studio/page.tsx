@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import type { ReactNode } from "react";
 import { Brand } from "@/components/Brand";
+import { NavGlyph } from "@/components/NavGlyph";
 import { ProjectMark, type ProjectKey } from "@/components/ProjectMark";
 
 export const metadata: Metadata = {
@@ -48,7 +49,7 @@ function WorkGrid({ items }: { items: WorkItem[] }) {
 const blue = (chunks: React.ReactNode) => <span className="text-b59-blue">{chunks}</span>;
 
 export default async function Studio() {
-  const t = await getTranslations("studio");
+  const [t, nav] = await Promise.all([getTranslations("studio"), getTranslations("nav")]);
 
   const solutions: WorkItem[] = [
     {
@@ -108,6 +109,17 @@ export default async function Studio() {
         <section>
           <h2 className="heading-md mb-4">{t("solutionsHeading")}</h2>
           <WorkGrid items={solutions} />
+        </section>
+
+        <section>
+          <h2 className="heading-md mb-4">{nav("services")}</h2>
+          <Link href="/studio/political-consulting" className="portfolio-card portfolio-card--marked">
+            <NavGlyph glyph="organizing" size={32} className="portfolio-card-mark" />
+            <span className="portfolio-card-body">
+              <h3 className="heading-sm">{nav("politicalConsulting")}</h3>
+              <p className="body-md">{nav("politicalConsultingSub")}</p>
+            </span>
+          </Link>
         </section>
 
         {/* <section>

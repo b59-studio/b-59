@@ -40,7 +40,10 @@
     "team": "团队",
     "teamSub": "B-59 背后的人。",
     "merch": "周边",
-    "merchSub": "为我们合作的团体设计的贴纸、T恤和印刷品。"
+    "merchSub": "为我们合作的团体设计的贴纸、T恤和印刷品。",
+    "services": "服务",
+    "politicalConsulting": "政治咨询",
+    "politicalConsultingSub": "为得克萨斯州竞选提供外勤、选民登记和投票率工作。"
   },
   "footer": {
     "tagline": "为不完美的系统，<blue>进行</blue>深思熟虑的设计。",
@@ -93,6 +96,35 @@
     "tagBrandDesign": "品牌设计",
     "merchTitle": "周边",
     "merchBlurb": "为我们合作的团体设计的贴纸、T恤和印刷品——缩小到笔记本电脑盖大小的品牌。"
+  },
+  "politicalConsulting": {
+    "heading": "政治咨询<blue>与</blue>基层组织",
+    "lede": "<brand></brand> 与得克萨斯州的竞选团队和公民组织合作：找到选民，帮他们登记，并动员他们投票。",
+    "factBasedLabel": "所在地",
+    "factBased": "得克萨斯州奥斯汀",
+    "factLeadLabel": "负责人",
+    "factForLabel": "合作对象",
+    "factFor": "竞选团队、地方党组织和公民团体",
+    "whatHeading": "我们做什么",
+    "fieldTitle": "外勤组织",
+    "fieldBody": "外勤计划、选区目标和志愿者项目，团队从第一周起就能执行。",
+    "registrationTitle": "选民登记",
+    "registrationBody": "选民登记活动和志愿副登记员项目，以及支持它们的软件。",
+    "targetingTitle": "投票率与目标设定",
+    "targetingBody": "按县和选区对比往届的投票率，以及一场选举需要达到的得票目标。",
+    "commsTitle": "传播",
+    "commsBody": "为候选人和地方党组织撰写信息、评论文章和简报。",
+    "toolsTitle": "竞选工具",
+    "toolsBody": "为眼前这场竞选量身打造的网站和工具，而不是套用模板。",
+    "experienceHeading": "经验",
+    "experienceBody": "Jonathon Reise 曾任特拉维斯县民主党外勤总监，现任普夫卢格维尔地区民主党人传播总监，并为选票上各级候选人做过组织工作。<brand></brand> 的软件正是从这些基层工作中产生的。",
+    "proofHeading": "查看我们的工作",
+    "proofTurnoutTitle": "2026 年得克萨斯州投票率对比",
+    "proofTurnoutBlurb": "得克萨斯州每个县的投票率，与 2018、2022 和 2024 年对比。",
+    "proofReady2voteTitle": "ready2vote",
+    "proofReady2voteBlurb": "帮助得克萨斯州居民填写并邮寄选民登记申请。",
+    "proofTeamTitle": "团队",
+    "proofTeamBlurb": "Jonathon 的组织工作和已发表的评论文章。"
   },
   "researchIndex": {
     "intro": "我们关于德州选举的数据工作。"

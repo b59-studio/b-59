@@ -54,6 +54,17 @@ export const NAV_MENUS: NavMenu[] = [
         ],
       },
       {
+        heading: "services",
+        items: [
+          {
+            href: "/studio/political-consulting",
+            icon: { glyph: "organizing" },
+            label: { key: "politicalConsulting" },
+            sub: "politicalConsultingSub",
+          },
+        ],
+      },
+      {
         heading: "tools",
         items: [
           {
