@@ -28,6 +28,8 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+## 2026-11-07
+
 ### Added
 
 - **The Hotline page shows the rota.** "When the calendar isn't only yours"
@@ -35,10 +37,6 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   coverage view naming the day nobody is on, and the Time page with hours
   waiting for sign-off. The screens come from a test organization with a
   made-up roster.
-
-## 2026-11-07
-
-### Added
 
 - **Austin Ballot Petitions: what the numbers say**, a new research page at
   `/research/austin-petitions`:
