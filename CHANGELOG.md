@@ -43,6 +43,8 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   no longer open in a second panel beside it.
 - **About is down to Our Story, Our Inspirations and Team.** The arrow after
   "Our Work" is gone too.
+- **"for" in the home page headline is B-59 blue,** matching the footer
+  tagline.
 
 ### Removed
 
