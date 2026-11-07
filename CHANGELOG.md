@@ -32,6 +32,11 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ### Changed
 
+- **The Studio and Research menus open on their sections.** On desktop each
+  opens on its sections — Solutions, Services and Tools; Ballot Petitions and
+  2026 Texas Elections — and pointing at one opens its pages in a panel beside
+  the list, instead of the whole menu dropping down at once. The Research
+  menu's header now reads "Our Research", matching "Our Work" and "Our Story".
 - **The home page opens on the headline.** On a phone the title is set at
   display size, framed by the same ring as the Our Work and Research pages,
   with both actions on one line. The intro line now names all of the work:

@@ -5,11 +5,158 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { MobileMenu } from "./MobileMenu";
 import { useDropdownClose } from "@/lib/use-dropdown-close";
-import { NAV_MENUS, type NavMenu } from "./nav-menus";
+import { NAV_MENUS, type NavGroup, type NavMenu } from "./nav-menus";
 import { NavItemMark, NavItemName } from "./NavMenuParts";
 
 /** How long the pointer may be outside a hover-opened menu before it closes. */
 const HOVER_CLOSE_DELAY_MS = 150;
+
+/**
+ * How long the pointer must rest on another section before it replaces the one
+ * already open. Long enough that a diagonal path from a section to its panel
+ * can cross its neighbours without switching to them; short enough that
+ * pointing at a section reads as choosing it.
+ */
+const SECTION_SWITCH_DELAY_MS = 120;
+
+type Translate = ReturnType<typeof useTranslations<"nav">>;
+
+/** The pages in one group, each with its mark, name and summary. */
+function MegaItems({
+  items,
+  t,
+  onNavigate,
+}: {
+  items: NavGroup["items"];
+  t: Translate;
+  onNavigate: () => void;
+}) {
+  return items.map((item) => (
+    <Link
+      key={item.href}
+      href={item.href}
+      className="nav-mega-item"
+      role="menuitem"
+      onClick={onNavigate}
+    >
+      <NavItemMark item={item} size={22} />
+      <span className="nav-mega-item-text">
+        <span className="nav-mega-item-name">
+          <NavItemName item={item} t={t} />
+        </span>
+        <span className="nav-mega-item-sub">{t(item.sub)}</span>
+      </span>
+    </Link>
+  ));
+}
+
+/**
+ * The open panel under a header trigger. A menu whose pages fall into named
+ * sections opens on those sections alone, and pointing at one (or focusing or
+ * tapping it) opens its pages beside the list. A menu with a single unnamed
+ * run of pages lists them straight away, since there is nothing to choose.
+ */
+function MegaMenu({ menu, onNavigate }: { menu: NavMenu; onNavigate: () => void }) {
+  const t = useTranslations("nav");
+  const [active, setActive] = useState<number | null>(null);
+  const switchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const sectioned = menu.groups.every((g) => g.heading);
+
+  const cancelSwitch = () => {
+    if (switchTimer.current) clearTimeout(switchTimer.current);
+    switchTimer.current = null;
+  };
+  useEffect(() => cancelSwitch, []);
+
+  const onSectionPointerEnter = (i: number) => (e: React.PointerEvent) => {
+    if (e.pointerType !== "mouse") return;
+    cancelSwitch();
+    if (active === null) setActive(i);
+    else if (active !== i) switchTimer.current = setTimeout(() => setActive(i), SECTION_SWITCH_DELAY_MS);
+  };
+  const focusFirstItem = () => {
+    // The panel renders on the next paint when the section was not yet open.
+    requestAnimationFrame(() => panelRef.current?.querySelector<HTMLElement>("a")?.focus());
+  };
+  const onSectionKeyDown = (i: number) => (e: React.KeyboardEvent) => {
+    const toPanel = document.dir === "rtl" ? "ArrowLeft" : "ArrowRight";
+    if (e.key !== toPanel) return;
+    e.preventDefault();
+    setActive(i);
+    focusFirstItem();
+  };
+
+  const featured = (
+    <Link href={menu.header.href} className="nav-mega-featured" role="menuitem" onClick={onNavigate}>
+      <span>{t(menu.header.title)}</span>
+      <span className="nav-mega-featured-sub">{t(menu.header.sub)}</span>
+    </Link>
+  );
+
+  if (!sectioned) {
+    return (
+      <div className="nav-mega-menu" role="menu">
+        {featured}
+        {menu.groups.map((group, i) => (
+          <div key={i} className="nav-mega-group" role="none">
+            <MegaItems items={group.items} t={t} onNavigate={onNavigate} />
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  const open = active === null ? null : menu.groups[active];
+
+  return (
+    <div className={`nav-mega-menu nav-mega-split ${open ? "expanded" : ""}`} role="menu">
+      <div className="nav-mega-rail" role="none">
+        {featured}
+        {menu.groups.map((group, i) => (
+          <button
+            key={group.heading}
+            type="button"
+            className={`nav-mega-section ${active === i ? "active" : ""}`}
+            role="menuitem"
+            aria-haspopup="true"
+            aria-expanded={active === i}
+            onPointerEnter={onSectionPointerEnter(i)}
+            onPointerLeave={cancelSwitch}
+            onFocus={() => setActive(i)}
+            onClick={() => {
+              setActive(i);
+              focusFirstItem();
+            }}
+            onKeyDown={onSectionKeyDown(i)}
+          >
+            <span>{t(group.heading!)}</span>
+            <svg
+              className="nav-mega-section-chevron"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        ))}
+      </div>
+      {open && (
+        <div
+          ref={panelRef}
+          className="nav-mega-panel"
+          role="group"
+          aria-label={t(open.heading!)}
+          onPointerEnter={cancelSwitch}
+        >
+          <MegaItems items={open.items} t={t} onNavigate={onNavigate} />
+        </div>
+      )}
+    </div>
+  );
+}
 
 /**
  * One header dropdown. Opening another one is a click outside this one, so
@@ -85,40 +232,7 @@ function NavDropdown({ menu }: { menu: NavMenu }) {
         </svg>
       </button>
 
-      {open && (
-        <div className="nav-mega-menu" role="menu">
-          <Link href={menu.header.href} className="nav-mega-featured" role="menuitem" onClick={close}>
-            <span>{t(menu.header.title)}</span>
-            <span className="nav-mega-featured-sub">{t(menu.header.sub)}</span>
-          </Link>
-          {menu.groups.map((group, i) => (
-            <div key={group.heading ?? i} className="nav-mega-group" role="none">
-              {group.heading && (
-                <p className="nav-mega-heading" role="none">
-                  {t(group.heading)}
-                </p>
-              )}
-              {group.items.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="nav-mega-item"
-                  role="menuitem"
-                  onClick={close}
-                >
-                  <NavItemMark item={item} size={22} />
-                  <span className="nav-mega-item-text">
-                    <span className="nav-mega-item-name">
-                      <NavItemName item={item} t={t} />
-                    </span>
-                    <span className="nav-mega-item-sub">{t(item.sub)}</span>
-                  </span>
-                </Link>
-              ))}
-            </div>
-          ))}
-        </div>
-      )}
+      {open && <MegaMenu menu={menu} onNavigate={close} />}
     </div>
   );
 }

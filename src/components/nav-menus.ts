@@ -88,7 +88,7 @@ export const NAV_MENUS: NavMenu[] = [
   {
     id: "research",
     trigger: "research",
-    header: { href: "/research", title: "allResearch", sub: "allResearchSub" },
+    header: { href: "/research", title: "ourResearch", sub: "ourResearchSub" },
     // Newest work first: the petitions research leads, so it is not lost
     // under the three election pages.
     groups: [
