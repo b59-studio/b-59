@@ -2281,3 +2281,15 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
     animation: none;
   }
 }
+
+/* Writing sits under the bio, in the prose column, not beside the name. */
+.team-writing {
+  margin-top: 1.5rem;
+  max-width: 40rem;
+}
+
+@media (min-width: 1024px) {
+  .team-writing {
+    grid-column: 2;
+  }
+}

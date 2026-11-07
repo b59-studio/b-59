@@ -32,6 +32,12 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ### Added
 
+- The Team page now covers Jonathon's organizing work alongside B-59: Field
+  Director for the Travis County Democratic Party and Communications Director
+  for the Pflugerville Area Democrats. It also links his two Pfront Porch
+  op-eds, "We Can Change" and "When We Organize", on pfadc.org rather than
+  republishing them. In every locale.
+
 - **Precinct tables for Collin, Starr and Willacy counties.** These counties
   publish precinct results only as PDF reports. The reports are now parsed into
   the same per-race precinct tables and CSV rows as the Clarity and Harris

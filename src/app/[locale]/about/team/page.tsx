@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { getTranslations } from "next-intl/server";
+import { getFormatter, getTranslations } from "next-intl/server";
 import { AboutSectionNav } from "@/components/AboutSectionNav";
 import { ContactClosing } from "@/components/ContactClosing";
 import { RowArrow } from "@/components/RowArrow";
@@ -24,8 +24,15 @@ export const metadata: Metadata = {
  */
 type Photo = { src: string; width: number; height: number };
 
-const jon: { photo?: Photo; linkedIn: string } = {
+/** Writing published elsewhere. Linked, never republished: the publisher's page carries its own disclaimer. */
+type Piece = { key: "writingOrganize" | "writingChange"; href: string; date: string };
+
+const jon: { photo?: Photo; linkedIn: string; writing: Piece[] } = {
   linkedIn: "https://www.linkedin.com/in/jonvthon",
+  writing: [
+    { key: "writingChange", href: "https://www.pfadc.org/pfront-porch/we-can-change", date: "2026-11-06" },
+    { key: "writingOrganize", href: "https://www.pfadc.org/pfront-porch/when-we-organize", date: "2026-04-30" },
+  ],
 };
 
 const blue = (chunks: React.ReactNode) => <span className="text-b59-blue">{chunks}</span>;
@@ -33,6 +40,7 @@ const brand = () => <Brand />;
 
 export default async function Team() {
   const t = await getTranslations("team");
+  const format = await getFormatter();
 
   return (
     <div className="home about">
@@ -64,11 +72,31 @@ export default async function Team() {
         </div>
         <div className="about-prose">
           <p>{t.rich("jonBio1", { brand, blue })}</p>
+          <p>{t.rich("jonBio2", { brand })}</p>
           <a href={jon.linkedIn} className="home-text-action" target="_blank" rel="noopener noreferrer">
             {t("jonLinkedIn")}
             <span className="sr-only">{t("opensNewWindow")}</span>
             <RowArrow />
           </a>
+        </div>
+        <div className="team-writing">
+          <h3 className="about-principle-title">{t("writingHeading")}</h3>
+          <ul className="home-list">
+            {jon.writing.map((piece) => (
+              <li key={piece.key}>
+                <a href={piece.href} className="home-row" target="_blank" rel="noopener noreferrer">
+                  <span className="home-row-body">
+                    <span className="home-row-title">{t(piece.key)}</span>
+                    <span className="home-meta">
+                      {t("writingSource")} · {format.dateTime(new Date(`${piece.date}T12:00:00`), { dateStyle: "long" })}
+                    </span>
+                  </span>
+                  <span className="sr-only">{t("opensNewWindow")}</span>
+                  <RowArrow />
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
