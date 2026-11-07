@@ -28,6 +28,17 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Changed
+
+- **The ready2vote and Hotline pages now read as product pages.** Each opens
+  with screenshots of the live product on a laptop and a phone beside the
+  pitch and the button to try it, and the claims further down sit next to the
+  screen that shows them. ready2vote gains a four-step "how it works" and the
+  details that get an application finished (save and come back, review before
+  it's mailed, three languages). Hotline shows the guest's booking page — in
+  light or dark to match the site — and lays its organization features out to
+  scan rather than as a bulleted list. In every locale.
+
 ## 2026-11-07
 
 ### Added
