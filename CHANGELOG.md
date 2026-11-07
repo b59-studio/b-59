@@ -32,6 +32,12 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ### Added
 
+- **A Political Consulting & Organizing page** at `/studio/political-consulting`
+  sets out the studio's campaign work: field organizing, voter registration,
+  turnout and targeting, communications and campaign tools, with Jonathon's
+  organizing experience and links to the work behind it. It is in the Studio
+  menu under a new Services group, on the Our Work page, and in every locale.
+
 - The Inspirations page now shows the work behind each example instead of only
   describing it. Audrey Tang's section has photos of the occupied legislature
   and a g0v hackathon, and links to g0v, the 2020 mask supply platform,
@@ -50,6 +56,9 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   assistants a short guide to the main pages.
 
 ### Changed
+
+- `/llms.txt` no longer lists the Travis County VDR case study, which the
+  site's menus hold back.
 
 - The home, About and Studio page descriptions shown in search results now
   say the studio is in Austin, Texas. The About description names the

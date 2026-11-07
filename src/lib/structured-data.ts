@@ -46,11 +46,13 @@ export function organizationJsonLd(siteUrl: string) {
         },
         areaServed: [{ "@type": "City", name: "Austin", containedInPlace: TEXAS }, TEXAS],
         knowsAbout: [
+          "Political consulting",
           "Civic technology",
           "Election data analysis",
           "Texas elections",
           "Voter registration",
           "Campaign field organizing",
+          "Voter turnout targeting",
           "Human-centered design",
           "Public-sector software",
         ],

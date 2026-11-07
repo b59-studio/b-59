@@ -38,6 +38,7 @@ const overrides: Record<string, RouteOverride> = {
   "/research/2026-election-analysis": { priority: 0.8, changeFrequency: "daily" },
   "/research/2026-polls": { priority: 0.8, changeFrequency: "daily" },
   "/research/2026-results": { priority: 0.9, changeFrequency: "hourly" },
+  "/studio/political-consulting": { priority: 0.9 },
   "/studio/win-calculator": { exclude: true }, // behind a password, for campaign teams
   "/about": { priority: 0.9 },
   "/about/inspirations": { priority: 0.8, changeFrequency: "yearly" },

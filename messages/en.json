@@ -40,7 +40,10 @@
     "team": "Team",
     "teamSub": "Who's behind B-59.",
     "merch": "Merch",
-    "merchSub": "Stickers, shirts and print for the groups we work with."
+    "merchSub": "Stickers, shirts and print for the groups we work with.",
+    "services": "Services",
+    "politicalConsulting": "Political Consulting",
+    "politicalConsultingSub": "Field, registration and turnout work for Texas campaigns."
   },
   "footer": {
     "tagline": "Deliberate design <blue>for</blue> imperfect systems.",
@@ -93,6 +96,35 @@
     "tagBrandDesign": "Brand design",
     "merchTitle": "Merch",
     "merchBlurb": "Stickers, shirts and print designed for the groups we work with — the brand at the size of a laptop lid."
+  },
+  "politicalConsulting": {
+    "heading": "Political consulting <blue>and</blue> organizing",
+    "lede": "<brand></brand> works with Texas campaigns and civic organizations on finding voters, registering them and turning them out.",
+    "factBasedLabel": "Based in",
+    "factBased": "Austin, Texas",
+    "factLeadLabel": "Led by",
+    "factForLabel": "Works with",
+    "factFor": "Campaigns, local parties and civic groups",
+    "whatHeading": "What we do",
+    "fieldTitle": "Field organizing",
+    "fieldBody": "Field plans, precinct targets and volunteer programs a team can run from the first week.",
+    "registrationTitle": "Voter registration",
+    "registrationBody": "Registration drives and Volunteer Deputy Registrar programs, and the software behind them.",
+    "targetingTitle": "Turnout and targeting",
+    "targetingBody": "County and precinct turnout against past cycles, and the vote goal a race needs.",
+    "commsTitle": "Communications",
+    "commsBody": "Messaging, op-eds and newsletters for candidates and local parties.",
+    "toolsTitle": "Campaign tools",
+    "toolsBody": "Websites and tools built for the campaign in front of us, not adapted from a template.",
+    "experienceHeading": "Experience",
+    "experienceBody": "Jonathon Reise has served as Field Director for the Travis County Democratic Party, works as Communications Director for the Pflugerville Area Democrats, and has organized for candidates up and down the ballot. <brand></brand> builds its software out of that field work.",
+    "proofHeading": "See the work",
+    "proofTurnoutTitle": "2026 Texas Turnout Comparison",
+    "proofTurnoutBlurb": "Turnout in every Texas county against 2018, 2022 and 2024.",
+    "proofReady2voteTitle": "ready2vote",
+    "proofReady2voteBlurb": "Helps Texans complete and mail their voter registration application.",
+    "proofTeamTitle": "Team",
+    "proofTeamBlurb": "Jonathon's organizing work and published op-eds."
   },
   "researchIndex": {
     "intro": "Our data work on Texas elections."

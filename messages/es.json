@@ -40,7 +40,10 @@
     "team": "Equipo",
     "teamSub": "Quién está detrás de B-59.",
     "merch": "Merch",
-    "merchSub": "Calcomanías, camisetas e impresos para los grupos con los que trabajamos."
+    "merchSub": "Calcomanías, camisetas e impresos para los grupos con los que trabajamos.",
+    "services": "Servicios",
+    "politicalConsulting": "Consultoría política",
+    "politicalConsultingSub": "Trabajo de campo, registro y participación para campañas de Texas."
   },
   "footer": {
     "tagline": "Diseño deliberado <blue>para</blue> sistemas imperfectos.",
@@ -93,6 +96,35 @@
     "tagBrandDesign": "Diseño de marca",
     "merchTitle": "Merch",
     "merchBlurb": "Calcomanías, camisetas e impresos diseñados para los grupos con los que trabajamos: la marca al tamaño de la tapa de una laptop."
+  },
+  "politicalConsulting": {
+    "heading": "Consultoría política <blue>y</blue> organización",
+    "lede": "<brand></brand> trabaja con campañas y organizaciones cívicas de Texas para encontrar votantes, registrarlos y llevarlos a votar.",
+    "factBasedLabel": "Con sede en",
+    "factBased": "Austin, Texas",
+    "factLeadLabel": "Dirigido por",
+    "factForLabel": "Trabaja con",
+    "factFor": "Campañas, partidos locales y grupos cívicos",
+    "whatHeading": "Lo que hacemos",
+    "fieldTitle": "Organización de campo",
+    "fieldBody": "Planes de campo, metas por precinto y programas de voluntarios que un equipo puede poner en marcha desde la primera semana.",
+    "registrationTitle": "Registro de votantes",
+    "registrationBody": "Campañas de registro y programas de Registradores Voluntarios Adjuntos, y el software que los respalda.",
+    "targetingTitle": "Participación y focalización",
+    "targetingBody": "Participación por condado y precinto frente a ciclos anteriores, y la meta de votos que necesita una contienda.",
+    "commsTitle": "Comunicaciones",
+    "commsBody": "Mensajes, artículos de opinión y boletines para candidatos y partidos locales.",
+    "toolsTitle": "Herramientas de campaña",
+    "toolsBody": "Sitios web y herramientas hechos para la campaña que tenemos delante, no adaptados de una plantilla.",
+    "experienceHeading": "Experiencia",
+    "experienceBody": "Jonathon Reise ha sido Director de Campo del Partido Demócrata del Condado de Travis, es Director de Comunicaciones de los Demócratas del Área de Pflugerville y ha organizado para candidatos en todos los niveles de la boleta. <brand></brand> construye su software a partir de ese trabajo de campo.",
+    "proofHeading": "Vea el trabajo",
+    "proofTurnoutTitle": "Comparación de participación de Texas 2026",
+    "proofTurnoutBlurb": "La participación en cada condado de Texas frente a 2018, 2022 y 2024.",
+    "proofReady2voteTitle": "ready2vote",
+    "proofReady2voteBlurb": "Ayuda a los tejanos a completar y enviar por correo su solicitud de registro de votante.",
+    "proofTeamTitle": "Equipo",
+    "proofTeamBlurb": "El trabajo de organización de Jonathon y sus artículos de opinión publicados."
   },
   "researchIndex": {
     "intro": "Nuestro trabajo con datos sobre las elecciones de Texas."
