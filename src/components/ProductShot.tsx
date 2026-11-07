@@ -32,10 +32,17 @@ export function BrowserShot({ shot, address, priority }: { shot: Shot; address: 
 }
 
 /** The same product on a phone, cropped to the first screen a visitor sees. */
-export function PhoneShot({ shot, className = "" }: { shot: Shot; className?: string }) {
+export function PhoneShot({ shot, className = "", priority }: { shot: Shot; className?: string; priority?: boolean }) {
   return (
     <div className={`product-phone ${className}`}>
-      <Image src={shot.src} alt={shot.alt} width={shot.width} height={shot.height} sizes="12rem" />
+      <Image
+        src={shot.src}
+        alt={shot.alt}
+        width={shot.width}
+        height={shot.height}
+        sizes="12rem"
+        priority={priority}
+      />
     </div>
   );
 }
@@ -55,7 +62,9 @@ export function DeviceStage({
   return (
     <div className="product-stage">
       <BrowserShot shot={desktop} address={address} priority={priority} />
-      <PhoneShot shot={phone} className="product-stage-phone" />
+      {/* The phone is part of the same picture as the browser, so it loads
+          with it — lazily, it shows as an empty bezel on first paint. */}
+      <PhoneShot shot={phone} className="product-stage-phone" priority={priority} />
     </div>
   );
 }
@@ -84,15 +93,6 @@ export function ThemedShot({ light, dark }: { light: Shot; dark: Shot }) {
         sizes="(min-width: 1024px) 36rem, 100vw"
         className="product-theme-dark"
       />
-    </figure>
-  );
-}
-
-/** A single framed screen or illustration beside a block of text. */
-export function FigureShot({ shot }: { shot: Shot }) {
-  return (
-    <figure className="product-figure">
-      <Image src={shot.src} alt={shot.alt} width={shot.width} height={shot.height} sizes="(min-width: 1024px) 36rem, 100vw" />
     </figure>
   );
 }
