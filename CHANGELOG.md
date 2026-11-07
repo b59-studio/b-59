@@ -28,14 +28,6 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
-### Changed
-
-- Our Story, Our Inspirations and Team read as one section. Each opens with
-  the same row of links to the other two. Our Story leads with what the studio
-  stands for and three facts about it, sets out how it works as three
-  principles, and ends with links to the people it learns from and works with,
-  then a way to email the studio.
-
 ## 2026-11-06
 
 ### Added
@@ -52,6 +44,11 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ### Changed
 
+- Our Story, Our Inspirations and Team read as one section. Each opens with
+  the same row of links to the other two. Our Story leads with what the studio
+  stands for and three facts about it, sets out how it works as three
+  principles, and ends with links to the people it learns from and works with,
+  then a way to email the studio.
 - The home page shows the work instead of a tagline. The three 2026 Texas
   research pages and both products — ready2vote and Hotline — are now on the
   first screen, each one click away, where before the page was a headline and
