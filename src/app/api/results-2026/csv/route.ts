@@ -19,7 +19,10 @@ export async function GET(request: Request) {
         .filter((r) => r.hasPrecincts)
         .map(async (r) => {
           const detail = await getPrecincts(r.county, key).catch(() => null);
-          return detail ? { county: r.county, system: r.system, readAt: r.readAt, detail } : null;
+          if (!detail) return null;
+          // Parsed precinct rows come from the county's PDF report, not from the state's file.
+          const system = detail.parsed ? `${r.county} precinct report (PDF, run ${detail.parsed.reportStamp}), parsed` : r.system;
+          return { county: r.county, system, readAt: r.readAt, detail };
         }),
     )
   ).filter((p) => p != null);

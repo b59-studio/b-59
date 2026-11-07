@@ -19,6 +19,8 @@ import {
 
 const DATA = raw as ExitPollData;
 const SOURCES = DATA.sources;
+/** Sources with at least one release: the only ones given columns. */
+const REPORTING = SOURCES.filter((s) => DATA.releases.some((r) => r.source === s.id));
 
 // Release times in Central with the day, since the night runs past midnight.
 const stampFormat = new Intl.DateTimeFormat("en-US", {
@@ -82,9 +84,12 @@ function sortValue(key: string): ((row: Comparison) => number | null | undefined
 
 function ComparisonTable({ rows }: { rows: Comparison[] }) {
   const { by, dir, toggle, reset } = useSortState();
+  const COLS = REPORTING;
+  // A spread needs two sources.
+  const paired = COLS.length > 1;
   const value = by === "name" ? (r: Comparison) => r.group : by ? sortValue(by) : null;
   const shown = sortItems(rows, value, dir);
-  const columns = 1 + SOURCES.length * 4 + 2;
+  const columns = 1 + COLS.length * 4 + (paired ? 2 : 0);
 
   return (
     <SortContext.Provider value={{ by, dir, toggle }}>
@@ -100,17 +105,19 @@ function ComparisonTable({ rows }: { rows: Comparison[] }) {
               <SortTh by="name" rowSpan={2}>
                 Group
               </SortTh>
-              {SOURCES.map((s) => (
+              {COLS.map((s) => (
                 <th key={s.id} colSpan={4} className="ea-grp ea-sep">
                   {s.name}
                 </th>
               ))}
-              <th colSpan={2} className="ea-grp ea-sep">
-                Spread between sources
-              </th>
+              {paired && (
+                <th colSpan={2} className="ea-grp ea-sep">
+                  Spread between sources
+                </th>
+              )}
             </tr>
             <tr>
-              {SOURCES.map((s) => (
+              {COLS.map((s) => (
                 <Fragment key={s.id}>
                   <SortTh by={`${s.id}:share`} className="ea-sep">
                     Share
@@ -120,10 +127,14 @@ function ComparisonTable({ rows }: { rows: Comparison[] }) {
                   <SortTh by={`${s.id}:margin`}>Margin</SortTh>
                 </Fragment>
               ))}
-              <SortTh by="spread:share" className="ea-sep">
-                Share
-              </SortTh>
-              <SortTh by="spread:margin">Margin</SortTh>
+              {paired && (
+                <>
+                  <SortTh by="spread:share" className="ea-sep">
+                    Share
+                  </SortTh>
+                  <SortTh by="spread:margin">Margin</SortTh>
+                </>
+              )}
             </tr>
           </>
         }
@@ -138,11 +149,11 @@ function ComparisonTable({ rows }: { rows: Comparison[] }) {
             <tr className={r.group === "All voters" ? "ea-bench" : undefined}>
               <td>
                 {r.group}
-                {SOURCES.map((s) => r.bySource[s.id]?.note && (
+                {COLS.map((s) => r.bySource[s.id]?.note && (
                   <span key={s.id} className="ea-cnt">{`${s.name}: ${r.bySource[s.id]!.note}`}</span>
                 ))}
               </td>
-              {SOURCES.map((s) => {
+              {COLS.map((s) => {
                 const f = r.bySource[s.id];
                 return (
                   <Fragment key={s.id}>
@@ -153,8 +164,12 @@ function ComparisonTable({ rows }: { rows: Comparison[] }) {
                   </Fragment>
                 );
               })}
-              <td className="ea-sep">{gap(r.shareSpread) || <span className="ea-muted">–</span>}</td>
-              <td>{gap(r.marginSpread) || <span className="ea-muted">–</span>}</td>
+              {paired && (
+                <>
+                  <td className="ea-sep">{gap(r.shareSpread) || <span className="ea-muted">–</span>}</td>
+                  <td>{gap(r.marginSpread) || <span className="ea-muted">–</span>}</td>
+                </>
+              )}
             </tr>
           </Fragment>
         ))}
@@ -165,11 +180,11 @@ function ComparisonTable({ rows }: { rows: Comparison[] }) {
 
 /** How one group's figures moved through the night, release by release, for each source. */
 function NightPanel({ race }: { race: RaceId }) {
-  const [group, setGroup] = useState("All voters");
   const reported = new Set(DATA.releases.filter((r) => r.race === race).flatMap((r) => r.rows.map((f) => f.group)));
   const options = Object.entries(HEADLINE_GROUPS).flatMap(([dim, groups]) =>
     groups.filter((g) => reported.has(g)).map((g) => ({ value: g, label: g, group: dim })),
   );
+  const [group, setGroup] = useState(options[0]?.value ?? "All voters");
   const steps = SOURCES.flatMap((s) =>
     history(DATA.releases, race, s.id, group).map((h, i, all) => ({
       ...h,
@@ -230,6 +245,7 @@ function SourcesPanel() {
               <span className="sr-only"> (opens in a new tab)</span>
             </a>
             , published by {s.publishers}. {s.method}
+            {s.unavailable && ` ${s.unavailable}`}
           </li>
         ))}
       </ul>
@@ -237,9 +253,8 @@ function SourcesPanel() {
         B-59 shows a fixed set of headline groups from each survey’s public release, credited and linked, and not the
         full crosstabs, which belong to the survey owners. Figures are entered by hand from each release, so they can
         trail the source by a few minutes; the source’s own page is the record. Margin is the Democratic share minus the
-        Republican share. The spread is the gap between the highest and lowest source for a group. The two surveys are
-        never averaged here: they reach voters differently and weight differently, and a mean of the two would describe
-        neither.
+        Republican share. Where two surveys report a group, the spread is the gap between them. Surveys are never
+        averaged here: they reach voters differently and weight differently, and a mean of two would describe neither.
       </p>
     </Panel>
   );
@@ -258,8 +273,10 @@ export function ExitPollsPanel() {
     <>
       <Panel title="Exit polls: who voted, and how" as="h2">
         <p className="ea-note-lead">
-          Two surveys of Texas voters, side by side: the Edison Research exit poll and AP VoteCast. Each figure is the
-          source’s latest release: the group’s share of voters, and the Democratic and Republican shares of its vote. Where both report a group, the spread shows how far apart they are.
+          Who voted in Texas, and how, from the exit surveys published so far:{" "}
+          {REPORTING.map((s) => s.name).join(" and ") || "none yet"}. Each figure is the source’s latest release: the
+          group’s share of voters, and the Democratic and Republican shares of its vote.
+          {REPORTING.length > 1 && " Where more than one source reports a group, the spread shows how far apart they are."}
         </p>
         <div className="ea-exit-controls">
           <Pills legend="Race" options={RACE_OPTIONS} value={race} onChange={setRace} />
@@ -279,7 +296,7 @@ export function ExitPollsPanel() {
                     <span className="sr-only"> (opens in a new tab)</span>
                   </a>
                 ) : (
-                  <span className="ea-muted">no release yet</span>
+                  <span className="ea-muted">{s.unavailable ?? "no release yet"}</span>
                 )}
               </li>
             );
@@ -296,10 +313,11 @@ export function ExitPollsPanel() {
         )}
         <Note>
           Exit surveys are estimates with margins of error, larger for smaller groups, and they are revised through the
-          night. A spread of a few points between the two is normal and does not mean either is wrong.
+          night. A spread of a few points between two surveys is normal and does not mean either is wrong. The Polls vs
+          results tab sets these figures against the count.
         </Note>
       </Panel>
-      {rows.length > 0 && <NightPanel key={race} race={race} />}
+      {DATA.releases.filter((r) => r.race === race).length > latest.length && <NightPanel key={race} race={race} />}
       <SourcesPanel />
     </>
   );

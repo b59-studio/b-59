@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import committed from "./exit-polls.json";
-import { checkData, compare, history, latestReleases, marginOf, spread, type ExitPollData, type Release } from "./exitPolls";
+import { checkData, compare, history, impliedTopline, latestReleases, marginOf, spread, type ExitPollData, type Release } from "./exitPolls";
 
 // Made-up figures for the maths only; none of them is a published result.
 const release = (over: Partial<Release>): Release => ({
@@ -115,8 +115,18 @@ describe("history", () => {
   });
 });
 
+// The made-up releases above use the ids "edison" and "votecast"; give them sources of their own.
+const testSources: ExitPollData["sources"] = (["edison", "votecast"] as const).map((id) => ({
+  id,
+  name: id,
+  short: id,
+  publishers: "test",
+  url: "https://example.com",
+  method: "test",
+}));
+
 const data = (releases: Release[]): ExitPollData => ({
-  sources: committed.sources as ExitPollData["sources"],
+  sources: testSources,
   races: committed.races as ExitPollData["races"],
   releases,
 });
@@ -159,5 +169,19 @@ describe("checkData", () => {
     const problems = checkData(data([over, over]));
     expect(problems).toContainEqual(expect.stringContaining("entered twice"));
     expect(problems).toContainEqual(expect.stringContaining("more than 100%"));
+  });
+});
+
+describe("impliedTopline", () => {
+  it("weights each group's vote by its share, over the share the groups cover", () => {
+    const [gender] = impliedTopline(later);
+    expect(gender.dimension).toBe("Gender");
+    expect(gender.covered).toBeCloseTo(1);
+    expect(gender.dem).toBeCloseTo(0.53 * 0.55 + 0.47 * 0.43);
+    expect(gender.margin).toBeCloseTo(gender.dem - gender.rep);
+  });
+
+  it("skips a dimension with a group missing", () => {
+    expect(impliedTopline(early)).toEqual([]);
   });
 });

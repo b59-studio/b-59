@@ -1,12 +1,12 @@
 {
   "sources": [
     {
-      "id": "edison",
-      "name": "Edison Research exit poll",
-      "short": "Edison",
-      "publishers": "the National Election Pool: CNN, ABC News, CBS News and NBC News",
-      "url": "https://www.edisonresearch.com/election-polling/",
-      "method": "Interviews voters as they leave polling places on election day, with phone and online interviews of early and mail voters, weighted to the vote count as it comes in."
+      "id": "nbc",
+      "name": "NBC News exit poll",
+      "short": "NBC News",
+      "publishers": "NBC News on its Texas results pages; the pages do not name the firm that ran the survey",
+      "url": "https://www.nbcnews.com/politics/2026-elections/exit-polls",
+      "method": "Labelled “Exit Polls” on NBC’s Texas Senate and governor results pages, with no respondent count shown. Fox News’s Texas results page shows the same figures for every group both publish, with about 5,100 respondents per question and no pollster named, so the two are very likely one survey and are shown here once. Checked Nov 6, 2026."
     },
     {
       "id": "votecast",
@@ -14,7 +14,8 @@
       "short": "VoteCast",
       "publishers": "The Associated Press, conducted by NORC at the University of Chicago",
       "url": "https://apnews.com/hub/ap-votecast",
-      "method": "Surveys registered voters online and by phone over the last days of voting, from a probability sample of the voter file plus an opt-in panel, weighted to the vote count as it comes in."
+      "method": "Surveys registered voters online and by phone over the last days of voting, from a probability sample of the voter file plus an opt-in panel, weighted to the vote count as it comes in.",
+      "unavailable": "No Texas release found. AP’s 2026 Texas results page returned “not found” and its results article was behind a bot check. Checked Nov 6, 2026."
     }
   ],
   "races": [
@@ -27,5 +28,222 @@
       "label": "Governor: Hinojosa (D) v. Abbott (R)"
     }
   ],
-  "releases": []
+  "releases": [
+    {
+      "source": "nbc",
+      "race": "senate",
+      "released": "2026-11-06T16:56:00-06:00",
+      "url": "https://www.nbcnews.com/politics/2026-elections/texas-senate-results",
+      "rows": [
+        {
+          "group": "Men",
+          "share": 0.45,
+          "dem": 0.51,
+          "rep": 0.47
+        },
+        {
+          "group": "Women",
+          "share": 0.54,
+          "dem": 0.58,
+          "rep": 0.4
+        },
+        {
+          "group": "18–29",
+          "share": 0.13,
+          "dem": 0.79,
+          "rep": 0.19
+        },
+        {
+          "group": "30–44",
+          "share": 0.22,
+          "dem": 0.66,
+          "rep": 0.32
+        },
+        {
+          "group": "45–64",
+          "share": 0.35,
+          "dem": 0.49,
+          "rep": 0.49
+        },
+        {
+          "group": "65 and older",
+          "share": 0.3,
+          "dem": 0.44,
+          "rep": 0.55
+        },
+        {
+          "group": "White",
+          "share": 0.55,
+          "dem": 0.42,
+          "rep": 0.56
+        },
+        {
+          "group": "Black",
+          "share": 0.12,
+          "dem": 0.9,
+          "rep": 0.08
+        },
+        {
+          "group": "Hispanic/Latino",
+          "share": 0.24,
+          "dem": 0.68,
+          "rep": 0.3,
+          "note": "asked as “Latino”"
+        },
+        {
+          "group": "Asian",
+          "share": 0.04,
+          "dem": 0.71,
+          "rep": 0.28
+        },
+        {
+          "group": "Other",
+          "share": 0.04,
+          "dem": 0.43,
+          "rep": 0.53
+        },
+        {
+          "group": "College graduate",
+          "share": 0.45,
+          "dem": 0.6,
+          "rep": 0.38
+        },
+        {
+          "group": "No college degree",
+          "share": 0.55,
+          "dem": 0.51,
+          "rep": 0.47
+        },
+        {
+          "group": "Democrat",
+          "share": 0.33,
+          "dem": 0.99,
+          "rep": 0.01,
+          "note": "not counting leaners"
+        },
+        {
+          "group": "Republican",
+          "share": 0.38,
+          "dem": 0.11,
+          "rep": 0.87,
+          "note": "not counting leaners"
+        },
+        {
+          "group": "Independent or other",
+          "share": 0.29,
+          "dem": 0.64,
+          "rep": 0.33,
+          "note": "not counting leaners"
+        }
+      ]
+    },
+    {
+      "source": "nbc",
+      "race": "governor",
+      "released": "2026-11-06T16:56:00-06:00",
+      "url": "https://www.nbcnews.com/politics/2026-elections/texas-governor-results",
+      "rows": [
+        {
+          "group": "Men",
+          "share": 0.45,
+          "dem": 0.49,
+          "rep": 0.5
+        },
+        {
+          "group": "Women",
+          "share": 0.54,
+          "dem": 0.56,
+          "rep": 0.43
+        },
+        {
+          "group": "18–29",
+          "share": 0.13,
+          "dem": 0.77,
+          "rep": 0.21
+        },
+        {
+          "group": "30–44",
+          "share": 0.22,
+          "dem": 0.62,
+          "rep": 0.36
+        },
+        {
+          "group": "45–64",
+          "share": 0.35,
+          "dem": 0.47,
+          "rep": 0.51
+        },
+        {
+          "group": "65 and older",
+          "share": 0.3,
+          "dem": 0.42,
+          "rep": 0.57
+        },
+        {
+          "group": "White",
+          "share": 0.55,
+          "dem": 0.4,
+          "rep": 0.59
+        },
+        {
+          "group": "Black",
+          "share": 0.12,
+          "dem": 0.88,
+          "rep": 0.1
+        },
+        {
+          "group": "Hispanic/Latino",
+          "share": 0.24,
+          "dem": 0.65,
+          "rep": 0.33,
+          "note": "asked as “Latino”"
+        },
+        {
+          "group": "Asian",
+          "share": 0.04,
+          "dem": 0.66,
+          "rep": 0.34
+        },
+        {
+          "group": "Other",
+          "share": 0.04,
+          "dem": 0.42,
+          "rep": 0.55
+        },
+        {
+          "group": "College graduate",
+          "share": 0.45,
+          "dem": 0.58,
+          "rep": 0.41
+        },
+        {
+          "group": "No college degree",
+          "share": 0.55,
+          "dem": 0.49,
+          "rep": 0.5
+        },
+        {
+          "group": "Democrat",
+          "share": 0.33,
+          "dem": 0.98,
+          "rep": 0.02,
+          "note": "not counting leaners"
+        },
+        {
+          "group": "Republican",
+          "share": 0.38,
+          "dem": 0.09,
+          "rep": 0.9,
+          "note": "not counting leaners"
+        },
+        {
+          "group": "Independent or other",
+          "share": 0.29,
+          "dem": 0.59,
+          "rep": 0.38,
+          "note": "not counting leaners"
+        }
+      ]
+    }
+  ]
 }

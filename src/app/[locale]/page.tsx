@@ -4,6 +4,8 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { defaultLocale } from "@/i18n/config";
 import { ProjectMark, type ProjectKey } from "@/components/ProjectMark";
+import { CONTACT_HREF, ContactClosing } from "@/components/ContactClosing";
+import { RowArrow } from "@/components/RowArrow";
 
 export const metadata: Metadata = {
   title: { absolute: "B-59 Studio" },
@@ -18,33 +20,8 @@ export const metadata: Metadata = {
   },
 };
 
-const CONTACT_HREF = "mailto:contact@b-59.com";
-
 type Research = { href: string; title: string; blurb: string };
 type Product = { href: string; project: ProjectKey; name: ReactNode; blurb: string };
-
-/** Points along the reading direction; `.home-arrow` mirrors it under RTL. */
-function Arrow() {
-  return (
-    <svg
-      className="home-arrow"
-      width="20"
-      height="20"
-      viewBox="0 0 20 20"
-      fill="none"
-      aria-hidden={true}
-      focusable="false"
-    >
-      <path
-        d="M4 10h12m-5-5 5 5-5 5"
-        stroke="currentColor"
-        strokeWidth="1.75"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
 
 export default async function Home() {
   const [locale, t, nav, studio, research] = await Promise.all([
@@ -93,7 +70,7 @@ export default async function Home() {
             </a>
             <Link href="/studio" className="home-text-action">
               {t("ctaSecondary")}
-              <Arrow />
+              <RowArrow />
             </Link>
           </div>
         </div>
@@ -115,7 +92,7 @@ export default async function Home() {
                     <span className="home-row-title">{item.title}</span>
                     <span className="home-meta">{item.blurb}</span>
                   </span>
-                  <Arrow />
+                  <RowArrow />
                 </Link>
               </li>
             ))}
@@ -134,24 +111,14 @@ export default async function Home() {
                 <ProjectMark project={item.project} size={48} />
                 <span className="home-product-name">{item.name}</span>
                 <span className="home-product-blurb">{item.blurb}</span>
-                <Arrow />
+                <RowArrow />
               </Link>
             </li>
           ))}
         </ul>
       </section>
 
-      <section className="home-section home-closing" aria-labelledby="home-closing-heading">
-        <h2 id="home-closing-heading" className="home-closing-title">
-          {t("closingHeading")}
-        </h2>
-        <p className="home-lede">{t("closingBody")}</p>
-        <div className="home-actions">
-          <a href={CONTACT_HREF} className="btn-secondary">
-            {t("ctaPrimary")}
-          </a>
-        </div>
-      </section>
+      <ContactClosing id="home-closing-heading" />
     </div>
   );
 }

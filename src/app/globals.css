@@ -1457,22 +1457,6 @@ button {
    TEAM
    ============================================ */
 
-/* One member: portrait beside the text on a wide screen, above it on a phone.
-   With no portrait yet the body simply starts at the left edge. */
-.team-member {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-@media (min-width: 640px) {
-  .team-member {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 2rem;
-  }
-}
-
 .team-member-photo {
   display: block;
   width: 200px;
@@ -1482,10 +1466,6 @@ button {
   flex-shrink: 0;
 }
 
-.team-member-body {
-  flex: 1;
-  min-width: 0;
-}
 
 /* ============================================
    RESEARCH: 2026 ELECTION ANALYSIS
@@ -2113,6 +2093,241 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
   .home-hero-lead > *,
   .home-latest,
   .home-section {
+    animation: none;
+  }
+}
+
+/* ============================================
+   ABOUT
+   Our story, Inspirations and Team are one section told in three pages. They
+   share the home page's primitives (the `.home` wrapper, its title, lede, rows
+   and motion) and add the one shape an essay needs: a chapter, its heading in
+   a narrow column beside the prose on a wide screen, above it on a phone.
+   ============================================ */
+
+/* The row of section pages. The current one is marked by ink and an
+   underline in the accent, not by a filled tab (standards/44, "No boxes"). */
+.about-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.about-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch-target);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--home-ink-2);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 8px;
+  transition: color 0.2s, text-decoration-color 0.2s;
+}
+
+.about-nav a:hover {
+  color: inherit;
+  text-decoration-color: var(--home-rule);
+}
+
+.about-nav a[aria-current="page"] {
+  color: inherit;
+  text-decoration-color: var(--color-b59-blue);
+}
+
+.about-nav a:focus-visible {
+  outline: 2px solid var(--color-b59-blue);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+/* Three facts in place of a paragraph about them. */
+.about-facts {
+  margin: 0;
+  border-block: 1px solid var(--home-rule);
+}
+
+.about-facts > div {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  gap: 1rem;
+  padding-block: 1rem;
+}
+
+.about-facts > div + div {
+  border-top: 1px solid var(--home-rule);
+}
+
+.about-facts dt {
+  line-height: 1.6;
+}
+
+.about-facts dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Each chapter opens with its own rule, which already sets the hero apart. */
+.about .home-hero {
+  padding-bottom: 0;
+}
+
+.about-chapter {
+  display: grid;
+  gap: 1rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--home-rule);
+}
+
+@media (min-width: 1024px) {
+  .about-chapter {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    column-gap: 2rem;
+  }
+
+  .about-chapter > .home-section-heading {
+    margin-bottom: 0;
+  }
+
+  /* Beside its heading, a list's first row lines up with it: the chapter's
+     own rule already opens it, so the list's would be a second line. */
+  .about-chapter > .home-list {
+    border-top: 0;
+    margin-top: -1.5rem;
+  }
+}
+
+.about-chapter-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.about-prose {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 40rem;
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
+
+.about-prose .home-text-action {
+  align-self: flex-start;
+}
+
+/* A claim the page stands on, set a step up so it reads as one. */
+.about-statement {
+  margin: 0;
+  max-width: 48rem;
+  font-size: 1.5rem;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  text-wrap: pretty;
+}
+
+.about-statement--quiet {
+  margin-top: 1.5rem;
+  color: var(--home-ink-2);
+}
+
+.about-principles {
+  display: grid;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: principle;
+}
+
+@media (min-width: 768px) {
+  .about-principles {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.about-principles > li {
+  counter-increment: principle;
+}
+
+.about-principles > li::before {
+  content: counter(principle, decimal-leading-zero);
+  display: block;
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-b59-blue);
+}
+
+.about-principle-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0 0 0.5rem;
+}
+
+.about-principle-body {
+  margin: 0;
+  color: var(--home-ink-2);
+}
+
+/* The year the name comes from, set as large as the page title: the one
+   number on the page worth remembering. */
+.about-story {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.about-year {
+  margin: 0;
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  color: var(--home-ink-2);
+}
+
+.about-row-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.team-member-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.team-member-intro .team-member-photo {
+  margin-bottom: 1rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .about-facts {
+    animation: home-rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) 0.24s both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-nav a {
+    transition: none;
+  }
+}
+
+@media print {
+  .about-facts {
     animation: none;
   }
 }

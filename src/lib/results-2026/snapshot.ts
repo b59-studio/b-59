@@ -1,11 +1,17 @@
+import collinPrecincts from "@/data/results-2026/precincts/collin.json";
+import starrPrecincts from "@/data/results-2026/precincts/starr.json";
+import willacyPrecincts from "@/data/results-2026/precincts/willacy.json";
+import { canvassLink, clarityOfficial, harrisOfficial, type CanvassSignal } from "./canvass";
 import { parseClarity, type ClarityResults } from "./clarity";
 import { harrisBallots, harrisContests, harrisPrecincts, type HarrisPrecinctFile, type HarrisSummary } from "./harris";
 import { parseSos, type SosCounty } from "./sos";
-import type { CountyReading, PrecinctDetail } from "./types";
+import type { CountyReading, ParsedReport, PrecinctDetail } from "./types";
 import { unzipEntry } from "./zip";
 
 /** How often sources are re-read, at most. */
 export const REFRESH_SECONDS = 120;
+/** How often each county is checked for a canvass, at most: canvasses are posted once, days apart. */
+export const CANVASS_CHECK_SECONDS = 3600;
 
 const UA = { "User-Agent": "Mozilla/5.0 (compatible; b-59.com election results)" };
 const TIMEOUT_MS = 15_000;
@@ -17,7 +23,15 @@ const HARRIS_BASE = "https://appfiles.harrisvotes.com/harrisvotes/prd/Data/1126/
 type Source =
   | { county: string; system: "clarity"; slug: string; electionId: number; resultsUrl: string }
   | { county: string; system: "harris"; resultsUrl: string }
-  | { county: string; system: "sos"; resultsUrl: string };
+  | {
+      county: string;
+      system: "sos";
+      resultsUrl: string;
+      /** Other pages of the county's where a canvass report may be posted. */
+      canvassPages?: string[];
+      /** The county's site refuses automated requests (Hays answers 403), so it is not read. */
+      blocksReads?: boolean;
+    };
 
 const clarity = (county: string, electionId: number): Source => {
   const slug = county.replace(/ /g, "_");
@@ -42,10 +56,15 @@ export const SOURCES: Source[] = [
   clarity("Hidalgo", 127350),
   { county: "Collin", system: "sos", resultsUrl: "https://www.collincountytx.gov/Elections/election-results" },
   { county: "Montgomery", system: "sos", resultsUrl: "https://elections.mctx.org/ElectionResults.asp" },
-  { county: "Hays", system: "sos", resultsUrl: "https://www.hayscountytx.gov/873/November-3-2026-General-Election" },
+  { county: "Hays", system: "sos", resultsUrl: "https://www.hayscountytx.gov/873/November-3-2026-General-Election", blocksReads: true },
   { county: "Ellis", system: "sos", resultsUrl: "https://www.elliscountytx.gov/1402/November-3-2026-General-and-Special-Elec" },
   { county: "Cameron", system: "sos", resultsUrl: "https://www.cameroncountytx.gov/elections/index.php/results/" },
-  { county: "Webb", system: "sos", resultsUrl: "https://www.webbcountytx.gov/291/Elections-Department" },
+  {
+    county: "Webb",
+    system: "sos",
+    resultsUrl: "https://www.webbcountytx.gov/291/Elections-Department",
+    canvassPages: ["https://www.webbcountytx.gov/867/Official-Results-2026"],
+  },
   { county: "Starr", system: "sos", resultsUrl: "https://www.co.starr.tx.us/page/Elections.2026" },
   { county: "Willacy", system: "sos", resultsUrl: "https://www.willacy.gov/page/willacy.Elections" },
   { county: "Maverick", system: "sos", resultsUrl: "https://co.maverick.tx.us/elections" },
@@ -55,20 +74,38 @@ export const SOURCES: Source[] = [
 export const SOS_RESULTS_URL = "https://goelect.txelections.civixapps.com/ivis-enr-ui/races";
 
 /**
- * Counties that have canvassed, with the date and the report. Texas counties
- * canvass in the second week after a general election; none had by Nov 6,
- * 2026. Add a county here when its canvass report is posted.
+ * Counties marked canvassed by hand, with the date and the report. Canvasses
+ * are detected on their own (see readCanvasses); this is only for one the
+ * checks cannot see, such as Hays, whose site refuses automated requests.
+ * Texas counties canvass in the second week after a general election.
  */
 export const CANVASSED: Record<string, { date: string; url: string }> = {};
 
-/** Unofficial precinct-by-precinct reports posted as PDFs by counties with no machine-readable results. */
+/**
+ * Unofficial precinct-by-precinct reports posted as PDFs by counties with no
+ * machine-readable results. Collin's, Starr's and Willacy's are parsed into
+ * the precinct tables (scripts/results-2026/parse_precinct_pdfs.py); Hays's
+ * cannot be read automatically, so it is linked only.
+ */
 export const PRECINCT_PDFS: Record<string, string> = {
+  Hays: "https://www.hayscountytx.gov/DocumentCenter/View/5586/Precinct-Results-Report-20261103---unofficial",
   Collin:
     "https://www.collincountytx.gov/docs/default-source/elections/election-results/november-3-2026---joint-general-and-special-election---precinct-results-report---unofficial-totals2.pdf?sfvrsn=cc877970_3",
   Starr: "https://www.co.starr.tx.us/upload/page/0119/2026/Unofficial%20PCT%20Summary%20Nov%203%202026%20write%20ins.pdf",
   Willacy:
     "https://www.willacy.gov/upload/page/6531/docs/Elections%20folder/2026/General%20Election/Precinct%20Results%2011%2003%202026.pdf",
 };
+
+type ParsedFile = { reportStamp: string; largestGap: number; races: Record<string, Omit<PrecinctDetail, "parsed">> };
+
+/** Precinct tables parsed from those PDFs, keyed by the state's race key. */
+const PARSED: Record<string, ParsedFile> = { Collin: collinPrecincts, Starr: starrPrecincts, Willacy: willacyPrecincts };
+
+function parsedReport(county: string): ParsedReport | undefined {
+  const file = PARSED[county];
+  const pdf = PRECINCT_PDFS[county];
+  return file && pdf ? { pdf, reportStamp: file.reportStamp, largestGap: file.largestGap } : undefined;
+}
 
 export type Snapshot = {
   readAt: string;
@@ -155,6 +192,54 @@ async function readOfficial(): Promise<boolean> {
 
 let officialCache = false;
 
+const hourly = { next: { revalidate: CANVASS_CHECK_SECONDS } };
+
+/** One county's canvass, if it has posted one, from its own results system or elections pages. */
+async function canvassOf(source: Source): Promise<CanvassSignal | null> {
+  const read = async (url: string) => {
+    const res = await fetch(url, { ...hourly, headers: UA, signal: AbortSignal.timeout(TIMEOUT_MS) });
+    if (!res.ok) throw new Error(`${res.status} from ${new URL(url).host}`);
+    return res;
+  };
+  if (source.system === "clarity") {
+    const version = clarityCache.get(source.county)?.version;
+    if (!version) return null;
+    const settings = await (await read(`${source.resultsUrl}${version}/json/en/electionsettings.json`)).json();
+    return clarityOfficial(settings) ? { url: source.resultsUrl, via: "county results system" } : null;
+  }
+  if (source.system === "harris") {
+    return harrisCache && harrisOfficial(harrisCache.summary) ? { url: source.resultsUrl, via: "county results system" } : null;
+  }
+  if (source.blocksReads) return null;
+  for (const page of [source.resultsUrl, ...(source.canvassPages ?? [])]) {
+    const url = canvassLink(await (await read(page)).text(), page);
+    if (url) return { url, via: "county page" };
+  }
+  return null;
+}
+
+let canvassCurrent: { at: number; promise: Promise<Map<string, CanvassSignal>> } | null = null;
+const canvassSeen = new Map<string, CanvassSignal>();
+
+/**
+ * Every followed county's canvass, checked at most once per
+ * CANVASS_CHECK_SECONDS. A canvass once seen is kept: a county that later
+ * moves or renames its report has still canvassed.
+ */
+function readCanvasses(): Promise<Map<string, CanvassSignal>> {
+  if (!canvassCurrent || Date.now() - canvassCurrent.at > CANVASS_CHECK_SECONDS * 1000) {
+    const promise = Promise.allSettled(SOURCES.map((s) => canvassOf(s))).then((results) => {
+      results.forEach((r, i) => {
+        if (r.status === "fulfilled" && r.value) canvassSeen.set(SOURCES[i].county, r.value);
+        if (r.status === "rejected") console.error(`Canvass check failed for ${SOURCES[i].county}`, r.reason);
+      });
+      return canvassSeen;
+    });
+    canvassCurrent = { at: Date.now(), promise };
+  }
+  return canvassCurrent.promise;
+}
+
 async function readSos(): Promise<{ counties: SosCounty[]; readAt: string }> {
   const counties = parseSos((await (await get(SOS_URL)).json()) as { upload: string });
   sosCache = { counties, readAt: now() };
@@ -219,22 +304,34 @@ async function build(): Promise<Snapshot> {
       ballots: c?.ballots ?? null,
       reporting: null,
       contests: c?.contests ?? [],
-      hasPrecincts: false,
+      hasPrecincts: Boolean(PARSED[source.county]),
       ...(sosResult.status === "rejected" ? { error: message(sosResult.reason) } : {}),
     };
   });
 
-  const official = await readOfficial().then(
-    (o) => (officialCache = o),
-    () => officialCache,
-  );
+  const [official, canvasses] = await Promise.all([
+    readOfficial().then(
+      (o) => (officialCache = o),
+      () => officialCache,
+    ),
+    // A slow county page must not hold up the results: wait briefly, then go
+    // with the canvasses already seen; the check finishes in the background.
+    Promise.race([readCanvasses(), pause(3000).then(() => canvassSeen)]),
+  ]);
   const withStatus = counties.map((c) => {
-    const canvass = CANVASSED[c.county];
+    const byHand = CANVASSED[c.county];
+    const signal: CanvassSignal | { url: string; via: "checked by hand" } | null = byHand
+      ? { url: byHand.url, via: "checked by hand" }
+      : (canvasses.get(c.county) ?? (official ? { url: SOS_RESULTS_URL, via: "state" } : null));
+    const parsed = parsedReport(c.county);
+    const source = SOURCES.find((s) => s.county === c.county);
     return {
       ...c,
-      status: canvass ? ("Canvassed" as const) : ("Unofficial" as const),
-      ...(canvass ? { canvassUrl: canvass.url } : {}),
+      status: signal ? ("Canvassed" as const) : ("Unofficial" as const),
+      ...(signal ? { canvassUrl: signal.url, canvassVia: signal.via } : {}),
       ...(PRECINCT_PDFS[c.county] ? { precinctPdf: PRECINCT_PDFS[c.county] } : {}),
+      ...(parsed ? { parsed } : {}),
+      ...(source?.system === "sos" && source.blocksReads ? { blocksReads: true } : {}),
     };
   });
   return { readAt: now(), official, sos: sos?.counties ?? [], sosReadAt: sos?.readAt ?? null, counties: withStatus };
@@ -290,7 +387,12 @@ export function getStateResults(): Promise<{ counties: SosCounty[]; readAt: stri
 /** One county's precinct detail for one race, or null where the county publishes none. */
 export async function getPrecincts(county: string, key: string): Promise<PrecinctDetail | null> {
   const source = SOURCES.find((s) => s.county === county);
-  if (!source || source.system === "sos") return null;
+  if (!source) return null;
+  if (source.system === "sos") {
+    const race = PARSED[county]?.races[key];
+    const parsed = parsedReport(county);
+    return race && parsed ? { ...race, parsed } : null;
+  }
   await getSnapshot();
   if (source.system === "clarity") return clarityCache.get(county)?.parsed.precincts.get(key) ?? null;
 
