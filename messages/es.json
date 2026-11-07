@@ -470,12 +470,12 @@
     "why1": "Los calendarios de los equipos cívicos y de interés público son sensibles <blue>—</blue> contienen reuniones, planes y personas que no son asunto de nadie más. La mayoría de las herramientas de programación responden a «¿cuándo estás libre?» publicando la respuesta, que es exactamente lo contrario de lo que se necesita para este tipo de trabajo.",
     "why2": "Así que creamos lo opuesto, y después seguimos. Los equipos que lo usan no querían un enlace de reservas pegado al costado de su semana <blue>—</blue> querían la semana entera: las reuniones, los turnos y las horas que esos turnos suman, sin pagar por persona por el privilegio.",
     "cta": "Haz la llamada",
-    "altHome": "La página de inicio de Hotline: Make the call, con un botón para empezar gratis.",
-    "altHomePhone": "La página de inicio de Hotline en un teléfono.",
-    "altWhatTheySee": "Una cuadrícula de horarios libres donde el invitado solo ve los tres horarios que eligió el anfitrión.",
+    "altHome": "El Plate de Hotline: dos reuniones próximas y las que ya terminaron, a la espera de los siguientes pasos.",
+    "altHomePhone": "El mismo Plate en un teléfono, con la barra de pestañas de la app abajo.",
     "altBooking": "Una página de reserva de Hotline para una reunión con un elector, que ofrece tres horarios en la zona horaria del invitado.",
     "closingHeading": "Gratis para una persona. Por organización después.",
-    "closingBody": "Sin tarjeta para empezar y sin medidores. Las personas con quienes agendas no necesitan ninguna cuenta."
+    "closingBody": "Sin tarjeta para empezar y sin medidores. Las personas con quienes agendas no necesitan ninguna cuenta.",
+    "altCalendar": "El calendario mensual de Hotline, con las reuniones reservadas en sus días."
   },
   "solutionsTravisCountyVdr": {
     "metaTitle": "Kit de Herramientas VDR del Condado de Travis",
