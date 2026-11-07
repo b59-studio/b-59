@@ -28,12 +28,6 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
-### Changed
-
-- The 2026 election analysis page is now named "2026 Turnout Comparison" in
-  the menus, the sitemap and the browser tab, in all five languages. Its
-  address is unchanged, so existing links keep working.
-
 ## 2026-11-06
 
 ### Added
@@ -65,6 +59,10 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   win calculator's election-day assumption against what election day added.
 
 ### Changed
+
+- The 2026 election analysis page is now named "2026 Turnout Comparison" in
+  the menus, the sitemap and the browser tab, in all five languages. Its
+  address is unchanged, so existing links keep working.
 
 - The Research menu holds one item, 2026 Elections. On a wide screen its
   three pages (the analysis, the polls and the results) open beside it on
