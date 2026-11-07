@@ -539,6 +539,16 @@ body {
   z-index: 50;
 }
 
+/* Bridges the gap above the menu, so the pointer crossing it from the trigger
+   never leaves the dropdown and a hover-opened menu stays open. */
+.nav-mega-menu::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 100%;
+  height: calc(0.75rem + 1px);
+}
+
 .dark .nav-mega-menu {
   background-color: var(--color-b59-dark);
 }
