@@ -2177,9 +2177,8 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
   text-wrap: pretty;
 }
 
-.about-statement--quiet {
+.about-statement + .about-statement {
   margin-top: 1.5rem;
-  color: var(--home-ink-2);
 }
 
 .about-principles {
@@ -2302,6 +2301,56 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
 
 @media (min-width: 1024px) {
   .team-writing {
+    grid-column: 2;
+  }
+}
+
+/* Inspirations: pictures of the work, then the work itself, linked. Both sit
+   in the prose column beside the chapter title on wide screens. */
+.inspiration-figures {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 48rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .inspiration-figures {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.inspiration-figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inspiration-figure-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 8 / 5;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  border: 1px solid var(--home-rule);
+}
+
+.inspiration-credit {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.inspiration-work {
+  margin-top: 1.5rem;
+  max-width: 40rem;
+}
+
+@media (min-width: 1024px) {
+  .inspiration-figures,
+  .inspiration-work {
     grid-column: 2;
   }
 }
