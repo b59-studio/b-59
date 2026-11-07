@@ -468,16 +468,6 @@ body {
   color: #9ca3af;
 }
 
-.nav-mobile-disclosure {
-  width: 100%;
-  justify-content: space-between;
-  border: 0;
-  background: none;
-  font: inherit;
-  text-align: start;
-  cursor: pointer;
-}
-
 .nav-mobile-sublink {
   display: flex;
   align-items: center;
@@ -491,8 +481,22 @@ body {
   padding-inline-start: 3.25rem;
 }
 
+/* Each phone section opens on its linked header, as the desktop dropdowns do;
+   space, not a rule, separates one section from the next (standards/44). */
+.nav-mobile-section + .nav-mobile-section {
+  padding-top: 0.75rem;
+}
+
+.nav-mobile-section-link {
+  font-weight: 600;
+}
+
+.nav-mobile-section-sub {
+  padding-inline-start: 1rem;
+}
+
 /* ============================================
-   NAV DROPDOWN (desktop "Solutions")
+   NAV DROPDOWN (desktop header menus)
    ============================================ */
 
 .nav-dropdown {
@@ -535,11 +539,6 @@ body {
   z-index: 50;
 }
 
-/* Simpler, narrower dropdown for menus that are just a short list of links. */
-.nav-mega-menu-narrow {
-  min-width: 12rem;
-}
-
 .dark .nav-mega-menu {
   background-color: var(--color-b59-dark);
 }
@@ -557,9 +556,14 @@ body {
   color: #9ca3af;
 }
 
-/* Extra top space before a second section heading in a vertical menu. */
-.nav-mega-heading-mt {
+/* A run of items under the menu's linked header; a labelled group after the
+   first one gets space above its label so the label reads as starting it. */
+.nav-mega-group + .nav-mega-group {
   margin-top: 0.5rem;
+}
+
+.nav-mega-heading {
+  margin-top: 0.25rem;
 }
 
 /* A menu item that pairs the product's mark with its name and a summary line.
@@ -605,7 +609,8 @@ body {
   color: #9ca3af;
 }
 
-/* Full-width "Our Work" link at the top of the Studio mega-menu. */
+/* The linked header every dropdown opens on: the page that gathers the
+   section, with a one-line summary under it. */
 .nav-mega-featured {
   display: flex;
   flex-direction: column;
@@ -636,69 +641,6 @@ body {
 
 .dark .nav-mega-featured-sub {
   color: #9ca3af;
-}
-
-/* A flyout inside a dropdown: one item whose pages open beside it. The panel
-   sits flush against the item so the pointer can cross into it without the
-   hover closing it, and opens toward the inline end (left in right-to-left). */
-.nav-flyout {
-  position: relative;
-}
-
-.nav-flyout-trigger {
-  width: 100%;
-  justify-content: space-between;
-  gap: 1rem;
-  border: 0;
-  background: none;
-  font: inherit;
-  text-align: start;
-  cursor: pointer;
-}
-
-.nav-flyout-trigger[aria-expanded="true"] {
-  background-color: rgba(0, 102, 255, 0.1);
-}
-
-.nav-flyout-chevron {
-  width: 1rem;
-  height: 1rem;
-  flex: none;
-}
-
-[dir="rtl"] .nav-flyout-chevron {
-  transform: scaleX(-1);
-}
-
-.nav-flyout-panel {
-  position: absolute;
-  top: -0.75rem;
-  inset-inline-start: 100%;
-  display: flex;
-  flex-direction: column;
-  min-width: 18rem;
-  max-width: 22rem;
-  margin-inline-start: 0.75rem;
-  padding: 0.75rem;
-  background-color: var(--color-b59-light);
-  border-radius: 0.75rem;
-  border: 1px solid rgba(74, 85, 104, 0.2);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  z-index: 51;
-}
-
-/* Bridges the gap between item and panel so moving the pointer across it keeps the flyout open. */
-.nav-flyout-panel::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  inset-inline-start: -0.75rem;
-  width: 0.75rem;
-}
-
-.dark .nav-flyout-panel {
-  background-color: var(--color-b59-dark);
 }
 
 /* Shared by the About menu and the language options, and the language menu
@@ -1037,16 +979,6 @@ body {
 .dark .form-input::placeholder {
   color: #9CA3AF;
   opacity: 0.7;
-}
-
-/* A "go there" arrow that points along the reading direction. A literal → in
-   markup would keep pointing right under dir="rtl". */
-.nav-forward-arrow::after {
-  content: "→";
-}
-
-[dir="rtl"] .nav-forward-arrow::after {
-  content: "←";
 }
 
 /* Select dropdown specific styles */

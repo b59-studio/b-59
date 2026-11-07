@@ -6,6 +6,7 @@
     "studio": "工作室",
     "research": "研究",
     "elections2026": "2026年选举",
+    "elections2026Sub": "德州大选的投票率、民调与结果。",
     "electionAnalysis2026": "2026年德克萨斯州投票率比较",
     "electionAnalysis2026Sub": "得克萨斯州各县投票率，与往年对比。",
     "polls2026": "2026年民调",
@@ -25,14 +26,16 @@
     "voterRegistrationPaloozaSub": "在截止日期前推动全州范围的得州选民登记。",
     "about": "关于",
     "ourStory": "我们的故事",
+    "ourStorySub": "B-59 为何存在，以及我们如何工作。",
     "inspirations": "我们的灵感",
-    "brandDesignPhilosophy": "品牌设计理念",
+    "inspirationsSub": "我们力求不负其榜样的人和团队。",
     "donate": "捐赠",
     "toggleTheme": "切换主题",
     "openMenu": "打开菜单",
     "closeMenu": "关闭菜单",
     "skipToContent": "跳转到主要内容",
     "team": "团队",
+    "teamSub": "B-59 背后的人。",
     "merch": "周边",
     "merchSub": "为我们合作的团体设计的贴纸、T恤和印刷品。"
   },
@@ -87,6 +90,9 @@
     "tagBrandDesign": "品牌设计",
     "merchTitle": "周边",
     "merchBlurb": "为我们合作的团体设计的贴纸、T恤和印刷品——缩小到笔记本电脑盖大小的品牌。"
+  },
+  "researchIndex": {
+    "intro": "我们关于德州选举的数据工作。"
   },
   "about": {
     "metaTitle": "关于",
@@ -163,6 +169,7 @@
     "intro": "b-59.com 上的公开页面。通过 <email>contact@b-59.com</email> 联系我们。",
     "linkHome": "主页",
     "linkOurWork": "我们的作品",
+    "linkResearch": "研究",
     "linkElectionAnalysis2026": "2026年德克萨斯州投票率比较",
     "linkPolls2026": "2026年民调",
     "linkResults2026": "2026年选举结果",

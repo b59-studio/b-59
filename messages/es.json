@@ -6,6 +6,7 @@
     "studio": "Estudio",
     "research": "Investigación",
     "elections2026": "Elecciones de 2026",
+    "elections2026Sub": "Participación, encuestas y resultados de la elección general de Texas.",
     "electionAnalysis2026": "Comparación de participación en Texas 2026",
     "electionAnalysis2026Sub": "Participación en cada condado de Texas, comparada con años anteriores.",
     "polls2026": "Encuestas de 2026",
@@ -25,14 +26,16 @@
     "voterRegistrationPaloozaSub": "Un esfuerzo estatal para registrar a los tejanos antes de la fecha límite.",
     "about": "Nosotros",
     "ourStory": "Nuestra Historia",
+    "ourStorySub": "Por qué existe B-59 y cómo trabajamos.",
     "inspirations": "Nuestras Inspiraciones",
-    "brandDesignPhilosophy": "Filosofía de Diseño de Marca",
+    "inspirationsSub": "Las personas y los equipos a cuya altura queremos estar.",
     "donate": "Donar",
     "toggleTheme": "Cambiar tema",
     "openMenu": "Abrir menú",
     "closeMenu": "Cerrar menú",
     "skipToContent": "Saltar al contenido principal",
     "team": "Equipo",
+    "teamSub": "Quién está detrás de B-59.",
     "merch": "Merch",
     "merchSub": "Calcomanías, camisetas e impresos para los grupos con los que trabajamos."
   },
@@ -87,6 +90,9 @@
     "tagBrandDesign": "Diseño de marca",
     "merchTitle": "Merch",
     "merchBlurb": "Calcomanías, camisetas e impresos diseñados para los grupos con los que trabajamos: la marca al tamaño de la tapa de una laptop."
+  },
+  "researchIndex": {
+    "intro": "Nuestro trabajo con datos sobre las elecciones de Texas."
   },
   "about": {
     "metaTitle": "Nosotros",
@@ -163,6 +169,7 @@
     "intro": "Páginas públicas en b-59.com. Escríbenos a <email>contact@b-59.com</email>.",
     "linkHome": "Inicio",
     "linkOurWork": "Nuestro Trabajo",
+    "linkResearch": "Investigación",
     "linkElectionAnalysis2026": "Comparación de participación en Texas 2026",
     "linkPolls2026": "Encuestas de 2026",
     "linkResults2026": "Resultados de 2026",

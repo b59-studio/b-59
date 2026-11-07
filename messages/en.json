@@ -6,6 +6,7 @@
     "studio": "Studio",
     "research": "Research",
     "elections2026": "2026 Elections",
+    "elections2026Sub": "Turnout, polls and results from the Texas general election.",
     "electionAnalysis2026": "2026 Texas Turnout Comparison",
     "electionAnalysis2026Sub": "Turnout in every Texas county, against past years.",
     "polls2026": "2026 Polls",
@@ -25,14 +26,16 @@
     "voterRegistrationPaloozaSub": "A statewide push to register Texans before the deadline.",
     "about": "About",
     "ourStory": "Our Story",
+    "ourStorySub": "Why B-59 exists and how we work.",
     "inspirations": "Our Inspirations",
-    "brandDesignPhilosophy": "Brand Design Philosophy",
+    "inspirationsSub": "The people and teams whose work we aim to live up to.",
     "donate": "Donate",
     "toggleTheme": "Toggle theme",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "skipToContent": "Skip to main content",
     "team": "Team",
+    "teamSub": "Who's behind B-59.",
     "merch": "Merch",
     "merchSub": "Stickers, shirts and print for the groups we work with."
   },
@@ -87,6 +90,9 @@
     "tagBrandDesign": "Brand design",
     "merchTitle": "Merch",
     "merchBlurb": "Stickers, shirts and print designed for the groups we work with — the brand at the size of a laptop lid."
+  },
+  "researchIndex": {
+    "intro": "Our data work on Texas elections."
   },
   "about": {
     "metaTitle": "About",
@@ -163,6 +169,7 @@
     "intro": "Public pages on b-59.com. Reach out at <email>contact@b-59.com</email>.",
     "linkHome": "Home",
     "linkOurWork": "Our Work",
+    "linkResearch": "Research",
     "linkElectionAnalysis2026": "2026 Texas Turnout Comparison",
     "linkPolls2026": "2026 Polls",
     "linkResults2026": "2026 Results",

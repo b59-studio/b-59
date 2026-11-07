@@ -20,6 +20,7 @@ export default async function SiteMap() {
   const siteLinks = [
     { href: "/", label: t("linkHome") },
     { href: "/studio", label: t("linkOurWork") },
+    { href: "/research", label: t("linkResearch") },
     { href: "/research/2026-election-analysis", label: t("linkElectionAnalysis2026") },
     { href: "/research/2026-polls", label: t("linkPolls2026") },
     { href: "/research/2026-results", label: t("linkResults2026") },

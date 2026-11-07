@@ -6,6 +6,7 @@
     "studio": "סטודיו",
     "research": "מחקר",
     "elections2026": "בחירות 2026",
+    "elections2026Sub": "השתתפות, סקרים ותוצאות מהבחירות הכלליות בטקסס.",
     "electionAnalysis2026": "השוואת אחוזי ההצבעה בטקסס 2026",
     "electionAnalysis2026Sub": "שיעורי ההצבעה בכל מחוז בטקסס, בהשוואה לשנים קודמות.",
     "polls2026": "סקרי 2026",
@@ -25,14 +26,16 @@
     "voterRegistrationPaloozaSub": "מאמץ כלל-מדינתי לרשום תושבי טקסס לפני המועד האחרון.",
     "about": "אודות",
     "ourStory": "הסיפור שלנו",
+    "ourStorySub": "למה B-59 קיימת ואיך אנחנו עובדים.",
     "inspirations": "ההשראות שלנו",
-    "brandDesignPhilosophy": "תפיסת עיצוב המותג",
+    "inspirationsSub": "האנשים והצוותים שאנחנו שואפים להיות ראויים להם.",
     "donate": "תרומה",
     "toggleTheme": "החלפת ערכת צבעים",
     "openMenu": "פתיחת תפריט",
     "closeMenu": "סגירת תפריט",
     "skipToContent": "דילוג לתוכן הראשי",
     "team": "הצוות",
+    "teamSub": "מי עומד מאחורי B-59.",
     "merch": "Merch",
     "merchSub": "מדבקות, חולצות ודפוס לקבוצות שאיתן אנחנו עובדים."
   },
@@ -87,6 +90,9 @@
     "tagBrandDesign": "עיצוב מותג",
     "merchTitle": "Merch",
     "merchBlurb": "מדבקות, חולצות ודפוס שעיצבנו לקבוצות שאיתן אנחנו עובדים — המותג בגודל של מכסה מחשב נייד."
+  },
+  "researchIndex": {
+    "intro": "עבודת הנתונים שלנו על הבחירות בטקסס."
   },
   "about": {
     "metaTitle": "אודות",
@@ -163,6 +169,7 @@
     "intro": "העמודים הציבוריים ב-b-59.com. כתבו לנו לכתובת <email>contact@b-59.com</email>.",
     "linkHome": "דף הבית",
     "linkOurWork": "העבודות שלנו",
+    "linkResearch": "מחקר",
     "linkElectionAnalysis2026": "השוואת אחוזי ההצבעה בטקסס 2026",
     "linkPolls2026": "סקרי 2026",
     "linkResults2026": "תוצאות 2026",

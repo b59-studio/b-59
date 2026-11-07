@@ -28,6 +28,28 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Added
+
+- **A Research page.** `/research` lists the 2026 turnout, polling and results
+  pages in one place. It's where the Research menu's header now leads.
+
+### Changed
+
+- **The header menus share one shape.** Studio, Research and About each open
+  on a header that links to the section's own page, with a one-line summary,
+  followed by the pages inside it. Each page has an icon, and products keep
+  their own logos. The phone menu is built from the same list.
+- **The 2026 research pages are listed directly in the Research menu.** They
+  no longer open in a second panel beside it.
+- **About is down to Our Story, Our Inspirations and Team.** The arrow after
+  "Our Work" is gone too.
+
+### Removed
+
+- **Brand Design Philosophy is no longer in the menus.** It describes the brand
+  design practice, whose portfolio and merch pages are already unlinked. The
+  page stays live, in the sitemap, and linked from those pages.
+
 ## 2026-11-06
 
 ### Added

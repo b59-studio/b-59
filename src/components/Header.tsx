@@ -5,28 +5,83 @@ import { useRef, useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { MobileMenu } from "./MobileMenu";
 import { useDropdownClose } from "@/lib/use-dropdown-close";
-import { ProjectMark } from "./ProjectMark";
+import { NAV_MENUS, type NavMenu } from "./nav-menus";
+import { NavItemMark, NavItemName } from "./NavMenuParts";
+
+/**
+ * One header dropdown. Opening another one is a click outside this one, so
+ * only one is ever open without the menus having to know about each other.
+ */
+function NavDropdown({ menu }: { menu: NavMenu }) {
+  const t = useTranslations("nav");
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const close = () => setOpen(false);
+  useDropdownClose(ref, open, close);
+
+  return (
+    <div className="nav-dropdown" ref={ref}>
+      <button
+        type="button"
+        className="nav-link nav-dropdown-trigger"
+        aria-haspopup="true"
+        aria-expanded={open}
+        onClick={() => setOpen((o) => !o)}
+      >
+        {t(menu.trigger)}
+        <svg
+          className={`nav-dropdown-chevron ${open ? "open" : ""}`}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          aria-hidden="true"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      {open && (
+        <div className="nav-mega-menu" role="menu">
+          <Link href={menu.header.href} className="nav-mega-featured" role="menuitem" onClick={close}>
+            <span>{t(menu.header.title)}</span>
+            <span className="nav-mega-featured-sub">{t(menu.header.sub)}</span>
+          </Link>
+          {menu.groups.map((group, i) => (
+            <div key={group.heading ?? i} className="nav-mega-group" role="none">
+              {group.heading && (
+                <p className="nav-mega-heading" role="none">
+                  {t(group.heading)}
+                </p>
+              )}
+              {group.items.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="nav-mega-item"
+                  role="menuitem"
+                  onClick={close}
+                >
+                  <NavItemMark item={item} size={22} />
+                  <span className="nav-mega-item-text">
+                    <span className="nav-mega-item-name">
+                      <NavItemName item={item} t={t} />
+                    </span>
+                    <span className="nav-mega-item-sub">{t(item.sub)}</span>
+                  </span>
+                </Link>
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function Header() {
   const t = useTranslations("nav");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [solutionsOpen, setSolutionsOpen] = useState(false);
-  const [researchOpen, setResearchOpen] = useState(false);
-  const [electionsOpen, setElectionsOpen] = useState(false);
-  const [aboutOpen, setAboutOpen] = useState(false);
-  const solutionsRef = useRef<HTMLDivElement>(null);
-  const researchRef = useRef<HTMLDivElement>(null);
-  const aboutRef = useRef<HTMLDivElement>(null);
-
   const closeMobileMenu = () => setMobileMenuOpen(false);
-
-  useDropdownClose(solutionsRef, solutionsOpen, () => setSolutionsOpen(false));
-  const closeResearch = () => {
-    setResearchOpen(false);
-    setElectionsOpen(false);
-  };
-  useDropdownClose(researchRef, researchOpen, closeResearch);
-  useDropdownClose(aboutRef, aboutOpen, () => setAboutOpen(false));
 
   return (
     <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl">
@@ -39,295 +94,9 @@ export default function Header() {
 
             <div className="hidden md:flex items-center justify-between flex-1 ms-8">
               <div className="flex items-center gap-8">
-                <div className="nav-dropdown" ref={solutionsRef}>
-                  <button
-                    type="button"
-                    className="nav-link nav-dropdown-trigger"
-                    aria-haspopup="true"
-                    aria-expanded={solutionsOpen}
-                    onClick={() => {
-                      setSolutionsOpen((open) => !open);
-                      setResearchOpen(false);
-                      setAboutOpen(false);
-                    }}
-                  >
-                    {t("studio")}
-                    <svg
-                      className={`nav-dropdown-chevron ${solutionsOpen ? "open" : ""}`}
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-
-                  {solutionsOpen && (
-                    <div className="nav-mega-menu" role="menu">
-                      <Link
-                        href="/studio"
-                        className="nav-mega-featured"
-                        role="menuitem"
-                        onClick={() => setSolutionsOpen(false)}
-                      >
-                        <span>
-                          {t("ourWork")} <span aria-hidden="true" className="nav-forward-arrow" />
-                        </span>
-                        <span className="nav-mega-featured-sub">{t("ourWorkSub")}</span>
-                      </Link>
-                      <p className="nav-mega-heading">{t("solutions")}</p>
-                      <Link
-                        href="/solutions/ready2vote"
-                        className="nav-mega-item"
-                        role="menuitem"
-                        onClick={() => setSolutionsOpen(false)}
-                      >
-                        <ProjectMark project="ready2vote" size={22} />
-                        <span className="nav-mega-item-text">
-                          <span className="nav-mega-item-name">
-                            ready<span className="text-b59-blue">2</span>vote
-                          </span>
-                          <span className="nav-mega-item-sub">{t("ready2voteSub")}</span>
-                        </span>
-                      </Link>
-                      <Link
-                        href="/solutions/hotline"
-                        className="nav-mega-item"
-                        role="menuitem"
-                        onClick={() => setSolutionsOpen(false)}
-                      >
-                        <ProjectMark project="hotline" size={22} />
-                        <span className="nav-mega-item-text">
-                          <span className="nav-mega-item-name">Hotline</span>
-                          <span className="nav-mega-item-sub">{t("hotlineSub")}</span>
-                        </span>
-                      </Link>
-                      <p className="nav-mega-heading nav-mega-heading-mt">{t("tools")}</p>
-                      <Link
-                        href="/studio/win-calculator"
-                        className="nav-mega-item"
-                        role="menuitem"
-                        onClick={() => setSolutionsOpen(false)}
-                      >
-                        <span className="nav-mega-item-text">
-                          <span className="nav-mega-item-name">{t("winCalculator")}</span>
-                          <span className="nav-mega-item-sub">{t("winCalculatorSub")}</span>
-                        </span>
-                      </Link>
-
-                      {/* Case studies are held back for now; the pages stay
-                          built but unlinked, as the portfolio is.
-                      <p className="nav-mega-heading nav-mega-heading-mt">{t("caseStudies")}</p>
-                      <Link
-                        href="/solutions/travis-county-vdr"
-                        className="nav-mega-item"
-                        role="menuitem"
-                        onClick={() => setSolutionsOpen(false)}
-                      >
-                        <ProjectMark project="travis-county-vdr" size={22} />
-                        <span className="nav-mega-item-text">
-                          <span className="nav-mega-item-name">Travis County VDR Toolkit</span>
-                          <span className="nav-mega-item-sub">{t("travisCountyVdrSub")}</span>
-                        </span>
-                      </Link>
-                      <Link
-                        href="/solutions/voter-registration-palooza"
-                        className="nav-mega-item"
-                        role="menuitem"
-                        onClick={() => setSolutionsOpen(false)}
-                      >
-                        <ProjectMark project="voter-registration-palooza" size={22} />
-                        <span className="nav-mega-item-text">
-                          <span className="nav-mega-item-name">Voter Registration Palooza</span>
-                          <span className="nav-mega-item-sub">{t("voterRegistrationPaloozaSub")}</span>
-                        </span>
-                      </Link>
-                      <Link
-                        href="/solutions/brand-design/merch"
-                        className="nav-mega-item"
-                        role="menuitem"
-                        onClick={() => setSolutionsOpen(false)}
-                      >
-                        <ProjectMark project="merch" size={22} />
-                        <span className="nav-mega-item-text">
-                          <span className="nav-mega-item-name">{t("merch")}</span>
-                          <span className="nav-mega-item-sub">{t("merchSub")}</span>
-                        </span>
-                      </Link>
-                      */}
-                    </div>
-                  )}
-                </div>
-
-                <div className="nav-dropdown" ref={researchRef}>
-                  <button
-                    type="button"
-                    className="nav-link nav-dropdown-trigger"
-                    aria-haspopup="true"
-                    aria-expanded={researchOpen}
-                    onClick={() => {
-                      setResearchOpen((open) => !open);
-                      setElectionsOpen(false);
-                      setSolutionsOpen(false);
-                      setAboutOpen(false);
-                    }}
-                  >
-                    {t("research")}
-                    <svg
-                      className={`nav-dropdown-chevron ${researchOpen ? "open" : ""}`}
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-
-                  {researchOpen && (
-                    <div className="nav-mega-menu nav-mega-menu-narrow" role="menu">
-                      {/* One item for the 2026 work; its three pages open beside it on
-                          hover, click, or the right arrow, and close on Escape or the left arrow. */}
-                      <div
-                        className="nav-flyout"
-                        onMouseEnter={() => setElectionsOpen(true)}
-                        onMouseLeave={() => setElectionsOpen(false)}
-                      >
-                        <button
-                          type="button"
-                          className="nav-dropdown-item nav-flyout-trigger"
-                          role="menuitem"
-                          aria-haspopup="true"
-                          aria-expanded={electionsOpen}
-                          onClick={() => setElectionsOpen((open) => !open)}
-                          onKeyDown={(e) => {
-                            if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
-                              e.preventDefault();
-                              setElectionsOpen(e.key === "ArrowRight");
-                            }
-                          }}
-                        >
-                          {t("elections2026")}
-                          <svg className="nav-flyout-chevron" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                          </svg>
-                        </button>
-                        {electionsOpen && (
-                          <div
-                            className="nav-flyout-panel"
-                            role="menu"
-                            aria-label={t("elections2026")}
-                            onKeyDown={(e) => {
-                              if (e.key === "ArrowLeft" || e.key === "Escape") {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                setElectionsOpen(false);
-                                (e.currentTarget.previousElementSibling as HTMLElement | null)?.focus();
-                              }
-                            }}
-                          >
-                          <Link
-                            href="/research/2026-election-analysis"
-                            className="nav-mega-item"
-                            role="menuitem"
-                            onClick={closeResearch}
-                          >
-                            <span className="nav-mega-item-text">
-                              <span className="nav-mega-item-name">{t("electionAnalysis2026")}</span>
-                              <span className="nav-mega-item-sub">{t("electionAnalysis2026Sub")}</span>
-                            </span>
-                          </Link>
-                          <Link
-                            href="/research/2026-polls"
-                            className="nav-mega-item"
-                            role="menuitem"
-                            onClick={closeResearch}
-                          >
-                            <span className="nav-mega-item-text">
-                              <span className="nav-mega-item-name">{t("polls2026")}</span>
-                              <span className="nav-mega-item-sub">{t("polls2026Sub")}</span>
-                            </span>
-                          </Link>
-                          <Link
-                            href="/research/2026-results"
-                            className="nav-mega-item"
-                            role="menuitem"
-                            onClick={closeResearch}
-                          >
-                            <span className="nav-mega-item-text">
-                              <span className="nav-mega-item-name">{t("results2026")}</span>
-                              <span className="nav-mega-item-sub">{t("results2026Sub")}</span>
-                            </span>
-                          </Link>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                <div className="nav-dropdown" ref={aboutRef}>
-                  <button
-                    type="button"
-                    className="nav-link nav-dropdown-trigger"
-                    aria-haspopup="true"
-                    aria-expanded={aboutOpen}
-                    onClick={() => {
-                      setAboutOpen((open) => !open);
-                      setSolutionsOpen(false);
-                      setResearchOpen(false);
-                    }}
-                  >
-                    {t("about")}
-                    <svg
-                      className={`nav-dropdown-chevron ${aboutOpen ? "open" : ""}`}
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-
-                  {aboutOpen && (
-                    <div className="nav-mega-menu nav-mega-menu-narrow" role="menu">
-                      <Link
-                        href="/about"
-                        className="nav-dropdown-item"
-                        role="menuitem"
-                        onClick={() => setAboutOpen(false)}
-                      >
-                        {t("ourStory")}
-                      </Link>
-                      <Link
-                        href="/about/inspirations"
-                        className="nav-dropdown-item"
-                        role="menuitem"
-                        onClick={() => setAboutOpen(false)}
-                      >
-                        {t("inspirations")}
-                      </Link>
-                      <Link
-                        href="/about/team"
-                        className="nav-dropdown-item"
-                        role="menuitem"
-                        onClick={() => setAboutOpen(false)}
-                      >
-                        {t("team")}
-                      </Link>
-                      <Link
-                        href="/solutions/brand-design/philosophy"
-                        className="nav-dropdown-item"
-                        role="menuitem"
-                        onClick={() => setAboutOpen(false)}
-                      >
-                        {t("brandDesignPhilosophy")}
-                      </Link>
-                    </div>
-                  )}
-                </div>
+                {NAV_MENUS.map((menu) => (
+                  <NavDropdown key={menu.id} menu={menu} />
+                ))}
               </div>
 
               {/* Donations are closed, so the bar has no action on it for now.

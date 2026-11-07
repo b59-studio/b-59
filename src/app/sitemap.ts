@@ -34,6 +34,7 @@ const overrides: Record<string, RouteOverride> = {
   "/solutions/voter-registration-palooza": { priority: 0.9 },
   "/donate": { exclude: true }, // donations closed: the page returns 404 (src/lib/donations.ts)
   "/donate/success": { exclude: true }, // post-transaction confirmation, not for search engines
+  "/research": { priority: 0.8 },
   "/research/2026-election-analysis": { priority: 0.8, changeFrequency: "daily" },
   "/research/2026-polls": { priority: 0.8, changeFrequency: "daily" },
   "/research/2026-results": { priority: 0.9, changeFrequency: "hourly" },

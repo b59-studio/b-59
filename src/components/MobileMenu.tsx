@@ -1,21 +1,24 @@
 "use client";
 
-import { useId, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { ProjectMark } from "./ProjectMark";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ThemeToggle } from "./ThemeToggle";
+import { NAV_MENUS } from "./nav-menus";
+import { NavItemMark, NavItemName } from "./NavMenuParts";
 
 type MobileMenuProps = {
   open: boolean;
   onNavigate: () => void;
 };
 
+/**
+ * The phone's version of the header dropdowns, laid out in sequence from the
+ * same menu definition: each section opens on its linked header and summary,
+ * then lists its pages with their marks.
+ */
 export function MobileMenu({ open, onNavigate }: MobileMenuProps) {
   const t = useTranslations("nav");
-  const [electionsOpen, setElectionsOpen] = useState(false);
-  const electionsId = useId();
 
   if (!open) {
     return null;
@@ -23,111 +26,31 @@ export function MobileMenu({ open, onNavigate }: MobileMenuProps) {
 
   return (
     <div className="nav-mobile-panel md:hidden py-4 space-y-2 border-t border-b59-gray/20 mt-2">
-      <Link href="/studio" className="nav-mobile-link" onClick={onNavigate}>
-        {t("ourWork")}
-      </Link>
+      {NAV_MENUS.map((menu) => (
+        <div key={menu.id} className="nav-mobile-section space-y-2">
+          <Link href={menu.header.href} className="nav-mobile-link nav-mobile-section-link" onClick={onNavigate}>
+            {t(menu.header.title)}
+          </Link>
+          <span className="nav-mobile-sub nav-mobile-section-sub">{t(menu.header.sub)}</span>
 
-      <span className="nav-mobile-heading">{t("solutions")}</span>
-      <Link href="/solutions/ready2vote" className="nav-mobile-link nav-mobile-sublink" onClick={onNavigate}>
-        <ProjectMark project="ready2vote" size={20} />
-        <span>
-          ready<span className="text-b59-blue">2</span>vote
-        </span>
-      </Link>
-      <span className="nav-mobile-sub nav-mobile-sub-marked">{t("ready2voteSub")}</span>
-      <Link href="/solutions/hotline" className="nav-mobile-link nav-mobile-sublink" onClick={onNavigate}>
-        <ProjectMark project="hotline" size={20} />
-        <span>Hotline</span>
-      </Link>
-      <span className="nav-mobile-sub nav-mobile-sub-marked">{t("hotlineSub")}</span>
-
-      <span className="nav-mobile-heading">{t("tools")}</span>
-      <Link href="/studio/win-calculator" className="nav-mobile-link" onClick={onNavigate}>
-        {t("winCalculator")}
-      </Link>
-      <span className="nav-mobile-sub">{t("winCalculatorSub")}</span>
-
-      {/* Case studies are held back for now; the pages stay built but
-          unlinked, as the portfolio is.
-      <span className="nav-mobile-heading">{t("caseStudies")}</span>
-      <Link
-        href="/solutions/travis-county-vdr"
-        className="nav-mobile-link nav-mobile-sublink"
-        onClick={onNavigate}
-      >
-        <ProjectMark project="travis-county-vdr" size={20} />
-        <span>Travis County VDR Toolkit</span>
-      </Link>
-      <span className="nav-mobile-sub nav-mobile-sub-marked">{t("travisCountyVdrSub")}</span>
-      <Link
-        href="/solutions/voter-registration-palooza"
-        className="nav-mobile-link nav-mobile-sublink"
-        onClick={onNavigate}
-      >
-        <ProjectMark project="voter-registration-palooza" size={20} />
-        <span>Voter Registration Palooza</span>
-      </Link>
-      <span className="nav-mobile-sub nav-mobile-sub-marked">
-        {t("voterRegistrationPaloozaSub")}
-      </span>
-      <Link href="/solutions/brand-design/merch" className="nav-mobile-link nav-mobile-sublink" onClick={onNavigate}>
-        <ProjectMark project="merch" size={20} />
-        <span>{t("merch")}</span>
-      </Link>
-      <span className="nav-mobile-sub nav-mobile-sub-marked">{t("merchSub")}</span>
-      */}
-
-      {/* Research holds one item, the 2026 elections work; its three pages
-          open in place beneath it, the phone's version of the desktop flyout. */}
-      <span className="nav-mobile-heading">{t("research")}</span>
-      <button
-        type="button"
-        className="nav-mobile-link nav-mobile-disclosure"
-        aria-expanded={electionsOpen}
-        aria-controls={electionsId}
-        onClick={() => setElectionsOpen((o) => !o)}
-      >
-        {t("elections2026")}
-        <svg
-          className={`nav-dropdown-chevron ${electionsOpen ? "open" : ""}`}
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          aria-hidden="true"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
-      </button>
-      <div id={electionsId} hidden={!electionsOpen} className="space-y-2">
-        <Link href="/research/2026-election-analysis" className="nav-mobile-link nav-mobile-sublink" onClick={onNavigate}>
-          {t("electionAnalysis2026")}
-        </Link>
-        <span className="nav-mobile-sub">{t("electionAnalysis2026Sub")}</span>
-        <Link href="/research/2026-polls" className="nav-mobile-link nav-mobile-sublink" onClick={onNavigate}>
-          {t("polls2026")}
-        </Link>
-        <span className="nav-mobile-sub">{t("polls2026Sub")}</span>
-        <Link href="/research/2026-results" className="nav-mobile-link nav-mobile-sublink" onClick={onNavigate}>
-          {t("results2026")}
-        </Link>
-        <span className="nav-mobile-sub">{t("results2026Sub")}</span>
-      </div>
-
-      {/* Headed like the groups above it, or these read as more Research links. */}
-      <span className="nav-mobile-heading">{t("about")}</span>
-      <Link href="/about" className="nav-mobile-link" onClick={onNavigate}>
-        {t("ourStory")}
-      </Link>
-      <Link href="/about/inspirations" className="nav-mobile-link" onClick={onNavigate}>
-        {t("inspirations")}
-      </Link>
-      <Link href="/about/team" className="nav-mobile-link" onClick={onNavigate}>
-        {t("team")}
-      </Link>
-      <Link href="/solutions/brand-design/philosophy" className="nav-mobile-link" onClick={onNavigate}>
-        {t("brandDesignPhilosophy")}
-      </Link>
-      {/* Portfolio is built but unlinked until it's ready to go public. */}
+          {menu.groups.map((group, i) => (
+            <div key={group.heading ?? i} className="space-y-2">
+              {group.heading && <span className="nav-mobile-heading">{t(group.heading)}</span>}
+              {group.items.map((item) => (
+                <div key={item.href}>
+                  <Link href={item.href} className="nav-mobile-link nav-mobile-sublink" onClick={onNavigate}>
+                    <NavItemMark item={item} size={20} />
+                    <span>
+                      <NavItemName item={item} t={t} />
+                    </span>
+                  </Link>
+                  <span className="nav-mobile-sub nav-mobile-sub-marked">{t(item.sub)}</span>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      ))}
 
       {/* Donations are closed; see src/lib/donations.ts.
       <Link href="/donate" className="nav-mobile-link" onClick={onNavigate}>
