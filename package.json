@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "doppler run -- next start",
     "lint": "eslint",
+    "typecheck": "tsc --noEmit",
     "test": "jest --passWithNoTests",
     "test:watch": "jest --watch"
   },
