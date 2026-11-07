@@ -8,11 +8,11 @@ import { IndexPage, IndexSection, type IndexEntry } from "@/components/IndexList
 export const metadata: Metadata = {
   title: "Research",
   description:
-    "B-59's data work on Texas elections: 2026 turnout against past years, the statewide polling average, and results by county and precinct.",
+    "B-59's data work on Texas elections and Austin ballot petitions: 2026 turnout against past years, the statewide polling average, results by county and precinct, and what it takes to qualify a petition in Austin.",
   alternates: { canonical: "/research" },
   openGraph: {
     title: "Research | B-59",
-    description: "Turnout, polls and results from the 2026 Texas general election.",
+    description: "Turnout, polls and results from the 2026 Texas general election, and the numbers behind Austin ballot petitions.",
     url: "/research",
   },
 };
@@ -29,27 +29,31 @@ export default async function Research() {
     getTranslations("research"),
   ]);
   const menu = NAV_MENUS.find((m) => m.id === "research");
-  const items = menu?.groups.flatMap((g) => g.items) ?? [];
+  const groups = menu?.groups ?? [];
 
   // The research is published in English only, so other locales say so once.
   const englishOnly = locale !== defaultLocale;
 
-  const entries: IndexEntry[] = items.map((item) => ({
-    href: item.href,
-    mark: (size) => <NavItemMark item={item} size={size} />,
-    title: <NavItemName item={item} t={nav} />,
-    blurb: nav(item.sub),
-    hrefLang: "en",
-  }));
+  const entriesOf = (group: (typeof groups)[number]): IndexEntry[] =>
+    group.items.map((item) => ({
+      href: item.href,
+      mark: (size) => <NavItemMark item={item} size={size} />,
+      title: <NavItemName item={item} t={nav} />,
+      blurb: nav(item.sub),
+      hrefLang: "en",
+    }));
 
   return (
     <IndexPage title={nav("research")} lede={t("intro")}>
-      <IndexSection
-        id="research-2026"
-        heading={nav("elections2026")}
-        note={englishOnly ? research("englishOnly") : undefined}
-        entries={entries}
-      />
+      {groups.map((group, i) => (
+        <IndexSection
+          key={group.items[0]?.href ?? i}
+          id={`research-${i + 1}`}
+          heading={group.heading ? nav(group.heading) : undefined}
+          note={englishOnly && i === 0 ? research("englishOnly") : undefined}
+          entries={entriesOf(group)}
+        />
+      ))}
     </IndexPage>
   );
 }

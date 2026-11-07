@@ -40,18 +40,21 @@ export function IndexSection({
   entries,
 }: {
   id: string;
-  heading: ReactNode;
+  /** Optional, as a menu group may have none; the section is then unlabelled. */
+  heading?: ReactNode;
   note?: string;
   entries: IndexEntry[];
 }) {
-  const headingId = `${id}-heading`;
+  const headingId = heading ? `${id}-heading` : undefined;
   const noteId = note ? `${id}-note` : undefined;
 
   return (
     <section className="index-section" aria-labelledby={headingId}>
-      <h2 id={headingId} className="index-section-title">
-        {heading}
-      </h2>
+      {heading && (
+        <h2 id={headingId} className="index-section-title">
+          {heading}
+        </h2>
+      )}
       {note && (
         <p id={noteId} className="index-note">
           {note}

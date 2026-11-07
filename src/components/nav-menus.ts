@@ -88,9 +88,10 @@ export const NAV_MENUS: NavMenu[] = [
   {
     id: "research",
     trigger: "research",
-    header: { href: "/research", title: "elections2026", sub: "elections2026Sub" },
+    header: { href: "/research", title: "allResearch", sub: "allResearchSub" },
     groups: [
       {
+        heading: "elections2026",
         items: [
           {
             href: "/research/2026-election-analysis",
@@ -109,6 +110,17 @@ export const NAV_MENUS: NavMenu[] = [
             icon: { glyph: "results" },
             label: { key: "results2026" },
             sub: "results2026Sub",
+          },
+        ],
+      },
+      {
+        heading: "ballotPetitions",
+        items: [
+          {
+            href: "/research/austin-petitions",
+            icon: { glyph: "petition" },
+            label: { key: "austinPetitions" },
+            sub: "austinPetitionsSub",
           },
         ],
       },

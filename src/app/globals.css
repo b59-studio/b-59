@@ -3027,3 +3027,9 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
     gap: 5rem;
   }
 }
+
+@media (min-width: 1024px) {
+  .product-features--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

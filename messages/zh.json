@@ -45,7 +45,12 @@
     "politicalConsulting": "政治咨询",
     "politicalConsultingSub": "为民主党和进步派竞选提供外勤、投票提案和投票率工作。",
     "ballotMeasures": "投票提案与请愿",
-    "ballotMeasuresSub": "通过请愿征集签名，把进步派提案列入奥斯汀选票。"
+    "ballotMeasuresSub": "通过请愿征集签名，把进步派提案列入奥斯汀选票。",
+    "allResearch": "全部研究",
+    "allResearchSub": "用数据看得克萨斯州选举和奥斯汀投票请愿。",
+    "ballotPetitions": "投票请愿",
+    "austinPetitions": "奥斯汀请愿",
+    "austinPetitionsSub": "把公民请愿列入奥斯汀选票真正需要什么。"
   },
   "footer": {
     "tagline": "为不完美的系统，<blue>进行</blue>深思熟虑的设计。",
@@ -180,10 +185,11 @@
     "moreBody": "<brand></brand> 只与民主党和进步派竞选及议题合作。投票提案是我们更广泛业务的一部分，此外还包括外勤组织、数据、传播和竞选设计。",
     "moreLink": "我们的全部政治咨询服务",
     "checked": "规则已于 2026 年 11 月对照市书记官和州务卿的说明核实。本页介绍流程，不构成法律意见。",
-    "opensNewWindow": "（在新窗口中打开）"
+    "opensNewWindow": "（在新窗口中打开）",
+    "researchLink": "奥斯汀请愿背后的数字"
   },
   "researchIndex": {
-    "intro": "我们关于德州选举的数据工作。"
+    "intro": "我们关于德州选举和奥斯汀投票请愿的数据工作。"
   },
   "about": {
     "metaTitle": "关于",
@@ -464,12 +470,12 @@
     "why1": "公民和公共利益团队的日历十分敏感<blue>——</blue>其中记录着会议、计划和不该被外人知晓的人员信息。大多数日程安排工具回答“你什么时候有空？”的方式，就是把答案公开出来，而这恰恰是这类工作最不该有的默认方式。",
     "why2": "所以我们做了相反的事，然后一直做了下去。使用它的团队要的不是挂在一周边上的一个预约链接<blue>——</blue>他们要的是这一周本身：会议、班次，以及这些班次累积成的工时，而且不必为此按人头付费。",
     "cta": "拨打电话",
-    "altHome": "Hotline 首页：Make the call，并有“免费开始”按钮。",
-    "altHomePhone": "手机上的 Hotline 首页。",
-    "altWhatTheySee": "一格格空闲时段，访客只能看到主人挑选的三个时间。",
+    "altHome": "Hotline 的 Plate：两场即将到来的会议，以及已结束、等待后续步骤的会议。",
+    "altHomePhone": "手机上的同一个 Plate，底部是应用的标签栏。",
     "altBooking": "一个选民会面的 Hotline 预约页面，按访客自己的时区提供三个时间。",
     "closingHeading": "一个人免费，之后按组织计费。",
-    "closingBody": "开始时无需绑卡，也没有用量计费。被预约的人完全不需要账号。"
+    "closingBody": "开始时无需绑卡，也没有用量计费。被预约的人完全不需要账号。",
+    "altCalendar": "Hotline 的月历，已预约的会议显示在对应的日期上。"
   },
   "solutionsTravisCountyVdr": {
     "metaTitle": "Travis 县 VDR 工具包",

@@ -45,7 +45,12 @@
     "politicalConsulting": "Political Consulting",
     "politicalConsultingSub": "Field, ballot measure and turnout work for Democratic and progressive campaigns.",
     "ballotMeasures": "Ballot Measures & Petitions",
-    "ballotMeasuresSub": "Petition drives that put progressive propositions on the Austin ballot."
+    "ballotMeasuresSub": "Petition drives that put progressive propositions on the Austin ballot.",
+    "allResearch": "All research",
+    "allResearchSub": "Texas elections and Austin ballot petitions, in data.",
+    "ballotPetitions": "Ballot Petitions",
+    "austinPetitions": "Austin Petitions",
+    "austinPetitionsSub": "What it really takes to put a citizen petition on the Austin ballot."
   },
   "footer": {
     "tagline": "Deliberate design <blue>for</blue> imperfect systems.",
@@ -180,10 +185,11 @@
     "moreBody": "<brand></brand> works only with Democratic and progressive campaigns and causes. Ballot measures are part of a wider practice in field organizing, data, communications and campaign design.",
     "moreLink": "All our political consulting",
     "checked": "Rules checked against the City Clerk and Secretary of State in November 2026. This page explains the process; it is not legal advice.",
-    "opensNewWindow": " (opens in new window)"
+    "opensNewWindow": " (opens in new window)",
+    "researchLink": "The numbers behind Austin petitions"
   },
   "researchIndex": {
-    "intro": "Our data work on Texas elections."
+    "intro": "Our data work on Texas elections and Austin ballot petitions."
   },
   "about": {
     "metaTitle": "About",
@@ -464,12 +470,12 @@
     "why1": "Civic and public-interest teams' calendars are sensitive <blue>—</blue> they hold meetings, plans, and people that aren't anyone else's business. Most scheduling tools answer “when are you free?” by publishing the answer, which is exactly the wrong default for this kind of work.",
     "why2": "So we built the opposite, and then kept going. The teams using it didn't want a booking link bolted to the side of their week <blue>—</blue> they wanted the week itself: the meetings, the shifts, and the hours those shifts add up to, without paying by the person for the privilege.",
     "cta": "Make the call",
-    "altHome": "The Hotline home page: Make the call, with a Get started free button.",
-    "altHomePhone": "The Hotline home page on a phone.",
-    "altWhatTheySee": "A grid of open slots where only the three times the host chose are shown to the guest.",
+    "altHome": "Hotline's Plate: two upcoming meetings, and the ones that have ended waiting for next steps.",
+    "altHomePhone": "The same Plate on a phone, with the app's tab bar along the bottom.",
     "altBooking": "A Hotline booking page for a constituent meeting, offering three times in the guest's own timezone.",
     "closingHeading": "Free for one person. Per organization after that.",
-    "closingBody": "No card to start and nothing metered. The people you book don't need an account at all."
+    "closingBody": "No card to start and nothing metered. The people you book don't need an account at all.",
+    "altCalendar": "Hotline's month calendar, with booked meetings on the days they fall."
   },
   "solutionsTravisCountyVdr": {
     "metaTitle": "Travis County VDR Toolkit",
