@@ -32,6 +32,16 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ### Added
 
+- The Inspirations page now shows the work behind each example instead of only
+  describing it. Audrey Tang's section has photos of the occupied legislature
+  and a g0v hackathon, and links to g0v, the 2020 mask supply platform,
+  vTaiwan, Tang's published meeting transcripts and *Plurality*. The 18F
+  section has screenshots of the U.S. Web Design System and 18F Methods, and
+  links to the Methods, USWDS, the Content Guide, the open-source IRS Direct
+  File code and 18f.org. Photos carry their Wikimedia Commons credit and
+  license. The opening line is rewritten more plainly, and the two closing
+  statements now share one text color. In every locale.
+
 - **Search engines and AI assistants get a clearer picture of the studio.**
   Every page now describes B-59 Studio to search engines as a business in
   Austin, Texas, with its founder, its LinkedIn and GitHub profiles, and the
