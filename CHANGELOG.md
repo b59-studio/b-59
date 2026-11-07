@@ -32,6 +32,20 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ### Added
 
+- **Austin Ballot Petitions: what the numbers say**, a new research page at
+  `/research/austin-petitions`:
+  - why 20,000 signatures is where a petition fails rather than succeeds, with
+    the share that must be valid at each number submitted;
+  - the reported results of five Austin petitions since 2018;
+  - how out-of-city signers sank the 2025 convention center drive;
+  - the last safe filing dates for the May and November 2027 elections,
+    worked back from the 78-day order deadline.
+
+  Rules link to the City Clerk and Texas law, and petition figures link to the
+  outlet that reported them.
+- The Research menu gains a Ballot Petitions group, and the Ballot Measures
+  page links to the new research.
+
 - **A Ballot Measures & Petitions page** at `/studio/ballot-measures`. It
   walks through how a citizen petition reaches the Austin ballot: 20,000
   signatures from registered voters, what every line needs, how the City Clerk

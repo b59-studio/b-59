@@ -150,6 +150,10 @@ export default async function BallotMeasures() {
             </li>
           ))}
         </ul>
+        <Link href="/research/austin-petitions" className="home-text-action mt-6">
+          {t("researchLink")}
+          <RowArrow />
+        </Link>
       </section>
 
       <section className="home-section about-chapter" aria-labelledby="ballot-more">

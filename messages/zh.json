@@ -45,7 +45,12 @@
     "politicalConsulting": "政治咨询",
     "politicalConsultingSub": "为民主党和进步派竞选提供外勤、投票提案和投票率工作。",
     "ballotMeasures": "投票提案与请愿",
-    "ballotMeasuresSub": "通过请愿征集签名，把进步派提案列入奥斯汀选票。"
+    "ballotMeasuresSub": "通过请愿征集签名，把进步派提案列入奥斯汀选票。",
+    "allResearch": "全部研究",
+    "allResearchSub": "用数据看得克萨斯州选举和奥斯汀投票请愿。",
+    "ballotPetitions": "投票请愿",
+    "austinPetitions": "奥斯汀请愿",
+    "austinPetitionsSub": "把公民请愿列入奥斯汀选票真正需要什么。"
   },
   "footer": {
     "tagline": "为不完美的系统，<blue>进行</blue>深思熟虑的设计。",
@@ -180,10 +185,11 @@
     "moreBody": "<brand></brand> 只与民主党和进步派竞选及议题合作。投票提案是我们更广泛业务的一部分，此外还包括外勤组织、数据、传播和竞选设计。",
     "moreLink": "我们的全部政治咨询服务",
     "checked": "规则已于 2026 年 11 月对照市书记官和州务卿的说明核实。本页介绍流程，不构成法律意见。",
-    "opensNewWindow": "（在新窗口中打开）"
+    "opensNewWindow": "（在新窗口中打开）",
+    "researchLink": "奥斯汀请愿背后的数字"
   },
   "researchIndex": {
-    "intro": "我们关于德州选举的数据工作。"
+    "intro": "我们关于德州选举和奥斯汀投票请愿的数据工作。"
   },
   "about": {
     "metaTitle": "关于",
