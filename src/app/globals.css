@@ -2314,9 +2314,27 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
   margin-bottom: 1rem;
 }
 
+/* A link to a chapter lands it below the sticky header, not under it. */
+.about [id] {
+  scroll-margin-top: 6rem;
+}
+
+/* Moving between the three pages is turning a page, not arriving: the
+   section links hold still and the new page's opening simply appears, with
+   no staggered rise that would blank the title on every click. */
+@keyframes about-appear {
+  from {
+    opacity: 0;
+  }
+}
+
+.about .home-hero-lead > * {
+  animation: none;
+}
+
 @media (prefers-reduced-motion: no-preference) {
-  .about-facts {
-    animation: home-rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) 0.24s both;
+  .about .home-hero {
+    animation: about-appear 0.2s ease-out both;
   }
 }
 
@@ -2327,7 +2345,7 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
 }
 
 @media print {
-  .about-facts {
+  .about .home-hero {
     animation: none;
   }
 }

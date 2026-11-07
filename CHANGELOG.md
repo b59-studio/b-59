@@ -109,6 +109,10 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ### Fixed
 
+- Moving between Our Story, Our Inspirations and Team no longer blanks the
+  page title and slides it back in on every click; the new page fades in
+  quickly under links that hold still. Following "Audrey Tang" or "18F" from
+  Our Story lands on that section below the header instead of under it.
 - The live results now show how many ballots Harris County has counted, and
   count it among the counties reporting. Harris's results file leaves its own
   ballots-counted field at zero, so the figure comes from its U.S. Senate
