@@ -28,6 +28,8 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+## 2026-11-06
+
 ### Added
 
 - **Precinct tables for Collin, Starr and Willacy counties.** These counties
@@ -46,6 +48,16 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   release that could be found, and the page says where it was looked for and
   when.
 
+- **The 2026 research pages compare against past years and against the
+  forecasts.** The election analysis opens on a new "2026 vs past years" tab:
+  each county's 2026 turnout against 2022, 2018 and 2024, in points and in
+  ballots, and the Democratic–Republican margin for the top of the ticket,
+  the U.S. Senate, Governor, Railroad Commissioner and Comptroller against
+  each earlier race for that office, with the shift and the change in each
+  party's votes. The polls page gains a "Polls vs results" tab setting each
+  race's final poll average, and each poll in it, against the result, and the
+  win calculator's election-day assumption against what election day added.
+
 ### Changed
 
 - **Counties flip to "Canvassed" on their own.** Each county is now checked
@@ -59,22 +71,6 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   requests, so its totals still come from the Texas Secretary of State. The
   sources table now says so and links Hays's precinct report for reading by
   hand.
-
-## 2026-11-06
-
-### Added
-
-- **The 2026 research pages compare against past years and against the
-  forecasts.** The election analysis opens on a new "2026 vs past years" tab:
-  each county's 2026 turnout against 2022, 2018 and 2024, in points and in
-  ballots, and the Democratic–Republican margin for the top of the ticket,
-  the U.S. Senate, Governor, Railroad Commissioner and Comptroller against
-  each earlier race for that office, with the shift and the change in each
-  party's votes. The polls page gains a "Polls vs results" tab setting each
-  race's final poll average, and each poll in it, against the result, and the
-  win calculator's election-day assumption against what election day added.
-
-### Changed
 
 - The home page shows the work instead of a tagline. The three 2026 Texas
   research pages and both products — ready2vote and Hotline — are now on the
