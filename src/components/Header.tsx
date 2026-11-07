@@ -1,32 +1,77 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { MobileMenu } from "./MobileMenu";
 import { useDropdownClose } from "@/lib/use-dropdown-close";
 import { NAV_MENUS, type NavMenu } from "./nav-menus";
 import { NavItemMark, NavItemName } from "./NavMenuParts";
 
+/** How long the pointer may be outside a hover-opened menu before it closes. */
+const HOVER_CLOSE_DELAY_MS = 150;
+
 /**
  * One header dropdown. Opening another one is a click outside this one, so
  * only one is ever open without the menus having to know about each other.
+ *
+ * A mouse also opens it on hover and closes it on leaving, after a short grace
+ * period so a diagonal path to the menu does not snap it shut. Hover is mouse
+ * only: touch and pen keep tap-to-toggle, and the keyboard keeps the button.
  */
 function NavDropdown({ menu }: { menu: NavMenu }) {
   const t = useTranslations("nav");
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-  const close = () => setOpen(false);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Set when hover opened the menu, so the click that usually follows a hover
+  // keeps it open instead of toggling it straight back shut.
+  const openedByHover = useRef(false);
+
+  const cancelClose = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = null;
+  };
+  const close = () => {
+    cancelClose();
+    openedByHover.current = false;
+    setOpen(false);
+  };
   useDropdownClose(ref, open, close);
+  useEffect(() => cancelClose, []);
+
+  const onPointerEnter = (e: React.PointerEvent) => {
+    if (e.pointerType !== "mouse") return;
+    cancelClose();
+    if (!open) openedByHover.current = true;
+    setOpen(true);
+  };
+  const onPointerLeave = (e: React.PointerEvent) => {
+    if (e.pointerType !== "mouse") return;
+    cancelClose();
+    closeTimer.current = setTimeout(close, HOVER_CLOSE_DELAY_MS);
+  };
+  const onTriggerClick = () => {
+    if (openedByHover.current) {
+      openedByHover.current = false;
+      return;
+    }
+    setOpen((o) => !o);
+  };
 
   return (
-    <div className="nav-dropdown" ref={ref}>
+    <div
+      className="nav-dropdown"
+      ref={ref}
+      onPointerEnter={onPointerEnter}
+      onPointerLeave={onPointerLeave}
+    >
       <button
         type="button"
         className="nav-link nav-dropdown-trigger"
         aria-haspopup="true"
         aria-expanded={open}
-        onClick={() => setOpen((o) => !o)}
+        onClick={onTriggerClick}
       >
         {t(menu.trigger)}
         <svg

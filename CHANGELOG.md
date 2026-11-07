@@ -28,6 +28,13 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Changed
+
+- **Header menus open on mouse hover.** Pointing at Studio, Research or About
+  now opens its menu, and moving away closes it, with a short pause so a
+  diagonal path down into the menu does not shut it on the way. Clicking a
+  trigger still works, and touch and keyboard behave exactly as before.
+
 ## 2026-11-07
 
 ### Added
