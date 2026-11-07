@@ -74,3 +74,7 @@ describe("parsed precinct PDFs", () => {
     }
   });
 });
+
+// Deliberate type error to show the CI step fails; reverted in the next commit.
+const deliberate: number = "not a number";
+void deliberate;
