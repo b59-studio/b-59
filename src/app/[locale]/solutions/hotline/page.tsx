@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { getTranslations } from "next-intl/server";
 import { ProjectMark } from "@/components/ProjectMark";
-import { DeviceStage, FigureShot, ThemedShot, type Shot } from "@/components/ProductShot";
+import { BrowserShot, DeviceStage, ThemedShot, type Shot } from "@/components/ProductShot";
 
 // Hotline's wordmark is set in Geist — load it so the name renders in-brand.
 const geist = Geist({ subsets: ["latin"], weight: "700" });
@@ -29,14 +29,11 @@ const ORG = ["org1", "org2", "org3", "org4"] as const;
 export default async function Hotline() {
   const t = await getTranslations("solutionsHotline");
 
-  const home: Shot = { src: "/products/hotline/home.webp", width: 1600, height: 1025, alt: t("altHome") };
-  const homePhone: Shot = { src: "/products/hotline/home-phone.webp", width: 780, height: 1688, alt: t("altHomePhone") };
-  const whatTheySee: Shot = {
-    src: "/products/hotline/what-they-see.webp",
-    width: 1600,
-    height: 691,
-    alt: t("altWhatTheySee"),
-  };
+  // Screens from the app itself, signed in as a test account seeded with the
+  // product's own synthetic demo data (every recipient is @example.com).
+  const plate: Shot = { src: "/products/hotline/plate.webp", width: 1600, height: 1025, alt: t("altHome") };
+  const platePhone: Shot = { src: "/products/hotline/plate-phone.webp", width: 780, height: 1688, alt: t("altHomePhone") };
+  const calendar: Shot = { src: "/products/hotline/calendar.webp", width: 1600, height: 1025, alt: t("altCalendar") };
   // The page a guest lands on from a Hotline link, from the product's own demo data.
   const booking = { width: 1032, height: 806, alt: t("altBooking") };
 
@@ -62,23 +59,18 @@ export default async function Hotline() {
             </a>
           </div>
         </div>
-        <DeviceStage desktop={home} phone={homePhone} address="hotlinecal.com" priority />
+        <DeviceStage desktop={plate} phone={platePhone} address="hotlinecal.com/meetings" priority />
       </section>
 
       <section id="different" className="scroll-mt-24 product-stack" aria-labelledby="hotline-different">
-        <div className="product-section-intro">
-          <h2 id="hotline-different" className="heading-lg">
-            {t("differentHeading")}
-          </h2>
-          <p className="body-lg">{t.rich("intro2", { blue })}</p>
-        </div>
-
         <div className="product-split">
           <div className="product-split-text">
-            <h3 className="heading-md">{t("diff1Strong")}</h3>
-            <p className="body-lg">{t("diff1Body")}</p>
+            <h2 id="hotline-different" className="heading-lg">
+              {t("differentHeading")}
+            </h2>
+            <p className="body-lg">{t.rich("intro2", { blue })}</p>
           </div>
-          <FigureShot shot={whatTheySee} />
+          <BrowserShot shot={calendar} address="hotlinecal.com/calendar" />
         </div>
 
         <div className="product-split product-split--flip">
@@ -92,7 +84,11 @@ export default async function Hotline() {
           />
         </div>
 
-        <ul className="product-features">
+        <ul className="product-features product-features--3">
+          <li>
+            <h3 className="heading-sm">{t("diff1Strong")}</h3>
+            <p className="body-md">{t("diff1Body")}</p>
+          </li>
           <li>
             <h3 className="heading-sm">{t("diff2Strong")}</h3>
             <p className="body-md">{t("diff2Body")}</p>

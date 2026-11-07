@@ -88,6 +88,11 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   light or dark to match the site — and lays its organization features out to
   scan rather than as a bulleted list. In every locale.
 
+- The Hotline page's screenshots now come from the app itself — the Plate,
+  on a laptop and a phone, and the calendar — instead of from the Hotline
+  marketing site. The phone screen at the top of both product pages now
+  loads with the page rather than a moment after it.
+
 - The Political Consulting & Organizing page now lists **brand and campaign
   design** (identity systems, field-ready collateral and merch) as a service.
   "Turnout and targeting" becomes **data and targeting** and now covers
