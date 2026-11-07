@@ -28,6 +28,15 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Changed
+
+- **The 2026 research says Texas where it stands alone.** The menu group is
+  now "2026 Texas Elections", on wide screens and phones. Inside it the three
+  pages keep short names ("2026 Turnout Comparison", "2026 Polls", "2026
+  Results"), since the group already names the state. Where the pages are
+  listed on their own, on the home page's latest research and the sitemap
+  page, each name says Texas. All five languages.
+
 ## 2026-11-06
 
 ### Added
