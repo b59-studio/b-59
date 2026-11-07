@@ -51,6 +51,8 @@ export function organizationJsonLd(siteUrl: string) {
           "Election data analysis",
           "Texas elections",
           "Voter registration",
+          "Ballot measure campaigns",
+          "Petition signature gathering",
           "Campaign field organizing",
           "Voter turnout targeting",
           "Campaign brand design",

@@ -57,6 +57,12 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ### Changed
 
+- On the Political Consulting & Organizing page, **voter registration gives
+  way to ballot measures and petitions**: signature drives that put a
+  proposition on the ballot, with signatures checked against the voter roll
+  as they come in, then the voter contact that carries it on election day.
+  In every locale.
+
 - **The ready2vote and Hotline pages now read as product pages.** Each opens
   with screenshots of the live product on a laptop and a phone beside the
   pitch and the button to try it, and the claims further down sit next to the
