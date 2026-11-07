@@ -67,6 +67,12 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ### Changed
 
+- The Research menu holds one item, 2026 Elections. On a wide screen its
+  three pages (the analysis, the polls and the results) open beside it on
+  hover, click or the arrow keys; on a phone they open beneath it. The menus'
+  headings and descriptions are a little larger, up to the site's smallest
+  text size.
+
 - **Counties flip to "Canvassed" on their own.** Each county is now checked
   hourly for its canvass: in Clarity's page header, through Harris's official
   flag, or through a link to a Nov 3, 2026 canvass or official report on the

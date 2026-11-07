@@ -12,6 +12,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [solutionsOpen, setSolutionsOpen] = useState(false);
   const [researchOpen, setResearchOpen] = useState(false);
+  const [electionsOpen, setElectionsOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
   const solutionsRef = useRef<HTMLDivElement>(null);
   const researchRef = useRef<HTMLDivElement>(null);
@@ -20,7 +21,11 @@ export default function Header() {
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
   useDropdownClose(solutionsRef, solutionsOpen, () => setSolutionsOpen(false));
-  useDropdownClose(researchRef, researchOpen, () => setResearchOpen(false));
+  const closeResearch = () => {
+    setResearchOpen(false);
+    setElectionsOpen(false);
+  };
+  useDropdownClose(researchRef, researchOpen, closeResearch);
   useDropdownClose(aboutRef, aboutOpen, () => setAboutOpen(false));
 
   return (
@@ -163,6 +168,7 @@ export default function Header() {
                     aria-expanded={researchOpen}
                     onClick={() => {
                       setResearchOpen((open) => !open);
+                      setElectionsOpen(false);
                       setSolutionsOpen(false);
                       setAboutOpen(false);
                     }}
@@ -180,41 +186,83 @@ export default function Header() {
                   </button>
 
                   {researchOpen && (
-                    <div className="nav-mega-menu" role="menu">
-                      <p className="nav-mega-heading">{t("elections2026")}</p>
-                      <Link
-                        href="/research/2026-election-analysis"
-                        className="nav-mega-item"
-                        role="menuitem"
-                        onClick={() => setResearchOpen(false)}
+                    <div className="nav-mega-menu nav-mega-menu-narrow" role="menu">
+                      {/* One item for the 2026 work; its three pages open beside it on
+                          hover, click, or the right arrow, and close on Escape or the left arrow. */}
+                      <div
+                        className="nav-flyout"
+                        onMouseEnter={() => setElectionsOpen(true)}
+                        onMouseLeave={() => setElectionsOpen(false)}
                       >
-                        <span className="nav-mega-item-text">
-                          <span className="nav-mega-item-name">{t("electionAnalysis2026")}</span>
-                          <span className="nav-mega-item-sub">{t("electionAnalysis2026Sub")}</span>
-                        </span>
-                      </Link>
-                      <Link
-                        href="/research/2026-polls"
-                        className="nav-mega-item"
-                        role="menuitem"
-                        onClick={() => setResearchOpen(false)}
-                      >
-                        <span className="nav-mega-item-text">
-                          <span className="nav-mega-item-name">{t("polls2026")}</span>
-                          <span className="nav-mega-item-sub">{t("polls2026Sub")}</span>
-                        </span>
-                      </Link>
-                      <Link
-                        href="/research/2026-results"
-                        className="nav-mega-item"
-                        role="menuitem"
-                        onClick={() => setResearchOpen(false)}
-                      >
-                        <span className="nav-mega-item-text">
-                          <span className="nav-mega-item-name">{t("results2026")}</span>
-                          <span className="nav-mega-item-sub">{t("results2026Sub")}</span>
-                        </span>
-                      </Link>
+                        <button
+                          type="button"
+                          className="nav-dropdown-item nav-flyout-trigger"
+                          role="menuitem"
+                          aria-haspopup="true"
+                          aria-expanded={electionsOpen}
+                          onClick={() => setElectionsOpen((open) => !open)}
+                          onKeyDown={(e) => {
+                            if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+                              e.preventDefault();
+                              setElectionsOpen(e.key === "ArrowRight");
+                            }
+                          }}
+                        >
+                          {t("elections2026")}
+                          <svg className="nav-flyout-chevron" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </button>
+                        {electionsOpen && (
+                          <div
+                            className="nav-flyout-panel"
+                            role="menu"
+                            aria-label={t("elections2026")}
+                            onKeyDown={(e) => {
+                              if (e.key === "ArrowLeft" || e.key === "Escape") {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                setElectionsOpen(false);
+                                (e.currentTarget.previousElementSibling as HTMLElement | null)?.focus();
+                              }
+                            }}
+                          >
+                          <Link
+                            href="/research/2026-election-analysis"
+                            className="nav-mega-item"
+                            role="menuitem"
+                            onClick={closeResearch}
+                          >
+                            <span className="nav-mega-item-text">
+                              <span className="nav-mega-item-name">{t("electionAnalysis2026")}</span>
+                              <span className="nav-mega-item-sub">{t("electionAnalysis2026Sub")}</span>
+                            </span>
+                          </Link>
+                          <Link
+                            href="/research/2026-polls"
+                            className="nav-mega-item"
+                            role="menuitem"
+                            onClick={closeResearch}
+                          >
+                            <span className="nav-mega-item-text">
+                              <span className="nav-mega-item-name">{t("polls2026")}</span>
+                              <span className="nav-mega-item-sub">{t("polls2026Sub")}</span>
+                            </span>
+                          </Link>
+                          <Link
+                            href="/research/2026-results"
+                            className="nav-mega-item"
+                            role="menuitem"
+                            onClick={closeResearch}
+                          >
+                            <span className="nav-mega-item-text">
+                              <span className="nav-mega-item-name">{t("results2026")}</span>
+                              <span className="nav-mega-item-sub">{t("results2026Sub")}</span>
+                            </span>
+                          </Link>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   )}
                 </div>
