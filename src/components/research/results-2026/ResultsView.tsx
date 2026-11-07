@@ -152,7 +152,7 @@ function statusLine(data: Payload): string {
   const counties = canvassed.length
     ? `${canvassed.join(", ")} ${canvassed.length === 1 ? "has" : "have"} canvassed; the other ${data.counties.length - canvassed.length} followed counties have not.`
     : "No followed county has canvassed yet.";
-  return `Unofficial. These are the counties’ complete election-night counts, which can still change until each county canvasses its results and the state certifies them. ${counties}`;
+  return `Unofficial. These are the counties’ complete election-night counts, which can still change until each county canvasses its results and the state certifies them. ${counties} Each county is checked every hour and marked canvassed when it posts its canvass.`;
 }
 
 function Statewide({ race }: { race: RaceDetail }) {
@@ -361,8 +361,25 @@ function PrecinctPanel({ race, county, readAt }: { race: RaceDetail; county: str
             ))}
           </fieldset>
           <Note>
-            {fmt(detail.rows.length)} precincts with votes so far, from {county}’s own results system. Precincts with no
-            votes yet are left out. The CSV download includes every precinct row by vote type.
+            {detail.parsed ? (
+              <>
+                {fmt(detail.rows.length)} precincts, parsed from{" "}
+                <a className="ea-link" href={detail.parsed.pdf} target="_blank" rel="noopener noreferrer">
+                  {county}’s unofficial precinct report (PDF)<span className="sr-only">, opens in a new tab</span>
+                </a>
+                , run {detail.parsed.reportStamp}. {county} publishes no machine-readable precinct results.{" "}
+                {detail.parsed.largestGap
+                  ? `The report predates the county’s latest count, so its precinct sums run up to ${pct(detail.parsed.largestGap)} below the county total above, which comes from the Texas Secretary of State.`
+                  : "Its precinct sums match the county total above, from the Texas Secretary of State."}{" "}
+                Write-ins are one combined column.
+              </>
+            ) : (
+              <>
+                {fmt(detail.rows.length)} precincts with votes so far, from {county}’s own results system. Precincts with
+                no votes yet are left out.
+              </>
+            )}{" "}
+            The CSV download includes every precinct row by vote type.
           </Note>
           <SortContext.Provider value={sort}>
             <DataTable
@@ -412,8 +429,10 @@ function SourcesPanel({ counties }: { counties: CountyStatus[] }) {
       <Note>
         Each county’s results system, what it last published and when this site read it. Clarity and HarrisVotes
         publish every race precinct by precinct; the other counties post PDFs, so their county totals come from the Texas
-        Secretary of State, and the link goes to the county’s own results page. All results are unofficial until
-        canvassed.
+        Secretary of State, and the link goes to the county’s own results page. Collin’s, Starr’s and Willacy’s precinct
+        PDFs are parsed into the precinct tables. Hays’s site refuses automated requests, so nothing here can read it:
+        its totals come from the state and its reports are linked for reading by hand. All results are unofficial until
+        canvassed; each county is checked hourly for its canvass.
       </Note>
       <DataTable
         head={
@@ -437,9 +456,11 @@ function SourcesPanel({ counties }: { counties: CountyStatus[] }) {
               {c.status}
               {c.canvassUrl && (
                 <a className="ea-cnt ea-link" href={c.canvassUrl} target="_blank" rel="noopener noreferrer">
-                  Canvass report<span className="sr-only"> (opens in a new tab)</span>
+                  {c.canvassVia === "state" ? "State canvass" : "Canvass report"}
+                  <span className="sr-only"> for {c.county} (opens in a new tab)</span>
                 </a>
               )}
+              {c.blocksReads && <span className="ea-cnt">Its site blocks automated reads</span>}
             </td>
             <td>{stamp(c.updated)}</td>
             <td>{c.ballots ? fmt(c.ballots) : "—"}</td>
@@ -458,6 +479,7 @@ function SourcesPanel({ counties }: { counties: CountyStatus[] }) {
                   Precinct report (PDF)<span className="sr-only"> for {c.county}, opens in a new tab</span>
                 </a>
               )}
+              {c.parsed && <span className="ea-cnt">Parsed into the precinct tables</span>}
             </td>
           </tr>
         ))}

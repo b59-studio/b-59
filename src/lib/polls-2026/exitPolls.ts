@@ -19,7 +19,7 @@
  * `pnpm test` before pushing; `checkData` catches the usual slips.
  */
 
-export type SourceId = "edison" | "votecast";
+export type SourceId = "edison" | "votecast" | "nbc";
 export type RaceId = "senate" | "governor";
 
 export type Source = {
@@ -31,6 +31,8 @@ export type Source = {
   publishers: string;
   url: string;
   method: string;
+  /** Set when the source was looked for and no Texas release found: where, and when. */
+  unavailable?: string;
 };
 
 /** One group's figures in one release. Fractions of 1, as published (to the point). */
@@ -156,6 +158,27 @@ export function history(releases: Release[], race: RaceId, source: SourceId, gro
       const fig = r.rows.find((f) => f.group === group);
       return fig ? [{ released: r.released, url: r.url, share: fig.share, margin: marginOf(fig) }] : [];
     });
+}
+
+export type Implied = { dimension: string; dem: number; rep: number; margin: number; covered: number };
+
+/**
+ * The topline each dimension of a release implies: every group's vote
+ * weighted by its share of voters, over the share the groups cover (gender
+ * leaves out the 1% who identify another way). A release with no "All
+ * voters" row still says, through each table, what it thinks the race was.
+ */
+export function impliedTopline(release: Release): Implied[] {
+  return Object.entries(HEADLINE_GROUPS).flatMap(([dim, members]) => {
+    if (dim === "All voters") return [];
+    const rows = members.map((g) => release.rows.find((f) => f.group === g));
+    if (!rows.every((f) => f && finite(f.share) && finite(f.dem) && finite(f.rep))) return [];
+    const figs = rows as (GroupFigures & { share: number; dem: number; rep: number })[];
+    const covered = figs.reduce((a, f) => a + f.share, 0);
+    const dem = figs.reduce((a, f) => a + f.share * f.dem, 0) / covered;
+    const rep = figs.reduce((a, f) => a + f.share * f.rep, 0) / covered;
+    return [{ dimension: dim, dem, rep, margin: dem - rep, covered }];
+  });
 }
 
 /** Rounding in published tables leaves a dimension's shares a little off 100%. */
