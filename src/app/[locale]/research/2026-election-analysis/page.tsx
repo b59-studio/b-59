@@ -12,12 +12,12 @@ import { getStateResults } from "@/lib/results-2026/snapshot";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "2026 Texas Election Analysis",
+  title: "2026 Texas Turnout Comparison",
   description:
     "Turnout and results in every Texas county for the November 3, 2026 general election, against 2018, 2022 and 2024: early vote, election-day trackers, margins for the top of the ticket and down-ballot races, and primaries since 2016.",
   alternates: { canonical: "/research/2026-election-analysis" },
   openGraph: {
-    title: "2026 Texas Election Analysis | B-59",
+    title: "2026 Texas Turnout Comparison | B-59",
     description:
       "Early vote, live election-day turnout and results since 2016 for every Texas county, led by 17 focus counties.",
     url: "/research/2026-election-analysis",

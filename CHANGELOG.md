@@ -28,6 +28,12 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Changed
+
+- The 2026 election analysis page is now named "2026 Turnout Comparison" in
+  the menus, the sitemap and the browser tab, in all five languages. Its
+  address is unchanged, so existing links keep working.
+
 ## 2026-11-06
 
 ### Added
