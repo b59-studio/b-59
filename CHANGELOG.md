@@ -28,12 +28,6 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
-### Changed
-
-- The turnout comparison page's name now says it covers Texas: "2026 Texas
-  Turnout Comparison" in the menus, the home page and the sitemap, in all five
-  languages.
-
 ## 2026-11-06
 
 ### Added
@@ -65,6 +59,10 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   win calculator's election-day assumption against what election day added.
 
 ### Changed
+
+- The turnout comparison page's name now says it covers Texas: "2026 Texas
+  Turnout Comparison" in the menus, the home page and the sitemap, in all five
+  languages.
 
 - The 2026 election analysis page is now named "2026 Turnout Comparison" in
   the menus, the sitemap and the browser tab, in all five languages. Its
