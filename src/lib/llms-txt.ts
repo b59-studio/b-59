@@ -19,7 +19,7 @@ const SECTIONS: { heading: string; entries: Entry[] }[] = [
   {
     heading: "Political consulting and organizing",
     entries: [
-      { path: "/studio/political-consulting", title: "Political Consulting & Organizing", summary: "Field organizing, voter registration, turnout targeting and communications for Texas campaigns and civic groups, from Austin." },
+      { path: "/studio/political-consulting", title: "Political Consulting & Organizing", summary: "Field organizing, voter registration, data and targeting, communications, and brand and campaign design for Texas campaigns and civic groups, from Austin." },
     ],
   },
   {

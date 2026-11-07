@@ -53,6 +53,7 @@ export function organizationJsonLd(siteUrl: string) {
           "Voter registration",
           "Campaign field organizing",
           "Voter turnout targeting",
+          "Campaign brand design",
           "Human-centered design",
           "Public-sector software",
         ],
