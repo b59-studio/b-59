@@ -59,9 +59,14 @@
     "metaDescription": "Diseño deliberado para sistemas imperfectos. B-59 es un estudio de diseño y estrategia que construye plataformas cívicas, asesora en decisiones complejas y crea cosas que importan. Centrado en las personas. Público primero.",
     "ogTitle": "B-59 — Diseño deliberado para sistemas imperfectos",
     "ogDescription": "Diseñando la democracia. Infraestructura digital para servidores públicos. Construimos tecnología cívica y asesoramos en decisiones complejas.",
-    "heading": "Diseño deliberado <blue>para</blue> sistemas imperfectos",
-    "subhead": "Diseñando la democracia. Infraestructura digital para servidores públicos.",
-    "learnMore": "Más Información"
+    "heading": "Diseño deliberado para sistemas imperfectos",
+    "lede": "Diseñamos y construimos software cívico para el acceso al voto, las elecciones y los equipos de interés público que las hacen posibles.",
+    "ctaPrimary": "Escribir al estudio",
+    "ctaSecondary": "Ver todo nuestro trabajo",
+    "researchHeading": "Investigación reciente",
+    "productsHeading": "Lo que construimos",
+    "closingHeading": "¿Tiene un problema que vale la pena resolver?",
+    "closingBody": "Cuéntenos en qué está trabajando y para quién es."
   },
   "studio": {
     "metaTitle": "Nuestro Trabajo",

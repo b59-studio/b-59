@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import type { ReactNode } from "react";
+import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import { defaultLocale } from "@/i18n/config";
+import { ProjectMark, type ProjectKey } from "@/components/ProjectMark";
 
 export const metadata: Metadata = {
   title: { absolute: "B-59 Studio" },
@@ -15,77 +18,140 @@ export const metadata: Metadata = {
   },
 };
 
-const blue = (chunks: React.ReactNode) => <span className="text-b59-blue">{chunks}</span>;
+const CONTACT_HREF = "mailto:contact@b-59.com";
 
-export default async function Home() {
-  const t = await getTranslations("home");
+type Research = { href: string; title: string; blurb: string };
+type Product = { href: string; project: ProjectKey; name: ReactNode; blurb: string };
 
+/** Points along the reading direction; `.home-arrow` mirrors it under RTL. */
+function Arrow() {
   return (
-    <div className="flex min-h-0 flex-1 flex-col justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12 sm:py-16">
-      <div className="text-center">
-        <h1 className="heading-xl">{t.rich("heading", { blue })}</h1>
-        <p className="body-lg max-w-3xl mx-auto">{t("subhead")}</p>
-        <br />
-        <div className="flex gap-4 justify-center flex-wrap">
-          <Link href="/about" className="btn-primary">
-            {t("learnMore")}
-          </Link>
-        </div>
-      </div>
-    </div>
+    <svg
+      className="home-arrow"
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      aria-hidden={true}
+      focusable="false"
+    >
+      <path
+        d="M4 10h12m-5-5 5 5-5 5"
+        stroke="currentColor"
+        strokeWidth="1.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   );
 }
 
-/**
- * HERO 1
-Headline:
-Good technology starts with good judgment.
+export default async function Home() {
+  const [locale, t, nav, studio, research] = await Promise.all([
+    getLocale(),
+    getTranslations("home"),
+    getTranslations("nav"),
+    getTranslations("studio"),
+    getTranslations("research"),
+  ]);
 
-Subhead:
-We're B-59—a design and strategy studio building civic platforms, advising on complex decisions, and making things that matter. Human-centered. Public-first.
+  // The research is published in English only, so other locales say so once,
+  // and the list carries that note to anyone moving through it link by link.
+  const englishOnly = locale !== defaultLocale;
 
-Supporting line:
-Have a problem worth solving? We want to hear it.
+  const latest: Research[] = [
+    { href: "/research/2026-results", title: nav("results2026"), blurb: nav("results2026Sub") },
+    { href: "/research/2026-election-analysis", title: nav("electionAnalysis2026"), blurb: nav("electionAnalysis2026Sub") },
+    { href: "/research/2026-polls", title: nav("polls2026"), blurb: nav("polls2026Sub") },
+  ];
 
-Primary CTA: Share Your Challenge
-Secondary CTA: See Our Work
- * HERO 2
-Headline:
-The human in the loop.
+  const products: Product[] = [
+    {
+      href: "/solutions/ready2vote",
+      project: "ready2vote",
+      name: (
+        <>
+          ready<span className="text-b59-blue">2</span>vote
+        </>
+      ),
+      blurb: studio("ready2voteBlurb"),
+    },
+    { href: "/solutions/hotline", project: "hotline", name: "Hotline", blurb: studio("hotlineBlurb") },
+  ];
 
-Subhead:
-B-59 is a design and strategy consultancy that builds civic technology, provides clear-headed advice, and creates specialty products. We combine new tools with old-fashioned judgment.
+  return (
+    <div className="home">
+      <div className="home-hero">
+        <div className="home-hero-lead">
+          <h1 id="home-title" className="home-title">
+            {t("heading")}
+          </h1>
+          <p className="home-lede">{t("lede")}</p>
+          <div className="home-actions">
+            <a href={CONTACT_HREF} className="btn-secondary">
+              {t("ctaPrimary")}
+            </a>
+            <Link href="/studio" className="home-text-action">
+              {t("ctaSecondary")}
+              <Arrow />
+            </Link>
+          </div>
+        </div>
 
-Supporting line:
-Got an idea for a platform that could help people? Tell us about it.
+        <section className="home-latest" aria-labelledby="home-latest-heading">
+          <h2 id="home-latest-heading" className="home-section-heading">
+            {t("researchHeading")}
+          </h2>
+          {englishOnly && (
+            <p id="home-latest-language" className="home-meta">
+              {research("englishOnly")}
+            </p>
+          )}
+          <ul className="home-list" aria-describedby={englishOnly ? "home-latest-language" : undefined}>
+            {latest.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="home-row home-row--compact" hrefLang="en">
+                  <span className="home-row-body">
+                    <span className="home-row-title">{item.title}</span>
+                    <span className="home-meta">{item.blurb}</span>
+                  </span>
+                  <Arrow />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
 
-Primary CTA: Start a Conversation
-Secondary CTA: Explore What We Build
+      <section className="home-section" aria-labelledby="home-products-heading">
+        <h2 id="home-products-heading" className="home-section-heading">
+          {t("productsHeading")}
+        </h2>
+        <ul className="home-list">
+          {products.map((item) => (
+            <li key={item.href}>
+              <Link href={item.href} className="home-row home-product">
+                <ProjectMark project={item.project} size={48} />
+                <span className="home-product-name">{item.name}</span>
+                <span className="home-product-blurb">{item.blurb}</span>
+                <Arrow />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
 
-* HERO 3
-Headline:
-Human judgment for systems that serve people.
-
-Subhead:
-We build civic platforms, advise institutions on hard decisions, and design products with care. If it helps people, we're interested.
-
-Supporting line:
-Platforms • Advisory • Products—all human-centered.
-
-Primary CTA: Tell Us What You Need
-Secondary CTA: See Our Platforms
-
-* HERO 4
-Headline:
-We solve problems the system can't.
-
-Subhead:
-B-59 builds civic platforms for public good and advises organizations making decisions under uncertainty. Human judgment, modern tools, real accountability.
-
-Two-column approach or stacked CTAs:
-Primary CTA: "Share a Problem" or "Start a Conversation"
-Secondary CTA: "See What We Build"
-
-Below CTAs, three trust signals:
-"Building civic technology" | "Strategic advisory" | "Human-first approach"
-*/
+      <section className="home-section home-closing" aria-labelledby="home-closing-heading">
+        <h2 id="home-closing-heading" className="home-closing-title">
+          {t("closingHeading")}
+        </h2>
+        <p className="home-lede">{t("closingBody")}</p>
+        <div className="home-actions">
+          <a href={CONTACT_HREF} className="btn-secondary">
+            {t("ctaPrimary")}
+          </a>
+        </div>
+      </section>
+    </div>
+  );
+}
