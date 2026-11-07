@@ -28,6 +28,17 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Added
+
+- The Inspirations page now shows the work behind each example instead of only
+  describing it. Audrey Tang's section has photos of the occupied legislature
+  and a g0v hackathon, and links to g0v, the 2020 mask supply platform,
+  vTaiwan, Tang's published meeting transcripts and *Plurality*. The 18F
+  section has screenshots of the U.S. Web Design System and 18F Methods, and
+  links to the Methods, USWDS, the Content Guide, the open-source IRS Direct
+  File code and 18f.org. Photos carry their Wikimedia Commons credit and
+  license. In every locale.
+
 ## 2026-11-06
 
 ### Added
