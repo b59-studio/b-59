@@ -68,6 +68,12 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ### Changed
 
+- The About page's chapter headings (Mission, How we work, Why B-59?) are set
+  larger than the rows beside them instead of at body size, and the same size
+  carries to the left-column titles on Our Inspirations and Team. "Who we learn
+  from" is now "Our Inspirations", and the Team fact names Jonathon Reise with
+  a link to the Team page. In every locale.
+
 - **The 2026 research says Texas where it stands alone.** The menu group is
   now "2026 Texas Elections", on wide screens and phones. Inside it the three
   pages keep short names ("2026 Turnout Comparison", "2026 Polls", "2026
