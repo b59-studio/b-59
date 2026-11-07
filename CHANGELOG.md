@@ -28,13 +28,6 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
-### Changed
-
-- **Header menus open on mouse hover.** Pointing at Studio, Research or About
-  now opens its menu, and moving away closes it, with a short pause so a
-  diagonal path down into the menu does not shut it on the way. Clicking a
-  trigger still works, and touch and keyboard behave exactly as before.
-
 ## 2026-11-07
 
 ### Added
@@ -74,6 +67,11 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   assistants a short guide to the main pages.
 
 ### Changed
+
+- **Header menus open on mouse hover.** Pointing at Studio, Research or About
+  now opens its menu, and moving away closes it, with a short pause so a
+  diagonal path down into the menu does not shut it on the way. Clicking a
+  trigger still works, and touch and keyboard behave exactly as before.
 
 - The political consulting page now says the studio works only with
   Democratic and progressive campaigns and causes. Its heading, opening line,
