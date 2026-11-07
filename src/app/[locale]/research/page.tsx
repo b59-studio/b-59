@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
+import { getLocale, getTranslations } from "next-intl/server";
+import { defaultLocale } from "@/i18n/config";
 import { NAV_MENUS } from "@/components/nav-menus";
-import { NavItemMark } from "@/components/NavMenuParts";
+import { NavItemMark, NavItemName } from "@/components/NavMenuParts";
+import { IndexPage, IndexSection, type IndexEntry } from "@/components/IndexList";
 
 export const metadata: Metadata = {
   title: "Research",
@@ -21,37 +22,38 @@ export const metadata: Metadata = {
  * order and with the marks and summaries the menu gives them.
  */
 export default async function Research() {
-  const [t, nav] = await Promise.all([getTranslations("researchIndex"), getTranslations("nav")]);
+  const [locale, t, nav, research] = await Promise.all([
+    getLocale(),
+    getTranslations("researchIndex"),
+    getTranslations("nav"),
+    getTranslations("research"),
+  ]);
   const menu = NAV_MENUS.find((m) => m.id === "research");
   const groups = menu?.groups ?? [];
 
-  return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-      <div className="space-y-12">
-        <section>
-          <h1 className="heading-xl mb-6">{nav("research")}</h1>
-          <p className="body-lg max-w-2xl">{t("intro")}</p>
-        </section>
+  // The research is published in English only, so other locales say so once.
+  const englishOnly = locale !== defaultLocale;
 
-        {groups.map((group) => (
-          <section key={group.heading}>
-            {group.heading && <h2 className="heading-md mb-4">{nav(group.heading)}</h2>}
-            <ul className="space-y-4">
-              {group.items.map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} className="portfolio-card portfolio-card--marked">
-                    <NavItemMark item={item} size={32} className="portfolio-card-mark" />
-                    <span className="portfolio-card-body">
-                      <h3 className="heading-sm">{"key" in item.label ? nav(item.label.key) : item.label.brand}</h3>
-                      <p className="body-md">{nav(item.sub)}</p>
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))}
-      </div>
-    </div>
+  const entriesOf = (group: (typeof groups)[number]): IndexEntry[] =>
+    group.items.map((item) => ({
+      href: item.href,
+      mark: (size) => <NavItemMark item={item} size={size} />,
+      title: <NavItemName item={item} t={nav} />,
+      blurb: nav(item.sub),
+      hrefLang: "en",
+    }));
+
+  return (
+    <IndexPage title={nav("research")} lede={t("intro")}>
+      {groups.map((group, i) => (
+        <IndexSection
+          key={group.items[0]?.href ?? i}
+          id={`research-${i + 1}`}
+          heading={group.heading ? nav(group.heading) : undefined}
+          note={englishOnly && i === 0 ? research("englishOnly") : undefined}
+          entries={entriesOf(group)}
+        />
+      ))}
+    </IndexPage>
   );
 }
