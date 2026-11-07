@@ -36,7 +36,7 @@ export default async function Research() {
 
   const entries: IndexEntry[] = items.map((item) => ({
     href: item.href,
-    mark: <NavItemMark item={item} size={40} />,
+    mark: (size) => <NavItemMark item={item} size={size} />,
     title: <NavItemName item={item} t={nav} />,
     blurb: nav(item.sub),
     hrefLang: "en",
@@ -49,7 +49,6 @@ export default async function Research() {
         heading={nav("elections2026")}
         note={englishOnly ? research("englishOnly") : undefined}
         entries={entries}
-        locale={locale}
       />
     </IndexPage>
   );

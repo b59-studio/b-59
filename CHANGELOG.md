@@ -30,12 +30,13 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ### Changed
 
-- **Our Work and Research read as numbered catalogues** instead of a narrow
-  column of boxed cards. Each page runs to the site's full width with the home
-  page's headline; each section shows how many entries it holds; and every
-  entry is one numbered row (mark, name, category, summary) that draws a blue
-  line across itself when pointed at. Research in other languages now says
-  once that the analysis is published in English.
+- **Our Work and Research are redesigned around their own marks.** Each page
+  runs to the site's full width under a large title with a ring cut off by the
+  page edge. Every product, service and analysis is a wide band of equal
+  weight, its mark drawn large and cropped by the band's edge on alternating
+  sides; as the page scrolls the marks drift and turn. Motion is off for
+  readers who ask for less of it. Research in other languages now says once
+  that the analysis is published in English.
 
 ## 2026-11-07
 

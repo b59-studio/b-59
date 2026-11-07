@@ -2031,30 +2031,36 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
 
 /* ============================================
    INDEX PAGES (Our Work, Research)
-   A page that lists other pages reads as one numbered catalogue: a hero at the
-   home page's scale, then titled runs of rows. Each row is one link, ruled
-   rather than boxed (standards/44), and the accent is spent only when a row is
-   pointed at — a blue line draws across its rule and the arrow moves.
+   A page that lists other pages, with every entry at the same weight. Each
+   entry is a wide band built around its own mark, drawn very large and cut
+   off by the band's edge, alternating sides down the page. As the page
+   scrolls the marks drift and turn, and a large ring behind the title turns
+   with it. The colour comes from the marks themselves; the accent is spent
+   only on the ring's one arc and on interaction.
    ============================================ */
 
 .index-page {
   --index-ink-2: var(--color-b59-gray);
   --index-rule: rgba(74, 85, 104, 0.2);
-  --index-shade: rgba(74, 85, 104, 0.06);
+  --index-shade: rgba(74, 85, 104, 0.05);
+  --index-shade-2: rgba(74, 85, 104, 0.09);
   --home-dir: 1;
   width: 100%;
   max-width: 80rem;
   margin-inline: auto;
-  padding: 3rem 1rem 5rem;
+  padding: 3rem 1rem 6rem;
   display: flex;
   flex-direction: column;
-  gap: 4rem;
+  gap: 5rem;
+  /* The shapes run past the edges on purpose; the page never scrolls sideways. */
+  overflow-x: clip;
 }
 
 .dark .index-page {
   --index-ink-2: #9CA3AF;
-  --index-rule: rgba(156, 163, 175, 0.2);
-  --index-shade: rgba(156, 163, 175, 0.08);
+  --index-rule: rgba(156, 163, 175, 0.22);
+  --index-shade: rgba(156, 163, 175, 0.06);
+  --index-shade-2: rgba(156, 163, 175, 0.11);
 }
 
 [dir="rtl"] .index-page {
@@ -2064,7 +2070,7 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
 @media (min-width: 640px) {
   .index-page {
     padding-inline: 1.5rem;
-    padding-top: 5rem;
+    padding-top: 6rem;
   }
 }
 
@@ -2074,11 +2080,59 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
   }
 }
 
+/* ---- Hero: the title, and a ring cut off by the page's edge. ---- */
+
+.index-hero {
+  position: relative;
+  isolation: isolate;
+  padding-bottom: 2rem;
+}
+
+.index-orbit {
+  position: absolute;
+  z-index: -1;
+  top: -11rem;
+  inset-inline-end: -12rem;
+  width: 24rem;
+  aspect-ratio: 1;
+  border: 1px solid var(--index-rule);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* A second, inner ring. */
+.index-orbit::before {
+  content: "";
+  position: absolute;
+  inset: 18%;
+  border: 1px solid var(--index-rule);
+  border-radius: 50%;
+}
+
+/* The one arc of accent, riding the outer ring. */
+.index-orbit::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border: 2px solid transparent;
+  border-top-color: var(--color-b59-blue);
+  border-radius: 50%;
+  transform: rotate(-20deg);
+}
+
+@media (min-width: 640px) {
+  .index-orbit {
+    top: -18rem;
+    inset-inline-end: -16rem;
+    width: 40rem;
+  }
+}
+
 .index-title {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
   text-wrap: balance;
   margin: 0;
 }
@@ -2086,246 +2140,283 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
 @media (min-width: 640px) {
   .index-title {
     font-size: 3.5rem;
-    line-height: 1.05;
-    letter-spacing: -0.03em;
   }
 }
 
 .index-lede {
   margin-top: 1.5rem;
-  max-width: 36rem;
+  max-width: 34rem;
   font-size: 1.125rem;
   line-height: 1.6;
   color: var(--index-ink-2);
 }
 
-/* The section's heading, then a rule running to its count: the heading names
-   the run, the count says how long it is before the reader starts down it. */
-.index-section-head {
-  display: flex;
-  align-items: baseline;
-  gap: 1rem;
-  margin-bottom: 0.5rem;
-}
+/* ---- Sections ---- */
 
 .index-section-title {
   font-size: 2rem;
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.02em;
-  margin: 0;
-}
-
-.index-section-rule {
-  flex: 1;
-  align-self: center;
-  height: 1px;
-  background-color: var(--index-rule);
-}
-
-.index-section-count,
-.index-num {
-  font-variant-numeric: tabular-nums;
-  color: var(--index-ink-2);
-}
-
-.index-section-count {
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  margin: 0 0 1.5rem;
 }
 
 .index-note {
   font-size: 0.875rem;
   line-height: 1.5;
   color: var(--index-ink-2);
-  margin: 0 0 0.5rem;
+  margin: -1rem 0 1.5rem;
 }
 
 .index-list {
   list-style: none;
-  margin: 1rem 0 0;
+  margin: 0;
   padding: 0;
-  border-bottom: 1px solid var(--index-rule);
-}
-
-.index-list > li {
-  border-top: 1px solid var(--index-rule);
-}
-
-/* Phone: number over the name, mark beside both, blurb underneath. */
-.index-row {
-  position: relative;
-  display: grid;
-  grid-template-columns: 2.5rem minmax(0, 1fr) auto;
-  grid-template-areas:
-    "mark num   arrow"
-    "mark head  arrow"
-    "mark blurb blurb";
-  column-gap: 1rem;
-  row-gap: 0.25rem;
-  align-items: start;
-  margin-inline: -0.75rem;
-  padding: 1.5rem 0.75rem;
-  border-radius: 0.5rem;
-  transition: background-color 0.2s;
-}
-
-/* The line that draws across the row's top rule when it is pointed at. It
-   starts from the reading edge, so it runs leftward under RTL. */
-.index-row::before {
-  content: "";
-  position: absolute;
-  top: -1px;
-  inset-inline: 0.75rem;
-  height: 2px;
-  background-color: var(--color-b59-blue);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-
-[dir="rtl"] .index-row::before {
-  transform-origin: right;
-}
-
-.index-row:hover,
-.index-row:focus-visible {
-  background-color: var(--index-shade);
-}
-
-.index-row:hover::before,
-.index-row:focus-visible::before {
-  transform: scaleX(1);
-}
-
-.index-row:focus-visible {
-  outline: 2px solid var(--color-b59-blue);
-  outline-offset: 2px;
-}
-
-.index-num {
-  grid-area: num;
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-}
-
-.index-mark {
-  grid-area: mark;
-  display: flex;
-}
-
-.index-head {
-  grid-area: head;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
-  min-width: 0;
+  gap: 1.5rem;
 }
 
-.index-name {
-  font-size: 1.5rem;
-  font-weight: 700;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-  margin: 0;
+/* ---- Bands ---- */
+
+/* Each band is one link: a soft field with its mark cut off by the edge. On a
+   phone the mark sits up in the corner and the words run below it; wider, the
+   words take one side and the mark the other, swapping sides each band. */
+.index-band {
+  --index-tilt: 1;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 22rem;
+  padding: 11rem 1.5rem 2rem;
+  border-radius: 1.5rem;
+  background-color: var(--index-shade);
+  overflow: clip;
+  transition: background-color 0.3s;
+}
+
+.index-item:nth-child(even) .index-band {
+  --index-tilt: -1;
+}
+
+.index-band:hover,
+.index-band:focus-visible {
+  background-color: var(--index-shade-2);
+}
+
+.index-band:focus-visible {
+  outline: 2px solid var(--color-b59-blue);
+  outline-offset: 3px;
+}
+
+.index-art {
+  position: absolute;
+  z-index: -1;
+  top: -4rem;
+  inset-inline-end: -4rem;
+  width: 16rem;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.index-art-disc {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-color: var(--index-shade-2);
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.index-art-mark {
+  position: relative;
+  width: 62%;
+  aspect-ratio: 1;
+  display: grid;
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.index-art-mark > svg,
+.index-art-mark > img {
+  width: 100%;
+  height: 100%;
+}
+
+.index-band:hover .index-art-disc,
+.index-band:focus-visible .index-art-disc {
+  transform: scale(1.06);
+}
+
+.index-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  max-width: 32rem;
 }
 
 .index-meta {
   font-size: 0.875rem;
+  font-weight: 600;
   line-height: 1.5;
   color: var(--index-ink-2);
 }
 
+.index-name {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
 .index-blurb {
-  grid-area: blurb;
-  margin-top: 0.5rem;
-  max-width: 40rem;
   color: var(--index-ink-2);
+  line-height: 1.6;
 }
 
-.index-row .home-arrow {
-  grid-area: arrow;
-  align-self: center;
+.index-copy .home-arrow {
+  margin-top: 0.75rem;
+  margin-inline-start: 0;
+  transform: scaleX(var(--home-dir));
+  transition: transform 0.2s, color 0.2s;
 }
 
-.index-row:hover .home-arrow,
-.index-row:focus-visible .home-arrow {
+.index-band:hover .home-arrow,
+.index-band:focus-visible .home-arrow {
   color: var(--color-b59-blue);
-  transform: translateX(calc(4px * var(--home-dir))) scaleX(var(--home-dir));
+  transform: translateX(calc(6px * var(--home-dir))) scaleX(var(--home-dir));
 }
 
-/* Wide: one line per row — number, mark, name, what it is, arrow. */
 @media (min-width: 768px) {
-  .index-row {
-    grid-template-columns: 3rem 2.5rem minmax(0, 16rem) minmax(0, 1fr) auto;
-    grid-template-areas: "num mark head blurb arrow";
-    column-gap: 1.5rem;
-    align-items: center;
-    padding-block: 2rem;
+  .index-band {
+    justify-content: center;
+    min-height: 24rem;
+    padding: 3rem 3.5rem;
   }
 
-  .index-num {
-    font-size: 1.5rem;
-    font-weight: 400;
-    letter-spacing: 0;
+  .index-item:nth-child(even) .index-band {
+    align-items: flex-end;
   }
 
-  .index-blurb {
-    margin-top: 0;
+  .index-art {
+    top: 50%;
+    inset-inline-end: -6rem;
+    width: 30rem;
+    margin-top: -15rem;
+  }
+
+  .index-item:nth-child(even) .index-art {
+    inset-inline-end: auto;
+    inset-inline-start: -6rem;
+  }
+
+  .index-copy {
+    max-width: min(28rem, 50%);
   }
 }
 
-/* Motion: the hero settles in, then each run's rows arrive in order. All of it
-   is removed under reduced motion, and none of it applies to print. */
+/* ---- Motion ---- */
+
+@keyframes index-drift {
+  from {
+    transform: translateY(14%) rotate(calc(-12deg * var(--index-tilt)));
+  }
+  to {
+    transform: translateY(-14%) rotate(calc(12deg * var(--index-tilt)));
+  }
+}
+
+@keyframes index-swell {
+  from {
+    scale: 0.82;
+  }
+  to {
+    scale: 1.08;
+  }
+}
+
+@keyframes index-turn {
+  to {
+    transform: rotate(160deg);
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
-  .index-hero > * {
+  .index-hero > .index-title,
+  .index-hero > .index-lede {
     animation: home-rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   }
 
-  .index-hero > :nth-child(2) {
+  .index-hero > .index-lede {
     animation-delay: 0.08s;
   }
 
-  .index-section-rule {
-    transform-origin: left;
-    animation: index-draw 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.2s both;
+  .index-orbit {
+    animation: index-orbit-in 1.2s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   }
 
-  [dir="rtl"] .index-section-rule {
-    transform-origin: right;
-  }
+  /* Tied to scroll position where the browser can; otherwise everything
+     simply sits still in its resting place. */
+  @supports (animation-timeline: view()) {
+    .index-orbit::after {
+      animation: index-turn linear both;
+      animation-timeline: scroll(root);
+    }
 
-  .index-list > li {
-    animation: home-rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-    animation-delay: calc(0.2s + var(--index-order, 0) * 0.08s);
+    .index-art-mark {
+      animation: index-drift linear both;
+      animation-timeline: view();
+    }
+
+    .index-art-disc {
+      animation: index-swell linear both;
+      animation-timeline: view();
+    }
+
+    .index-copy {
+      animation: home-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 10% entry 60%;
+    }
   }
 }
 
-@keyframes index-draw {
+@keyframes index-orbit-in {
   from {
-    transform: scaleX(0);
+    opacity: 0;
+    scale: 0.9;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .index-row,
-  .index-row::before,
-  .index-row .home-arrow {
+  .index-band,
+  .index-art-disc,
+  .index-art-mark,
+  .index-copy .home-arrow {
     transition: none;
   }
 
-  .index-row:hover .home-arrow,
-  .index-row:focus-visible .home-arrow {
+  .index-band:hover .index-art-disc,
+  .index-band:focus-visible .index-art-disc {
+    transform: none;
+  }
+
+  .index-band:hover .home-arrow,
+  .index-band:focus-visible .home-arrow {
     transform: scaleX(var(--home-dir));
   }
 }
 
 @media print {
   .index-hero > *,
-  .index-section-rule,
-  .index-list > li {
+  .index-orbit::after,
+  .index-art-mark,
+  .index-art-disc,
+  .index-copy {
     animation: none;
   }
 }
