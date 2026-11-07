@@ -28,6 +28,14 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Changed
+
+- On the Political Consulting & Organizing page, **voter registration gives
+  way to ballot measures and petitions**: signature drives that put a
+  proposition on the ballot, with signatures checked against the voter roll
+  as they come in, then the voter contact that carries it on election day.
+  In every locale.
+
 ## 2026-11-07
 
 ### Added

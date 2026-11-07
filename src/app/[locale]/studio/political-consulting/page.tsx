@@ -10,11 +10,11 @@ const PATH = "/studio/political-consulting";
 export const metadata: Metadata = {
   title: "Political Consulting & Organizing in Austin, Texas",
   description:
-    "B-59 works with Texas campaigns and civic organizations on field organizing, voter registration, data and targeting, communications, and brand and campaign design. Based in Austin and led by Jonathon Reise, former Field Director for the Travis County Democratic Party.",
+    "B-59 works with Texas campaigns and civic organizations on field organizing, ballot measure petitions, data and targeting, communications, and brand and campaign design. Based in Austin and led by Jonathon Reise, former Field Director for the Travis County Democratic Party.",
   alternates: { canonical: PATH },
   openGraph: {
     title: "Political Consulting & Organizing | B-59",
-    description: "Field organizing, voter registration, data, communications and campaign design for Texas campaigns, from Austin.",
+    description: "Field organizing, ballot measure petitions, data, communications and campaign design for Texas campaigns, from Austin.",
     url: PATH,
   },
 };
@@ -40,7 +40,7 @@ export default async function PoliticalConsulting() {
 
   const services = [
     { title: t("fieldTitle"), body: t("fieldBody") },
-    { title: t("registrationTitle"), body: t("registrationBody") },
+    { title: t("ballotTitle"), body: t("ballotBody") },
     { title: t("targetingTitle"), body: t("targetingBody") },
     { title: t("commsTitle"), body: t("commsBody") },
     { title: t("designTitle"), body: t("designBody") },
