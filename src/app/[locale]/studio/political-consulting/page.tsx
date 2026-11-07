@@ -8,13 +8,13 @@ import { RowArrow } from "@/components/RowArrow";
 const PATH = "/studio/political-consulting";
 
 export const metadata: Metadata = {
-  title: "Political Consulting & Organizing in Austin, Texas",
+  title: "Progressive & Democratic Political Consulting in Austin, Texas",
   description:
-    "B-59 works with Texas campaigns and civic organizations on field organizing, ballot measure petitions, data and targeting, communications, and brand and campaign design. Based in Austin and led by Jonathon Reise, former Field Director for the Travis County Democratic Party.",
+    "B-59 is a progressive political consulting studio in Austin, Texas, working only with Democratic and progressive campaigns: field organizing, ballot measure petitions, data and targeting, communications, and campaign design. Led by Jonathon Reise, former Field Director for the Travis County Democratic Party.",
   alternates: { canonical: PATH },
   openGraph: {
-    title: "Political Consulting & Organizing | B-59",
-    description: "Field organizing, ballot measure petitions, data, communications and campaign design for Texas campaigns, from Austin.",
+    title: "Progressive Political Consulting in Austin | B-59",
+    description: "Field organizing, ballot measure petitions, data, communications and campaign design for Democratic and progressive campaigns in Texas, from Austin.",
     url: PATH,
   },
 };
@@ -48,6 +48,7 @@ export default async function PoliticalConsulting() {
   ];
 
   const proof = [
+    { href: "/studio/ballot-measures", title: t("proofBallotTitle"), blurb: t("proofBallotBlurb") },
     { href: "/research/2026-election-analysis", title: t("proofTurnoutTitle"), blurb: t("proofTurnoutBlurb") },
     { href: "/solutions/ready2vote", title: t("proofReady2voteTitle"), blurb: t("proofReady2voteBlurb") },
     { href: "/about/team", title: t("proofTeamTitle"), blurb: t("proofTeamBlurb") },

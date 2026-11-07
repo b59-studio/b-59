@@ -62,6 +62,12 @@ export const NAV_MENUS: NavMenu[] = [
             label: { key: "politicalConsulting" },
             sub: "politicalConsultingSub",
           },
+          {
+            href: "/studio/ballot-measures",
+            icon: { glyph: "petition" },
+            label: { key: "ballotMeasures" },
+            sub: "ballotMeasuresSub",
+          },
         ],
       },
       {
