@@ -1911,58 +1911,309 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
   transform: translateX(calc(4px * var(--home-dir))) scaleX(var(--home-dir));
 }
 
-/* Products: mark, name, what it does, arrow — one line each on a wide
-   screen, the blurb dropping under the name on a narrow one. */
-.home-product {
+/* Showcase tiles: what the studio makes and does, each shown by its own
+   material rather than listed. A tile is one link on a soft field; what sits
+   in it runs past the field's edge and is cut off there. Products show their
+   real screens; the campaign practices, which have none, show their mark. On
+   a wide screen tiles pair up two to a row. */
+.home-showcase {
+  --home-shade-2: rgba(74, 85, 104, 0.1);
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: grid;
-  grid-template-columns: 3rem minmax(0, 1fr) auto;
-  column-gap: 1rem;
-  row-gap: 0.5rem;
+  gap: 1.5rem;
 }
 
-.home-product > svg:not(.home-arrow),
-.home-product > img {
-  grid-row: span 2;
-  align-self: start;
-}
-
-.home-product-name {
-  font-size: 1.5rem;
-  font-weight: 700;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-}
-
-.home-product-blurb {
-  grid-column: 2;
-  color: var(--home-ink-2);
-  max-width: 40rem;
-}
-
-.home-product .home-arrow {
-  grid-column: 3;
-  grid-row: 1;
+.dark .home-showcase {
+  --home-shade-2: rgba(156, 163, 175, 0.12);
 }
 
 @media (min-width: 768px) {
-  .home-product {
-    grid-template-columns: 3rem 12rem minmax(0, 1fr) auto;
-    column-gap: 1.5rem;
-    align-items: center;
+  .home-showcase {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.home-tile {
+  --home-tilt: 1;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  background-color: var(--home-shade);
+  overflow: clip;
+  transition: background-color 0.3s;
+}
+
+.home-showcase > li:nth-child(even) .home-tile {
+  --home-tilt: -1;
+}
+
+.home-tile:hover,
+.home-tile:focus-visible {
+  background-color: var(--home-shade-2);
+}
+
+.home-tile:focus-visible {
+  outline: 2px solid var(--color-b59-blue);
+  outline-offset: 3px;
+}
+
+.home-tile-copy {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  max-width: 28rem;
+}
+
+.home-tile-meta {
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--home-ink-2);
+}
+
+.home-tile-name {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.home-tile-blurb {
+  color: var(--home-ink-2);
+  line-height: 1.6;
+}
+
+.home-tile-copy .home-arrow {
+  margin-top: 0.5rem;
+  margin-inline-start: 0;
+}
+
+.home-tile:hover .home-arrow,
+.home-tile:focus-visible .home-arrow {
+  color: var(--color-b59-blue);
+  transform: translateX(calc(6px * var(--home-dir))) scaleX(var(--home-dir));
+}
+
+/* Products: the desktop screen leans out past the tile's bottom and far edge,
+   and the phone stands in front of it. The screen's hairline is the edge of
+   the picture, not a box — a white app on a pale field has none otherwise. */
+.home-tile-stage {
+  position: relative;
+  display: block;
+  height: 15rem;
+  margin-top: 2.5rem;
+  margin-bottom: -2rem;
+  margin-inline: 0 -2rem;
+}
+
+.home-tile-screen,
+.home-tile-phone {
+  position: absolute;
+  display: block;
+  overflow: hidden;
+  transition: translate 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.home-tile-screen {
+  top: 1.5rem;
+  inset-inline-start: 0;
+  width: 34rem;
+  border: 1px solid var(--home-rule);
+  border-radius: 0.75rem;
+  transform: rotate(calc(-3deg * var(--home-tilt)));
+  transform-origin: top left;
+}
+
+.home-tile-phone {
+  top: 0;
+  inset-inline-end: 1.5rem;
+  width: 7rem;
+  border: 4px solid var(--color-b59-dark);
+  border-radius: 1.25rem;
+  transform: rotate(calc(5deg * var(--home-tilt)));
+}
+
+.dark .home-tile-phone {
+  border-color: #2A2F38;
+}
+
+.home-tile-screen img,
+.home-tile-phone img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.home-tile:hover .home-tile-screen,
+.home-tile:focus-visible .home-tile-screen {
+  translate: 0 -0.5rem;
+}
+
+.home-tile:hover .home-tile-phone,
+.home-tile:focus-visible .home-tile-phone {
+  translate: 0 -1rem;
+}
+
+@media (min-width: 768px) {
+  .home-tile {
+    padding: 2.5rem;
   }
 
-  .home-product > svg:not(.home-arrow),
-  .home-product > img {
-    grid-row: auto;
-    align-self: center;
+  .home-tile-stage {
+    height: 18rem;
+    margin-top: 3rem;
+    margin-inline-end: -2.5rem;
+    margin-bottom: -2.5rem;
   }
 
-  .home-product-blurb {
-    grid-column: 3;
+  .home-tile-phone {
+    width: 8.5rem;
+  }
+}
+
+/* Practices: the mark, oversized on a disc and cut off by the tile's corner;
+   the words sit at the foot of the tile. */
+.home-tile--practice {
+  justify-content: flex-end;
+  min-height: 22rem;
+  padding-top: 10rem;
+}
+
+.home-tile-art {
+  position: absolute;
+  z-index: -1;
+  top: -4rem;
+  inset-inline-end: -4rem;
+  width: 16rem;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.home-tile-disc {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-color: var(--home-shade-2);
+  transition: scale 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.home-tile-glyph {
+  position: relative;
+  width: 60%;
+  height: 60%;
+}
+
+.home-tile:hover .home-tile-disc,
+.home-tile:focus-visible .home-tile-disc {
+  scale: 1.06;
+}
+
+@media (min-width: 768px) {
+  .home-tile--practice {
+    min-height: 24rem;
   }
 
-  .home-product .home-arrow {
-    grid-column: 4;
+  .home-tile-art {
+    top: -5rem;
+    inset-inline-end: -5rem;
+    width: 20rem;
+  }
+}
+
+/* As a tile crosses the screen its contents move at their own speeds: the
+   desktop screen rises, the phone rises faster and straightens, and a
+   practice's mark drifts and turns. Where scroll can't drive it, everything
+   rests in place. */
+@keyframes home-screen-rise {
+  from {
+    transform: translateY(3rem) rotate(calc(-5deg * var(--home-tilt)));
+  }
+  to {
+    transform: translateY(-0.5rem) rotate(calc(-2deg * var(--home-tilt)));
+  }
+}
+
+@keyframes home-phone-rise {
+  from {
+    transform: translateY(5rem) rotate(calc(10deg * var(--home-tilt)));
+  }
+  to {
+    transform: translateY(-1.5rem) rotate(calc(3deg * var(--home-tilt)));
+  }
+}
+
+@keyframes home-glyph-drift {
+  from {
+    transform: translateY(12%) rotate(calc(-14deg * var(--home-tilt)));
+  }
+  to {
+    transform: translateY(-12%) rotate(calc(14deg * var(--home-tilt)));
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .home-tile-screen {
+      animation: home-screen-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 60%;
+    }
+
+    .home-tile-phone {
+      animation: home-phone-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 60%;
+    }
+
+    .home-tile-glyph {
+      animation: home-glyph-drift linear both;
+      animation-timeline: view();
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-tile,
+  .home-tile-screen,
+  .home-tile-phone,
+  .home-tile-disc {
+    transition: none;
+  }
+
+  .home-tile:hover .home-tile-screen,
+  .home-tile:focus-visible .home-tile-screen,
+  .home-tile:hover .home-tile-phone,
+  .home-tile:focus-visible .home-tile-phone {
+    translate: none;
+  }
+
+  .home-tile:hover .home-tile-disc,
+  .home-tile:focus-visible .home-tile-disc {
+    scale: none;
+  }
+
+  .home-tile:hover .home-arrow,
+  .home-tile:focus-visible .home-arrow {
+    transform: scaleX(var(--home-dir));
+  }
+}
+
+@media print {
+  .home-tile-screen,
+  .home-tile-phone,
+  .home-tile-glyph {
+    animation: none;
   }
 }
 

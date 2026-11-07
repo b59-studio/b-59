@@ -28,16 +28,6 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
-### Changed
-
-- **Our Work and Research are redesigned around their own marks.** Each page
-  runs to the site's full width under a large title with a ring cut off by the
-  page edge. Every product, service and analysis is a wide band of equal
-  weight, its mark drawn large and cropped by the band's edge on alternating
-  sides; as the page scrolls the marks drift and turn. Motion is off for
-  readers who ask for less of it. Research in other languages now says once
-  that the analysis is published in English.
-
 ## 2026-11-07
 
 ### Added
@@ -97,6 +87,21 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   assistants a short guide to the main pages.
 
 ### Changed
+
+- **Our Work and Research are redesigned around their own marks.** Each page
+  runs to the site's full width under a large title with a ring cut off by the
+  page edge. Every product, service and analysis is a wide band of equal
+  weight, its mark drawn large and cropped by the band's edge on alternating
+  sides; as the page scrolls the marks drift and turn. Motion is off for
+  readers who ask for less of it. Research in other languages now says once
+  that the analysis is published in English.
+
+- **The home page shows the work instead of listing it.** ready2vote and
+  Hotline are now large tiles with their real desktop and phone screens,
+  tilted and cut off by the tile's edge, rising at their own speeds as the page
+  scrolls. Campaign work is two tiles, Political Consulting and now **Ballot
+  Measures & Petitions**, each drawn around its own mark. The latest research
+  list leads with the new Austin petitions research.
 
 - The Austin petition research page now says what campaigns miss and what
   B-59 does about it. Each finding ends with a short "what drives miss / what
