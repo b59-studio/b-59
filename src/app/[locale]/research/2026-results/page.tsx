@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BASE_OPEN_GRAPH } from "@/lib/share-card";
 import { getLocale, getTranslations } from "next-intl/server";
 import { ResultsView } from "@/components/research/results-2026/ResultsView";
 import { JsonLd } from "@/components/JsonLd";
@@ -23,6 +24,7 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   alternates: { canonical: PATH },
   openGraph: {
+    ...BASE_OPEN_GRAPH,
     title: "2026 Texas Election Results | B-59",
     description: "Race-by-race results for Texas, by county and precinct, refreshed every two minutes.",
     url: PATH,

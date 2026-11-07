@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BASE_OPEN_GRAPH } from "@/lib/share-card";
 import type { ReactNode } from "react";
 import Image from "next/image";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
     "Deliberate design for imperfect systems. B-59 is a design and strategy studio in Austin, Texas: we build software for voters and organizers, run campaigns and ballot measures, and publish research on Texas elections.",
   alternates: { canonical: "/" },
   openGraph: {
+    ...BASE_OPEN_GRAPH,
     title: "B-59 — Deliberate design for imperfect systems",
     description:
       "Software for voters and organizers, campaigns and ballot measures, and research on Texas elections, from a design and strategy studio in Austin.",

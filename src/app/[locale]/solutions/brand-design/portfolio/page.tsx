@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BASE_OPEN_GRAPH } from "@/lib/share-card";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
   alternates: { canonical: "/solutions/brand-design/portfolio" },
   openGraph: {
+    ...BASE_OPEN_GRAPH,
     title: "Brand Portfolio | B-59",
     description:
       "Selected brand design work for campaigns, PACs, law firms, and coalitions. Identity systems and collateral built for high-stakes, high-trust work.",

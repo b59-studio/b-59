@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BASE_OPEN_GRAPH } from "@/lib/share-card";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Brand } from "@/components/Brand";
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
     "B-59 is a progressive political consulting studio in Austin, Texas, working only with Democratic and progressive campaigns: field organizing, ballot measure petitions, data and targeting, communications, and campaign design. Led by Jonathon Reise, former Field Director for the Travis County Democratic Party.",
   alternates: { canonical: PATH },
   openGraph: {
+    ...BASE_OPEN_GRAPH,
     title: "Progressive Political Consulting in Austin | B-59",
     description: "Field organizing, ballot measure petitions, data, communications and campaign design for Democratic and progressive campaigns in Texas, from Austin.",
     url: PATH,

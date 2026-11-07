@@ -28,6 +28,14 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Fixed
+
+- **Links to the site now show a share card.** Shared on Slack, iMessage, X,
+  LinkedIn and the rest, any page now previews with the B-59 card instead of a
+  bare link. The card existed but was never served, and no page pointed at it.
+  On X each page also shows its own title, where every page used to read
+  "B-59 — Human-Centered".
+
 ## 2026-11-07
 
 ### Changed

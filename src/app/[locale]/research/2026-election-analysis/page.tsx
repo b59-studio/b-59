@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BASE_OPEN_GRAPH } from "@/lib/share-card";
 import { getLocale, getTranslations } from "next-intl/server";
 import { ElectionAnalysis } from "@/components/research/election-2026/ElectionAnalysis";
 import { JsonLd } from "@/components/JsonLd";
@@ -23,6 +24,7 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   alternates: { canonical: PATH },
   openGraph: {
+    ...BASE_OPEN_GRAPH,
     title: "2026 Texas Turnout Comparison | B-59",
     description:
       "Early vote, live election-day turnout and results since 2016 for every Texas county, led by 17 focus counties.",

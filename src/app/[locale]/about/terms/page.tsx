@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BASE_OPEN_GRAPH } from "@/lib/share-card";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Brand } from "@/components/Brand";
 import { LegalTranslationNotice } from "@/components/LegalTranslationNotice";
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
     "B-59 website terms of use. Use of the site, intellectual property, limitations of liability, and governing law. By using this site you agree to these terms.",
   alternates: { canonical: "/about/terms" },
   openGraph: {
+    ...BASE_OPEN_GRAPH,
     title: "Terms of Use | B-59",
     description:
       "Terms of use for the B-59 website. Informational use, intellectual property, and legal information.",

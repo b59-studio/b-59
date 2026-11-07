@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BASE_OPEN_GRAPH } from "@/lib/share-card";
 import type { CSSProperties, ReactNode } from "react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Brand } from "@/components/Brand";
@@ -20,6 +21,7 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   alternates: { canonical: PATH },
   openGraph: {
+    ...BASE_OPEN_GRAPH,
     title: "Austin Ballot Petitions: What Campaigns Miss | B-59",
     description: "Why 20,000 signatures isn't enough, how the last five Austin petitions did, and when to file for November 2028.",
     url: PATH,

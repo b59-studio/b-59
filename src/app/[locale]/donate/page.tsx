@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BASE_OPEN_GRAPH } from "@/lib/share-card";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { Brand } from "@/components/Brand";
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
     "Support B-59's work building civic software that actually works — for voter access, courts, administrative processes, and public transparency.",
   alternates: { canonical: "/donate" },
   openGraph: {
+    ...BASE_OPEN_GRAPH,
     title: "Donate to B-59",
     description:
       "Support B-59's work modernizing civic infrastructure. One-time or monthly contributions, processed securely by Stripe.",

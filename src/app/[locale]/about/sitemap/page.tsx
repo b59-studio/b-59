@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BASE_OPEN_GRAPH } from "@/lib/share-card";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 
@@ -8,6 +9,7 @@ export const metadata: Metadata = {
     "Navigate B-59's website. Links to our home page, about us, privacy policy, and terms of use. Human-centered design and civic technology.",
   alternates: { canonical: "/about/sitemap" },
   openGraph: {
+    ...BASE_OPEN_GRAPH,
     title: "Sitemap | B-59",
     description: "Find your way around B-59. Home, about, and legal pages.",
     url: "/about/sitemap",

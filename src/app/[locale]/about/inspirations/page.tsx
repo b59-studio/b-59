@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BASE_OPEN_GRAPH } from "@/lib/share-card";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
     "What B-59 aspires to. Audrey Tang went from civic hacker and protester to Taiwan's first digital minister by building better government websites, and met COVID with open data. 18F made US agencies more usable by putting a design perspective in the room, and its shutdown in 2025 did not take its methods with it.",
   alternates: { canonical: "/about/inspirations" },
   openGraph: {
+    ...BASE_OPEN_GRAPH,
     title: "Our Inspirations | B-59",
     description:
       "Audrey Tang, g0v and Taiwan's open-data COVID response; 18F and the work that outlived its shutdown. The two examples B-59 takes its bearings from.",
