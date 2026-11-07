@@ -7,7 +7,9 @@ import { getMessages, setRequestLocale } from "next-intl/server";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { JsonLd } from "@/components/JsonLd";
 import { resolveSiteUrl } from "@/lib/site-url";
+import { organizationJsonLd } from "@/lib/structured-data";
 import { routing } from "@/i18n/routing";
 import { noFlashScript } from "@/lib/theme";
 import { textDirection } from "@/i18n/config";
@@ -37,15 +39,6 @@ export default async function LocaleLayout({ children, params }: Props) {
   setRequestLocale(locale);
   const messages = await getMessages();
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "B-59",
-    url: siteUrl,
-    description:
-      "Human-centered design and strategy. We build civic technology, advise on complex decisions, and make things that matter. Public-first.",
-    logo: `${siteUrl}/v2-yeah.png`,
-  };
 
   return (
     <html lang={locale} dir={textDirection(locale)} suppressHydrationWarning>
@@ -56,10 +49,7 @@ export default async function LocaleLayout({ children, params }: Props) {
         <script dangerouslySetInnerHTML={{ __html: noFlashScript }} />
       </head>
       <body className="min-h-screen flex flex-col transition-colors">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        <JsonLd data={organizationJsonLd(siteUrl)} />
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider>
             <Header />

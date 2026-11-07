@@ -42,6 +42,20 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   license. The opening line is rewritten more plainly, and the two closing
   statements now share one text color. In every locale.
 
+- **Search engines and AI assistants get a clearer picture of the studio.**
+  Every page now describes B-59 Studio to search engines as a business in
+  Austin, Texas, with its founder, its LinkedIn and GitHub profiles, and the
+  work it does. The 2026 results, polls and turnout pages are marked as Texas
+  election datasets published by the studio. A new `/llms.txt` gives AI
+  assistants a short guide to the main pages.
+
+### Changed
+
+- The home, About and Studio page descriptions shown in search results now
+  say the studio is in Austin, Texas. The About description names the
+  submarine B-59 and Vasili Arkhipov, so people searching for the name's story
+  find it.
+
 ## 2026-11-06
 
 ### Added
