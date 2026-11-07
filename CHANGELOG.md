@@ -28,6 +28,8 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+## 2026-11-06
+
 ### Added
 
 - The Team page now covers Jonathon's organizing work alongside B-59: Field
@@ -35,10 +37,6 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   for the Pflugerville Area Democrats. It also links his two Pfront Porch
   op-eds, "We Can Change" and "When We Organize", on pfadc.org rather than
   republishing them. In every locale.
-
-## 2026-11-06
-
-### Added
 
 - **Precinct tables for Collin, Starr and Willacy counties.** These counties
   publish precinct results only as PDF reports. The reports are now parsed into
