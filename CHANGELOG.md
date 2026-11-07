@@ -60,6 +60,10 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ### Changed
 
+- The 2026 election analysis page is now named "2026 Turnout Comparison" in
+  the menus, the sitemap and the browser tab, in all five languages. Its
+  address is unchanged, so existing links keep working.
+
 - The Research menu holds one item, 2026 Elections. On a wide screen its
   three pages (the analysis, the polls and the results) open beside it on
   hover, click or the arrow keys; on a phone they open beneath it. The menus'
