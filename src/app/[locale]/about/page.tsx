@@ -31,7 +31,14 @@ export default async function About() {
 
   const facts = [
     { label: t("factBasedLabel"), value: t("factBased") },
-    { label: t("factTeamLabel"), value: t("factTeam") },
+    {
+      label: t("factTeamLabel"),
+      value: (
+        <Link href="/about/team" className="text-link">
+          {team("jonName")}
+        </Link>
+      ),
+    },
     { label: t("factForLabel"), value: t("factFor") },
   ];
 
@@ -117,7 +124,7 @@ export default async function About() {
 
       <section className="home-section about-chapter" aria-labelledby="about-learn">
         <h2 id="about-learn" className="home-section-heading">
-          {t("learnHeading")}
+          {inspirations("heading")}
         </h2>
         <ul className="home-list">
           {influences.map((item) => (

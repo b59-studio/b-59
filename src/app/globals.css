@@ -2134,12 +2134,24 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
   }
 }
 
+/* A chapter's heading names everything in the column beside it, so it sits a
+   step above the largest thing there (the 1.5rem row titles and statement)
+   rather than at body size (standards/54: a heading is never smaller than
+   what it governs). */
+.about-chapter > .home-section-heading,
 .about-chapter-title {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: 700;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
   margin: 0;
+}
+
+@media (min-width: 640px) {
+  .about-chapter > .home-section-heading,
+  .about-chapter-title {
+    font-size: 2rem;
+  }
 }
 
 .about-prose {
