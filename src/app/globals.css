@@ -2291,6 +2291,398 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
 }
 
 /* ============================================
+   INDEX PAGES (Our Work, Research)
+   A page that lists other pages, with every entry at the same weight. Each
+   entry is a wide band built around its own mark, drawn very large and cut
+   off by the band's edge, alternating sides down the page. As the page
+   scrolls the marks drift and turn, and a large ring behind the title turns
+   with it. The colour comes from the marks themselves; the accent is spent
+   only on the ring's one arc and on interaction.
+   ============================================ */
+
+.index-page {
+  --index-ink-2: var(--color-b59-gray);
+  --index-rule: rgba(74, 85, 104, 0.2);
+  --index-shade: rgba(74, 85, 104, 0.05);
+  --index-shade-2: rgba(74, 85, 104, 0.09);
+  --home-dir: 1;
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding: 3rem 1rem 6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  /* The shapes run past the edges on purpose; the page never scrolls sideways. */
+  overflow-x: clip;
+}
+
+.dark .index-page {
+  --index-ink-2: #9CA3AF;
+  --index-rule: rgba(156, 163, 175, 0.22);
+  --index-shade: rgba(156, 163, 175, 0.06);
+  --index-shade-2: rgba(156, 163, 175, 0.11);
+}
+
+[dir="rtl"] .index-page {
+  --home-dir: -1;
+}
+
+@media (min-width: 640px) {
+  .index-page {
+    padding-inline: 1.5rem;
+    padding-top: 6rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .index-page {
+    padding-inline: 2rem;
+  }
+}
+
+/* ---- Hero: the title, and a ring cut off by the page's edge. ---- */
+
+.index-hero {
+  position: relative;
+  isolation: isolate;
+  padding-bottom: 2rem;
+}
+
+.index-orbit {
+  position: absolute;
+  z-index: -1;
+  top: -11rem;
+  inset-inline-end: -12rem;
+  width: 24rem;
+  aspect-ratio: 1;
+  border: 1px solid var(--index-rule);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* A second, inner ring. */
+.index-orbit::before {
+  content: "";
+  position: absolute;
+  inset: 18%;
+  border: 1px solid var(--index-rule);
+  border-radius: 50%;
+}
+
+/* The one arc of accent, riding the outer ring. */
+.index-orbit::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border: 2px solid transparent;
+  border-top-color: var(--color-b59-blue);
+  border-radius: 50%;
+  transform: rotate(-20deg);
+}
+
+@media (min-width: 640px) {
+  .index-orbit {
+    top: -18rem;
+    inset-inline-end: -16rem;
+    width: 40rem;
+  }
+}
+
+.index-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+  margin: 0;
+}
+
+@media (min-width: 640px) {
+  .index-title {
+    font-size: 3.5rem;
+  }
+}
+
+.index-lede {
+  margin-top: 1.5rem;
+  max-width: 34rem;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--index-ink-2);
+}
+
+/* ---- Sections ---- */
+
+.index-section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.5rem;
+}
+
+.index-note {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--index-ink-2);
+  margin: -1rem 0 1.5rem;
+}
+
+.index-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ---- Bands ---- */
+
+/* Each band is one link: a soft field with its mark cut off by the edge. On a
+   phone the mark sits up in the corner and the words run below it; wider, the
+   words take one side and the mark the other, swapping sides each band. */
+.index-band {
+  --index-tilt: 1;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 22rem;
+  padding: 11rem 1.5rem 2rem;
+  border-radius: 1.5rem;
+  background-color: var(--index-shade);
+  overflow: clip;
+  transition: background-color 0.3s;
+}
+
+.index-item:nth-child(even) .index-band {
+  --index-tilt: -1;
+}
+
+.index-band:hover,
+.index-band:focus-visible {
+  background-color: var(--index-shade-2);
+}
+
+.index-band:focus-visible {
+  outline: 2px solid var(--color-b59-blue);
+  outline-offset: 3px;
+}
+
+.index-art {
+  position: absolute;
+  z-index: -1;
+  top: -4rem;
+  inset-inline-end: -4rem;
+  width: 16rem;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.index-art-disc {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-color: var(--index-shade-2);
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.index-art-mark {
+  position: relative;
+  width: 62%;
+  aspect-ratio: 1;
+  display: grid;
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.index-art-mark > svg,
+.index-art-mark > img {
+  width: 100%;
+  height: 100%;
+}
+
+.index-band:hover .index-art-disc,
+.index-band:focus-visible .index-art-disc {
+  transform: scale(1.06);
+}
+
+.index-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  max-width: 32rem;
+}
+
+.index-meta {
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--index-ink-2);
+}
+
+.index-name {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.index-blurb {
+  color: var(--index-ink-2);
+  line-height: 1.6;
+}
+
+.index-copy .home-arrow {
+  margin-top: 0.75rem;
+  margin-inline-start: 0;
+  transform: scaleX(var(--home-dir));
+  transition: transform 0.2s, color 0.2s;
+}
+
+.index-band:hover .home-arrow,
+.index-band:focus-visible .home-arrow {
+  color: var(--color-b59-blue);
+  transform: translateX(calc(6px * var(--home-dir))) scaleX(var(--home-dir));
+}
+
+@media (min-width: 768px) {
+  .index-band {
+    justify-content: center;
+    min-height: 24rem;
+    padding: 3rem 3.5rem;
+  }
+
+  .index-item:nth-child(even) .index-band {
+    align-items: flex-end;
+  }
+
+  .index-art {
+    top: 50%;
+    inset-inline-end: -6rem;
+    width: 30rem;
+    margin-top: -15rem;
+  }
+
+  .index-item:nth-child(even) .index-art {
+    inset-inline-end: auto;
+    inset-inline-start: -6rem;
+  }
+
+  .index-copy {
+    max-width: min(28rem, 50%);
+  }
+}
+
+/* ---- Motion ---- */
+
+@keyframes index-drift {
+  from {
+    transform: translateY(14%) rotate(calc(-12deg * var(--index-tilt)));
+  }
+  to {
+    transform: translateY(-14%) rotate(calc(12deg * var(--index-tilt)));
+  }
+}
+
+@keyframes index-swell {
+  from {
+    scale: 0.82;
+  }
+  to {
+    scale: 1.08;
+  }
+}
+
+@keyframes index-turn {
+  to {
+    transform: rotate(160deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .index-hero > .index-title,
+  .index-hero > .index-lede {
+    animation: home-rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .index-hero > .index-lede {
+    animation-delay: 0.08s;
+  }
+
+  .index-orbit {
+    animation: index-orbit-in 1.2s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  /* Tied to scroll position where the browser can; otherwise everything
+     simply sits still in its resting place. */
+  @supports (animation-timeline: view()) {
+    .index-orbit::after {
+      animation: index-turn linear both;
+      animation-timeline: scroll(root);
+    }
+
+    .index-art-mark {
+      animation: index-drift linear both;
+      animation-timeline: view();
+    }
+
+    .index-art-disc {
+      animation: index-swell linear both;
+      animation-timeline: view();
+    }
+
+    .index-copy {
+      animation: home-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 10% entry 60%;
+    }
+  }
+}
+
+@keyframes index-orbit-in {
+  from {
+    opacity: 0;
+    scale: 0.9;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .index-band,
+  .index-art-disc,
+  .index-art-mark,
+  .index-copy .home-arrow {
+    transition: none;
+  }
+
+  .index-band:hover .index-art-disc,
+  .index-band:focus-visible .index-art-disc {
+    transform: none;
+  }
+
+  .index-band:hover .home-arrow,
+  .index-band:focus-visible .home-arrow {
+    transform: scaleX(var(--home-dir));
+  }
+}
+
+@media print {
+  .index-hero > *,
+  .index-orbit::after,
+  .index-art-mark,
+  .index-art-disc,
+  .index-copy {
+    animation: none;
+  }
+}
+
+/* ============================================
    ABOUT
    Our story, Inspirations and Team are one section told in three pages. They
    share the home page's primitives (the `.home` wrapper, its title, lede, rows

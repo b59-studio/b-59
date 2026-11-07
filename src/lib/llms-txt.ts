@@ -28,7 +28,7 @@ const SECTIONS: { heading: string; entries: Entry[] }[] = [
     entries: [
       { path: "/research/2026-results", title: "2026 Texas Election Results", summary: "Race-by-race results of the November 3, 2026 general election, by county and precinct." },
       { path: "/research/2026-election-analysis", title: "2026 Texas Turnout Comparison", summary: "Turnout and results in every Texas county against 2018, 2022 and 2024." },
-      { path: "/research/austin-petitions", title: "Austin Ballot Petitions: What the Numbers Say", summary: "Why 20,000 signatures is the floor rather than the goal (about 3.7% of Austin voters), validity rates of recent Austin petitions as reported, out-of-city signers in the 2025 convention center drive, and the last safe filing dates for the May and November 2027 elections." },
+      { path: "/research/austin-petitions", title: "Austin Ballot Petitions: What Campaigns Miss", summary: "What Austin petition drives miss: why 20,000 signatures is the floor rather than the goal (about 3.7% of Austin voters), validity rates of recent Austin petitions as reported, out-of-city signers in the 2025 convention center drive, and the last safe filing dates for the May and November 2027 elections." },
       { path: "/research/2026-polls", title: "2026 Texas Polls", summary: "A weighted average of public polls of the 2026 Texas statewide races, every poll linked." },
     ],
   },

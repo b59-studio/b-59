@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
 import type { ReactNode } from "react";
+import { getTranslations } from "next-intl/server";
 import { Brand } from "@/components/Brand";
 import { NavGlyph } from "@/components/NavGlyph";
-import { ProjectMark, type ProjectKey } from "@/components/ProjectMark";
+import { ProjectMark } from "@/components/ProjectMark";
+import { IndexPage, IndexSection, type IndexEntry } from "@/components/IndexList";
 
 export const metadata: Metadata = {
   title: "Our Work",
@@ -19,121 +19,57 @@ export const metadata: Metadata = {
   },
 };
 
-type WorkItem = {
-  tag: string;
-  project: ProjectKey;
-  title: ReactNode;
-  href: string;
-  blurb: string;
-};
-
-function WorkGrid({ items }: { items: WorkItem[] }) {
-  return (
-    <ul className="space-y-4">
-      {items.map((item) => (
-        <li key={item.href}>
-          <Link href={item.href} className="portfolio-card portfolio-card--marked">
-            <ProjectMark project={item.project} size={32} className="portfolio-card-mark" />
-            <span className="portfolio-card-body">
-              <span className="portfolio-card-tag">{item.tag}</span>
-              <h3 className="heading-sm">{item.title}</h3>
-              <p className="body-md">{item.blurb}</p>
-            </span>
-          </Link>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-const blue = (chunks: React.ReactNode) => <span className="text-b59-blue">{chunks}</span>;
+const blue = (chunks: ReactNode) => <span className="text-b59-blue">{chunks}</span>;
 
 export default async function Studio() {
   const [t, nav] = await Promise.all([getTranslations("studio"), getTranslations("nav")]);
 
-  const solutions: WorkItem[] = [
+  const solutions: IndexEntry[] = [
     {
-      tag: t("tagVoting"),
-      project: "ready2vote",
+      href: "/solutions/ready2vote",
+      mark: (size) => <ProjectMark project="ready2vote" size={size} />,
       title: (
         <>
           ready<span className="text-b59-blue">2</span>vote
         </>
       ),
-      href: "/solutions/ready2vote",
+      meta: t("tagVoting"),
       blurb: t("ready2voteBlurb"),
     },
     {
-      tag: t("tagAdministrative"),
-      project: "hotline",
-      title: "Hotline",
       href: "/solutions/hotline",
+      mark: (size) => <ProjectMark project="hotline" size={size} />,
+      title: "Hotline",
+      meta: t("tagAdministrative"),
       blurb: t("hotlineBlurb"),
     },
   ];
 
+  const services: IndexEntry[] = [
+    {
+      href: "/studio/political-consulting",
+      mark: (size) => <NavGlyph glyph="organizing" size={size} />,
+      title: nav("politicalConsulting"),
+      blurb: nav("politicalConsultingSub"),
+    },
+    {
+      href: "/studio/ballot-measures",
+      mark: (size) => <NavGlyph glyph="petition" size={size} />,
+      title: nav("ballotMeasures"),
+      blurb: nav("ballotMeasuresSub"),
+    },
+  ];
+
   // Case studies are held back for now. The pages themselves still build and
-  // resolve; they are simply unlinked, as the portfolio is.
-  // const caseStudies: WorkItem[] = [
-  //   {
-  //     tag: t("tagClientWork"),
-  //     project: "travis-county-vdr",
-  //     title: "Travis County VDR Toolkit",
-  //     href: "/solutions/travis-county-vdr",
-  //     blurb: t("travisCountyVdrBlurb"),
-  //   },
-  //   {
-  //     tag: t("tagClientWork"),
-  //     project: "voter-registration-palooza",
-  //     title: "Voter Registration Palooza",
-  //     href: "/solutions/voter-registration-palooza",
-  //     blurb: t("voterRegistrationPaloozaBlurb"),
-  //   },
-  //   {
-  //     tag: t("tagBrandDesign"),
-  //     project: "merch",
-  //     title: t("merchTitle"),
-  //     href: "/solutions/brand-design/merch",
-  //     blurb: t("merchBlurb"),
-  //   },
-  // ];
+  // resolve; they are simply unlinked, as the portfolio is. When they return,
+  // they are one more IndexSection here, after the services:
+  // travis-county-vdr, voter-registration-palooza and brand-design/merch, with
+  // the tagClientWork / tagBrandDesign metas and their *Blurb strings.
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-      <div className="space-y-12">
-        <section>
-          <h1 className="heading-xl mb-6">{t("heading")}</h1>
-          <p className="body-lg max-w-2xl">{t.rich("intro", { brand: () => <Brand />, blue })}</p>
-        </section>
-
-        <section>
-          <h2 className="heading-md mb-4">{t("solutionsHeading")}</h2>
-          <WorkGrid items={solutions} />
-        </section>
-
-        <section>
-          <h2 className="heading-md mb-4">{nav("services")}</h2>
-          <Link href="/studio/political-consulting" className="portfolio-card portfolio-card--marked">
-            <NavGlyph glyph="organizing" size={32} className="portfolio-card-mark" />
-            <span className="portfolio-card-body">
-              <h3 className="heading-sm">{nav("politicalConsulting")}</h3>
-              <p className="body-md">{nav("politicalConsultingSub")}</p>
-            </span>
-          </Link>
-          <Link href="/studio/ballot-measures" className="portfolio-card portfolio-card--marked mt-4">
-            <NavGlyph glyph="petition" size={32} className="portfolio-card-mark" />
-            <span className="portfolio-card-body">
-              <h3 className="heading-sm">{nav("ballotMeasures")}</h3>
-              <p className="body-md">{nav("ballotMeasuresSub")}</p>
-            </span>
-          </Link>
-        </section>
-
-        {/* <section>
-          <h2 className="heading-md mb-4">{t("caseStudiesHeading")}</h2>
-          <WorkGrid items={caseStudies} />
-        </section> */}
-      </div>
-    </div>
+    <IndexPage title={t("heading")} lede={t.rich("intro", { brand: () => <Brand />, blue })}>
+      <IndexSection id="work-solutions" heading={t("solutionsHeading")} entries={solutions} />
+      <IndexSection id="work-services" heading={nav("services")} entries={services} />
+    </IndexPage>
   );
 }
