@@ -11,17 +11,17 @@ import { RowArrow } from "@/components/RowArrow";
 export const metadata: Metadata = {
   title: { absolute: "B-59 Studio" },
   description:
-    "Deliberate design for imperfect systems. B-59 is a design and strategy studio in Austin, Texas, building civic platforms, publishing Texas election research, and advising on complex decisions. Human-centered. Public-first.",
+    "Deliberate design for imperfect systems. B-59 is a design and strategy studio in Austin, Texas: we build software for voters and organizers, run campaigns and ballot measures, and publish research on Texas elections.",
   alternates: { canonical: "/" },
   openGraph: {
     title: "B-59 — Deliberate design for imperfect systems",
     description:
-      "Designing democracy. Digital infrastructure for public servants. We build civic technology and advise on complex decisions.",
+      "Software for voters and organizers, campaigns and ballot measures, and research on Texas elections, from a design and strategy studio in Austin.",
     url: "/",
   },
 };
 
-type Research = { href: string; title: string; blurb: string };
+type Research = { href: string; glyph: GlyphKey; title: string; blurb: string };
 type Screen = { src: string; width: number; height: number };
 type Product = { href: string; meta: string; name: ReactNode; blurb: string; desktop: Screen; phone: Screen };
 type Practice = { href: string; glyph: GlyphKey; name: string; blurb: string };
@@ -40,10 +40,15 @@ export default async function Home() {
   const englishOnly = locale !== defaultLocale;
 
   const latest: Research[] = [
-    { href: "/research/austin-petitions", title: nav("austinPetitions"), blurb: nav("austinPetitionsSub") },
-    { href: "/research/2026-results", title: nav("results2026Texas"), blurb: nav("results2026Sub") },
-    { href: "/research/2026-election-analysis", title: nav("electionAnalysis2026Texas"), blurb: nav("electionAnalysis2026Sub") },
-    { href: "/research/2026-polls", title: nav("polls2026Texas"), blurb: nav("polls2026Sub") },
+    { href: "/research/austin-petitions", glyph: "petition", title: nav("austinPetitions"), blurb: nav("austinPetitionsSub") },
+    { href: "/research/2026-results", glyph: "results", title: nav("results2026Texas"), blurb: nav("results2026Sub") },
+    {
+      href: "/research/2026-election-analysis",
+      glyph: "turnout",
+      title: nav("electionAnalysis2026Texas"),
+      blurb: nav("electionAnalysis2026Sub"),
+    },
+    { href: "/research/2026-polls", glyph: "polls", title: nav("polls2026Texas"), blurb: nav("polls2026Sub") },
   ];
 
   const products: Product[] = [
@@ -87,7 +92,10 @@ export default async function Home() {
   return (
     <div className="home">
       <div className="home-hero">
-        <div className="home-hero-lead">
+        <div className="home-hero-lead home-hero-lead--framed">
+          {/* The index pages' ring, drawn larger: it frames the title on a
+              phone, where the hero would otherwise be text alone. */}
+          <span className="index-orbit home-orbit" aria-hidden={true} />
           <h1 id="home-title" className="home-title">
             {t.rich("heading", { blue: (chunks) => <span className="text-b59-blue">{chunks}</span> })}
           </h1>
@@ -103,29 +111,6 @@ export default async function Home() {
           </div>
         </div>
 
-        <section className="home-latest" aria-labelledby="home-latest-heading">
-          <h2 id="home-latest-heading" className="home-section-heading">
-            {t("researchHeading")}
-          </h2>
-          {englishOnly && (
-            <p id="home-latest-language" className="home-meta">
-              {research("englishOnly")}
-            </p>
-          )}
-          <ul className="home-list" aria-describedby={englishOnly ? "home-latest-language" : undefined}>
-            {latest.map((item) => (
-              <li key={item.href}>
-                <Link href={item.href} className="home-row home-row--compact" hrefLang="en">
-                  <span className="home-row-body">
-                    <span className="home-row-title">{item.title}</span>
-                    <span className="home-meta">{item.blurb}</span>
-                  </span>
-                  <RowArrow />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
       </div>
 
       {/* Each product is shown by its own screens, cropped by the tile's edge.
@@ -181,6 +166,41 @@ export default async function Home() {
                 </span>
                 <span className="home-tile-copy">
                   <h3 className="home-tile-name">{item.name}</h3>
+                  <span className="home-tile-blurb">{item.blurb}</span>
+                  <RowArrow />
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* The research comes after the work: it is what the studio publishes,
+          not what most visitors came for. Each entry is a small tile around
+          its own mark, the same shape as the campaign tiles above, so the
+          page reads as one run of work rather than work and then a list. */}
+      <section className="home-section" aria-labelledby="home-latest-heading">
+        <h2 id="home-latest-heading" className="home-section-heading">
+          {t("researchHeading")}
+        </h2>
+        {englishOnly && (
+          <p id="home-latest-language" className="home-meta home-section-note">
+            {research("englishOnly")}
+          </p>
+        )}
+        <ul
+          className="home-showcase home-showcase--research"
+          aria-describedby={englishOnly ? "home-latest-language" : undefined}
+        >
+          {latest.map((item) => (
+            <li key={item.href}>
+              <Link href={item.href} className="home-tile home-tile--research" hrefLang="en">
+                <span className="home-tile-art" aria-hidden={true}>
+                  <span className="home-tile-disc" />
+                  <NavGlyph glyph={item.glyph} size={160} className="home-tile-glyph" />
+                </span>
+                <span className="home-tile-copy">
+                  <h3 className="home-tile-name">{item.title}</h3>
                   <span className="home-tile-blurb">{item.blurb}</span>
                   <RowArrow />
                 </span>

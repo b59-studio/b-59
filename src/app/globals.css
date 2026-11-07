@@ -2013,11 +2013,16 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
   display: flex;
   flex-direction: column;
   gap: 3rem;
+  /* The hero's ring runs past the edge on purpose; the page never scrolls
+     sideways. */
+  overflow-x: clip;
+  /* The ring is the index pages' shape and reads its hairline from there. */
+  --index-rule: var(--home-rule);
 }
 
 .dark .home {
   --home-ink-2: #9CA3AF;
-  --home-rule: rgba(156, 163, 175, 0.2);
+  --home-rule: rgba(156, 163, 175, 0.22);
   --home-shade: rgba(156, 163, 175, 0.08);
 }
 
@@ -2051,6 +2056,46 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
   }
 }
 
+/* On a phone the lead fills most of the first screen and the title sits low
+   in it, under the ring, rather than starting flush under the header. */
+.home-hero-lead--framed {
+  position: relative;
+  isolation: isolate;
+  padding-top: 7rem;
+}
+
+@media (min-width: 640px) {
+  .home-hero-lead--framed {
+    padding-top: 6rem;
+  }
+}
+
+/* Sized and placed against the lead rather than the page: on a phone the
+   ring's centre sits just off the right edge, so its arc crosses the
+   space above the title. */
+.index-orbit.home-orbit {
+  top: -2rem;
+  inset-inline-end: -11rem;
+  width: 22rem;
+}
+
+@media (min-width: 640px) {
+  .index-orbit.home-orbit {
+    top: -14rem;
+    inset-inline-end: -8rem;
+    width: 34rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .index-orbit.home-orbit {
+    top: -3rem;
+    inset-inline-end: auto;
+    inset-inline-start: calc(100% - 4rem);
+    width: 32rem;
+  }
+}
+
 /* The page title at the hero's scale (standards/54): the same role as every
    other h1, set at the top step of the type scale. Tight tracking and balanced
    wrapping are what let a 56px line read as a headline rather than as loud
@@ -2064,8 +2109,23 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
   margin: 0;
 }
 
+/* The landing title is the one place a phone gets display type: at the 32px
+   step it read as a heading over body copy, not as the page's argument. */
+.home-hero-lead--framed > .home-title {
+  font-size: 2.75rem;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+}
+
+@media (min-width: 400px) {
+  .home-hero-lead--framed > .home-title {
+    font-size: 3.25rem;
+  }
+}
+
 @media (min-width: 640px) {
-  .home-title {
+  .home-title,
+  .home-hero-lead--framed > .home-title {
     font-size: 3.5rem;
     line-height: 1.05;
     letter-spacing: -0.03em;
@@ -2080,12 +2140,28 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
   color: var(--home-ink-2);
 }
 
+/* One row on a phone too: the button and the text action read as a pair,
+   not as two stacked paragraphs. */
 .home-actions {
   margin-top: 2rem;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 1.5rem;
+  gap: 0.5rem 1.25rem;
+}
+
+.home-actions > .btn-secondary {
+  padding-inline: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .home-actions {
+    gap: 1rem 1.5rem;
+  }
+
+  .home-actions > .btn-secondary {
+    padding-inline: 2rem;
+  }
 }
 
 /* The one secondary action: subordinate to the filled button, so ink rather
@@ -2117,7 +2193,7 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
   color: var(--home-ink-2);
 }
 
-.home-latest > .home-meta {
+.home-section-note {
   margin: -0.75rem 0 1rem;
 }
 
@@ -2143,10 +2219,6 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
   padding: 1.5rem 0.75rem;
   border-radius: 0.5rem;
   transition: background-color 0.2s;
-}
-
-.home-row--compact {
-  padding-block: 1rem;
 }
 
 .home-row:hover,
@@ -2296,6 +2368,10 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
   position: absolute;
   display: block;
   overflow: hidden;
+  /* Both apps' screens are light. The fill keeps a frame whose picture is
+     still loading opaque, so the phone never shows the desktop screen
+     through an empty bezel. */
+  background-color: var(--color-b59-light);
   transition: translate 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
@@ -2404,6 +2480,73 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
     top: -5rem;
     inset-inline-end: -5rem;
     width: 20rem;
+  }
+}
+
+/* Research: four small tiles around their marks. On a phone each is a short
+   row, its mark cut off by the far edge, so the section stays a glance rather
+   than a long scroll; from 640px they stand as tiles, two and then four to a
+   row. */
+.home-showcase--research {
+  gap: 0.75rem;
+}
+
+.home-tile--research {
+  min-height: 0;
+  padding: 1.5rem;
+  padding-inline-end: 6.5rem;
+}
+
+.home-tile--research .home-tile-art {
+  top: 50%;
+  translate: 0 -50%;
+  inset-inline-end: -2.5rem;
+  width: 8rem;
+}
+
+.home-tile--research .home-tile-name {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+.home-tile--research .home-tile-blurb {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.home-tile--research .home-tile-copy .home-arrow {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .home-showcase--research {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .home-tile--research {
+    justify-content: flex-end;
+    min-height: 15rem;
+    padding: 7rem 1.5rem 1.5rem;
+  }
+
+  .home-tile--research .home-tile-art {
+    top: -3rem;
+    translate: none;
+    inset-inline-end: -3rem;
+    width: 10rem;
+  }
+
+  .home-tile--research .home-tile-copy .home-arrow {
+    display: block;
+  }
+}
+
+@media (min-width: 1024px) {
+  .home-showcase--research {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
@@ -2517,21 +2660,16 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .home-hero-lead > *,
-  .home-latest {
+  .home-hero-lead > * {
     animation: home-rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   }
 
-  .home-hero-lead > :nth-child(2) {
+  .home-hero-lead > .home-lede {
     animation-delay: 0.08s;
   }
 
-  .home-hero-lead > :nth-child(3) {
+  .home-hero-lead > .home-actions {
     animation-delay: 0.16s;
-  }
-
-  .home-latest {
-    animation-delay: 0.24s;
   }
 
   @supports (animation-timeline: view()) {
@@ -2560,7 +2698,6 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
 /* A printed page has no scroll position to reveal against. */
 @media print {
   .home-hero-lead > *,
-  .home-latest,
   .home-section {
     animation: none;
   }
