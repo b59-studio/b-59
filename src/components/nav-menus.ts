@@ -89,7 +89,20 @@ export const NAV_MENUS: NavMenu[] = [
     id: "research",
     trigger: "research",
     header: { href: "/research", title: "allResearch", sub: "allResearchSub" },
+    // Newest work first: the petitions research leads, so it is not lost
+    // under the three election pages.
     groups: [
+      {
+        heading: "ballotPetitions",
+        items: [
+          {
+            href: "/research/austin-petitions",
+            icon: { glyph: "petition" },
+            label: { key: "austinPetitions" },
+            sub: "austinPetitionsSub",
+          },
+        ],
+      },
       {
         heading: "elections2026",
         items: [
@@ -110,17 +123,6 @@ export const NAV_MENUS: NavMenu[] = [
             icon: { glyph: "results" },
             label: { key: "results2026" },
             sub: "results2026Sub",
-          },
-        ],
-      },
-      {
-        heading: "ballotPetitions",
-        items: [
-          {
-            href: "/research/austin-petitions",
-            icon: { glyph: "petition" },
-            label: { key: "austinPetitions" },
-            sub: "austinPetitionsSub",
           },
         ],
       },

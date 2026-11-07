@@ -28,6 +28,12 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Changed
+
+- **Ballot Petitions now leads the Research menu**, above the 2026 Texas
+  elections group, so the newest research is the first thing the menu shows.
+  The Research page follows the same order.
+
 ## 2026-11-07
 
 ### Added
