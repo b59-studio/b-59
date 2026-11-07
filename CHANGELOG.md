@@ -28,6 +28,12 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Changed
+
+- The turnout comparison page's name now says it covers Texas: "2026 Texas
+  Turnout Comparison" in the menus, the home page and the sitemap, in all five
+  languages.
+
 ## 2026-11-06
 
 ### Added
