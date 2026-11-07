@@ -653,6 +653,97 @@ body {
   color: #9ca3af;
 }
 
+/* A menu whose pages fall into named sections opens on the sections alone;
+   the one pointed at opens its pages in a panel beside the list, so the menu
+   grows sideways instead of down. */
+.nav-mega-split {
+  flex-direction: row;
+  align-items: stretch;
+  max-width: none;
+  min-width: 16rem;
+}
+
+.nav-mega-rail {
+  display: flex;
+  flex-direction: column;
+  width: 16rem;
+  flex-shrink: 0;
+}
+
+.nav-mega-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-height: var(--touch-target);
+  padding: 0.375rem 0.75rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  font: inherit;
+  font-weight: 500;
+  text-align: start;
+  color: var(--color-b59-dark);
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.dark .nav-mega-section {
+  color: var(--color-b59-light);
+}
+
+.nav-mega-section:hover,
+.nav-mega-section.active {
+  background-color: rgba(0, 102, 255, 0.06);
+}
+
+.nav-mega-section.active {
+  color: var(--color-b59-blue);
+}
+
+.nav-mega-section-chevron {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+
+.nav-mega-section.active .nav-mega-section-chevron {
+  opacity: 1;
+}
+
+:dir(rtl) .nav-mega-section-chevron {
+  transform: scaleX(-1);
+}
+
+.nav-mega-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 20rem;
+  padding-inline-start: 0.75rem;
+  margin-inline-start: 0.75rem;
+  border-inline-start: 1px solid rgba(74, 85, 104, 0.15);
+  animation: nav-mega-panel-in 0.15s ease-out;
+}
+
+.dark .nav-mega-panel {
+  border-inline-start-color: rgba(156, 163, 175, 0.15);
+}
+
+@keyframes nav-mega-panel-in {
+  from {
+    opacity: 0;
+    transform: translateX(-0.25rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-mega-panel {
+    animation: none;
+  }
+}
+
 /* Shared by the About menu and the language options, and the language menu
    opens from inside the phone panel — so it takes the touch floor too. */
 .nav-dropdown-item {

@@ -28,6 +28,15 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Changed
+
+- On desktop, the Studio and Research menus open on their sections first —
+  Solutions, Services and Tools; Ballot Petitions and 2026 Texas Elections —
+  and pointing at a section opens its pages in a panel beside the list,
+  instead of the whole menu dropping down at once.
+- The Research menu's header reads "Our Research", matching "Our Work" and
+  "Our Story".
+
 ## 2026-11-07
 
 ### Changed
