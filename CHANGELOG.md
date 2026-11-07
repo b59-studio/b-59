@@ -28,13 +28,6 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
-### Changed
-
-- The Political Consulting & Organizing page now lists **brand and campaign
-  design** (identity systems, field-ready collateral and merch) as a service.
-  "Turnout and targeting" becomes **data and targeting** and now covers
-  polling averages. In every locale.
-
 ## 2026-11-07
 
 ### Added
@@ -63,6 +56,11 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   assistants a short guide to the main pages.
 
 ### Changed
+
+- The Political Consulting & Organizing page now lists **brand and campaign
+  design** (identity systems, field-ready collateral and merch) as a service.
+  "Turnout and targeting" becomes **data and targeting** and now covers
+  polling averages. In every locale.
 
 - `/llms.txt` no longer lists the Travis County VDR case study, which the
   site's menus hold back.
