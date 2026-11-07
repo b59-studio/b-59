@@ -28,6 +28,15 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Changed
+
+- **The home page shows the work instead of listing it.** ready2vote and
+  Hotline are now large tiles with their real desktop and phone screens,
+  tilted and cut off by the tile's edge, rising at their own speeds as the page
+  scrolls. Campaign work is two tiles, Political Consulting and now **Ballot
+  Measures & Petitions**, each drawn around its own mark. The latest research
+  list leads with the new Austin petitions research.
+
 ## 2026-11-07
 
 ### Added

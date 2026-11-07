@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import Image from "next/image";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { defaultLocale } from "@/i18n/config";
-import { ProjectMark, type ProjectKey } from "@/components/ProjectMark";
 import { CONTACT_HREF, ContactClosing } from "@/components/ContactClosing";
-import { NavGlyph } from "@/components/NavGlyph";
+import { NavGlyph, type GlyphKey } from "@/components/NavGlyph";
 import { RowArrow } from "@/components/RowArrow";
 
 export const metadata: Metadata = {
@@ -22,7 +22,9 @@ export const metadata: Metadata = {
 };
 
 type Research = { href: string; title: string; blurb: string };
-type Product = { href: string; project: ProjectKey; name: ReactNode; blurb: string };
+type Screen = { src: string; width: number; height: number };
+type Product = { href: string; meta: string; name: ReactNode; blurb: string; desktop: Screen; phone: Screen };
+type Practice = { href: string; glyph: GlyphKey; name: string; blurb: string };
 
 export default async function Home() {
   const [locale, t, nav, studio, research] = await Promise.all([
@@ -38,6 +40,7 @@ export default async function Home() {
   const englishOnly = locale !== defaultLocale;
 
   const latest: Research[] = [
+    { href: "/research/austin-petitions", title: nav("austinPetitions"), blurb: nav("austinPetitionsSub") },
     { href: "/research/2026-results", title: nav("results2026Texas"), blurb: nav("results2026Sub") },
     { href: "/research/2026-election-analysis", title: nav("electionAnalysis2026Texas"), blurb: nav("electionAnalysis2026Sub") },
     { href: "/research/2026-polls", title: nav("polls2026Texas"), blurb: nav("polls2026Sub") },
@@ -46,15 +49,39 @@ export default async function Home() {
   const products: Product[] = [
     {
       href: "/solutions/ready2vote",
-      project: "ready2vote",
+      meta: studio("tagVoting"),
       name: (
         <>
           ready<span className="text-b59-blue">2</span>vote
         </>
       ),
       blurb: studio("ready2voteBlurb"),
+      desktop: { src: "/products/ready2vote/home.webp", width: 1600, height: 1025 },
+      phone: { src: "/products/ready2vote/application-phone.webp", width: 780, height: 1688 },
     },
-    { href: "/solutions/hotline", project: "hotline", name: "Hotline", blurb: studio("hotlineBlurb") },
+    {
+      href: "/solutions/hotline",
+      meta: studio("tagAdministrative"),
+      name: "Hotline",
+      blurb: studio("hotlineBlurb"),
+      desktop: { src: "/products/hotline/plate.webp", width: 1600, height: 1025 },
+      phone: { src: "/products/hotline/plate-phone.webp", width: 780, height: 1688 },
+    },
+  ];
+
+  const practices: Practice[] = [
+    {
+      href: "/studio/political-consulting",
+      glyph: "organizing",
+      name: nav("politicalConsulting"),
+      blurb: t("consultingBlurb"),
+    },
+    {
+      href: "/studio/ballot-measures",
+      glyph: "petition",
+      name: nav("ballotMeasures"),
+      blurb: nav("ballotMeasuresSub"),
+    },
   ];
 
   return (
@@ -101,37 +128,65 @@ export default async function Home() {
         </section>
       </div>
 
+      {/* Each product is shown by its own screens, cropped by the tile's edge.
+          The pictures are decorative: the name and summary beside them say
+          what the link is, so they carry no alt text of their own. */}
       <section className="home-section" aria-labelledby="home-products-heading">
         <h2 id="home-products-heading" className="home-section-heading">
           {t("productsHeading")}
         </h2>
-        <ul className="home-list">
+        <ul className="home-showcase">
           {products.map((item) => (
             <li key={item.href}>
-              <Link href={item.href} className="home-row home-product">
-                <ProjectMark project={item.project} size={48} />
-                <span className="home-product-name">{item.name}</span>
-                <span className="home-product-blurb">{item.blurb}</span>
-                <RowArrow />
+              <Link href={item.href} className="home-tile home-tile--product">
+                <span className="home-tile-copy">
+                  <span className="home-tile-meta">{item.meta}</span>
+                  <h3 className="home-tile-name">{item.name}</h3>
+                  <span className="home-tile-blurb">{item.blurb}</span>
+                  <RowArrow />
+                </span>
+                <span className="home-tile-stage" aria-hidden={true}>
+                  <span className="home-tile-screen">
+                    <Image
+                      src={item.desktop.src}
+                      alt=""
+                      width={item.desktop.width}
+                      height={item.desktop.height}
+                      sizes="(min-width: 768px) 40rem, 110vw"
+                    />
+                  </span>
+                  <span className="home-tile-phone">
+                    <Image src={item.phone.src} alt="" width={item.phone.width} height={item.phone.height} sizes="8rem" />
+                  </span>
+                </span>
               </Link>
             </li>
           ))}
         </ul>
       </section>
 
+      {/* The campaign practices have no screens to show, so each is drawn
+          around its own mark, oversized and cut off by the tile's corner. */}
       <section className="home-section" aria-labelledby="home-campaigns-heading">
         <h2 id="home-campaigns-heading" className="home-section-heading">
           {t("campaignsHeading")}
         </h2>
-        <ul className="home-list">
-          <li>
-            <Link href="/studio/political-consulting" className="home-row home-product">
-              <NavGlyph glyph="organizing" size={48} />
-              <span className="home-product-name">{nav("politicalConsulting")}</span>
-              <span className="home-product-blurb">{t("consultingBlurb")}</span>
-              <RowArrow />
-            </Link>
-          </li>
+        <ul className="home-showcase">
+          {practices.map((item) => (
+            <li key={item.href}>
+              <Link href={item.href} className="home-tile home-tile--practice">
+                <span className="home-tile-art" aria-hidden={true}>
+                  <span className="home-tile-disc" />
+                  <NavGlyph glyph={item.glyph} size={240} className="home-tile-glyph" />
+                </span>
+                <span className="home-tile-copy">
+                  <h3 className="home-tile-name">{item.name}</h3>
+                  <span className="home-tile-blurb">{item.blurb}</span>
+                  <RowArrow />
+                </span>
+              </Link>
+            </li>
+          ))}
         </ul>
       </section>
 
