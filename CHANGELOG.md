@@ -28,6 +28,8 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+## 2026-11-07
+
 ### Added
 
 - **A Political Consulting & Organizing page** at `/studio/political-consulting`
@@ -35,15 +37,6 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   turnout and targeting, communications and campaign tools, with Jonathon's
   organizing experience and links to the work behind it. It is in the Studio
   menu under a new Services group, on the Our Work page, and in every locale.
-
-### Changed
-
-- `/llms.txt` no longer lists the Travis County VDR case study, which the
-  site's menus hold back.
-
-## 2026-11-07
-
-### Added
 
 - **Search engines and AI assistants get a clearer picture of the studio.**
   Every page now describes B-59 Studio to search engines as a business in
@@ -53,6 +46,9 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   assistants a short guide to the main pages.
 
 ### Changed
+
+- `/llms.txt` no longer lists the Travis County VDR case study, which the
+  site's menus hold back.
 
 - The home, About and Studio page descriptions shown in search results now
   say the studio is in Austin, Texas. The About description names the
