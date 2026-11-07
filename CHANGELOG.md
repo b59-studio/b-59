@@ -28,6 +28,8 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+## 2026-11-07
+
 ### Added
 
 - **A Ballot Measures & Petitions page** at `/studio/ballot-measures`. It
@@ -40,17 +42,6 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   Work, and in every locale.
 - The home page links the political consulting page under a new "Campaign
   work" heading.
-
-### Changed
-
-- The political consulting page now says the studio works only with
-  Democratic and progressive campaigns and causes. Its heading, opening line,
-  page title and search description name Austin and progressive political
-  consulting.
-
-## 2026-11-07
-
-### Added
 
 - **A Political Consulting & Organizing page** at `/studio/political-consulting`
   sets out the studio's campaign work: field organizing, voter registration,
@@ -76,6 +67,11 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   assistants a short guide to the main pages.
 
 ### Changed
+
+- The political consulting page now says the studio works only with
+  Democratic and progressive campaigns and causes. Its heading, opening line,
+  page title and search description name Austin and progressive political
+  consulting.
 
 - On the Political Consulting & Organizing page, **voter registration gives
   way to ballot measures and petitions**: signature drives that put a
