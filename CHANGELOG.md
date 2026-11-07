@@ -28,30 +28,6 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
-### Added
-
-- **A Research page.** `/research` lists the 2026 turnout, polling and results
-  pages in one place. It's where the Research menu's header now leads.
-
-### Changed
-
-- **The header menus share one shape.** Studio, Research and About each open
-  on a header that links to the section's own page, with a one-line summary,
-  followed by the pages inside it. Each page has an icon, and products keep
-  their own logos. The phone menu is built from the same list.
-- **The 2026 research pages are listed directly in the Research menu.** They
-  no longer open in a second panel beside it.
-- **About is down to Our Story, Our Inspirations and Team.** The arrow after
-  "Our Work" is gone too.
-- **"for" in the home page headline is B-59 blue,** matching the footer
-  tagline.
-
-### Removed
-
-- **Brand Design Philosophy is no longer in the menus.** It describes the brand
-  design practice, whose portfolio and merch pages are already unlinked. The
-  page stays live, in the sitemap, and linked from those pages.
-
 ## 2026-11-06
 
 ### Added
@@ -81,6 +57,8 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   party's votes. The polls page gains a "Polls vs results" tab setting each
   race's final poll average, and each poll in it, against the result, and the
   win calculator's election-day assumption against what election day added.
+- **A Research page.** `/research` lists the 2026 turnout, polling and results
+  pages in one place. It's where the Research menu's header now leads.
 
 ### Changed
 
@@ -139,6 +117,22 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 - The Research menu groups the 2026 work under one heading, 2026 Elections:
   the analysis, the polls and the results, each with a line on what it holds.
   "2026 Live Results" is now "2026 Results".
+- **The header menus share one shape.** Studio, Research and About each open
+  on a header that links to the section's own page, with a one-line summary,
+  followed by the pages inside it. Each page has an icon, and products keep
+  their own logos. The phone menu is built from the same list.
+- **The 2026 research pages are listed directly in the Research menu.** They
+  no longer open in a second panel beside it.
+- **About is down to Our Story, Our Inspirations and Team.** The arrow after
+  "Our Work" is gone too.
+- **"for" in the home page headline is B-59 blue,** matching the footer
+  tagline.
+
+### Removed
+
+- **Brand Design Philosophy is no longer in the menus.** It describes the brand
+  design practice, whose portfolio and merch pages are already unlinked. The
+  page stays live, in the sitemap, and linked from those pages.
 
 ### Fixed
 
