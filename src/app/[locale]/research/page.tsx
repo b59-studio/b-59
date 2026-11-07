@@ -7,11 +7,11 @@ import { NavItemMark } from "@/components/NavMenuParts";
 export const metadata: Metadata = {
   title: "Research",
   description:
-    "B-59's data work on Texas elections: 2026 turnout against past years, the statewide polling average, and results by county and precinct.",
+    "B-59's data work on Texas elections and Austin ballot petitions: 2026 turnout against past years, the statewide polling average, results by county and precinct, and what it takes to qualify a petition in Austin.",
   alternates: { canonical: "/research" },
   openGraph: {
     title: "Research | B-59",
-    description: "Turnout, polls and results from the 2026 Texas general election.",
+    description: "Turnout, polls and results from the 2026 Texas general election, and the numbers behind Austin ballot petitions.",
     url: "/research",
   },
 };
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 export default async function Research() {
   const [t, nav] = await Promise.all([getTranslations("researchIndex"), getTranslations("nav")]);
   const menu = NAV_MENUS.find((m) => m.id === "research");
-  const items = menu?.groups.flatMap((g) => g.items) ?? [];
+  const groups = menu?.groups ?? [];
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -33,22 +33,24 @@ export default async function Research() {
           <p className="body-lg max-w-2xl">{t("intro")}</p>
         </section>
 
-        <section>
-          <h2 className="heading-md mb-4">{nav("elections2026")}</h2>
-          <ul className="space-y-4">
-            {items.map((item) => (
-              <li key={item.href}>
-                <Link href={item.href} className="portfolio-card portfolio-card--marked">
-                  <NavItemMark item={item} size={32} className="portfolio-card-mark" />
-                  <span className="portfolio-card-body">
-                    <h3 className="heading-sm">{"key" in item.label ? nav(item.label.key) : item.label.brand}</h3>
-                    <p className="body-md">{nav(item.sub)}</p>
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
+        {groups.map((group) => (
+          <section key={group.heading}>
+            {group.heading && <h2 className="heading-md mb-4">{nav(group.heading)}</h2>}
+            <ul className="space-y-4">
+              {group.items.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="portfolio-card portfolio-card--marked">
+                    <NavItemMark item={item} size={32} className="portfolio-card-mark" />
+                    <span className="portfolio-card-body">
+                      <h3 className="heading-sm">{"key" in item.label ? nav(item.label.key) : item.label.brand}</h3>
+                      <p className="body-md">{nav(item.sub)}</p>
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
       </div>
     </div>
   );
