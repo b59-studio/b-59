@@ -3019,6 +3019,12 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
   }
 }
 
+@keyframes home-turn {
+  to {
+    transform: rotate(-200deg);
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .index-hero > .index-title,
   .index-hero > .index-lede {
@@ -3039,6 +3045,15 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
     .index-orbit::after {
       animation: index-turn linear both;
       animation-timeline: scroll(root);
+    }
+
+    /* The home ring turns the other way, and all of it inside the first
+       screen of scroll: across a long page the hero is gone before the
+       index-page turn has moved, and clockwise carries the arc off the
+       phone's edge, where the ring's centre sits. */
+    .index-orbit.home-orbit::after {
+      animation-name: home-turn;
+      animation-range: 0 100vh;
     }
 
     .index-art-mark {
