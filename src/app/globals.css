@@ -2368,6 +2368,10 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
   position: absolute;
   display: block;
   overflow: hidden;
+  /* Both apps' screens are light. The fill keeps a frame whose picture is
+     still loading opaque, so the phone never shows the desktop screen
+     through an empty bezel. */
+  background-color: var(--color-b59-light);
   transition: translate 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
