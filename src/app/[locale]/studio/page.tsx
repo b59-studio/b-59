@@ -52,6 +52,12 @@ export default async function Studio() {
       title: nav("politicalConsulting"),
       blurb: nav("politicalConsultingSub"),
     },
+    {
+      href: "/studio/ballot-measures",
+      mark: <NavGlyph glyph="petition" size={40} />,
+      title: nav("ballotMeasures"),
+      blurb: nav("ballotMeasuresSub"),
+    },
   ];
 
   // Case studies are held back for now. The pages themselves still build and

@@ -9,7 +9,7 @@ import type { CSSProperties } from "react";
  * One set, one stroke weight: 24px outline paths at a 1.75 stroke, drawn in the
  * house accent. Decorative — the link's name is always beside it.
  */
-export type GlyphKey = "calculator" | "turnout" | "polls" | "results" | "inspirations" | "team" | "organizing";
+export type GlyphKey = "calculator" | "turnout" | "polls" | "results" | "inspirations" | "team" | "organizing" | "petition";
 
 const PATHS: Record<GlyphKey, string[]> = {
   calculator: [
@@ -35,6 +35,11 @@ const PATHS: Record<GlyphKey, string[]> = {
     "M4 10v4a1 1 0 0 0 1 1h2l6 4V5L7 9H5a1 1 0 0 0-1 1Z",
     "M16.5 9a4 4 0 0 1 0 6",
     "M19 6.5a7.5 7.5 0 0 1 0 11",
+  ],
+  petition: [
+    "M9 3h6a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z",
+    "M8 5H6a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-2",
+    "M9 14l2 2 4-4",
   ],
 };
 
