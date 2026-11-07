@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BASE_OPEN_GRAPH } from "@/lib/share-card";
 import { getLocale, getTranslations } from "next-intl/server";
 import { defaultLocale } from "@/i18n/config";
 import { NAV_MENUS } from "@/components/nav-menus";
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
     "B-59's data work on Texas elections and Austin ballot petitions: 2026 turnout against past years, the statewide polling average, results by county and precinct, and what it takes to qualify a petition in Austin.",
   alternates: { canonical: "/research" },
   openGraph: {
+    ...BASE_OPEN_GRAPH,
     title: "Research | B-59",
     description: "Turnout, polls and results from the 2026 Texas general election, and the numbers behind Austin ballot petitions.",
     url: "/research",

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BASE_OPEN_GRAPH } from "@/lib/share-card";
 import { Geist } from "next/font/google";
 import { getTranslations } from "next-intl/server";
 import { ProjectMark } from "@/components/ProjectMark";
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
     "Scheduling and workforce management by B-59 for civic and public-interest teams: hand-pick a few times and share one link instead of exposing your whole calendar, then run shifts, coverage and hours in the same place. Visit hotlinecal.com.",
   alternates: { canonical: "/solutions/hotline" },
   openGraph: {
+    ...BASE_OPEN_GRAPH,
     title: "Hotline | B-59",
     description:
       "Built by B-59. Share a few times, not your whole calendar — then run the rota, coverage and hours in the same product. Works with Google, Outlook, Apple iCloud or any ICS feed. Visit hotlinecal.com.",

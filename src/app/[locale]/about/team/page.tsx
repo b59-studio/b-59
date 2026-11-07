@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BASE_OPEN_GRAPH } from "@/lib/share-card";
 import Image from "next/image";
 import { getFormatter, getTranslations } from "next-intl/server";
 import { AboutSectionNav } from "@/components/AboutSectionNav";
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
   description: "The people behind B-59 Studio. Jonathon Reise, principal — civic technology from Austin, Texas.",
   alternates: { canonical: "/about/team" },
   openGraph: {
+    ...BASE_OPEN_GRAPH,
     title: "Team | B-59",
     description: "Who you'll be working with at B-59 Studio.",
     url: "/about/team",

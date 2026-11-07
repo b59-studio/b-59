@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BASE_OPEN_GRAPH } from "@/lib/share-card";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { AboutSectionNav } from "@/components/AboutSectionNav";
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
     "B-59 is an Austin, Texas studio that designs and builds civic software that works—for voter access, courts, administrative processes, and public transparency. Our mission, how we work, and why we're named after the Soviet submarine B-59 and Vasili Arkhipov.",
   alternates: { canonical: "/about" },
   openGraph: {
+    ...BASE_OPEN_GRAPH,
     title: "About B-59",
     description:
       "We design and build civic software that actually works. Democracy isn't something you improvise—it's something you design. Mission, values, and the story behind the name.",

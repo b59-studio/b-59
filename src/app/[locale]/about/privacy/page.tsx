@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BASE_OPEN_GRAPH } from "@/lib/share-card";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Brand } from "@/components/Brand";
 import { LegalTranslationNotice } from "@/components/LegalTranslationNotice";
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
     "B-59 Studio LLC privacy policy. How we collect, use, and protect your information when you visit our website. We do not sell personal information.",
   alternates: { canonical: "/about/privacy" },
   openGraph: {
+    ...BASE_OPEN_GRAPH,
     title: "Privacy Policy | B-59",
     description:
       "How B-59 collects, uses, and protects your information. We respect your privacy and do not sell personal data.",

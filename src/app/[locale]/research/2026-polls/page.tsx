@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BASE_OPEN_GRAPH } from "@/lib/share-card";
 import { getLocale, getTranslations } from "next-intl/server";
 import { PollsPage } from "@/components/research/polls-2026/PollsPage";
 import { JsonLd } from "@/components/JsonLd";
@@ -40,6 +41,7 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   alternates: { canonical: PATH },
   openGraph: {
+    ...BASE_OPEN_GRAPH,
     title: "2026 Texas Polls | B-59",
     description: "A simple, explained average of the public polls of the 2026 Texas statewide races, with every poll linked.",
     url: PATH,

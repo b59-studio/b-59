@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BASE_OPEN_GRAPH } from "@/lib/share-card";
 import { getTranslations } from "next-intl/server";
 import { Brand } from "@/components/Brand";
 import { ProjectMark } from "@/components/ProjectMark";
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
     "A civic project by B-59. We rebuilt the Travis County Voter Registration Toolkit — the resource hub for Volunteer Deputy Registrars — migrating a legacy site into a fast, accessible, installable web app.",
   alternates: { canonical: "/solutions/travis-county-vdr" },
   openGraph: {
+    ...BASE_OPEN_GRAPH,
     title: "Travis County VDR Toolkit | B-59",
     description:
       "Built by B-59. A modern, accessible rebuild of the Travis County Voter Registration Toolkit for Volunteer Deputy Registrars.",

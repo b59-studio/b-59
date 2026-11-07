@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BASE_OPEN_GRAPH } from "@/lib/share-card";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Brand } from "@/components/Brand";
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
     "How a citizen petition reaches the Austin ballot, and the progressive consulting studio that runs them. 20,000 signatures from registered Austin voters, the fields every line needs, how the City Clerk verifies, and what happens next.",
   alternates: { canonical: PATH },
   openGraph: {
+    ...BASE_OPEN_GRAPH,
     title: "Ballot Measures & Petitions in Austin | B-59",
     description:
       "Petition drives that put progressive propositions on the Austin ballot, and a plain account of how the process works.",

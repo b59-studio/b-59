@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BASE_OPEN_GRAPH } from "@/lib/share-card";
 import { getTranslations } from "next-intl/server";
 import { ProjectMark } from "@/components/ProjectMark";
 import { DeviceStage, type Shot } from "@/components/ProductShot";
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
     "ready2vote is a civic product built by B-59. It helps Texans complete their voter registration application online and have it mailed to their county. ready2vote doesn't register you—your county does that when they receive your application. Visit readyto.vote.",
   alternates: { canonical: "/solutions/ready2vote" },
   openGraph: {
+    ...BASE_OPEN_GRAPH,
     title: "ready2vote | B-59",
     description:
       "Built by B-59. The first online tool that helps Texans complete their voter registration application and have it mailed to their county. Visit readyto.vote.",

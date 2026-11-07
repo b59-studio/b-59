@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BASE_OPEN_GRAPH } from "@/lib/share-card";
 import type { ReactNode } from "react";
 import { getTranslations } from "next-intl/server";
 import { Brand } from "@/components/Brand";
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
     "The work of B-59 Studio, Austin, Texas, in one place — the civic products we build and run: ready2vote and Hotline.",
   alternates: { canonical: "/studio" },
   openGraph: {
+    ...BASE_OPEN_GRAPH,
     title: "Our Work | B-59",
     description:
       "The civic products we build and run — all in one place.",

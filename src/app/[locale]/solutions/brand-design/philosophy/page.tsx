@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BASE_OPEN_GRAPH } from "@/lib/share-card";
 import { getTranslations } from "next-intl/server";
 
 export const metadata: Metadata = {
@@ -7,6 +8,7 @@ export const metadata: Metadata = {
     "How B-59 approaches brand design. A brand is a set of decisions about how an organization shows up — clarity before polish, restraint as strategy, systems built to be used, and neutrality by default. For campaigns, committees, firms, and institutions where trust is the whole game.",
   alternates: { canonical: "/solutions/brand-design/philosophy" },
   openGraph: {
+    ...BASE_OPEN_GRAPH,
     title: "Brand Design Philosophy | B-59",
     description:
       "A brand is not a logo. It's a set of decisions about how an organization shows up. How B-59 designs brands for campaigns, committees, firms, and institutions where trust is the whole game.",

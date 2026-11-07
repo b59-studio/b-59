@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BASE_OPEN_GRAPH } from "@/lib/share-card";
 import type { ReactNode } from "react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Brand } from "@/components/Brand";
@@ -20,6 +21,7 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   alternates: { canonical: PATH },
   openGraph: {
+    ...BASE_OPEN_GRAPH,
     title: "Austin Prop G: The Next Petition Election Is November 2028 | B-59",
     description: "No citizen petition can reach Austin's ballot in 2027. The dates that matter for November 2028.",
     url: PATH,

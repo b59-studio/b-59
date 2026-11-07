@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BASE_OPEN_GRAPH, SHARE_IMAGE } from "@/lib/share-card";
 import { resolveSiteUrl } from "@/lib/site-url";
 
 const siteUrl = resolveSiteUrl();
@@ -25,20 +26,16 @@ export const metadata: Metadata = {
   authors: [{ name: "B-59" }],
   creator: "B-59",
   openGraph: {
-    type: "website",
-    locale: "en_US",
-    siteName: "B-59",
+    ...BASE_OPEN_GRAPH,
     title: "B-59 — Human-Centered",
     description:
       "Human-centered design and strategy. We build civic technology, advise on complex decisions, and make things that matter.",
-    // Share image is provided by the file-convention card at app/opengraph-image.tsx.
   },
+  // No title or description here: pages never override `twitter`, so anything
+  // set here would label every page. Without them X reads each page's og:title.
   twitter: {
     card: "summary_large_image",
-    title: "B-59 — Human-Centered",
-    description:
-      "Human-centered design and strategy. We build civic technology, advise on complex decisions, and make things that matter.",
-    // Twitter image is derived from the same opengraph-image.tsx card.
+    images: [SHARE_IMAGE],
   },
   icons: {
     icon: "/favicon.ico",

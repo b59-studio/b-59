@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BASE_OPEN_GRAPH } from "@/lib/share-card";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
     "Stickers, shirts and print B-59 designs for the groups it works with. Starting with a die-cut sticker for the Pflugerville Area Democrats.",
   alternates: { canonical: "/solutions/brand-design/merch" },
   openGraph: {
+    ...BASE_OPEN_GRAPH,
     title: "Merch | B-59",
     description:
       "Stickers, shirts and print designed for the groups we work with — the brand at the size of a laptop lid.",

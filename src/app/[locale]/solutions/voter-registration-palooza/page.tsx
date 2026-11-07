@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BASE_OPEN_GRAPH } from "@/lib/share-card";
 import { getTranslations } from "next-intl/server";
 import { Brand } from "@/components/Brand";
 import { ProjectMark } from "@/components/ProjectMark";
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
     "A client project by B-59. The campaign site for Voter Registration Palooza 2026 — thousands of volunteer-run registration events across Texas before the October 5 deadline. Four bilingual pages and two counts the organizers keep in a spreadsheet.",
   alternates: { canonical: "/solutions/voter-registration-palooza" },
   openGraph: {
+    ...BASE_OPEN_GRAPH,
     title: "Voter Registration Palooza | B-59",
     description:
       "Built by B-59. The campaign site for a statewide push to register Texans before the deadline — four pages in English and Spanish, and counts that update from a spreadsheet.",
