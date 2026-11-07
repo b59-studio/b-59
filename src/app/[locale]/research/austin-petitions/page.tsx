@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Brand } from "@/components/Brand";
+import { CONTACT_HREF } from "@/components/ContactClosing";
 import { DataTable } from "@/components/research/election-2026/parts";
 import { JsonLd } from "@/components/JsonLd";
 import { Link } from "@/i18n/navigation";
@@ -11,14 +12,14 @@ import { datasetJsonLd } from "@/lib/structured-data";
 
 const PATH = "/research/austin-petitions";
 const DESCRIPTION =
-  "What it takes to put a citizen petition on the Austin ballot: why 20,000 signatures is the floor rather than the goal, the validity rates of recent Austin petitions, and the last safe filing dates for the 2027 elections.";
+  "What Austin petition drives miss: why 20,000 signatures is the floor rather than the goal, the validity rates of recent Austin petitions, out-of-city signers, and the last safe filing dates for the 2027 elections.";
 
 export const metadata: Metadata = {
-  title: "Austin Ballot Petitions: What the Numbers Say",
+  title: "Austin Ballot Petitions: What Campaigns Miss",
   description: DESCRIPTION,
   alternates: { canonical: PATH },
   openGraph: {
-    title: "Austin Ballot Petitions: What the Numbers Say | B-59",
+    title: "Austin Ballot Petitions: What Campaigns Miss | B-59",
     description: "Why 20,000 signatures isn't enough, what recent Austin petitions actually achieved, and when to file for 2027.",
     url: PATH,
   },
@@ -137,6 +138,23 @@ const num = (n: number) => new Intl.NumberFormat("en-US").format(n);
 const day = (iso: string) =>
   new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(`${iso}T00:00:00Z`));
 
+/** What petition drives tend to get wrong at this step, and what the studio does about it. */
+function Takeaway({ miss, b59 }: { miss: string; b59: string }) {
+  return (
+    <div className="ea-verdict">
+      <p>
+        <strong>What drives miss:</strong> {miss}
+      </p>
+      <p>
+        <strong>
+          What <Brand /> does:
+        </strong>{" "}
+        {b59}
+      </p>
+    </div>
+  );
+}
+
 function Ext({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <a href={href} className="ea-link" target="_blank" rel="noopener noreferrer">
@@ -163,14 +181,15 @@ export default async function AustinPetitions() {
       <article className="ea" lang="en" dir="ltr">
         <header className="ea-head">
           <p className="ea-dateline">Research · Austin ballot petitions · November 2026</p>
-          <h1 className="ea-h1">Getting a petition on the Austin ballot: what the numbers say</h1>
+          <h1 className="ea-h1">Getting a petition on the Austin ballot: what campaigns miss</h1>
           <p className="ea-byline">
             By <Brand /> · Rules from the City Clerk and Texas law; petition figures as reported, each linked
           </p>
           <p className="ea-lede">
             Everyone knows the number is 20,000. Fewer people know that 20,000 is where a petition fails, not where it
             succeeds, that an Austin address doesn&apos;t make someone an Austin voter, or that the real deadline for
-            an election arrives months before the election does.
+            an election arrives months before the election does. Each of those has sunk an Austin petition. Here is
+            what the numbers show, and how to plan around them.
           </p>
           <div className="ea-stats">
             <div className="ea-stat">
@@ -226,6 +245,10 @@ export default async function AustinPetitions() {
             At four in five valid, about what the drives below that fell short managed, 25,000 signatures only breaks
             even. Margin is the whole game.
           </p>
+          <Takeaway
+            miss="Treating 20,000 as the finish line, and learning the validity rate from the Clerk's verdict."
+            b59="We set the signature goal from your validity rate, not the statute, and measure that rate from the first week."
+          />
         </section>
 
         <section className="ea-panel overflow-x-clip" aria-labelledby="pet-cases">
@@ -280,6 +303,10 @@ export default async function AustinPetitions() {
             the petition&apos;s organizers announced. &quot;At least&quot; is the low end of the Clerk&apos;s estimate, not
             a total, so no share is given for it.
           </p>
+          <Takeaway
+            miss="Signers who aren't registered, sign twice, or live outside the city limits. None of it shows on a clipboard; all of it shows at the Clerk."
+            b59="Circulators trained to confirm they have a registered Austin voter, and every batch checked against the voter roll as it comes in, so the count you track is the count the Clerk will find."
+          />
         </section>
 
         <section className="ea-panel overflow-x-clip" aria-labelledby="pet-calendar">
@@ -323,6 +350,10 @@ export default async function AustinPetitions() {
             &quot;File by&quot; assumes the Clerk&apos;s stated minimum of 30 days and a Council that uses its full 10.
             Verification can take longer, so file earlier than this if you can.
           </p>
+          <Takeaway
+            miss="Planning from election day instead of the order deadline, and running out of road in the Clerk's office."
+            b59="A calendar built back from the deadline the Council has to meet, with room for a slow verification, and a collection schedule that keeps every signature inside its 180 days."
+          />
         </section>
 
         <section className="ea-panel" aria-labelledby="pet-rules">
@@ -340,6 +371,31 @@ export default async function AustinPetitions() {
               the state constitution; amendments start in the Legislature. City petitions like Austin&apos;s are where
               voters can write the question themselves.
             </p>
+          </div>
+          <Takeaway
+            miss="Collecting signatures for an election the measure can't legally reach."
+            b59="Before the first signature, we confirm which elections your measure can make and what it has to clear to get there."
+          />
+        </section>
+
+        <section className="ea-panel" aria-labelledby="pet-cta">
+          <h2 id="pet-cta" className="ea-section-title">
+            Running a petition in Austin?
+          </h2>
+          <div className="ea-prose">
+            <p>
+              <Brand /> is a progressive political consulting studio in Austin. We set the signature goal, train the
+              people with the clipboards, check signatures against the voter roll as they come in, and carry the measure
+              through election day. Talk to us before the first signature, when the plan is still cheap to change.
+            </p>
+          </div>
+          <div className="ea-bar">
+            <a href={CONTACT_HREF} className="btn-secondary">
+              Email the studio
+            </a>
+            <Link href="/studio/ballot-measures" className="ea-link">
+              How we run ballot measure campaigns
+            </Link>
           </div>
         </section>
 
@@ -359,14 +415,6 @@ export default async function AustinPetitions() {
           </p>
         </section>
 
-        <p className="ea-lede">
-          <Brand /> runs petition drives for progressive causes, with signatures checked against the voter roll as they
-          come in.{" "}
-          <Link href="/studio/ballot-measures" className="ea-link">
-            How we work on ballot measures
-          </Link>
-          .
-        </p>
       </article>
     </div>
   );
