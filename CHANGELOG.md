@@ -28,6 +28,8 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+## 2026-11-07
+
 ### Added
 
 - Research page on Austin's Proposition G, approved by voters on November 3,
@@ -35,16 +37,6 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   November ballots in even-numbered years, so the next petition election is
   November 7, 2028. It gives the filing dates counted back from that election,
   and what a drive that misses them waits for (November 2030).
-
-### Fixed
-
-- The petitions research and the Ballot Measures page no longer give 2027
-  filing dates or say a measure goes to the next election the law allows. Both
-  now count back from November 2028, the first election Proposition G allows.
-
-## 2026-11-07
-
-### Added
 
 - **The Hotline page shows the rota.** "When the calendar isn't only yours"
   now has three screens from the app beside its copy: a week of shifts, the
@@ -176,6 +168,12 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   say the studio is in Austin, Texas. The About description names the
   submarine B-59 and Vasili Arkhipov, so people searching for the name's story
   find it.
+
+### Fixed
+
+- The petitions research and the Ballot Measures page no longer give 2027
+  filing dates or say a measure goes to the next election the law allows. Both
+  now count back from November 2028, the first election Proposition G allows.
 
 ## 2026-11-06
 
