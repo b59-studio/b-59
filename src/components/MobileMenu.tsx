@@ -1,5 +1,6 @@
 "use client";
 
+import { useId, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ProjectMark } from "./ProjectMark";
@@ -13,6 +14,8 @@ type MobileMenuProps = {
 
 export function MobileMenu({ open, onNavigate }: MobileMenuProps) {
   const t = useTranslations("nav");
+  const [electionsOpen, setElectionsOpen] = useState(false);
+  const electionsId = useId();
 
   if (!open) {
     return null;
@@ -74,22 +77,41 @@ export function MobileMenu({ open, onNavigate }: MobileMenuProps) {
       <span className="nav-mobile-sub nav-mobile-sub-marked">{t("merchSub")}</span>
       */}
 
-      {/* Research, which today is all the 2026 elections work, headed by that name. */}
-      <span className="nav-mobile-heading">
-        {t("research")}: {t("elections2026")}
-      </span>
-      <Link href="/research/2026-election-analysis" className="nav-mobile-link" onClick={onNavigate}>
-        {t("electionAnalysis2026")}
-      </Link>
-      <span className="nav-mobile-sub">{t("electionAnalysis2026Sub")}</span>
-      <Link href="/research/2026-polls" className="nav-mobile-link" onClick={onNavigate}>
-        {t("polls2026")}
-      </Link>
-      <span className="nav-mobile-sub">{t("polls2026Sub")}</span>
-      <Link href="/research/2026-results" className="nav-mobile-link" onClick={onNavigate}>
-        {t("results2026")}
-      </Link>
-      <span className="nav-mobile-sub">{t("results2026Sub")}</span>
+      {/* Research holds one item, the 2026 elections work; its three pages
+          open in place beneath it, the phone's version of the desktop flyout. */}
+      <span className="nav-mobile-heading">{t("research")}</span>
+      <button
+        type="button"
+        className="nav-mobile-link nav-mobile-disclosure"
+        aria-expanded={electionsOpen}
+        aria-controls={electionsId}
+        onClick={() => setElectionsOpen((o) => !o)}
+      >
+        {t("elections2026")}
+        <svg
+          className={`nav-dropdown-chevron ${electionsOpen ? "open" : ""}`}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          aria-hidden="true"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      <div id={electionsId} hidden={!electionsOpen} className="space-y-2">
+        <Link href="/research/2026-election-analysis" className="nav-mobile-link nav-mobile-sublink" onClick={onNavigate}>
+          {t("electionAnalysis2026")}
+        </Link>
+        <span className="nav-mobile-sub">{t("electionAnalysis2026Sub")}</span>
+        <Link href="/research/2026-polls" className="nav-mobile-link nav-mobile-sublink" onClick={onNavigate}>
+          {t("polls2026")}
+        </Link>
+        <span className="nav-mobile-sub">{t("polls2026Sub")}</span>
+        <Link href="/research/2026-results" className="nav-mobile-link nav-mobile-sublink" onClick={onNavigate}>
+          {t("results2026")}
+        </Link>
+        <span className="nav-mobile-sub">{t("results2026Sub")}</span>
+      </div>
 
       {/* Headed like the groups above it, or these read as more Research links. */}
       <span className="nav-mobile-heading">{t("about")}</span>

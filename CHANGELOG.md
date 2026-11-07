@@ -28,6 +28,14 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Changed
+
+- The Research menu holds one item, 2026 Elections. On a wide screen its
+  three pages (the analysis, the polls and the results) open beside it on
+  hover, click or the arrow keys; on a phone they open beneath it. The menus'
+  headings and descriptions are a little larger, up to the site's smallest
+  text size.
+
 ## 2026-11-06
 
 ### Added
