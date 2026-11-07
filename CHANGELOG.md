@@ -28,6 +28,17 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Changed
+
+- **The home page opens on the headline.** On a phone the title is set at
+  display size, framed by the same ring as the Our Work and Research pages,
+  with both actions on one line. The intro line now names all of the work:
+  software for voters and organizers, campaigns and ballot measures, and
+  research on Texas elections.
+- **Latest research moved below the work.** It now follows the products and
+  campaign work as four small tiles around their marks, instead of a list
+  beside the headline.
+
 ## 2026-11-07
 
 ### Added
