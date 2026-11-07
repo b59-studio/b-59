@@ -28,14 +28,6 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
-### Changed
-
-- The Austin petition research page now says what campaigns miss and what
-  B-59 does about it. Each finding ends with a short "what drives miss / what
-  B-59 does" note, and the page closes with a "Running a petition in Austin?"
-  section and a way to reach the studio. The title becomes "What Campaigns
-  Miss". The figures and sources are unchanged.
-
 ## 2026-11-07
 
 ### Added
@@ -89,6 +81,12 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   assistants a short guide to the main pages.
 
 ### Changed
+
+- The Austin petition research page now says what campaigns miss and what
+  B-59 does about it. Each finding ends with a short "what drives miss / what
+  B-59 does" note, and the page closes with a "Running a petition in Austin?"
+  section and a way to reach the studio. The title becomes "What Campaigns
+  Miss". The figures and sources are unchanged.
 
 - **Header menus open on mouse hover.** Pointing at Studio, Research or About
   now opens its menu, and moving away closes it, with a short pause so a
