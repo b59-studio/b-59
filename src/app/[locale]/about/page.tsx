@@ -9,7 +9,7 @@ import { RowArrow } from "@/components/RowArrow";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "B-59 designs and builds civic software that works—for voter access, courts, administrative processes, and public transparency. We modernize civic infrastructure thoughtfully. Learn our mission, how we work, and why we're named B-59.",
+    "B-59 is an Austin, Texas studio that designs and builds civic software that works—for voter access, courts, administrative processes, and public transparency. Our mission, how we work, and why we're named after the Soviet submarine B-59 and Vasili Arkhipov.",
   alternates: { canonical: "/about" },
   openGraph: {
     title: "About B-59",

@@ -8,7 +8,7 @@ import { ProjectMark, type ProjectKey } from "@/components/ProjectMark";
 export const metadata: Metadata = {
   title: "Our Work",
   description:
-    "The work of B-59 Studio in one place — the civic products we build and run. ready2vote and Hotline.",
+    "The work of B-59 Studio, Austin, Texas, in one place — the civic products we build and run: ready2vote and Hotline.",
   alternates: { canonical: "/studio" },
   openGraph: {
     title: "Our Work | B-59",
