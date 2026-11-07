@@ -42,6 +42,12 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ### Added
 
+- **The Hotline page shows the rota.** "When the calendar isn't only yours"
+  now has three screens from the app beside its copy: a week of shifts, the
+  coverage view naming the day nobody is on, and the Time page with hours
+  waiting for sign-off. The screens come from a test organization with a
+  made-up roster.
+
 - **Austin Ballot Petitions: what the numbers say**, a new research page at
   `/research/austin-petitions`:
   - why 20,000 signatures is where a petition fails rather than succeeds, with

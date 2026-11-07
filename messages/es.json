@@ -475,7 +475,10 @@
     "altBooking": "Una página de reserva de Hotline para una reunión con un elector, que ofrece tres horarios en la zona horaria del invitado.",
     "closingHeading": "Gratis para una persona. Por organización después.",
     "closingBody": "Sin tarjeta para empezar y sin medidores. Las personas con quienes agendas no necesitan ninguna cuenta.",
-    "altCalendar": "El calendario mensual de Hotline, con las reuniones reservadas en sus días."
+    "altCalendar": "El calendario mensual de Hotline, con las reuniones reservadas en sus días.",
+    "altRotaShifts": "Una semana de turnos en Hotline: seis personas en la columna lateral, los turnos de cada día en rojo y el jueves vacío.",
+    "altRotaCoverage": "La vista de cobertura de Hotline: nadie cubre el jueves, el miércoles tiene un hueco de doce a una, y las horas y el costo de la semana por persona.",
+    "altRotaTime": "La página de Tiempo de Hotline: horas previstas frente a horas reales de cada persona, lo aprobado, el costo y tres registros pendientes de aprobación."
   },
   "solutionsTravisCountyVdr": {
     "metaTitle": "Kit de Herramientas VDR del Condado de Travis",

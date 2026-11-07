@@ -475,7 +475,10 @@
     "altBooking": "一个选民会面的 Hotline 预约页面，按访客自己的时区提供三个时间。",
     "closingHeading": "一个人免费，之后按组织计费。",
     "closingBody": "开始时无需绑卡，也没有用量计费。被预约的人完全不需要账号。",
-    "altCalendar": "Hotline 的月历，已预约的会议显示在对应的日期上。"
+    "altCalendar": "Hotline 的月历，已预约的会议显示在对应的日期上。",
+    "altRotaShifts": "Hotline 中一周的排班：左侧列出六个人，每天的班次以红色显示，周四空着。",
+    "altRotaCoverage": "Hotline 的覆盖视图：周四无人值班，周三中午十二点到一点有空档，下方是每人本周的工时和成本。",
+    "altRotaTime": "Hotline 的工时页面：每人的预计工时与实际工时、已批准的部分、成本，以及三条待审批的记录。"
   },
   "solutionsTravisCountyVdr": {
     "metaTitle": "Travis 县 VDR 工具包",
