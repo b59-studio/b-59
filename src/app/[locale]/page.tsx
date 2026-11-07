@@ -11,12 +11,12 @@ import { RowArrow } from "@/components/RowArrow";
 export const metadata: Metadata = {
   title: { absolute: "B-59 Studio" },
   description:
-    "Deliberate design for imperfect systems. B-59 is a design and strategy studio in Austin, Texas, building civic platforms, publishing Texas election research, and advising on complex decisions. Human-centered. Public-first.",
+    "Deliberate design for imperfect systems. B-59 is a design and strategy studio in Austin, Texas: we build software for voters and organizers, run campaigns and ballot measures, and publish research on Texas elections.",
   alternates: { canonical: "/" },
   openGraph: {
     title: "B-59 — Deliberate design for imperfect systems",
     description:
-      "Designing democracy. Digital infrastructure for public servants. We build civic technology and advise on complex decisions.",
+      "Software for voters and organizers, campaigns and ballot measures, and research on Texas elections, from a design and strategy studio in Austin.",
     url: "/",
   },
 };
