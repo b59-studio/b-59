@@ -70,14 +70,15 @@ describe("sitemap", () => {
     expect(urls.some((url) => url.endsWith("/studio/win-calculator"))).toBe(false);
   });
 
-  it("dates pages by their commits, never by build time, and leaves live-data pages undated", () => {
+  // Which pages get a date depends on how much history the checkout has (CI
+  // fetches one commit, so none do); git-dates.test.ts covers the dating itself.
+  it("never dates a page by build time, and leaves live-data pages undated", () => {
     const before = Date.now();
     const entries = sitemap();
     const byPath = (suffix: string) => entries.find((entry) => entry.url.endsWith(suffix));
     for (const entry of entries) {
       if (entry.lastModified) expect(new Date(entry.lastModified).getTime()).toBeLessThan(before);
     }
-    expect(byPath("/research/austin-petitions")?.lastModified).toBeInstanceOf(Date);
     expect(byPath("/research/2026-results")).not.toHaveProperty("lastModified");
     expect(byPath("/research/2026-polls")).not.toHaveProperty("lastModified");
   });
