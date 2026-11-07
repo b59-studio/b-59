@@ -70,7 +70,7 @@
     "ctaPrimary": "给工作室发邮件",
     "ctaSecondary": "查看我们的全部作品",
     "researchHeading": "最新研究",
-    "productsHeading": "我们的作品",
+    "productsHeading": "我们打造的作品",
     "closingHeading": "有值得解决的问题吗？",
     "closingBody": "告诉我们您在做什么，以及它为谁服务。"
   },
@@ -152,15 +152,15 @@
   },
   "team": {
     "metaTitle": "团队",
-    "metaDescription": "B-59 Studio 背后的人。创始人 Jon Reise——来自德克萨斯州奥斯汀的公民科技。",
+    "metaDescription": "B-59 Studio 背后的人。负责人 Jonathon Reise——来自德克萨斯州奥斯汀的公民科技。",
     "ogTitle": "团队 | B-59",
     "ogDescription": "在 B-59 Studio 与你共事的人。",
     "heading": "团队",
     "intro": "<brand></brand> Studio 目前只有一个人。",
-    "jonName": "Jon Reise",
-    "jonRole": "创始人",
-    "jonBio1": "Jon 设计并构建 <brand></brand> 发布的一切 <blue>—</blue> 「解决方案」下的产品、客户项目，以及周边。他在德克萨斯州奥斯汀工作，毕业于西北大学（Northwestern University）。",
-    "jonLinkedIn": "Jon 的 LinkedIn",
+    "jonName": "Jonathon Reise",
+    "jonRole": "负责人",
+    "jonBio1": "Jonathon 设计并构建 <brand></brand> 发布的一切 <blue>—</blue> 「解决方案」下的产品、客户项目，以及周边。他在德克萨斯州奥斯汀工作，毕业于西北大学（Northwestern University）。",
+    "jonLinkedIn": "Jonathon 的 LinkedIn",
     "opensNewWindow": "（在新窗口中打开）"
   },
   "aboutSitemap": {

@@ -70,7 +70,7 @@
     "ctaPrimary": "स्टूडियो को ईमेल करें",
     "ctaSecondary": "हमारा सारा काम देखें",
     "researchHeading": "नवीनतम शोध",
-    "productsHeading": "हम क्या बनाते हैं",
+    "productsHeading": "हमने क्या बनाया है",
     "closingHeading": "कोई ऐसी समस्या है जिसे हल करना ज़रूरी है?",
     "closingBody": "हमें बताएँ कि आप किस पर काम कर रहे हैं और यह किसके लिए है।"
   },
@@ -152,15 +152,15 @@
   },
   "team": {
     "metaTitle": "टीम",
-    "metaDescription": "B-59 Studio के पीछे के लोग। Jon Reise, संस्थापक — ऑस्टिन, टेक्सास से नागरिक तकनीक।",
+    "metaDescription": "B-59 Studio के पीछे के लोग। Jonathon Reise, प्रमुख — ऑस्टिन, टेक्सास से नागरिक तकनीक।",
     "ogTitle": "टीम | B-59",
     "ogDescription": "B-59 Studio में आप किसके साथ काम करेंगे।",
     "heading": "टीम",
     "intro": "<brand></brand> Studio, फ़िलहाल, एक व्यक्ति है।",
-    "jonName": "Jon Reise",
-    "jonRole": "संस्थापक",
-    "jonBio1": "Jon वह सब कुछ डिज़ाइन करते और बनाते हैं जो <brand></brand> जारी करता है <blue>—</blue> समाधान के अंतर्गत उत्पाद, क्लाइंट काम, और मर्च। वे ऑस्टिन, टेक्सास से काम करते हैं और उन्होंने Northwestern University में पढ़ाई की।",
-    "jonLinkedIn": "LinkedIn पर Jon",
+    "jonName": "Jonathon Reise",
+    "jonRole": "प्रमुख",
+    "jonBio1": "Jonathon वह सब कुछ डिज़ाइन करते और बनाते हैं जो <brand></brand> जारी करता है <blue>—</blue> समाधान के अंतर्गत उत्पाद, क्लाइंट काम, और मर्च। वे ऑस्टिन, टेक्सास से काम करते हैं और उन्होंने Northwestern University में पढ़ाई की।",
+    "jonLinkedIn": "LinkedIn पर Jonathon",
     "opensNewWindow": " (नई विंडो में खुलता है)"
   },
   "aboutSitemap": {

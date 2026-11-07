@@ -127,6 +127,8 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   "Our Work" is gone too.
 - **"for" in the home page headline is B-59 blue,** matching the footer
   tagline.
+- The home page's products section is headed "What we've built".
+- The Team page names Jonathon Reise as the studio's principal.
 
 ### Removed
 

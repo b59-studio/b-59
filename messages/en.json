@@ -70,7 +70,7 @@
     "ctaPrimary": "Email the studio",
     "ctaSecondary": "See all our work",
     "researchHeading": "Latest research",
-    "productsHeading": "What we build",
+    "productsHeading": "What we've built",
     "closingHeading": "Have a problem worth solving?",
     "closingBody": "Tell us what you're working on and who it's for."
   },
@@ -152,15 +152,15 @@
   },
   "team": {
     "metaTitle": "Team",
-    "metaDescription": "The people behind B-59 Studio. Jon Reise, founder — civic technology from Austin, Texas.",
+    "metaDescription": "The people behind B-59 Studio. Jonathon Reise, principal — civic technology from Austin, Texas.",
     "ogTitle": "Team | B-59",
     "ogDescription": "Who you'll be working with at B-59 Studio.",
     "heading": "Team",
     "intro": "<brand></brand> Studio is, for now, one person.",
-    "jonName": "Jon Reise",
-    "jonRole": "Founder",
-    "jonBio1": "Jon designs and builds everything <brand></brand> ships <blue>—</blue> the products under Solutions, the client work, and the merch. He works from Austin, Texas, and studied at Northwestern University.",
-    "jonLinkedIn": "Jon on LinkedIn",
+    "jonName": "Jonathon Reise",
+    "jonRole": "Principal",
+    "jonBio1": "Jonathon designs and builds everything <brand></brand> ships <blue>—</blue> the products under Solutions, the client work, and the merch. He works from Austin, Texas, and studied at Northwestern University.",
+    "jonLinkedIn": "Jonathon on LinkedIn",
     "opensNewWindow": " (opens in new window)"
   },
   "aboutSitemap": {

@@ -70,7 +70,7 @@
     "ctaPrimary": "שלחו מייל לסטודיו",
     "ctaSecondary": "לכל העבודות שלנו",
     "researchHeading": "מחקר אחרון",
-    "productsHeading": "מה אנחנו בונים",
+    "productsHeading": "מה בנינו",
     "closingHeading": "יש לכם בעיה שכדאי לפתור?",
     "closingBody": "ספרו לנו על מה אתם עובדים ולמי זה מיועד."
   },
@@ -152,15 +152,15 @@
   },
   "team": {
     "metaTitle": "הצוות",
-    "metaDescription": "האנשים שמאחורי B-59 Studio. Jon Reise, מייסד — טכנולוגיה אזרחית מאוסטין, טקסס.",
+    "metaDescription": "האנשים שמאחורי B-59 Studio. Jonathon Reise, מנהל — טכנולוגיה אזרחית מאוסטין, טקסס.",
     "ogTitle": "הצוות | B-59",
     "ogDescription": "עם מי תעבדו ב-B-59 Studio.",
     "heading": "הצוות",
     "intro": "<brand></brand> Studio הוא, לעת עתה, אדם אחד.",
-    "jonName": "Jon Reise",
-    "jonRole": "מייסד",
-    "jonBio1": "Jon מעצב ובונה את כל מה ש-<brand></brand> מוציא <blue>—</blue> המוצרים תחת פתרונות, עבודות הלקוחות, וה-Merch. הוא עובד מאוסטין, טקסס, ולמד ב-Northwestern University.",
-    "jonLinkedIn": "Jon ב-LinkedIn",
+    "jonName": "Jonathon Reise",
+    "jonRole": "מנהל",
+    "jonBio1": "Jonathon מעצב ובונה את כל מה ש-<brand></brand> מוציא <blue>—</blue> המוצרים תחת פתרונות, עבודות הלקוחות, וה-Merch. הוא עובד מאוסטין, טקסס, ולמד ב-Northwestern University.",
+    "jonLinkedIn": "Jonathon ב-LinkedIn",
     "opensNewWindow": " (נפתח בחלון חדש)"
   },
   "aboutSitemap": {
