@@ -28,6 +28,8 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+## 2026-11-07
+
 ### Added
 
 - **Austin Ballot Petitions: what the numbers say**, a new research page at
@@ -43,10 +45,6 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   outlet that reported them.
 - The Research menu gains a Ballot Petitions group, and the Ballot Measures
   page links to the new research.
-
-## 2026-11-07
-
-### Added
 
 - **A Ballot Measures & Petitions page** at `/studio/ballot-measures`. It
   walks through how a citizen petition reaches the Austin ballot: 20,000
