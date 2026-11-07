@@ -24,7 +24,9 @@ const SITE = "https://hotlinecal.com";
 
 const blue = (chunks: React.ReactNode) => <span className="text-b59-blue">{chunks}</span>;
 
-const ORG = ["org1", "org2", "org3", "org4"] as const;
+// org3 (coverage) and org4 (hours) each get a screen of their own above; the
+// two claims with no screen to show stay in the scan list.
+const ORG = ["org1", "org2"] as const;
 
 export default async function Hotline() {
   const t = await getTranslations("solutionsHotline");
@@ -34,6 +36,11 @@ export default async function Hotline() {
   const plate: Shot = { src: "/products/hotline/plate.webp", width: 1600, height: 1025, alt: t("altHome") };
   const platePhone: Shot = { src: "/products/hotline/plate-phone.webp", width: 780, height: 1688, alt: t("altHomePhone") };
   const calendar: Shot = { src: "/products/hotline/calendar.webp", width: 1600, height: 1025, alt: t("altCalendar") };
+  // The rota screens, from a test organization seeded with a synthetic roster
+  // (names only, no accounts) and one deliberately uncovered day.
+  const rotaShifts: Shot = { src: "/products/hotline/rota-schedule.webp", width: 1600, height: 1025, alt: t("altRotaShifts") };
+  const rotaCoverage: Shot = { src: "/products/hotline/rota-coverage.webp", width: 1600, height: 1025, alt: t("altRotaCoverage") };
+  const rotaTime: Shot = { src: "/products/hotline/rota-time.webp", width: 1600, height: 1025, alt: t("altRotaTime") };
   // The page a guest lands on from a Hotline link, from the product's own demo data.
   const booking = { width: 1032, height: 806, alt: t("altBooking") };
 
@@ -100,14 +107,34 @@ export default async function Hotline() {
         </ul>
       </section>
 
-      <section aria-labelledby="hotline-org">
-        <div className="product-section-intro">
-          <h2 id="hotline-org" className="heading-lg">
-            {t("orgHeading")}
-          </h2>
-          <p className="body-lg">{t.rich("orgIntro", { blue })}</p>
+      <section className="product-stack" aria-labelledby="hotline-org">
+        <div className="product-split">
+          <div className="product-split-text">
+            <h2 id="hotline-org" className="heading-lg">
+              {t("orgHeading")}
+            </h2>
+            <p className="body-lg">{t.rich("orgIntro", { blue })}</p>
+          </div>
+          <BrowserShot shot={rotaShifts} address="hotlinecal.com/schedule" />
         </div>
-        <ul className="product-features product-features--4">
+
+        <div className="product-split product-split--flip">
+          <div className="product-split-text">
+            <h3 className="heading-md">{t("org3Strong")}</h3>
+            <p className="body-lg">{t("org3Body")}</p>
+          </div>
+          <BrowserShot shot={rotaCoverage} address="hotlinecal.com/schedule/coverage" />
+        </div>
+
+        <div className="product-split">
+          <div className="product-split-text">
+            <h3 className="heading-md">{t("org4Strong")}</h3>
+            <p className="body-lg">{t("org4Body")}</p>
+          </div>
+          <BrowserShot shot={rotaTime} address="hotlinecal.com/schedule/time" />
+        </div>
+
+        <ul className="product-features">
           {ORG.map((item) => (
             <li key={item}>
               <h3 className="heading-sm">{t(`${item}Strong`)}</h3>

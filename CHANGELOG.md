@@ -28,6 +28,14 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Added
+
+- **The Hotline page shows the rota.** "When the calendar isn't only yours"
+  now has three screens from the app beside its copy: a week of shifts, the
+  coverage view naming the day nobody is on, and the Time page with hours
+  waiting for sign-off. The screens come from a test organization with a
+  made-up roster.
+
 ## 2026-11-07
 
 ### Added
