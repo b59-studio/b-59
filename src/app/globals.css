@@ -2165,9 +2165,8 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
   text-wrap: pretty;
 }
 
-.about-statement--quiet {
+.about-statement + .about-statement {
   margin-top: 1.5rem;
-  color: var(--home-ink-2);
 }
 
 .about-principles {

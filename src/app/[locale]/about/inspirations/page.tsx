@@ -181,7 +181,7 @@ export default async function OurInspirations() {
         </h2>
         <div>
           <p className="about-statement">{t("take1")}</p>
-          <p className="about-statement about-statement--quiet">{t("take2")}</p>
+          <p className="about-statement">{t("take2")}</p>
         </div>
       </section>
 
