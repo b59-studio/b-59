@@ -93,11 +93,14 @@ function localizedPath(locale: Locale, routePath: string): string {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  return buildSitemap(lastCommitDates(APP_LOCALE_REL));
+}
+
+/** The sitemap, given when each file under src/app/[locale] last changed. */
+export function buildSitemap(dates: Map<string, Date>): MetadataRoute.Sitemap {
   const routes = discoverRoutePaths()
     .map((routePath) => ({ path: routePath, ...overrides[routePath] }))
     .filter((route) => !route.exclude);
-
-  const dates = lastCommitDates(APP_LOCALE_REL);
 
   return routes.map(({ path: routePath, priority = DEFAULT_PRIORITY, changeFrequency = DEFAULT_CHANGE_FREQUENCY, liveData }) => ({
     url: `${siteUrl}${localizedPath(defaultLocale, routePath)}`,

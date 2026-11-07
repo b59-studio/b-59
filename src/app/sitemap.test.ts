@@ -1,5 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
-import sitemap, { discoverRoutePaths, pageLastModified } from "./sitemap";
+import sitemap, { buildSitemap, discoverRoutePaths, pageLastModified } from "./sitemap";
 
 describe("pageLastModified", () => {
   const d = (iso: string) => new Date(iso);
@@ -70,15 +70,22 @@ describe("sitemap", () => {
     expect(urls.some((url) => url.endsWith("/studio/win-calculator"))).toBe(false);
   });
 
-  // Which pages get a date depends on how much history the checkout has (CI
-  // fetches one commit, so none do); git-dates.test.ts covers the dating itself.
-  it("never dates a page by build time, and leaves live-data pages undated", () => {
-    const before = Date.now();
-    const entries = sitemap();
+  // Fixed commit dates stand in for git, so this doesn't depend on how much
+  // history the checkout has (CI fetches one commit). git-dates.test.ts covers
+  // reading real git history.
+  it("dates each page by its last commit, leaves undatable and live-data pages undated", () => {
+    const PETITIONS_DATE = new Date("2026-10-01T12:00:00Z");
+    const entries = buildSitemap(
+      new Map([
+        ["src/app/[locale]/research/austin-petitions/page.tsx", PETITIONS_DATE],
+        ["src/app/[locale]/research/2026-results/page.tsx", new Date("2026-10-02T12:00:00Z")],
+      ]),
+    );
     const byPath = (suffix: string) => entries.find((entry) => entry.url.endsWith(suffix));
-    for (const entry of entries) {
-      if (entry.lastModified) expect(new Date(entry.lastModified).getTime()).toBeLessThan(before);
-    }
+    expect(byPath("/research/austin-petitions")?.lastModified).toEqual(PETITIONS_DATE);
+    // A subpage doesn't inherit its parent's date.
+    expect(byPath("/research/austin-petitions/prop-g")?.lastModified).toBeUndefined();
+    // git has a date for the results page, but its content follows live data.
     expect(byPath("/research/2026-results")).not.toHaveProperty("lastModified");
     expect(byPath("/research/2026-polls")).not.toHaveProperty("lastModified");
   });
