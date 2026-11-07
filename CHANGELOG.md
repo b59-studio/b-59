@@ -192,6 +192,12 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ### Fixed
 
+- The sitemap now tells search engines when each page last changed, taken from
+  the page's git history, instead of stamping every page with the build time.
+  Search engines ignore a date that is always "now"; an accurate one helps them
+  recrawl the pages that actually changed. The live election pages (results,
+  polls, analysis) carry no date, since their content changes with the data,
+  not the code.
 - The petitions research and the Ballot Measures page no longer give 2027
   filing dates or say a measure goes to the next election the law allows. Both
   now count back from November 2028, the first election Proposition G allows.
