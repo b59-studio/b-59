@@ -5,6 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { defaultLocale } from "@/i18n/config";
 import { ProjectMark, type ProjectKey } from "@/components/ProjectMark";
 import { CONTACT_HREF, ContactClosing } from "@/components/ContactClosing";
+import { NavGlyph } from "@/components/NavGlyph";
 import { RowArrow } from "@/components/RowArrow";
 
 export const metadata: Metadata = {
@@ -115,6 +116,22 @@ export default async function Home() {
               </Link>
             </li>
           ))}
+        </ul>
+      </section>
+
+      <section className="home-section" aria-labelledby="home-campaigns-heading">
+        <h2 id="home-campaigns-heading" className="home-section-heading">
+          {t("campaignsHeading")}
+        </h2>
+        <ul className="home-list">
+          <li>
+            <Link href="/studio/political-consulting" className="home-row home-product">
+              <NavGlyph glyph="organizing" size={48} />
+              <span className="home-product-name">{nav("politicalConsulting")}</span>
+              <span className="home-product-blurb">{t("consultingBlurb")}</span>
+              <RowArrow />
+            </Link>
+          </li>
         </ul>
       </section>
 

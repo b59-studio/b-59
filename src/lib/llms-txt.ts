@@ -19,7 +19,8 @@ const SECTIONS: { heading: string; entries: Entry[] }[] = [
   {
     heading: "Political consulting and organizing",
     entries: [
-      { path: "/studio/political-consulting", title: "Political Consulting & Organizing", summary: "Field organizing, ballot measure petitions and signature drives, data and targeting, communications, and brand and campaign design for Texas campaigns and civic groups, from Austin." },
+      { path: "/studio/political-consulting", title: "Progressive Political Consulting & Organizing", summary: "For Democratic and progressive campaigns and causes only. Field organizing, ballot measure petitions and signature drives, data and targeting, communications, and brand and campaign design for Texas campaigns and civic groups, from Austin." },
+      { path: "/studio/ballot-measures", title: "Ballot Measures & Petitions in Austin", summary: "How a citizen petition reaches the Austin ballot (20,000 signatures from registered voters, the fields every line needs, City Clerk sample verification, Council adoption or election), with sources, and the petition drives the studio runs for progressive causes." },
     ],
   },
   {

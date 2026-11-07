@@ -120,6 +120,13 @@ export default async function Studio() {
               <p className="body-md">{nav("politicalConsultingSub")}</p>
             </span>
           </Link>
+          <Link href="/studio/ballot-measures" className="portfolio-card portfolio-card--marked mt-4">
+            <NavGlyph glyph="petition" size={32} className="portfolio-card-mark" />
+            <span className="portfolio-card-body">
+              <h3 className="heading-sm">{nav("ballotMeasures")}</h3>
+              <p className="body-md">{nav("ballotMeasuresSub")}</p>
+            </span>
+          </Link>
         </section>
 
         {/* <section>

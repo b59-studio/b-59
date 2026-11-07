@@ -28,6 +28,26 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Added
+
+- **A Ballot Measures & Petitions page** at `/studio/ballot-measures`. It
+  walks through how a citizen petition reaches the Austin ballot: 20,000
+  signatures from registered voters, what every line needs, how the City Clerk
+  verifies by sample, and what the Council does next. Each rule links to the
+  City Clerk's or Secretary of State's own statement of it. The page also
+  covers how the studio runs petition drives and lists recent Austin
+  propositions that qualified by petition. It is in the Studio menu, on Our
+  Work, and in every locale.
+- The home page links the political consulting page under a new "Campaign
+  work" heading.
+
+### Changed
+
+- The political consulting page now says the studio works only with
+  Democratic and progressive campaigns and causes. Its heading, opening line,
+  page title and search description name Austin and progressive political
+  consulting.
+
 ## 2026-11-07
 
 ### Added
