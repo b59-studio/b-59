@@ -2354,3 +2354,284 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
     grid-column: 2;
   }
 }
+
+/* ============================================
+   PRODUCT PAGES (ready2vote, Hotline)
+   A product page answers "what does this look like and will it do my
+   thing" — so the screens lead, and each claim sits beside the screen that
+   shows it. Built on the homepage container (`.home .product`) so the width,
+   gutters and secondary ink are the same. Grouping is space and hairlines
+   (standards/44); the only drawn edges are the frames around screenshots,
+   which are the picture's boundary rather than a box around content.
+   ============================================ */
+
+.product {
+  gap: 5rem;
+}
+
+@media (min-width: 1024px) {
+  .product {
+    gap: 7rem;
+    padding-top: 4rem;
+  }
+}
+
+.product-hero {
+  display: grid;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .product-hero {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 4rem;
+  }
+}
+
+.product-tagline {
+  margin: 0.75rem 0 0;
+  font-size: 1.25rem;
+  line-height: 1.4;
+  font-weight: 600;
+  color: var(--home-ink-2);
+}
+
+.product-hero .home-lede {
+  font-size: 1.125rem;
+}
+
+/* --- Screens ------------------------------------------------------------ */
+
+.product-browser,
+.product-figure {
+  margin: 0;
+  border: 1px solid var(--home-rule);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background-color: var(--color-b59-light);
+}
+
+.dark .product-browser,
+.dark .product-figure {
+  background-color: #111111;
+}
+
+.product-browser img,
+.product-figure img,
+.product-phone img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.product-browser-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  height: 2.25rem;
+  padding-inline: 0.875rem;
+  border-bottom: 1px solid var(--home-rule);
+  background-color: var(--home-shade);
+}
+
+.product-browser-dots {
+  display: flex;
+  gap: 0.375rem;
+}
+
+.product-browser-dots > span {
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 9999px;
+  background-color: var(--home-rule);
+}
+
+/* Centred against the bar, so it gives back the width the dots take. */
+.product-browser-address {
+  flex: 1;
+  margin-inline-end: 2.625rem;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--home-ink-2);
+}
+
+/* The phone: a dark bezel, and a ring of page background where it overlaps
+   the browser so the two read as separate objects without a shadow. */
+.product-phone {
+  border: 0.375rem solid var(--color-b59-dark);
+  border-radius: 1.75rem;
+  overflow: hidden;
+  background-color: var(--color-b59-light);
+}
+
+.product-phone img {
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  object-position: top;
+}
+
+.dark .product-phone {
+  border-color: #3F3F46;
+}
+
+.product-stage {
+  position: relative;
+  padding-bottom: 2.5rem;
+  padding-inline-end: 2.5rem;
+}
+
+.product-stage-phone {
+  position: absolute;
+  inset-inline-end: 0;
+  bottom: 0;
+  width: 32%;
+  max-width: 13rem;
+  outline: 0.375rem solid var(--color-b59-light);
+}
+
+.dark .product-stage-phone {
+  outline-color: var(--color-b59-dark);
+}
+
+/* On a phone the browser shrinks to a thumbnail, so the phone screen is the
+   one a reader can actually make out — give it more of the width. */
+@media (max-width: 639px) {
+  .product-stage {
+    padding-inline-end: 1.5rem;
+  }
+
+  .product-stage-phone {
+    width: 40%;
+  }
+}
+
+/* A screen with a light and a dark capture follows the site's theme. */
+.product-figure .product-theme-dark,
+.dark .product-figure .product-theme-light {
+  display: none;
+}
+
+.dark .product-figure .product-theme-dark {
+  display: block;
+}
+
+/* --- Sections ----------------------------------------------------------- */
+
+.product-section-intro {
+  max-width: 44rem;
+}
+
+.product-section-intro > p {
+  margin-top: 1rem;
+  color: var(--home-ink-2);
+}
+
+/* Text beside a screen. The text column stays measure-length; the screen
+   takes the rest. Alternate rows flip so the eye zig-zags down the page —
+   text always comes first in the markup, so the flip is visual only and the
+   reading order never changes. */
+.product-split {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .product-split {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 4rem;
+  }
+
+  .product-split--flip {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  }
+
+  .product-split--flip > :first-child {
+    order: 2;
+  }
+}
+
+.product-split-text > p {
+  margin-top: 1rem;
+  color: var(--home-ink-2);
+}
+
+/* Claims a reader scans for, two or four across. A hairline above each one
+   marks where it starts; there is no card around it. */
+.product-features {
+  display: grid;
+  gap: 2rem 3rem;
+  margin: 2.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 640px) {
+  .product-features {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-features--4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.product-features > li {
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--home-rule);
+}
+
+.product-features p {
+  margin-top: 0.5rem;
+  color: var(--home-ink-2);
+}
+
+/* A step's number: tabular, in the secondary ink, above its title. */
+.product-step-number {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--home-ink-2);
+}
+
+.product-prose {
+  max-width: 44rem;
+}
+
+.product-prose > p + p {
+  margin-top: 1rem;
+}
+
+.product-closing {
+  padding-top: 3rem;
+  border-top: 1px solid var(--home-rule);
+}
+
+.product-closing > p {
+  margin-top: 1rem;
+  max-width: 40rem;
+  color: var(--home-ink-2);
+}
+
+/* A list beside a screen has half the width, so it stays one column. */
+.product-features--stack {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* One section made of several screen-and-text rows. */
+.product-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+@media (min-width: 1024px) {
+  .product-stack {
+    gap: 5rem;
+  }
+}

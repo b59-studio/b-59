@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { getTranslations } from "next-intl/server";
 import { ProjectMark } from "@/components/ProjectMark";
+import { DeviceStage, FigureShot, ThemedShot, type Shot } from "@/components/ProductShot";
 
 // Hotline's wordmark is set in Geist — load it so the name renders in-brand.
 const geist = Geist({ subsets: ["latin"], weight: "700" });
@@ -19,92 +20,128 @@ export const metadata: Metadata = {
   },
 };
 
+const SITE = "https://hotlinecal.com";
+
 const blue = (chunks: React.ReactNode) => <span className="text-b59-blue">{chunks}</span>;
+
+const ORG = ["org1", "org2", "org3", "org4"] as const;
 
 export default async function Hotline() {
   const t = await getTranslations("solutionsHotline");
 
+  const home: Shot = { src: "/products/hotline/home.webp", width: 1600, height: 1025, alt: t("altHome") };
+  const homePhone: Shot = { src: "/products/hotline/home-phone.webp", width: 780, height: 1688, alt: t("altHomePhone") };
+  const whatTheySee: Shot = {
+    src: "/products/hotline/what-they-see.webp",
+    width: 1600,
+    height: 691,
+    alt: t("altWhatTheySee"),
+  };
+  // The page a guest lands on from a Hotline link, from the product's own demo data.
+  const booking = { width: 1032, height: 806, alt: t("altBooking") };
+
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-      <div className="space-y-12">
-        <section>
+    <div className="home product">
+      <section className="product-hero" aria-labelledby="hotline-title">
+        <div>
           {/* The mark beats here and only here — this is Hotline's page, and its
               own design system reserves the heartbeat for the hero. */}
-          <ProjectMark project="hotline" size={72} beat className="project-mark-hero" />
-          <h1 className={`heading-xl mb-3 ${geist.className}`} style={{ letterSpacing: "-0.02em" }}>
+          <ProjectMark project="hotline" size={56} beat className="project-mark-hero" />
+          <h1 id="hotline-title" className={`home-title ${geist.className}`}>
             Hotline
           </h1>
-          <p className="body-md text-b59-gray mb-6">{t("tagline")}</p>
-          <div className="body-lg space-y-4">
-            <p>{t.rich("intro1", { blue })}</p>
-            <p>{t.rich("intro2", { blue })}</p>
+          <p className="product-tagline">{t("tagline")}</p>
+          <p className="home-lede">{t.rich("intro1", { blue })}</p>
+          <div className="home-actions">
+            <a href={SITE} className="btn-secondary" target="_blank" rel="noopener noreferrer">
+              {t("cta")}
+            </a>
+            <a href="#different" className="home-text-action">
+              {t("differentHeading")}
+              <span aria-hidden="true">↓</span>
+            </a>
           </div>
-        </section>
+        </div>
+        <DeviceStage desktop={home} phone={homePhone} address="hotlinecal.com" priority />
+      </section>
 
-        <section>
-          <h2 className="heading-md mb-4">{t("differentHeading")}</h2>
-          <ul className="body-md space-y-3 list-disc ps-5">
-            <li>
-              <strong>{t("diff1Strong")}</strong>
-              {t("diff1Body")}
-            </li>
-            <li>
-              <strong>{t("diff2Strong")}</strong>
-              {t("diff2Body")}
-            </li>
-            <li>
-              <strong>{t("diff3Strong")}</strong>
-              {t("diff3Body")}
-            </li>
-            <li>
-              <strong>{t("diff4Strong")}</strong>
-              {t("diff4Body")}
-            </li>
-          </ul>
-        </section>
+      <section id="different" className="scroll-mt-24 product-stack" aria-labelledby="hotline-different">
+        <div className="product-section-intro">
+          <h2 id="hotline-different" className="heading-lg">
+            {t("differentHeading")}
+          </h2>
+          <p className="body-lg">{t.rich("intro2", { blue })}</p>
+        </div>
 
-        <section>
-          <h2 className="heading-md mb-4">{t("orgHeading")}</h2>
-          <p className="body-lg mb-4">{t.rich("orgIntro", { blue })}</p>
-          <ul className="body-md space-y-3 list-disc ps-5">
-            <li>
-              <strong>{t("org1Strong")}</strong>
-              {t("org1Body")}
-            </li>
-            <li>
-              <strong>{t("org2Strong")}</strong>
-              {t("org2Body")}
-            </li>
-            <li>
-              <strong>{t("org3Strong")}</strong>
-              {t("org3Body")}
-            </li>
-            <li>
-              <strong>{t("org4Strong")}</strong>
-              {t("org4Body")}
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h2 className="heading-md mb-4">{t("whyHeading")}</h2>
-          <div className="body-lg space-y-4">
-            <p>{t.rich("why1", { blue })}</p>
-            <p>{t.rich("why2", { blue })}</p>
+        <div className="product-split">
+          <div className="product-split-text">
+            <h3 className="heading-md">{t("diff1Strong")}</h3>
+            <p className="body-lg">{t("diff1Body")}</p>
           </div>
-        </section>
+          <FigureShot shot={whatTheySee} />
+        </div>
 
-        <section>
-          <a
-            href="https://hotlinecal.com"
-            className="btn-secondary mt-8"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+        <div className="product-split product-split--flip">
+          <div className="product-split-text">
+            <h3 className="heading-md">{t("diff3Strong")}</h3>
+            <p className="body-lg">{t("diff3Body")}</p>
+          </div>
+          <ThemedShot
+            light={{ src: "/products/hotline/booking-light.webp", ...booking }}
+            dark={{ src: "/products/hotline/booking-dark.webp", ...booking }}
+          />
+        </div>
+
+        <ul className="product-features">
+          <li>
+            <h3 className="heading-sm">{t("diff2Strong")}</h3>
+            <p className="body-md">{t("diff2Body")}</p>
+          </li>
+          <li>
+            <h3 className="heading-sm">{t("diff4Strong")}</h3>
+            <p className="body-md">{t("diff4Body")}</p>
+          </li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="hotline-org">
+        <div className="product-section-intro">
+          <h2 id="hotline-org" className="heading-lg">
+            {t("orgHeading")}
+          </h2>
+          <p className="body-lg">{t.rich("orgIntro", { blue })}</p>
+        </div>
+        <ul className="product-features product-features--4">
+          {ORG.map((item) => (
+            <li key={item}>
+              <h3 className="heading-sm">{t(`${item}Strong`)}</h3>
+              <p className="body-md">{t(`${item}Body`)}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="product-prose" aria-labelledby="hotline-why">
+        <h2 id="hotline-why" className="heading-lg">
+          {t("whyHeading")}
+        </h2>
+        <div className="body-lg space-y-4 mt-4">
+          <p>{t.rich("why1", { blue })}</p>
+          <p>{t.rich("why2", { blue })}</p>
+        </div>
+      </section>
+
+      <section className="product-closing" aria-labelledby="hotline-closing">
+        <h2 id="hotline-closing" className="home-closing-title">
+          {t("closingHeading")}
+        </h2>
+        <p className="body-lg">{t("closingBody")}</p>
+        <div className="home-actions">
+          <a href={SITE} className="btn-secondary" target="_blank" rel="noopener noreferrer">
             {t("cta")}
           </a>
-        </section>
-      </div>
+        </div>
+      </section>
     </div>
   );
 }
