@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
+import type { CSSProperties, ReactNode } from "react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Brand } from "@/components/Brand";
 import { CONTACT_HREF } from "@/components/ContactClosing";
-import { DataTable } from "@/components/research/election-2026/parts";
 import { JsonLd } from "@/components/JsonLd";
 import { Link } from "@/i18n/navigation";
 import { defaultLocale } from "@/i18n/config";
@@ -12,7 +12,7 @@ import { datasetJsonLd } from "@/lib/structured-data";
 
 const PATH = "/research/austin-petitions";
 const DESCRIPTION =
-  "What Austin petition drives miss: why 20,000 signatures is the floor rather than the goal, the validity rates of recent Austin petitions, out-of-city signers, and the last safe filing dates for the 2027 elections.";
+  "What it takes to get a petition on the Austin ballot: how many signatures to collect, how the last five Austin petitions did, out-of-city signers, and the last safe filing dates for the 2027 elections.";
 
 export const metadata: Metadata = {
   title: "Austin Ballot Petitions: What Campaigns Miss",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   alternates: { canonical: PATH },
   openGraph: {
     title: "Austin Ballot Petitions: What Campaigns Miss | B-59",
-    description: "Why 20,000 signatures isn't enough, what recent Austin petitions actually achieved, and when to file for 2027.",
+    description: "Why 20,000 signatures isn't enough, how the last five Austin petitions did, and when to file for 2027.",
     url: PATH,
   },
 };
@@ -41,11 +41,18 @@ const REQUIRED = signaturesRequired(QUALIFIED_VOTERS);
 /** Signature totals to show the validity each would need. */
 const SUBMITTED_STEPS = [20_000, 22_500, 25_000, 27_500, 30_000, 35_000];
 
+/** Every bar on the page is drawn against this many signatures, so the 20,000 line sits in the same place. */
+const SCALE = 35_000;
+
 type Case = {
   year: number;
   name: string;
+  /** As reported, with any qualifier ("more than"). */
   submitted: string;
+  /** As reported, with any qualifier ("estimate", "at least"). */
   valid: string;
+  /** Numbers used only to draw the bars; the labels above are what the page states. */
+  bars: { submitted: number; valid: number };
   /** Share valid, where the reported counts give one. */
   share?: number;
   certified: boolean;
@@ -62,15 +69,17 @@ const CASES: Case[] = [
     name: "CodeNEXT referendum",
     submitted: "31,062",
     valid: "25,790 (estimate)",
+    bars: { submitted: 31_062, valid: 25_790 },
     share: 25_790 / 31_062,
     certified: true,
     source: { name: "Austin Monitor", href: "https://austinmonitor.com/stories/2018/04/clerk-certifies-anti-codenext-petition/" },
   },
   {
     year: 2020,
-    name: "Public camping ban (first attempt)",
+    name: "Public camping ban (first try)",
     submitted: "24,201",
     valid: "19,122 (estimate)",
+    bars: { submitted: 24_201, valid: 19_122 },
     share: 19_122 / 24_201,
     certified: false,
     source: {
@@ -83,6 +92,7 @@ const CASES: Case[] = [
     name: "Police staffing",
     submitted: "27,778",
     valid: "93% reported valid",
+    bars: { submitted: 27_778, valid: Math.round(27_778 * 0.93) },
     share: 0.93,
     certified: true,
     source: {
@@ -92,9 +102,10 @@ const CASES: Case[] = [
   },
   {
     year: 2022,
-    name: "Police oversight (Equity Action)",
+    name: "Police oversight",
     submitted: "32,674",
     valid: "at least 20,451",
+    bars: { submitted: 32_674, valid: 20_451 },
     certified: true,
     source: {
       name: "Community Impact",
@@ -106,6 +117,7 @@ const CASES: Case[] = [
     name: "Convention center",
     submitted: "more than 25,000",
     valid: "19,506 (estimate)",
+    bars: { submitted: 25_000, valid: 19_506 },
     certified: false,
     source: {
       name: "Community Impact",
@@ -137,30 +149,58 @@ const pct = (n: number, digits = 0) =>
 const num = (n: number) => new Intl.NumberFormat("en-US").format(n);
 const day = (iso: string) =>
   new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(`${iso}T00:00:00Z`));
+/** A count as a share of the shared chart scale, for a bar's width. */
+const span = (n: number) => `${((n / SCALE) * 100).toFixed(2)}%`;
 
-/** What petition drives tend to get wrong at this step, and what the studio does about it. */
-function Takeaway({ miss, b59 }: { miss: string; b59: string }) {
+/** Where drives usually go wrong at this step, beside what the studio does instead. */
+function Takeaway({ miss, b59 }: { miss: string; b59: ReactNode }) {
   return (
-    <div className="ea-verdict">
+    <div className="pet-takeaway">
       <p>
-        <strong>What drives miss:</strong> {miss}
+        <span className="pet-takeaway-label">Where drives go wrong</span>
+        {miss}
       </p>
       <p>
-        <strong>
-          What <Brand /> does:
-        </strong>{" "}
+        <span className="pet-takeaway-label">
+          What <Brand /> does
+        </span>
         {b59}
       </p>
     </div>
   );
 }
 
-function Ext({ href, children }: { href: string; children: React.ReactNode }) {
+function Ext({ href, children }: { href: string; children: ReactNode }) {
   return (
     <a href={href} className="ea-link" target="_blank" rel="noopener noreferrer">
       {children}
       <span className="sr-only"> (opens in new window)</span>
     </a>
+  );
+}
+
+/** The 20,000 line, drawn at the same place across every bar in a chart. */
+function Threshold() {
+  return (
+    <span className="pet-threshold" aria-hidden="true" style={{ "--pet-at": span(REQUIRED) } as CSSProperties}>
+      <span className="pet-threshold-label">{num(REQUIRED)} needed</span>
+    </span>
+  );
+}
+
+/** A chart's key. The dashed 20,000 line is always in it: on a phone it is the line's only label. */
+function Legend({ items }: { items: { key: "valid" | "spare" | "submitted"; label: string }[] }) {
+  return (
+    <div className="pet-legend" aria-hidden="true">
+      {items.map((item) => (
+        <span key={item.key}>
+          <i className={`pet-key pet-key--${item.key}`} /> {item.label}
+        </span>
+      ))}
+      <span>
+        <i className="pet-key pet-key--line" /> {num(REQUIRED)} needed
+      </span>
+    </div>
   );
 }
 
@@ -178,217 +218,216 @@ export default async function AustinPetitions() {
           {t("englishOnly")}
         </p>
       )}
-      <article className="ea" lang="en" dir="ltr">
-        <header className="ea-head">
+      <article className="ea pet" lang="en" dir="ltr">
+        <header className="ea-head pet-head">
           <p className="ea-dateline">Research · Austin ballot petitions · November 2026</p>
-          <h1 className="ea-h1">Getting a petition on the Austin ballot: what campaigns miss</h1>
+          <h1 className="ea-h1 pet-h1">What it takes to get a petition on the Austin ballot</h1>
           <p className="ea-byline">
             By <Brand /> · Rules from the City Clerk and Texas law; petition figures as reported, each linked
           </p>
           <p className="ea-lede">
-            Everyone knows the number is 20,000. Fewer people know that 20,000 is where a petition fails, not where it
-            succeeds, that an Austin address doesn&apos;t make someone an Austin voter, or that the real deadline for
-            an election arrives months before the election does. Each of those has sunk an Austin petition. Here is
-            what the numbers show, and how to plan around them.
+            You need {num(REQUIRED)} valid signatures. Turn in {num(REQUIRED)} and you&apos;ll fall short, because the
+            City Clerk throws out every line from someone who isn&apos;t a registered Austin voter. Two of the last five
+            Austin petitions failed that way.
           </p>
-          <div className="ea-stats">
-            <div className="ea-stat">
-              <span className="ea-stat-v">{num(REQUIRED)}</span>
-              <span className="ea-stat-k">valid signatures required</span>
+          <dl className="pet-stats">
+            <div className="pet-stat pet-stat--lead">
+              <dt>valid signatures needed</dt>
+              <dd>{num(REQUIRED)}</dd>
             </div>
-            <div className="ea-stat">
-              <span className="ea-stat-v">{pct(share, 1)}</span>
-              <span className="ea-stat-k">of Austin&apos;s {num(QUALIFIED_VOTERS)} qualified voters</span>
+            <div className="pet-stat">
+              <dt>of Austin&apos;s {num(QUALIFIED_VOTERS)} voters</dt>
+              <dd>{pct(share, 1)}</dd>
             </div>
-            <div className="ea-stat">
-              <span className="ea-stat-v">
+            <div className="pet-stat">
+              <dt>of signatures valid in recent drives</dt>
+              <dd>
                 {pct(Math.min(...shares))}–{pct(Math.max(...shares))}
-              </span>
-              <span className="ea-stat-k">of signatures valid in recent petitions</span>
+              </dd>
             </div>
-          </div>
+          </dl>
         </header>
 
-        <section className="ea-panel overflow-x-clip" aria-labelledby="pet-floor">
+        <section className="ea-panel pet-panel" aria-labelledby="pet-floor">
           <h2 id="pet-floor" className="ea-section-title">
-            20,000 is the floor, not the goal
+            Collect well past 20,000
           </h2>
-          <div className="ea-prose">
-            <p>
-              The law asks for 5% of qualified voters or 20,000, whichever is fewer. In Austin the cap wins, so the bar
-              is {pct(share, 1)} of voters, not 5%. But the count that matters is valid signatures, and the City Clerk
-              estimates it from a random sample of at least a quarter of the lines. Every unregistered signer,
-              duplicate, incomplete line or out-of-city address comes off the top.
-            </p>
-            <p>So the question for a petition drive is how many valid signatures it can afford to lose:</p>
-          </div>
-          <DataTable
-            head={
-              <>
-                <tr>
-                  <th scope="col">Signatures submitted</th>
-                  <th scope="col">Share that must be valid</th>
-                  <th scope="col">Invalid lines it can absorb</th>
-                </tr>
-              </>
-            }
-          >
-                {SUBMITTED_STEPS.map((n) => (
-                  <tr key={n}>
-                    <td>{num(n)}</td>
-                    <td>{pct(validityNeeded(n, REQUIRED), 1)}</td>
-                    <td>{num(n - REQUIRED)}</td>
-                  </tr>
-                ))}
-          </DataTable>
+          <p className="ea-prose">
+            The Clerk checks a random sample of at least a quarter of the lines and estimates the valid total from it.
+            Unregistered signers, people who signed twice, incomplete lines and addresses outside the city limits all
+            come off.
+          </p>
+          <ol className="pet-chart" aria-label="How many bad lines each total can absorb">
+            {SUBMITTED_STEPS.map((n) => (
+              <li key={n} className="pet-row">
+                <span className="pet-row-label">{num(n)} signed</span>
+                <span className="pet-bar" aria-hidden="true">
+                  <span className="pet-bar-track" style={{ width: span(n) }}>
+                    <span className="pet-bar-fill" style={{ width: `${(REQUIRED / n) * 100}%` }} />
+                  </span>
+                  <Threshold />
+                </span>
+                <span className="pet-row-value">
+                  <strong>{pct(validityNeeded(n, REQUIRED))}</strong> must be valid
+                  {n > REQUIRED && <> · {num(n - REQUIRED)} can be bad</>}
+                </span>
+              </li>
+            ))}
+          </ol>
+          <Legend
+            items={[
+              { key: "valid", label: "must hold up" },
+              { key: "spare", label: "room for bad lines" },
+            ]}
+          />
           <p className="ea-note">
-            At four in five valid, about what the drives below that fell short managed, 25,000 signatures only breaks
-            even. Margin is the whole game.
+            The drives that fell short got about four lines in five right. At that rate, 25,000 signatures only just gets
+            you there.
           </p>
           <Takeaway
-            miss="Treating 20,000 as the finish line, and learning the validity rate from the Clerk's verdict."
-            b59="We set the signature goal from your validity rate, not the statute, and measure that rate from the first week."
+            miss="Aiming for 20,000, and finding out the error rate when the Clerk reports it."
+            b59="We set the goal from your own error rate, measured from the first week of collecting."
           />
         </section>
 
-        <section className="ea-panel overflow-x-clip" aria-labelledby="pet-cases">
+        <section className="ea-panel pet-panel" aria-labelledby="pet-cases">
           <h2 id="pet-cases" className="ea-section-title">
-            What recent Austin petitions actually did
+            The last five Austin petitions
           </h2>
-          <DataTable
-            head={
-              <>
-                <tr>
-                  <th scope="col">Petition</th>
-                  <th scope="col">Submitted</th>
-                  <th scope="col">Valid</th>
-                  <th scope="col">Share valid</th>
-                  <th scope="col">Result</th>
-                  <th scope="col">Reported by</th>
-                </tr>
-              </>
-            }
-          >
-                {CASES.map((c) => (
-                  <tr key={`${c.year}-${c.name}`}>
-                    <td>
-                      {c.year} · {c.name}
-                    </td>
-                    <td>{c.submitted}</td>
-                    <td>{c.valid}</td>
-                    <td>{c.share ? pct(c.share) : "–"}</td>
-                    <td>{c.certified ? "Certified" : "Fell short"}</td>
-                    <td>
-                      <Ext href={c.source.href}>{c.source.name}</Ext>
-                    </td>
-                  </tr>
-                ))}
-          </DataTable>
+          <ol className="pet-chart pet-chart--cases" aria-label="Signatures submitted and found valid">
+            {CASES.map((c) => (
+              <li key={`${c.year}-${c.name}`} className="pet-row">
+                <span className="pet-row-label">
+                  <span className="pet-case-year">{c.year}</span> {c.name}
+                </span>
+                <span className="pet-bar" aria-hidden="true">
+                  <span className="pet-bar-track pet-bar-track--submitted" style={{ width: span(c.bars.submitted) }} />
+                  <span className="pet-bar-valid" style={{ width: span(c.bars.valid) }} />
+                  <Threshold />
+                </span>
+                <span className="pet-row-value">
+                  <span className={c.certified ? "pet-result pet-result--made" : "pet-result pet-result--short"}>
+                    {c.certified ? "Made the ballot" : "Fell short"}
+                  </span>{" "}
+                  {c.submitted} signed, {c.valid}
+                  {c.share ? ` (${pct(c.share)})` : ""} ·{" "}
+                  <Ext href={c.source.href}>{c.source.name}</Ext>
+                </span>
+              </li>
+            ))}
+          </ol>
+          <Legend
+            items={[
+              { key: "valid", label: "valid" },
+              { key: "submitted", label: "thrown out" },
+            ]}
+          />
           <div className="ea-prose">
             <p>
-              The two failures weren&apos;t unusually sloppy. The 2020 camping petition had about 79% of its signatures
-              valid, close to the 83% of the CodeNEXT petition that qualified two years earlier. It simply started with
-              24,201, which needed 83%. The 2025 convention center drive turned in more than 25,000 and was estimated
-              at 19,506 valid, under 500 short.
+              The two that failed weren&apos;t sloppy. The 2020 camping petition had about 79% valid, close to
+              CodeNEXT&apos;s 83% two years earlier. It just started from 24,201, which needed 83%. The 2025 convention
+              center drive came in under 500 short.
             </p>
             <p>
-              <strong>An Austin address isn&apos;t an Austin voter.</strong> In the convention center case, several
-              hundred signers lived in the city&apos;s extraterritorial jurisdiction, just outside the city limits. Their
-              signatures didn&apos;t count, and the petition&apos;s backers argued in
-              court that those lines alone would have put it over 20,000.
+              Several hundred of the convention center signers lived just outside the city limits, in Austin&apos;s
+              extraterritorial jurisdiction. They had Austin addresses, but their signatures didn&apos;t count. The drive&apos;s backers
+              argued in court that those lines alone would have put it over 20,000.
             </p>
           </div>
           <p className="ea-note">
-            Figures are as reported by the linked outlets, which quote the City Clerk except for 2021&apos;s 93%, which
-            the petition&apos;s organizers announced. &quot;At least&quot; is the low end of the Clerk&apos;s estimate, not
-            a total, so no share is given for it.
+            Figures as reported by the linked outlets, which quote the City Clerk, except 2021&apos;s 93%, which the
+            organizers announced. For 2022 the Clerk gave only a floor (&quot;at least&quot;), so no share is shown; the
+            2025 bar is drawn at 25,000, the low end of what was reported.
           </p>
           <Takeaway
-            miss="Signers who aren't registered, sign twice, or live outside the city limits. None of it shows on a clipboard; all of it shows at the Clerk."
-            b59="Circulators trained to confirm they have a registered Austin voter, and every batch checked against the voter roll as it comes in, so the count you track is the count the Clerk will find."
+            miss="Nobody checks registration at the clipboard, so the problems first show up at the Clerk's office."
+            b59="Circulators confirm each signer is a registered Austin voter, and we check every batch against the voter roll as it comes in."
           />
         </section>
 
-        <section className="ea-panel overflow-x-clip" aria-labelledby="pet-calendar">
+        <section className="ea-panel pet-panel" aria-labelledby="pet-calendar">
           <h2 id="pet-calendar" className="ea-section-title">
-            Work back from the election
+            Count back from the election
           </h2>
-          <div className="ea-prose">
-            <p>
-              A measure can only go on a uniform election date, and the Council has to order the election at least 78
-              days before it. Before that, the Council gets up to 10 days after certification, and the Clerk says
-              verifying a petition of 20,000 or more takes at least 30 days. Every signature on the petition has to be
-              less than 180 days old on the day it&apos;s filed.
-            </p>
+          <p className="ea-prose">
+            Measures go on uniform election dates. The Council has to order the election 78 days out and gets up to 10
+            days after the Clerk certifies; the Clerk needs at least 30 days to verify. No signature can be more than 180
+            days old on the day you file.
+          </p>
+          <div className="pet-timelines">
+            {deadlines.map((d) => (
+              <section key={d.date} className="pet-timeline-block" aria-label={`${d.label} election`}>
+                <h3 className="pet-timeline-title">{d.label}</h3>
+                <ol className="pet-timeline">
+                  <li>
+                    <span className="pet-step-date">{day(d.oldestSignature)}</span>
+                    <span className="pet-step-what">Oldest signature that still counts</span>
+                  </li>
+                  <li className="pet-step--key">
+                    <span className="pet-step-date">{day(d.fileBy)}</span>
+                    <span className="pet-step-what">Last safe day to file</span>
+                  </li>
+                  <li>
+                    <span className="pet-step-date">{day(d.certifyBy)}</span>
+                    <span className="pet-step-what">Clerk certifies</span>
+                  </li>
+                  <li>
+                    <span className="pet-step-date">{day(d.orderBy)}</span>
+                    <span className="pet-step-what">Council orders the election</span>
+                  </li>
+                  <li>
+                    <span className="pet-step-date">{day(d.election)}</span>
+                    <span className="pet-step-what">Election day</span>
+                  </li>
+                </ol>
+              </section>
+            ))}
           </div>
-          <DataTable
-            head={
-              <>
-                <tr>
-                  <th scope="col">Election</th>
-                  <th scope="col">Election day</th>
-                  <th scope="col">Council orders it by</th>
-                  <th scope="col">Clerk certifies by</th>
-                  <th scope="col">File by</th>
-                  <th scope="col">Oldest signature that counts</th>
-                </tr>
-              </>
-            }
-          >
-                {deadlines.map((d) => (
-                  <tr key={d.date}>
-                    <td>{d.label}</td>
-                    <td>{day(d.election)}</td>
-                    <td>{day(d.orderBy)}</td>
-                    <td>{day(d.certifyBy)}</td>
-                    <td>{day(d.fileBy)}</td>
-                    <td>{day(d.oldestSignature)}</td>
-                  </tr>
-                ))}
-          </DataTable>
           <p className="ea-note">
-            &quot;File by&quot; assumes the Clerk&apos;s stated minimum of 30 days and a Council that uses its full 10.
-            Verification can take longer, so file earlier than this if you can.
+            Assumes the Clerk takes the stated minimum of 30 days and the Council uses its full 10. Verification can run
+            longer, so file earlier if you can.
           </p>
           <Takeaway
-            miss="Planning from election day instead of the order deadline, and running out of road in the Clerk's office."
-            b59="A calendar built back from the deadline the Council has to meet, with room for a slow verification, and a collection schedule that keeps every signature inside its 180 days."
+            miss="Planning from election day, then running out of time while the Clerk verifies."
+            b59="A calendar built back from the Council's deadline, with slack for a slow count, and collection timed so no signature expires."
           />
         </section>
 
-        <section className="ea-panel" aria-labelledby="pet-rules">
+        <section className="ea-panel pet-panel" aria-labelledby="pet-rules">
           <h2 id="pet-rules" className="ea-section-title">
-            Two rules that catch people out
+            Two more rules
           </h2>
-          <div className="ea-prose">
-            <p>
-              <strong>A city charter can only be amended every two years.</strong> The Texas Constitution says no city
-              charter may be amended more often than every two years. A charter amendment petition that misses the
-              window waits for the next one, however many signatures it has.
-            </p>
-            <p>
-              <strong>Texans can&apos;t petition statewide.</strong> Texas has no citizen initiative for state law or
-              the state constitution; amendments start in the Legislature. City petitions like Austin&apos;s are where
-              voters can write the question themselves.
-            </p>
+          <div className="pet-rules">
+            <div className="pet-rule">
+              <p className="pet-rule-big">Every 2 years</p>
+              <p>
+                The most often a Texas city charter can be amended. A charter petition that misses the window waits for
+                the next one, however many signatures it has.
+              </p>
+            </div>
+            <div className="pet-rule">
+              <p className="pet-rule-big">No statewide petitions</p>
+              <p>
+                Texas has no citizen initiative for state law; amendments start in the Legislature. City petitions are
+                where voters get to write the question.
+              </p>
+            </div>
           </div>
           <Takeaway
-            miss="Collecting signatures for an election the measure can't legally reach."
-            b59="Before the first signature, we confirm which elections your measure can make and what it has to clear to get there."
+            miss="Collecting signatures for an election the measure can't legally be on."
+            b59="Before the first signature, we check which elections your measure can make."
           />
         </section>
 
-        <section className="ea-panel" aria-labelledby="pet-cta">
+        <section className="ea-panel pet-panel pet-cta" aria-labelledby="pet-cta">
           <h2 id="pet-cta" className="ea-section-title">
             Running a petition in Austin?
           </h2>
-          <div className="ea-prose">
-            <p>
-              <Brand /> is a progressive political consulting studio in Austin. We set the signature goal, train the
-              people with the clipboards, check signatures against the voter roll as they come in, and carry the measure
-              through election day. Talk to us before the first signature, when the plan is still cheap to change.
-            </p>
-          </div>
+          <p className="ea-prose">
+            <Brand /> is a progressive political consulting studio in Austin. We set the signature goal, train
+            circulators, check signatures against the voter roll as they come in, and run the campaign through election
+            day. Talk to us before the first signature, while the plan is still cheap to change.
+          </p>
           <div className="ea-bar">
             <a href={CONTACT_HREF} className="btn-secondary">
               Email the studio
@@ -414,7 +453,6 @@ export default async function AustinPetitions() {
             Rules checked November 2026. This is research on how the process works, not legal advice.
           </p>
         </section>
-
       </article>
     </div>
   );

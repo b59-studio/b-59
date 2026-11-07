@@ -28,12 +28,6 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
-### Changed
-
-- **Ballot Petitions now leads the Research menu**, above the 2026 Texas
-  elections group, so the newest research is the first thing the menu shows.
-  The Research page follows the same order.
-
 ## 2026-11-07
 
 ### Added
@@ -93,6 +87,17 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
   assistants a short guide to the main pages.
 
 ### Changed
+
+- **The Austin petitions research reads faster.** Its tables become charts
+  drawn against the 20,000 line: how many bad lines each signature total can
+  absorb, and how the last five Austin petitions did, with the two that fell
+  short visibly stopping before it. The filing calendar for 2027 is a
+  timeline with the last safe filing day picked out. The text is about half
+  as long; every figure and source is unchanged.
+
+- **Ballot Petitions now leads the Research menu**, above the 2026 Texas
+  elections group, so the newest research is the first thing the menu shows.
+  The Research page follows the same order.
 
 - **Our Work and Research are redesigned around their own marks.** Each page
   runs to the site's full width under a large title with a ring cut off by the

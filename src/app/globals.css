@@ -1605,6 +1605,282 @@ ul.ea-legend { margin: 0; padding: 0; list-style: none; }
 .ea-verdict-big { font-size: 1.125rem; font-weight: 700; line-height: 1.4; }
 .ea-lock { display: grid; gap: 0.75rem; max-width: 24rem; }
 
+/* ============================================
+   AUSTIN PETITIONS (research/austin-petitions)
+   Built on the .ea research tokens. The page's arithmetic is shown rather than
+   tabled: every bar is drawn against the same scale, so the 20,000 line falls
+   in one place down each chart and a reader sees at a glance which drives
+   reached it. Each row's figures are written out beside its bar, so the bars
+   themselves are hidden from assistive tech.
+   ============================================ */
+
+.pet-head { gap: 1rem; }
+
+.pet-h1 { font-size: 2rem; line-height: 1.1; letter-spacing: -0.02em; }
+
+@media (min-width: 640px) {
+  .pet-h1 { font-size: 3.5rem; line-height: 1.05; letter-spacing: -0.03em; max-width: 18ch; }
+}
+
+.pet-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1.5rem 3rem;
+  margin: 1rem 0 0;
+}
+
+.pet-stat { display: flex; flex-direction: column-reverse; gap: 0.25rem; }
+.pet-stat dt { font-size: 0.875rem; color: var(--ea-muted); }
+.pet-stat dd { margin: 0; font-size: 2rem; font-weight: 700; line-height: 1; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.pet-stat--lead dd { font-size: 3.5rem; color: var(--ea-accent); letter-spacing: -0.04em; }
+
+@media (min-width: 640px) {
+  .pet-stat--lead dd { font-size: 5rem; }
+}
+
+.pet-panel { gap: 1.25rem; padding: 1.5rem; }
+
+@media (min-width: 768px) {
+  .pet-panel { padding: 2rem 2.5rem; }
+}
+
+/* ---- Bar charts ---- */
+
+.pet-chart {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+/* Phone: label, bar, figures stacked. Wide: label | bar | figures. */
+.pet-row {
+  display: grid;
+  gap: 0.375rem;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .pet-row { grid-template-columns: 9rem minmax(0, 1fr) 15rem; column-gap: 1.25rem; }
+  .pet-chart--cases .pet-row { grid-template-columns: 12rem minmax(0, 1fr) 17rem; }
+}
+
+.pet-row-label { font-weight: 600; font-variant-numeric: tabular-nums; }
+.pet-case-year { color: var(--ea-muted); font-variant-numeric: tabular-nums; margin-inline-end: 0.25rem; }
+.pet-row-value { font-size: 0.875rem; color: var(--ea-muted); line-height: 1.5; }
+.pet-row-value strong { color: var(--ea-fg); font-variant-numeric: tabular-nums; }
+
+.pet-bar {
+  position: relative;
+  display: block;
+  height: 1.75rem;
+}
+
+/* Section 1: the whole bar is what was signed; the solid part is the 20,000
+   that must hold up, the pale rest is the room for bad lines. */
+.pet-bar-track {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  display: block;
+  border-radius: 0.375rem;
+  background: color-mix(in srgb, var(--ea-accent) 22%, transparent);
+  overflow: hidden;
+  transform-origin: left;
+}
+
+.pet-bar-fill {
+  display: block;
+  height: 100%;
+  background: var(--ea-accent);
+}
+
+/* Section 2: signed in grey behind, valid in front. */
+.pet-bar-track--submitted { background: var(--ea-line-strong); }
+
+.pet-bar-valid {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  display: block;
+  border-radius: 0.375rem;
+  background: var(--ea-accent);
+  transform-origin: left;
+}
+
+.pet-threshold {
+  position: absolute;
+  top: -0.375rem;
+  bottom: -0.375rem;
+  left: var(--pet-at);
+  width: 0;
+  border-left: 2px dashed var(--ea-fg);
+}
+
+/* The line is labelled once, above the first row. */
+.pet-threshold-label {
+  position: absolute;
+  bottom: 100%;
+  left: 0.375rem;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ea-fg);
+}
+
+.pet-row:not(:first-child) .pet-threshold-label { display: none; }
+
+/* On a phone the row's name sits right above its bar, so the line goes
+   unlabelled in the chart and the legend names it instead. */
+@media (max-width: 767px) {
+  .pet-threshold-label { display: none; }
+}
+.pet-chart { padding-top: 1.25rem; }
+
+.pet-result {
+  display: inline-block;
+  margin-inline-end: 0.25rem;
+  font-weight: 700;
+}
+
+.pet-result--made { color: var(--ea-ok); }
+.pet-result--short { color: var(--ea-fg); }
+
+.pet-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  font-size: 0.875rem;
+  color: var(--ea-muted);
+}
+
+.pet-legend span { display: inline-flex; align-items: center; gap: 0.375rem; }
+.pet-key { display: inline-block; width: 0.875rem; height: 0.875rem; border-radius: 0.2rem; }
+.pet-key--valid { background: var(--ea-accent); }
+.pet-key--submitted { background: var(--ea-line-strong); }
+.pet-key--spare { background: color-mix(in srgb, var(--ea-accent) 22%, transparent); }
+.pet-key--line { width: 0; height: 1rem; border-radius: 0; border-left: 2px dashed var(--ea-fg); }
+
+/* ---- Timeline ---- */
+
+.pet-timelines { display: grid; gap: 2rem; }
+
+@media (min-width: 900px) {
+  .pet-timelines { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.pet-timeline-title { margin: 0 0 0.75rem; font-size: 1.125rem; font-weight: 700; }
+
+.pet-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+}
+
+/* Each step is a dot on a running line; the filing date is the one to hold on to. */
+.pet-timeline li {
+  position: relative;
+  display: grid;
+  gap: 0.125rem;
+  padding: 0 0 1rem 1.75rem;
+}
+
+.pet-timeline li::before {
+  content: "";
+  position: absolute;
+  left: 0.3125rem;
+  top: 0.5rem;
+  bottom: -0.5rem;
+  width: 2px;
+  background: var(--ea-line-strong);
+}
+
+.pet-timeline li:last-child::before { display: none; }
+
+.pet-timeline li::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.3125rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: var(--ea-panel);
+  border: 2px solid var(--ea-line-strong);
+}
+
+.pet-step-date { font-weight: 700; font-variant-numeric: tabular-nums; }
+.pet-step-what { font-size: 0.875rem; color: var(--ea-muted); }
+
+.pet-step--key .pet-step-date { font-size: 1.5rem; line-height: 1.2; color: var(--ea-accent-text); }
+.pet-step--key .pet-step-what { color: var(--ea-fg); font-weight: 600; }
+
+.pet-step--key::after {
+  top: 0.5rem;
+  background: var(--ea-accent);
+  border-color: var(--ea-accent);
+}
+
+/* ---- Rules and takeaways ---- */
+
+.pet-rules { display: grid; gap: 1.5rem; }
+
+@media (min-width: 768px) {
+  .pet-rules { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5rem; }
+}
+
+.pet-rule p { margin: 0; line-height: 1.6; }
+.pet-rule-big { font-size: 1.5rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; margin-bottom: 0.5rem !important; }
+
+.pet-takeaway {
+  display: grid;
+  gap: 1rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--ea-line);
+}
+
+@media (min-width: 768px) {
+  .pet-takeaway { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5rem; }
+}
+
+.pet-takeaway p { margin: 0; line-height: 1.6; }
+
+.pet-takeaway-label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 700;
+}
+
+.pet-takeaway p:last-child .pet-takeaway-label { color: var(--ea-accent-text); }
+
+.pet-cta .ea-section-title { font-size: 2rem; letter-spacing: -0.02em; }
+
+/* Bars grow out from the left as their chart scrolls in. */
+@keyframes pet-grow {
+  from { transform: scaleX(0); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .pet-bar-track,
+    .pet-bar-valid {
+      animation: pet-grow linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 35%;
+    }
+  }
+}
+
+@media print {
+  .pet-bar-track,
+  .pet-bar-valid {
+    animation: none;
+  }
+}
+
 /* Poll trend chart: a poll's dot is neutral in the legend, party-coloured in the plot. */
 .ea-sw-dot { width: 9px; height: 9px; border-radius: 50%; background: color-mix(in srgb, var(--ea-fg) 35%, transparent); }
 .ea-table td .ea-why { display: inline-block; max-width: 11rem; white-space: normal; font-size: 0.8rem; text-align: right; }
