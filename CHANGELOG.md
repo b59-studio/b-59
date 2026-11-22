@@ -28,6 +28,21 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ## [Unreleased]
 
+### Changed
+
+- **Hotline is presented as a coordination tool.** Its page, menu entry, Our
+  Work and home-page cards now describe it as the place a team organizes its
+  people — booking meetings without exposing a calendar, splitting an
+  organization into teams, and getting a crew onto shifts for a canvass, a
+  phone bank or a distribution day — rather than as scheduling and workforce
+  management. Its tag reads "Organizing" instead of "Administrative". Every
+  language changed together.
+- **Hotline's new wordmark.** Hotline's name appears as its lowercase
+  `hotline` wordmark, with the signal dot as the i's tittle, in the menus, on
+  the Our Work and home-page cards, and at the head of its page, where the dot
+  beats; the standalone dot above the page's title is gone. Both themes use
+  Hotline's own ink and red.
+
 ### Fixed
 
 - **Links to the site now show a share card.** Shared on Slack, iMessage, X,

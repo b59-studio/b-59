@@ -1,23 +1,19 @@
 import type { Metadata } from "next";
 import { BASE_OPEN_GRAPH } from "@/lib/share-card";
-import { Geist } from "next/font/google";
 import { getTranslations } from "next-intl/server";
-import { ProjectMark } from "@/components/ProjectMark";
+import { HotlineWordmark } from "@/components/HotlineWordmark";
 import { BrowserShot, DeviceStage, ThemedShot, type Shot } from "@/components/ProductShot";
-
-// Hotline's wordmark is set in Geist — load it so the name renders in-brand.
-const geist = Geist({ subsets: ["latin"], weight: "700" });
 
 export const metadata: Metadata = {
   title: "Hotline",
   description:
-    "Scheduling and workforce management by B-59 for civic and public-interest teams: hand-pick a few times and share one link instead of exposing your whole calendar, then run shifts, coverage and hours in the same place. Visit hotlinecal.com.",
+    "Coordination by B-59 for organizers, campaigns and public-interest teams: book meetings by offering a few times instead of your whole calendar, organize your people into teams, and get a crew onto every shift. Visit hotlinecal.com.",
   alternates: { canonical: "/solutions/hotline" },
   openGraph: {
     ...BASE_OPEN_GRAPH,
     title: "Hotline | B-59",
     description:
-      "Built by B-59. Share a few times, not your whole calendar — then run the rota, coverage and hours in the same product. Works with Google, Outlook, Apple iCloud or any ICS feed. Visit hotlinecal.com.",
+      "Built by B-59. Organize your people, cover the shifts, and book meetings without exposing your calendar. Works with Google, Outlook, Apple iCloud or any ICS feed. Visit hotlinecal.com.",
     url: "/solutions/hotline",
   },
 };
@@ -50,11 +46,12 @@ export default async function Hotline() {
     <div className="home product">
       <section className="product-hero" aria-labelledby="hotline-title">
         <div>
-          {/* The mark beats here and only here — this is Hotline's page, and its
-              own design system reserves the heartbeat for the hero. */}
-          <ProjectMark project="hotline" size={56} beat className="project-mark-hero" />
-          <h1 id="hotline-title" className={`home-title ${geist.className}`}>
-            Hotline
+          {/* The wordmark is live here and only here: this is Hotline's page, and
+              its own rules give a marketing hero the live level and allow one
+              loop per view. The dot is the i's tittle, so no separate mark sits
+              above it. */}
+          <h1 id="hotline-title" className="home-title product-wordmark-title">
+            <HotlineWordmark live />
           </h1>
           <p className="product-tagline">{t("tagline")}</p>
           <p className="home-lede">{t.rich("intro1", { blue })}</p>

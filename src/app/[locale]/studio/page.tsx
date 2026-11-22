@@ -3,6 +3,7 @@ import { BASE_OPEN_GRAPH } from "@/lib/share-card";
 import type { ReactNode } from "react";
 import { getTranslations } from "next-intl/server";
 import { Brand } from "@/components/Brand";
+import { HotlineWordmark } from "@/components/HotlineWordmark";
 import { NavGlyph } from "@/components/NavGlyph";
 import { ProjectMark } from "@/components/ProjectMark";
 import { IndexPage, IndexSection, type IndexEntry } from "@/components/IndexList";
@@ -41,8 +42,8 @@ export default async function Studio() {
     {
       href: "/solutions/hotline",
       mark: (size) => <ProjectMark project="hotline" size={size} />,
-      title: "Hotline",
-      meta: t("tagAdministrative"),
+      title: <HotlineWordmark />,
+      meta: t("tagOrganizing"),
       blurb: t("hotlineBlurb"),
     },
   ];

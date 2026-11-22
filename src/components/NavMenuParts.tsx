@@ -1,3 +1,4 @@
+import { HotlineWordmark } from "./HotlineWordmark";
 import { ProjectMark } from "./ProjectMark";
 import { NavGlyph } from "./NavGlyph";
 import type { NavItem } from "./nav-menus";
@@ -21,5 +22,5 @@ export function NavItemName({ item, t }: { item: NavItem; t: Translate }) {
       </>
     );
   }
-  return <>{item.label.brand}</>;
+  return <HotlineWordmark />;
 }
