@@ -461,8 +461,8 @@
     "closingBody": "Sin tarjeta para empezar, y las personas con quienes agendas no necesitan cuenta.",
     "altHome": "El Plate de Hotline: dos reuniones próximas y las que ya terminaron, a la espera de los siguientes pasos.",
     "altHomePhone": "El mismo Plate en un teléfono, con la barra de pestañas de la app abajo.",
-    "altRotaShifts": "Una semana de turnos en Hotline: seis personas en la columna lateral, los turnos de cada día en rojo y el jueves vacío.",
-    "altRotaCoverage": "La vista de cobertura de Hotline: nadie cubre el jueves, el miércoles tiene un hueco de doce a una, y las horas y el costo de la semana por persona.",
+    "altRotaShifts": "El cuadrante de una semana en Hotline: cada persona con su función y sus turnos por día, aún en borrador, y el jueves vacío para todos.",
+    "altRotaCoverage": "La misma semana como calendario: cada turno en su franja horaria, un hueco rayado al mediodía del miércoles y el jueves marcado sin nadie.",
     "altBooking": "Una página de reserva de Hotline para una reunión con un elector, que ofrece tres horarios en la zona horaria del invitado.",
     "altCalendar": "El calendario mensual de Hotline, con las reuniones reservadas en sus días."
   },

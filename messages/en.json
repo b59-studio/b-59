@@ -461,8 +461,8 @@
     "closingBody": "No card to start, and the people you book don't need an account.",
     "altHome": "Hotline's Plate: two upcoming meetings, and the ones that have ended waiting for next steps.",
     "altHomePhone": "The same Plate on a phone, with the app's tab bar along the bottom.",
-    "altRotaShifts": "A week of shifts in Hotline: six people down the side, each day's shifts in red, and Thursday left empty.",
-    "altRotaCoverage": "Hotline's coverage view: nobody is on Thursday, Wednesday has a gap from noon to one, and the week's hours and cost by person.",
+    "altRotaShifts": "Hotline's roster for one week: each person with their role and their shifts by day, still in draft, and Thursday empty for everyone.",
+    "altRotaCoverage": "The same week as a calendar: each shift in its time slot, a hatched gap at noon on Wednesday, and Thursday marked nobody.",
     "altBooking": "A Hotline booking page for a constituent meeting, offering three times in the guest's own timezone.",
     "altCalendar": "Hotline's month calendar, with booked meetings on the days they fall."
   },
