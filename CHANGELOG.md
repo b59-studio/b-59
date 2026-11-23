@@ -30,6 +30,11 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ### Changed
 
+- **The Hotline page's shift screens show the redesigned app.** "Schedule the
+  shifts" and "See who's coming" are new captures from the app as it now
+  ships, with its new wordmark: a week's roster, and the same week as a
+  calendar with Wednesday's gap hatched and Thursday marked nobody. The other
+  screens on the page are unchanged for now.
 - **Hotline is presented as a coordination tool, in far fewer words.** Its
   page is now the tagline "Make the call.", one sentence on what it does, a
   button, and four screens — shifts, who's coming, booking

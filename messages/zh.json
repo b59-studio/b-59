@@ -461,8 +461,8 @@
     "closingBody": "开始时无需绑卡，被预约的人也不需要账号。",
     "altHome": "Hotline 的 Plate：两场即将到来的会议，以及已结束、等待后续步骤的会议。",
     "altHomePhone": "手机上的同一个 Plate，底部是应用的标签栏。",
-    "altRotaShifts": "Hotline 中一周的排班：左侧列出六个人，每天的班次以红色显示，周四空着。",
-    "altRotaCoverage": "Hotline 的覆盖视图：周四无人值班，周三中午十二点到一点有空档，下方是每人本周的工时和成本。",
+    "altRotaShifts": "Hotline 中一周的排班表：每个人及其角色和每天的班次，仍为草稿，周四所有人都空着。",
+    "altRotaCoverage": "同一周的日历视图：每个班次排在对应时段，周三中午有一段斜线标出的空档，周四标为无人。",
     "altBooking": "一个选民会面的 Hotline 预约页面，按访客自己的时区提供三个时间。",
     "altCalendar": "Hotline 的月历，已预约的会议显示在对应的日期上。"
   },

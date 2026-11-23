@@ -78,7 +78,7 @@ export default async function Hotline() {
             </h2>
             <p className="body-lg">{t("coverageBody")}</p>
           </div>
-          <BrowserShot shot={rotaCoverage} address="hotlinecal.com/schedule/coverage" />
+          <BrowserShot shot={rotaCoverage} address="hotlinecal.com/schedule/calendar" />
         </section>
 
         <section className="product-split" aria-labelledby="hotline-booking">
