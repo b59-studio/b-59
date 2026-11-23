@@ -28,21 +28,11 @@ export interface ProjectMarkProps {
   project: ProjectKey;
   /** Rendered box in px, square. Default 24 — the menu/card size. */
   size?: number;
-  /**
-   * Hotline only: play the mark's heartbeat — two beats, then rest, with a
-   * ripple riding out on the first. This is Hotline's own hero treatment for
-   * its logo, and it is opt-in for the reason Hotline makes it opt-in: a mark
-   * that breathes says "the line is open", and a page carrying several of them
-   * at once says only that something is loading. Use it on the Hotline page's
-   * hero mark and nowhere else. It is a no-op under reduced motion, where the
-   * mark keeps its static glow and stays exactly as legible.
-   */
-  beat?: boolean;
   className?: string;
   style?: CSSProperties;
 }
 
-function HotlineMark({ size, beat, className, style }: Omit<ProjectMarkProps, "project">) {
+function HotlineMark({ size, className, style }: Omit<ProjectMarkProps, "project">) {
   return (
     <svg
       width={size}
@@ -50,28 +40,21 @@ function HotlineMark({ size, beat, className, style }: Omit<ProjectMarkProps, "p
       viewBox="0 0 72 72"
       aria-hidden={true}
       focusable="false"
-      className={[className, beat ? "hotline-mark--beat" : undefined]
-        .filter(Boolean)
-        .join(" ")}
+      className={["hotline-mark", className].filter(Boolean).join(" ")}
       style={{ flexShrink: 0, ...style }}
     >
       {/* Hotline's signal dot: a solid Signal Red core inside a soft glow ring.
           The red is Hotline's brand, not a second B-59 accent — a product logo
           carries its product's color, the way the ready2vote star carries the
-          house blue because that is ready2vote's own mark. */}
-      <circle cx="36" cy="36" r="32" fill="#E5392B" fillOpacity="0.15" />
-      {/* The ripple that rides out on the first beat. It rests at zero opacity,
-          so with no beat — and under reduced motion, where the animation is
-          removed — it is simply not there and the mark is the glow and the
-          core, unchanged. Sized to stay inside the box: a mark that painted
-          outside its own square would collide with whatever sits beside it. */}
-      <circle className="hotline-mark-ripple" cx="36" cy="36" r="14" fill="#E5392B" />
-      <circle className="hotline-mark-core" cx="36" cy="36" r="18" fill="#E5392B" />
+          house blue because that is ready2vote's own mark. Same red as the
+          wordmark's tittle in either theme, since the two sit side by side. */}
+      <circle className="hotline-wordmark-signal" cx="36" cy="36" r="32" fillOpacity="0.15" />
+      <circle className="hotline-wordmark-signal" cx="36" cy="36" r="18" />
     </svg>
   );
 }
 
-function VdrToolkitMark({ size, className, style }: Omit<ProjectMarkProps, "project" | "beat">) {
+function VdrToolkitMark({ size, className, style }: Omit<ProjectMarkProps, "project">) {
   return (
     <svg
       width={size}
@@ -99,7 +82,7 @@ function VdrToolkitMark({ size, className, style }: Omit<ProjectMarkProps, "proj
   );
 }
 
-function PaloozaMark({ size, className, style }: Omit<ProjectMarkProps, "project" | "beat">) {
+function PaloozaMark({ size, className, style }: Omit<ProjectMarkProps, "project">) {
   return (
     <svg
       width={size}
@@ -128,7 +111,7 @@ function PaloozaMark({ size, className, style }: Omit<ProjectMarkProps, "project
   );
 }
 
-function MerchMark({ size, className, style }: Omit<ProjectMarkProps, "project" | "beat">) {
+function MerchMark({ size, className, style }: Omit<ProjectMarkProps, "project">) {
   return (
     <svg
       width={size}
@@ -155,9 +138,9 @@ function MerchMark({ size, className, style }: Omit<ProjectMarkProps, "project" 
   );
 }
 
-export function ProjectMark({ project, size = 24, beat, className, style }: ProjectMarkProps) {
+export function ProjectMark({ project, size = 24, className, style }: ProjectMarkProps) {
   if (project === "hotline") {
-    return <HotlineMark size={size} beat={beat} className={className} style={style} />;
+    return <HotlineMark size={size} className={className} style={style} />;
   }
 
   if (project === "travis-county-vdr") {

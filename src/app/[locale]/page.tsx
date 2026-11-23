@@ -6,6 +6,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { defaultLocale } from "@/i18n/config";
 import { CONTACT_HREF, ContactClosing } from "@/components/ContactClosing";
+import { HotlineWordmark } from "@/components/HotlineWordmark";
 import { NavGlyph, type GlyphKey } from "@/components/NavGlyph";
 import { RowArrow } from "@/components/RowArrow";
 
@@ -68,8 +69,8 @@ export default async function Home() {
     },
     {
       href: "/solutions/hotline",
-      meta: studio("tagAdministrative"),
-      name: "Hotline",
+      meta: studio("tagOrganizing"),
+      name: <HotlineWordmark />,
       blurb: studio("hotlineBlurb"),
       desktop: { src: "/products/hotline/plate.webp", width: 1600, height: 1025 },
       phone: { src: "/products/hotline/plate-phone.webp", width: 780, height: 1688 },

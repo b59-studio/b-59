@@ -1373,18 +1373,57 @@ button {
    PROJECT MARKS
    ============================================ */
 
-/* The Hotline signal dot's heartbeat — two beats, then rest, with one ripple
-   riding out on the first. Borrowed from Hotline's own Live Signal System,
-   where the pause is the point: an even, unbroken pulse on a standing mark is
-   indistinguishable from a spinner, and this has to read as "the line is open"
-   rather than "something is loading".
+/* Hotline's wordmark (components/HotlineWordmark.tsx) and its signal-dot
+   mark (components/ProjectMark.tsx). Their colours are
+   Hotline's, not the house accent: ink letters and a Signal Red tittle, each
+   with the value Hotline uses on a dark ground. A product logo carries its
+   product's colours, as the ready2vote star carries the blue that is
+   ready2vote's own. */
+.hotline-wordmark,
+.hotline-mark {
+  --hotline-ink: #16202e;
+  --hotline-signal: #e5392b;
+}
+
+.dark .hotline-wordmark,
+.dark .hotline-mark {
+  --hotline-ink: #eef2f6;
+  --hotline-signal: #ff5848;
+}
+
+.hotline-wordmark {
+  display: inline-block;
+  white-space: nowrap;
+  line-height: 0;
+}
+
+/* Sits on the text baseline; the outline's lowest point is 1.2 of its 81.6
+   units below it. */
+.hotline-wordmark svg {
+  display: inline-block;
+  vertical-align: -0.012em;
+  overflow: visible;
+}
+
+.hotline-wordmark-ink {
+  fill: var(--hotline-ink);
+}
+
+.hotline-wordmark-signal {
+  fill: var(--hotline-signal);
+}
+
+/* The live level: the brand heartbeat on the tittle, two beats then rest,
+   with one ripple riding out on the first. The pause is the point. An even,
+   unbroken pulse on a standing mark is indistinguishable from a spinner, and
+   this has to read as "the line is open" rather than "something is loading".
 
    2.6s sits deliberately outside this file's interaction timings. Those size a
    single response — a hover, a card lift — and an ambient loop paced to one
    would read as agitation. */
-@keyframes hotline-mark-beat {
+@keyframes hotline-wordmark-beat {
   0%,
-  58%,
+  32%,
   100% {
     transform: scale(1);
   }
@@ -1397,61 +1436,59 @@ button {
   24% {
     transform: scale(1.14);
   }
-  32% {
-    transform: scale(1);
-  }
 }
 
-@keyframes hotline-mark-beat-ring {
+@keyframes hotline-wordmark-ripple {
   0% {
     transform: scale(1);
-    opacity: 0.35;
-  }
-  22% {
-    opacity: 0.26;
+    opacity: 0.38;
   }
   55%,
   100% {
-    transform: scale(2.3);
+    transform: scale(3.6);
     opacity: 0;
   }
 }
 
-/* The ripple is invisible unless the mark is beating, so the non-beating mark
-   is the plain glow-and-core dot everywhere else on the site. */
-.hotline-mark-ripple {
-  opacity: 0;
-}
-
-.hotline-mark--beat .hotline-mark-core,
-.hotline-mark--beat .hotline-mark-ripple {
-  /* SVG shapes scale from the user-space origin by default, which would fling
-     the circle off the corner. fill-box puts the origin at the shape's centre. */
+/* SVG shapes scale from the user-space origin by default, which would fling
+   the circle off the corner. fill-box puts the origin at the shape's centre. */
+.hotline-wordmark--live .hotline-wordmark-dot,
+.hotline-wordmark--live .hotline-wordmark-ripple {
   transform-box: fill-box;
   transform-origin: center;
 }
 
-.hotline-mark--beat .hotline-mark-core {
-  animation: hotline-mark-beat 2.6s ease-in-out infinite;
+/* The ripple rests unseen, so with motion off the live wordmark is its two
+   still halos and the dot — the level's still frame, and as legible as ever. */
+.hotline-wordmark-ripple {
+  opacity: 0;
 }
 
-.hotline-mark--beat .hotline-mark-ripple {
-  animation: hotline-mark-beat-ring 2.6s ease-out infinite;
+.hotline-wordmark--live .hotline-wordmark-dot {
+  animation: hotline-wordmark-beat 2.6s ease-in-out infinite;
 }
 
-/* Motion is never the only thing a mark carries: with it off, the Hotline dot
-   keeps its static glow ring and the mark is as legible as it ever was. */
+.hotline-wordmark--live .hotline-wordmark-ripple {
+  animation: hotline-wordmark-ripple 2.6s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .hotline-mark--beat .hotline-mark-core,
-  .hotline-mark--beat .hotline-mark-ripple {
+  .hotline-wordmark--live .hotline-wordmark-dot,
+  .hotline-wordmark--live .hotline-wordmark-ripple {
     animation: none;
   }
 }
 
-/* The mark at the head of a project page, above the title. */
 .project-mark-hero {
   display: block;
   margin-bottom: 1.5rem;
+}
+
+/* A product page whose title is the product's wordmark. The live wordmark's
+   ripple reaches about 0.3em above the letters; this keeps it clear of
+   whatever sits above the title. */
+.product-wordmark-title {
+  padding-top: 0.3em;
 }
 
 /* An Our Work card that leads with the project's mark. The mark takes a gutter

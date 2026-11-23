@@ -37,7 +37,7 @@ const SECTIONS: { heading: string; entries: Entry[] }[] = [
     heading: "Products",
     entries: [
       { path: "/solutions/ready2vote", title: "ready2vote", summary: "Helps Texans complete a voter registration application online and have it mailed to their county." },
-      { path: "/solutions/hotline", title: "Hotline", summary: "Scheduling and workforce management for civic and public-interest teams." },
+      { path: "/solutions/hotline", title: "Hotline", summary: "Hotline helps organizing teams coordinate: schedule shifts and events, book meetings, and see who's coming." },
       { path: "/studio", title: "Our Work", summary: "Every product the studio builds and runs." },
     ],
   },
