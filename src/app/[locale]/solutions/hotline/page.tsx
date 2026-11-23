@@ -34,7 +34,7 @@ export default async function Hotline() {
   const rotaShifts: Shot = { src: "/products/hotline/rota-schedule.webp", width: 1600, height: 1025, alt: t("altRotaShifts") };
   const rotaCoverage: Shot = { src: "/products/hotline/rota-coverage.webp", width: 1600, height: 1025, alt: t("altRotaCoverage") };
   // The page a guest lands on from a Hotline link, from the product's own demo data.
-  const booking = { width: 1032, height: 806, alt: t("altBooking") };
+  const booking = { width: 1032, height: 920, alt: t("altBooking") };
 
   return (
     <div className="home product">
@@ -55,7 +55,7 @@ export default async function Hotline() {
             </a>
           </div>
         </div>
-        <DeviceStage desktop={plate} phone={platePhone} address="hotlinecal.com/meetings" priority />
+        <DeviceStage desktop={plate} phone={platePhone} address="hotlinecal.com/meetings/upcoming" priority />
       </section>
 
       {/* One screen per row, each named in a short title and one plain sentence.

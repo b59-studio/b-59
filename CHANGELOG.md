@@ -30,6 +30,11 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 
 ### Changed
 
+- **Every screen on the Hotline page now shows the redesigned app.** The Plate
+  on desktop and phone, the booking page in both themes and the month calendar
+  are new captures, and the shift screens are retaken with the week published
+  rather than in draft. The booking card is taller than before, because the
+  page now offers "Suggest somewhere else" under the location.
 - **The Hotline page's shift screens show the redesigned app.** "Schedule the
   shifts" and "See who's coming" are new captures from the app as it now
   ships, with its new wordmark: a week's roster, and the same week as a

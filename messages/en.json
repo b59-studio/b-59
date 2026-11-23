@@ -459,9 +459,9 @@
     "calendarBody": "Your meetings in one view, with Google, Outlook, Apple iCloud or any ICS feed connected alongside.",
     "closingHeading": "Free for one person. Per organization after that.",
     "closingBody": "No card to start, and the people you book don't need an account.",
-    "altHome": "Hotline's Plate: two upcoming meetings, and the ones that have ended waiting for next steps.",
+    "altHome": "Hotline's Plate: two booked meetings coming up, and two proposals still awaiting a reply.",
     "altHomePhone": "The same Plate on a phone, with the app's tab bar along the bottom.",
-    "altRotaShifts": "Hotline's roster for one week: each person with their role and their shifts by day, still in draft, and Thursday empty for everyone.",
+    "altRotaShifts": "Hotline's roster for one week: each person with their role and their published shifts by day, and Thursday empty for everyone.",
     "altRotaCoverage": "The same week as a calendar: each shift in its time slot, a hatched gap at noon on Wednesday, and Thursday marked nobody.",
     "altBooking": "A Hotline booking page for a constituent meeting, offering three times in the guest's own timezone.",
     "altCalendar": "Hotline's month calendar, with booked meetings on the days they fall."
