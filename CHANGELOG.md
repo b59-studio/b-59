@@ -31,11 +31,11 @@ Categories: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**,
 ### Changed
 
 - **Hotline is presented as a coordination tool, in far fewer words.** Its
-  page is now the tagline "Get everyone on the line.", one sentence on what it
-  does, and four screens — shifts, who's coming, booking a meeting, the
-  calendar — each with a short title and one sentence. The longer sections on
-  what makes it different and why it was built are gone, and so is the Time
-  screen. The menu line, card blurbs, search descriptions and llms.txt use the
+  page is now the tagline "Make the call.", one sentence on what it does, a
+  "Get started free" button, and four screens — shifts, who's coming, booking
+  a meeting, the calendar — each with a short title and one sentence. The
+  longer sections on what makes it different and why it was built are gone,
+  and so is the Time screen. The menu line, card blurbs, search descriptions and llms.txt use the
   same lines, and the cards' tag reads "Organizing" instead of
   "Administrative". Every language changed together.
 - **Hotline's new wordmark.** Hotline's name appears as its lowercase
